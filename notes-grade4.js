@@ -286,5 +286,85 @@ export const noteContents = {
         "a": "Nie. Spójny wygląd i kilka przemyślanych wyróżnień ułatwiają czytanie."
       }
     ]
+  },
+  "topic-4-5-1": {
+    "summary": "Poznaj duszka i scenę. Ułóż pierwszy skrypt i odkryj moc powtarzania.",
+    "body": "<p>🐾 Dziś to Ty wydajesz polecenia! Twój bohater zrobi dokładnie to, co ułożysz z bloczków. Zaczniemy od małego powitania.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-scratch-start.svg\" alt=\"Trzy połączone polecenia: start po kliknięciu flagi, ruch o 10 kroków i wypowiedź Cześć!\"><h2>🎬 Poznaj ekipę</h2><ul><li><strong>Scratch</strong> pozwala tworzyć animacje i gry przez łączenie kolorowych bloczków. Nie trzeba od razu pisać kodu z klawiatury.</li><li><strong>Duszek</strong> to postać lub obiekt, np. kot, piłka albo rakieta. Możesz dodać nowego duszka i nadać mu nazwę.</li><li><strong>Scena</strong> jest miejscem akcji. Tło może zamienić ją w kosmos lub boisko.</li><li>Kliknij miniaturę duszka, zanim zaczniesz układać jego polecenia. Sprawdź, któremu bohaterowi je wydajesz.</li></ul><h2>🧱 Zbuduj pierwszą instrukcję</h2><ul><li><strong>Blok</strong> to pojedynczy klocek. <strong>Skrypt</strong> to połączone bloczki wykonywane według ustalonej kolejności.</li><li>Połącz: <code>kiedy kliknięto zieloną flagę</code> → <code>przesuń o 10 kroków</code> → <code>powiedz Cześć! przez 2 sekundy</code>.</li><li>Kliknij zieloną flagę. Duszek przesunie się w kierunku, w którym jest zwrócony, i pokaże wypowiedź. Czerwony znak stop zatrzymuje działające skrypty.</li></ul><h2>🔁 Mniej klocków, więcej ruchu</h2><ul><li>W bloku <strong>powtórz 10 razy</strong> umieść <strong>przesuń o 10 kroków</strong>. Duszek wykona ruch dziesięć razy.</li><li>To razem 100 kroków! Wstaw do środka także <code>czekaj 0.2 sekundy</code>, aby łatwiej zauważyć kolejne ruchy.</li><li>Gdy coś nie działa, sprawdź, czy klocki się połączyły i czy są wewnątrz pętli. Zapisz projekt zgodnie ze wskazówkami nauczyciela.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Zielona flaga uruchamia skrypty zaczynające się odpowiednim bloczkiem zdarzenia. Sama flaga nie dopisuje poleceń za Ciebie.</p></blockquote><h2>🎯 Mała misja</h2><p>Zaprogramuj powitanie kosmicznego przewodnika. Wybierz duszka i tło, dodaj ruch oraz wypowiedź. Zmień liczbę powtórzeń z 10 na 5. Najpierw przewidź wynik, potem sprawdź!</p><p><a href=\"https://scratch.mit.edu/projects/editor/\" target=\"_blank\" rel=\"noopener\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4. Pomoc Scratch: https://scratch.mit.edu/help/studio/tips/home/.",
+    "quiz": [
+      {
+        "q": "Czym różni się duszek od sceny?",
+        "a": "Duszek to postać lub obiekt. Scena to miejsce, w którym rozgrywa się akcja."
+      },
+      {
+        "q": "Ile kroków da 5 powtórzeń ruchu o 10 kroków?",
+        "a": "50 kroków, jeśli kierunek pozostaje taki sam i nic nie przeszkadza w ruchu."
+      },
+      {
+        "q": "Duszek milczy. Co sprawdzisz?",
+        "a": "Czy wybrano właściwego duszka, bloczki są połączone, a skrypt ma zdarzenie uruchamiające."
+      }
+    ]
+  },
+  "topic-4-5-2": {
+    "summary": "Wyreżyseruj rozmowę dwóch postaci i przenieś akcję w nowe miejsce.",
+    "body": "<p>💬 Kot spotyka robota na obcej planecie. Kto powie „Cześć” pierwszy? Dziś zostajesz reżyserem krótkiej scenki.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-scratch-talk.svg\" alt=\"Dwa duszki rozmawiają po kolei: pierwszy mówi przez 2 sekundy, drugi czeka 2 sekundy i odpowiada.\"><h2>🗨️ Mówienie czy myślenie?</h2><ul><li>W kategorii <strong>Wygląd</strong> znajdziesz bloczki <strong>powiedz</strong> i <strong>pomyśl</strong>. Pokazują tekst w różnych chmurkach.</li><li>Wersja <code>powiedz Cześć! przez 2 sekundy</code> zostawia tekst na ekranie na podany czas. Potem skrypt przechodzi dalej.</li><li>Chmurka nie jest nagranym głosem. Do dźwięków służą osobne bloczki.</li></ul><h2>🎭 Dialog krok po kroku</h2><ul><li>Dodaj dwa duszki. Nazwij je „Kot” i „Robot”.</li><li>U Kota po zielonej fladze dodaj <code>powiedz Cześć! przez 2 sekundy</code>.</li><li>U Robota po zielonej fladze dodaj <code>czekaj 2 sekundy</code>, a potem <code>powiedz Witaj na mojej planecie! przez 2 sekundy</code>.</li><li>Uruchom projekt. Skrypty obu postaci zaczynają razem, ale czekanie sprawia, że Robot odpowiada później.</li></ul><h2>🌄 Zmień miejsce akcji</h2><ul><li>Dodaj dwa tła. Blok <strong>zmień tło na…</strong> przeniesie akcję do wybranego miejsca.</li><li>Zdarzenie <strong>kiedy tło zmieni się na…</strong> może rozpocząć nowy skrypt, np. powitanie w lesie.</li><li><strong>Ukryj</strong> sprawia, że duszka nie widać. <strong>Pokaż</strong> przywraca jego widoczność. Ukrycie nie usuwa duszka ani nie zatrzymuje jego skryptów.</li><li>Wypróbuj efekt koloru lub efekt ducha. Na początku kolejnej próby użyj <strong>wyczyść efekty graficzne</strong> oraz <strong>pokaż</strong>, jeśli duszek wcześniej znikał.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Gdy postacie mówią naraz, sprawdź czas wypowiedzi i czekania. Każdy duszek ma własne skrypty.</p></blockquote><h2>🎯 Mała misja</h2><p>Stwórz w Scratchu „scenkę z chmurkami”: Kot pyta, Robot odpowiada, a potem zmienia się tło. Wymyśl własne dwie kwestie i sprawdź, czy da się je przeczytać.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\" target=\"_blank\" rel=\"noopener\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4. Pomoc Scratch: https://scratch.mit.edu/help/studio/tips/home/.",
+    "quiz": [
+      {
+        "q": "Dlaczego Robot potrzebuje bloczka czekaj?",
+        "a": "Aby odpowiedzieć po wypowiedzi Kota, zamiast mówić równocześnie."
+      },
+      {
+        "q": "Czy ukryj usuwa postać?",
+        "a": "Nie. Duszek nadal istnieje i jego skrypty mogą działać."
+      },
+      {
+        "q": "Jak usunąć dodane efekty graficzne?",
+        "a": "Użyć bloczka wyczyść efekty graficzne."
+      }
+    ]
+  },
+  "topic-4-5-3": {
+    "summary": "Steruj strzałkami i zaprogramuj reakcję na spotkanie z drugim duszkiem.",
+    "body": "<p>🎮 Zamień widza w gracza! Najpierw zbuduj sterowanie, a potem dodaj niespodziankę: spotkanie z gwiazdką.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-scratch-control.svg\" alt=\"Strzałki zmieniają pozycję: prawo x plus 10, lewo x minus 10, góra y plus 10, dół y minus 10.\"><h2>⬆️ Cztery klawisze, cztery kierunki</h2><ul><li>Dodaj duszka gracza. Dla każdego kierunku przygotuj osobny skrypt ze zdarzeniem <strong>kiedy klawisz … naciśnięty</strong>.</li><li>Strzałka w prawo → <code>zmień x o 10</code>. Strzałka w lewo → <code>zmień x o -10</code>.</li><li>Strzałka w górę → <code>zmień y o 10</code>. Strzałka w dół → <code>zmień y o -10</code>.</li><li>Zapamiętaj: <strong>x</strong> przesuwa w bok, <strong>y</strong> w górę i w dół. Na początek testuj pojedyncze naciśnięcia klawiszy.</li></ul><h2>🖱️ Klik i niespodzianka</h2><ul><li>Dodaj skrypt <code>kiedy ten duszek kliknięty</code> → <code>powiedz Złap mnie! przez 2 sekundy</code>.</li><li>Scena też może mieć skrypty, np. zmieniające tło. Nie przesuwamy jej bloczkami ruchu tak jak duszka.</li><li>Wybierz tło z biblioteki albo narysuj własne. Gotowy skrypt skopiujesz, przeciągając go na miniaturę drugiego duszka. Potem sprawdź jego ustawienia.</li></ul><h2>⭐ Misja: znajdź gwiazdkę</h2><ul><li>Dodaj drugi duszek i nazwij go „Gwiazdka”. U gracza po zielonej fladze umieść pętlę <strong>zawsze</strong>.</li><li>Wewnątrz pętli wstaw <strong>jeżeli dotyka Gwiazdka, to</strong>, a w nim: <code>powiedz Mam ją! przez 1 sekundę</code> i <code>zatrzymaj wszystko</code>.</li><li>Samo <strong>dotyka…?</strong> tylko sprawdza warunek. Dopiero bloczek <strong>jeżeli</strong> określa reakcję. Pętla sprawdza spotkanie wielokrotnie.</li><li>Dla chętnych: u Gwiazdki po fladze użyj <code>idź do x: losuj od -180 do 180, y: losuj od -120 do 120</code>. Dopasuj rozmiar duszka, aby mieścił się na scenie.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Powtórz 10 razy ma ustaloną liczbę powtórzeń. Zawsze powtarza polecenia aż do zatrzymania skryptu lub projektu.</p></blockquote><h2>🎯 Mała misja</h2><p>Zbuduj sterowanie, sprawdź osobno każdą strzałkę, a dopiero potem dodaj gwiazdkę. Wygraj przez jej dotknięcie. Jeśli gra nie reaguje, sprawdź nazwę duszka wybraną w bloczku dotyka.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\" target=\"_blank\" rel=\"noopener\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4. Pomoc Scratch: https://scratch.mit.edu/help/studio/tips/home/.",
+    "quiz": [
+      {
+        "q": "Co zmienić, żeby iść w lewo?",
+        "a": "Zmniejszyć x, np. bloczkiem zmień x o -10."
+      },
+      {
+        "q": "Dlaczego sprawdzanie dotknięcia wkładamy do zawsze?",
+        "a": "Żeby program sprawdzał spotkanie podczas gry, a nie tylko raz na początku."
+      },
+      {
+        "q": "Czy losowanie zawsze daje inną liczbę?",
+        "a": "Nie. Wyniki mogą się powtarzać. Losowanie nie gwarantuje nowej liczby za każdym razem."
+      }
+    ]
+  },
+  "topic-4-5-4": {
+    "summary": "Połącz ruch, rozmowę i sterowanie w swoim małym projekcie.",
+    "body": "<p>🏆 Czas na Twój pomysł! Nie musisz robić wielkiej gry. Mała, działająca przygoda to świetny projekt na start.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-scratch-mission.svg\" alt=\"Cztery etapy pracy nad grą: pomysł, bloczki, próba i poprawka.\"><h2>🧠 Plecak programisty</h2><ul><li><strong>Duszek</strong> jest bohaterem lub obiektem, a <strong>scena</strong> miejscem akcji.</li><li><strong>Skrypt</strong> łączy bloczki. Zdarzenie, np. kliknięcie flagi albo klawisza, rozpoczyna działanie odpowiedniego skryptu.</li><li><strong>Pętla</strong> powtarza polecenia. <strong>Warunek</strong> pozwala zdecydować, kiedy coś wykonać.</li><li><strong>Testowanie</strong> to sprawdzanie działania. Błąd nie oznacza porażki — podpowiada, co poprawić.</li></ul><h2>🚀 Projekt: wyprawa po gwiazdkę</h2><ul><li>Wybierz tło i dwóch duszków: odkrywcę oraz gwiazdkę. Nazwij ich.</li><li>Na starcie odkrywca mówi krótkie powitanie. Ustaw jego miejsce początkowe bloczkiem <strong>idź do x: … y: …</strong>.</li><li>Dodaj sterowanie strzałkami. Po dotknięciu gwiazdki pokaż wiadomość o sukcesie i zatrzymaj projekt.</li><li>Dodatek dla chętnych: losuj położenie gwiazdki lub zmień tło po wygranej. Najpierw uruchom wersję podstawową.</li></ul><h2>🔎 Detektyw błędów</h2><ul><li>Bohater stoi? Sprawdź, czy skrypt należy do właściwego duszka i reaguje na właściwy klawisz.</li><li>Dwie postacie mówią jednocześnie? Dodaj czekanie w odpowiednim skrypcie.</li><li>Gra działa tylko raz? Sprawdź pozycje początkowe, widoczność duszków i efekty przy ponownym starcie.</li><li>Poprawiaj jedną rzecz naraz. Uruchom projekt ponownie i porównaj wynik z planem.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Pomysł → kilka bloczków → próba → poprawka. Tak pracują programiści, także ci doświadczeni.</p></blockquote><h2>🎯 Mała misja</h2><p>Daj koledze przetestować swoją grę. Poproś go o sprawdzenie czterech strzałek, wygranej i ponownego startu. Zapisz projekt pod nazwą „Wyprawa_po_gwiazdke”.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\" target=\"_blank\" rel=\"noopener\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4. Pomoc Scratch: https://scratch.mit.edu/help/studio/tips/home/.",
+    "quiz": [
+      {
+        "q": "Po co ustawiać pozycję początkową?",
+        "a": "Żeby kolejna próba zaczynała się w przewidywalnym miejscu."
+      },
+      {
+        "q": "Jak naprawiać projekt, w którym kilka rzeczy nie działa?",
+        "a": "Wybierać jeden problem, poprawić go i ponownie sprawdzić działanie."
+      },
+      {
+        "q": "Czy po ukryciu duszka wystarczy zmienić mu pozycję?",
+        "a": "Nie. Aby znowu był widoczny, trzeba użyć pokaż; w razie potrzeby także wyczyścić efekty."
+      }
+    ]
   }
 };

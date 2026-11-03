@@ -1,4 +1,4 @@
-import {noteContents} from './notes-grade4.js?v=dzialy34';
+import {noteContents} from './notes-grade4.js?v=scratch5';
 import {curriculum} from './curriculum.js';
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
