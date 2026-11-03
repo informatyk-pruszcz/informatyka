@@ -150,5 +150,141 @@ export const noteContents = {
         "a": "Wskazać konkretny element, np. „Podoba mi się pomysł. Może powiększysz napis, żeby był czytelniejszy?”."
       }
     ]
+  },
+  "topic-4-3-1": {
+    "summary": "Odkryj piksele i poznaj narzędzia cyfrowego rysownika.",
+    "body": "<p>🎨 Komputer może być pracownią plastyczną. Zanim stworzysz obraz, sprawdź, jak działają narzędzia i jak zapiszesz swoją pracę.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-pixels.svg\" alt=\"Powiększenie obrazu rastrowego pokazuje siatkę kolorowych pikseli\"><h2>Z czego składa się obraz?</h2><ul><li><strong>Grafika rastrowa</strong> składa się z pikseli — małych elementów obrazu, z których każdy ma określony kolor.</li><li><strong>Wymiary obrazu</strong> podajemy jako szerokość i wysokość w pikselach, np. 800 × 600 px. To 800 kolumn i 600 wierszy.</li><li>Po silnym powiększeniu obrazu rastrowego w edytorze zwykle zobaczysz kwadratową siatkę pikseli.</li><li><strong>Lupa</strong> zmienia widok podczas pracy. Nie jest tym samym co zmiana wymiarów zapisanego obrazu.</li></ul><h2>🖌️ Dobierz narzędzie do zadania</h2><ul><li><strong>Ołówek i pędzel:</strong> rysowanie odręczne. Sprawdź grubość, kolor i dostępne końcówki.</li><li><strong>Linia i prostokąt:</strong> równe odcinki oraz figury. Wybierz kolor obrysu i wypełnienia, jeśli program to umożliwia.</li><li><strong>Zaznaczenie:</strong> wybiera fragment, który chcesz przesunąć, skopiować albo przekształcić.</li><li><strong>Cofnij:</strong> pomaga wycofać pomyłkę. Zanim narysujesz od nowa, sprawdź, czy wystarczy cofnięcie ostatniej czynności.</li></ul><h2>Zapisz swój rysunek</h2><ul><li>Zapisuj regularnie pod czytelną nazwą w folderze wskazanym przez nauczyciela.</li><li><strong>PNG</strong> dobrze nadaje się do rysunków z ostrymi krawędziami. <strong>JPEG/JPG</strong> jest często używany do zdjęć; jego kompresja może zmieniać drobne szczegóły.</li><li>Po zapisaniu sprawdź, gdzie jest plik i czy możesz ponownie go otworzyć.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Powiększenie widoku nie dodaje szczegółów do rysunku. Zmiana wymiarów obrazu i lupa to różne operacje.</p></blockquote><h2>🎯 Mała misja</h2><p>Narysuj mały domek z prostokąta i linii. Dodaj ścieżkę pędzlem. Powiększ fragment lupą, poszukaj pikseli i wróć do zwykłego widoku.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Co oznacza rozmiar 800 × 600 px?",
+        "a": "800 pikseli szerokości i 600 pikseli wysokości."
+      },
+      {
+        "q": "Czy lupa zmienia wymiary pliku?",
+        "a": "Nie. Zmienia powiększenie widoku w edytorze."
+      }
+    ]
+  },
+  "topic-4-3-2": {
+    "summary": "Twórz więcej, rysując mniej: korzystaj z kształtów, kopii i przekształceń.",
+    "body": "<p>🦋 Koła, owale i linie mogą zamienić się w samochód, kwiat albo motyla. Nie każdy element trzeba rysować od początku.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-shapes.svg\" alt=\"Proste kształty można kopiować, obracać i odbijać, aby budować złożone rysunki\"><h2>Kształty i krzywe</h2><ul><li><strong>Owal</strong> pozwala narysować elipsę, a przy odpowiednich ustawieniach także koło.</li><li><strong>Krzywa</strong> służy do rysowania wygiętych linii, np. fali, uśmiechu lub łodygi. Sposób jej tworzenia zależy od programu.</li><li>W wielu edytorach <strong>Shift</strong> ogranicza kierunek linii lub pomaga zachować proporcje figury. Sprawdź z nauczycielem, jak działa w używanym programie.</li></ul><h2>📋 Kopiuj i powielaj</h2><ul><li>Zaznacz element, skopiuj go i wklej. Następnie przesuń kopię w nowe miejsce.</li><li>W Windows często działają skróty <code>Ctrl + C</code> i <code>Ctrl + V</code>. Możesz też skorzystać z menu programu.</li><li>Z jednego liścia możesz zbudować koronę drzewa, a z jednego koła — parę kół samochodu.</li></ul><h2>Odbicie a obrót</h2><ul><li><strong>Odbicie lustrzane</strong> zmienia element jak odbicie w lustrze. Przydaje się do tworzenia dwóch stron motyla.</li><li><strong>Obrót</strong> przekręca element, np. o 90°. Nie jest tym samym co odbicie.</li><li>Po zmianie rozmiaru sprawdź proporcje. Rozciągnięte koło może zmienić się w owal.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Najpierw zaznacz właściwy fragment. Potem wybierz: kopiowanie, obrót, odbicie albo zmianę rozmiaru.</p></blockquote><h2>🎯 Mała misja</h2><p>Zbuduj motyla z owali i linii. Zrób jedno skrzydło, skopiuj je, zastosuj odbicie i ustaw po drugiej stronie tułowia.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Po co kopiować elementy?",
+        "a": "Żeby szybko tworzyć powtarzające się części rysunku bez rysowania każdej od nowa."
+      },
+      {
+        "q": "Czy obrót i odbicie to to samo?",
+        "a": "Nie. Obrót przekręca element, a odbicie tworzy jego lustrzaną wersję."
+      }
+    ]
+  },
+  "topic-4-3-3": {
+    "summary": "Buduj obraz z osobnych części i odkryj przezroczystość.",
+    "body": "<p>🥪 Wyobraź sobie przezroczyste folie ułożone jedna na drugiej. Na dolnej jest niebo, na następnej drzewa, a na górnej postać. Razem tworzą obraz.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-layers.svg\" alt=\"Osobne warstwy tła, krajobrazu i postaci składają się na jeden obraz\"><h2>Jak działają warstwy?</h2><ul><li><strong>Warstwa</strong> to osobna część projektu. Wybierz ją na liście, zanim zaczniesz rysować lub przesuwać element.</li><li>Warstwa wyżej może zasłonić niższą w miejscach, w których jest nieprzezroczysta. Przez puste lub przezroczyste miejsca widać warstwy pod spodem.</li><li>Zmiana kolejności warstw zmienia wygląd kompozycji.</li><li><strong>Duplikowanie warstwy</strong> tworzy kopię. Nadawaj warstwom nazwy, np. „Tło”, „Drzewa” i „Postać”.</li></ul><h2>🧩 Wycinanie i przezroczystość</h2><ul><li>Możesz usunąć tło wokół obiektu za pomocą zaznaczenia, maski lub gumki — zależnie od programu.</li><li>Szachownica w edytorze zwykle oznacza <strong>przezroczystość</strong>. Nie jest narysowanym tłem, które ma trafić do gotowej pracy.</li><li>PNG <strong>może</strong> zachować przezroczystość. Sam wybór PNG nie usuwa tła: najpierw trzeba przygotować przezroczysty obszar. JPEG nie przechowuje przezroczystości.</li></ul><h2>Zachowaj projekt i gotowy obraz</h2><ul><li>Zapisz projekt w formacie programu, który zachowuje warstwy. Nazwa tego formatu zależy od edytora.</li><li>Dodatkowo wyeksportuj gotową ilustrację, np. jako PNG. Zwykły eksport do PNG lub JPEG zazwyczaj łączy widoczne warstwy w jeden obraz.</li><li>Do kompozycji wybieraj własne zdjęcia lub materiały, których wolno użyć. Zapisz informacje o ich autorach i źródłach.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Plik projektu zachowuje możliwość dalszej pracy na warstwach. Gotowy obraz do pokazania innym to często osobny plik.</p></blockquote><h2>🎯 Mała misja</h2><p>Utwórz krajobraz z trzema warstwami: niebo, ziemia i postać. Ukryj na chwilę postać, a potem zmień kolejność warstw. Co się wydarzy?</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Dlaczego postać może zniknąć pod tłem?",
+        "a": "Nieprzezroczyste tło znajduje się wyżej na liście warstw i ją zasłania."
+      },
+      {
+        "q": "Czy zapis do PNG automatycznie usuwa białe tło?",
+        "a": "Nie. PNG może zachować przezroczystość, ale obszar tła trzeba wcześniej usunąć lub ukryć."
+      }
+    ]
+  },
+  "topic-4-3-4": {
+    "summary": "Powtórz piksele, narzędzia, kopiowanie i pracę na warstwach.",
+    "body": "<p>🖼️ Dobra ilustracja zaczyna się od pomysłu i planu. Wybierz narzędzia, stwórz obraz, a na koniec sprawdź sposób zapisu.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-layers.svg\" alt=\"Osobne warstwy tła, krajobrazu i postaci składają się na jeden obraz\"><h2>Już potrafię…</h2><ul><li>Wyjaśnić, czym jest piksel i co oznaczają wymiary obrazu.</li><li>Odróżnić lupę od zmiany wymiarów rysunku.</li><li>Dobrać pędzel, linię, owal lub prostokąt do zadania.</li><li>Zaznaczać, kopiować, obracać i odbijać elementy.</li><li>Ułożyć warstwy i wskazać obszary przezroczyste.</li><li>Zachować projekt do dalszej edycji oraz gotowy obraz.</li></ul><h2>🔎 Znajdź rozwiązanie</h2><ul><li>Olek potrzebuje dziesięciu takich samych kwiatów. Jak skrócić pracę?</li><li>Maja widzi drzewa, ale nie widzi postaci. Co sprawdzi na liście warstw?</li><li>Igor powiększył rysunek lupą. Czy plik ma przez to więcej pikseli?</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Zanim zaczniesz poprawiać cały rysunek, sprawdź zaznaczenie, aktywną warstwę i kolejność elementów.</p></blockquote><h2>🎯 Mała misja</h2><p>Zaprojektuj „Mój wymarzony park”. Użyj przynajmniej trzech kształtów, dwóch kopii jednego elementu i trzech warstw, jeśli edytor je obsługuje. Zapisz pracę.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Jak Olek może zrobić dziesięć kwiatów?",
+        "a": "Narysować jeden, a następnie kopiować go i rozmieszczać kopie."
+      },
+      {
+        "q": "Co powinna sprawdzić Maja?",
+        "a": "Widoczność warstwy postaci i jej położenie względem nieprzezroczystych warstw."
+      },
+      {
+        "q": "Czy lupa zwiększa liczbę pikseli?",
+        "a": "Nie. Zmienia tylko powiększenie widoku."
+      }
+    ]
+  },
+  "topic-4-4-1": {
+    "summary": "Pisz, poprawiaj i wyróżniaj tekst w krótkim dokumencie.",
+    "body": "<p>⌨️ Edytor tekstu pomaga przygotować opis, zaproszenie albo notatkę. Najpierw napisz treść, a potem zadbaj o jej wygląd.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-typing.svg\" alt=\"Przy tworzeniu dokumentu najpierw piszemy tekst, potem go porządkujemy i zapisujemy\"><h2>Klawiatura pomaga pisać</h2><ul><li><strong>Shift + litera</strong> wpisuje wielką literę. <strong>Caps Lock</strong> przełącza sposób wpisywania wielkich liter.</li><li>Na klawiaturze „Polski (programisty)” w Windows polskie litery wpisujesz zwykle przez <strong>prawy Alt + litera</strong>. Przykład: prawy Alt + a daje ą, prawy Alt + x daje ź, a prawy Alt + z daje ż. Inne układy mogą działać inaczej.</li><li><strong>Backspace</strong> usuwa znak przed kursorem, a <strong>Delete</strong> — za kursorem. Jeśli zaznaczysz tekst, usunięcie dotyczy zaznaczenia.</li></ul><h2>🔤 Wygląd pisma</h2><ul><li><strong>Krój czcionki</strong> określa wygląd liter, np. Arial lub Times New Roman.</li><li><strong>Rozmiar</strong> określa wielkość pisma, zwykle w punktach (pt). Dobierz go tak, aby tekst dało się wygodnie przeczytać.</li><li>Pogrubienie wyróżnia ważne słowa, kursywa pochyla pismo, a podkreślenie dodaje linię pod tekstem. Ikony i skróty zależą od programu i jego języka.</li><li>Najpierw zaznacz fragment, a potem zmień jego wygląd. Kolor i zakreślenie stosuj oszczędnie, zachowując dobry kontrast.</li></ul><h2>Obrazki ze znaków</h2><ul><li><strong>ASCII Art</strong> to rysowanie za pomocą znaków tekstowych. Prosty przykład: <code>(^_^)</code>.</li><li>Przy bardziej złożonych rysunkach pomaga czcionka o jednakowej szerokości znaków.</li><li>Na zakończenie zapisz dokument pod nazwą opisującą treść, np. „Moje_zwierze”.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Najważniejsza jest czytelna treść. Wyróżnienie kilku słów działa lepiej niż pogrubienie całej strony.</p></blockquote><h2>🎯 Mała misja</h2><p>Napisz tytuł i trzy zdania o wymyślonym zwierzęciu. Wpisz przynajmniej dwie polskie litery, pogrub nazwę zwierzęcia i dodaj uśmiech ze znaków.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Czym różnią się Backspace i Delete?",
+        "a": "Backspace usuwa znak przed kursorem, a Delete — za kursorem. Zaznaczony fragment można usunąć w całości."
+      },
+      {
+        "q": "Dlaczego przed formatowaniem zaznaczamy tekst?",
+        "a": "Aby wskazać programowi, którego fragmentu ma dotyczyć zmiana."
+      }
+    ]
+  },
+  "topic-4-4-2": {
+    "summary": "Uporządkuj akapity, odstępy i znaki interpunkcyjne.",
+    "body": "<p>📄 Czytelny tekst prowadzi wzrok czytelnika. Pomagają w tym akapity, przemyślane wyrównanie i prawidłowe odstępy.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-layout.svg\" alt=\"Czytelny dokument łączy tytuł, akapity i ilustrację z podpisem\"><h2>Akapit i wyrównanie</h2><ul><li><strong>Akapit</strong> to część tekstu stanowiąca całość myślową. W edytorze nowy akapit zwykle tworzy klawisz Enter.</li><li>Nie naciskaj Enter na końcu każdej linijki. Gdy zabraknie miejsca, edytor sam przenosi wyrazy do następnego wiersza.</li><li><strong>Do lewej</strong> — częsty wybór dla zwykłego tekstu. <strong>Wyśrodkowanie</strong> — przydatne np. w tytule. <strong>Do prawej</strong> — np. przy podpisie.</li><li><strong>Justowanie</strong> wyrównuje tekst do obu marginesów przez zmianę odstępów między wyrazami. Stosuj je świadomie, kontrolując czytelność.</li></ul><h2>↕️ Odstępy i poprawny zapis</h2><ul><li><strong>Interlinia</strong> to odstęp między wierszami; odstępy przed i po akapicie oddzielają całe akapity.</li><li>Między wyrazami wstawiaj jedną spację. Nie przesuwaj tytułu szeregiem spacji — wybierz wyśrodkowanie.</li><li>Przecinek, kropkę, dwukropek, pytajnik i wykrzyknik stawiaj tuż po wyrazie. W zwykłym tekście po nich daj spację, jeśli zdanie jest kontynuowane.</li><li>Nie dodawaj spacji tuż po otwierającym nawiasie ani przed zamykającym. Poprawnie: <code>(mały kot)</code>. Podobnie zapisujemy tekst w cudzysłowie.</li></ul><h2>Narzędzia do kontroli</h2><ul><li>Przycisk <strong>¶</strong> pokazuje znaki niedrukowane, np. spacje i końce akapitów. Pomaga znaleźć zbędne odstępy.</li><li>W wielu edytorach w Windows: <code>Ctrl + C</code> kopiuje, <code>Ctrl + V</code> wkleja, a <code>Ctrl + Z</code> cofa czynność. Dostępne są też polecenia w menu.</li><li>Przeczytaj tekst po poprawkach. Automatyczne sprawdzanie pisowni jest pomocą, ale nie zastępuje uważnego czytania.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Enter dzieli tekst na akapity, a nie na każdą widoczną linijkę. Układ ustawiaj narzędziami edytora.</p></blockquote><h2>🎯 Mała misja</h2><p>Popraw zapis „Mój  kot , lubi mleko .”. Następnie napisz tytuł i dwa krótkie akapity. Wyśrodkuj tytuł za pomocą odpowiedniego przycisku.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Czy Enter trzeba naciskać na końcu każdego wiersza?",
+        "a": "Nie. Edytor sam zawija tekst. Enter służy do rozpoczęcia kolejnego akapitu."
+      },
+      {
+        "q": "Jak poprawić „Mój  kot , lubi mleko .”?",
+        "a": "„Mój kot lubi mleko.” Usuwamy podwójną spację oraz zbędny przecinek; kropkę dosuwamy do wyrazu."
+      }
+    ]
+  },
+  "topic-4-4-3": {
+    "summary": "Połącz tekst z ilustracją i zadbaj o czytelny układ.",
+    "body": "<p>🌟 Ilustracja ma pomagać zrozumieć treść. Wybierz obraz związany z tematem, a potem sprawdź, czy nie zasłania tekstu.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-layout.svg\" alt=\"Czytelny dokument łączy tytuł, akapity i ilustrację z podpisem\"><h2>Dodawanie ilustracji</h2><ul><li>Wstaw własny obraz zapisany na komputerze lub materiał, którego warunki pozwalają na wykorzystanie. W razie wątpliwości poproś nauczyciela o pomoc.</li><li>Możesz dodać zdjęcie, rysunek, kształt albo ikonę. Nie każda ozdoba jest potrzebna — zostaw miejsce na tekst.</li><li>Dodaj krótki podpis wyjaśniający, co przedstawia obraz, oraz źródło, jeśli korzystasz z cudzej pracy.</li></ul><h2>🖼️ Rozmiar i kadrowanie</h2><ul><li>Aby uniknąć zniekształceń, zmieniaj rozmiar z zachowaniem proporcji. W wielu edytorach pomagają uchwyty narożne; sprawdź też ustawienie blokady proporcji.</li><li><strong>Kadrowanie</strong> pozwala ukryć niepotrzebne brzegi zdjęcia. Nie jest tym samym co zmiana rozmiaru całego obrazu.</li><li>Sprawdź, czy po pomniejszeniu nadal widać ważne szczegóły i czy ilustracja mieści się na stronie.</li></ul><h2>Obraz i otaczający go tekst</h2><ul><li><strong>Równo z tekstem:</strong> obraz zachowuje się podobnie do dużego znaku w wierszu. To prosty układ na początek.</li><li><strong>Opływanie:</strong> tekst układa się wokół obrazu. Sprawdź, czy wiersze nie są zbyt wąskie.</li><li>Obraz umieszczony za tekstem może obniżyć czytelność. Wybieraj taki układ tylko wtedy, gdy napis pozostaje wyraźny.</li><li>Przed zapisaniem obejrzyj całą stronę. Upewnij się, że podpis i obraz pasują do siebie.</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Zmiana rozmiaru zmniejsza lub powiększa obraz. Kadrowanie zmienia widoczny fragment. To różne czynności.</p></blockquote><h2>🎯 Mała misja</h2><p>Przygotuj stronę o fikcyjnym parku: tytuł, dwa zdania i własny rysunek. Wstaw ilustrację, zachowaj proporcje i dodaj podpis.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Czym kadrowanie różni się od zmiany rozmiaru?",
+        "a": "Kadrowanie ukrywa brzegi obrazu; zmiana rozmiaru skaluje jego całość."
+      },
+      {
+        "q": "Co sprawdzisz po wstawieniu obrazu?",
+        "a": "Czy pasuje do tematu, ma właściwe proporcje i nie zasłania tekstu."
+      }
+    ]
+  },
+  "topic-4-4-4": {
+    "summary": "Sprawdź, czy umiesz napisać, uporządkować i zilustrować dokument.",
+    "body": "<p>🏁 Dobry dokument jest zrozumiały i wygodny do czytania. Zrób ostatni przegląd, zanim uznasz pracę za gotową.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k4-typing.svg\" alt=\"Przy tworzeniu dokumentu najpierw piszemy tekst, potem go porządkujemy i zapisujemy\"><h2>Już potrafię…</h2><ul><li>Wpisywać wielkie litery i polskie znaki oraz poprawiać tekst.</li><li>Zaznaczać fragment i zmieniać jego czcionkę, rozmiar lub wyróżnienie.</li><li>Dzielić treść na akapity i dobierać wyrównanie.</li><li>Stosować pojedyncze spacje i poprawnie zapisywać interpunkcję.</li><li>Wstawić ilustrację, zmienić jej rozmiar z zachowaniem proporcji i dodać podpis.</li><li>Zapisać dokument w uzgodnionym folderze oraz ponownie go otworzyć.</li></ul><h2>✅ Kontrola przed zapisaniem</h2><ul><li>Czy tytuł mówi, o czym jest dokument?</li><li>Czy treść ma sens i nie zawiera przypadkowych podwójnych spacji?</li><li>Czy obraz pasuje do treści, a tekst jest czytelny?</li><li>Czy nazwa pliku ułatwi odnalezienie pracy jutro?</li></ul><blockquote><strong>💡 Zapamiętaj</strong><p>Przeczytaj → sprawdź układ → zapisz → otwórz ponownie. To krótka kontrola, która pomaga zauważyć błędy.</p></blockquote><h2>🎯 Mała misja</h2><p>Przygotuj „Zaproszenie do klubu odkrywców”: tytuł, dwa krótkie akapity i własną ilustrację. Użyj fikcyjnych danych. Poproś kolegę o wskazanie jednej rzeczy, która jest czytelna, i jednej do poprawy.</p>",
+    "pending": false,
+    "source": "Opracowanie na podstawie notatek przekazanych przez nauczyciela; autorskie przykłady i ilustracje. Zakres: rozkład materiału dla klasy 4.",
+    "quiz": [
+      {
+        "q": "Jak wyśrodkować tytuł?",
+        "a": "Zastosować wyrównanie do środka, zamiast wstawiać wiele spacji."
+      },
+      {
+        "q": "Co zrobić po zapisaniu dokumentu?",
+        "a": "Sprawdzić nazwę i miejsce pliku oraz otworzyć go, aby upewnić się, że praca została zapisana."
+      },
+      {
+        "q": "Czy każdy wyraz powinien mieć inny kolor?",
+        "a": "Nie. Spójny wygląd i kilka przemyślanych wyróżnień ułatwiają czytanie."
+      }
+    ]
   }
 };
