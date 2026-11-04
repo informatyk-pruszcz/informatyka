@@ -1,5 +1,5 @@
 import {noteContents as grade4Notes} from './notes-grade4.js?v=scratch5';
-import {grade5Notes} from './notes-grade5.js?v=1';
+import {grade5Notes} from './notes-grade5.js?v=2';
 const noteContents = {...grade4Notes,...grade5Notes};
 import {curriculum} from './curriculum.js';
 import {seed} from './seed.js';

@@ -198,5 +198,145 @@ export const grade5Notes = {
         "a": "Gdy efekt ma zacząć się po zakończeniu poprzedniej animacji, z uwzględnieniem ustawionego opóźnienia."
       }
     ]
+  },
+  "topic-5-3-1": {
+    "summary": "Mistrz strategii: jak zaplanować idealną trasę?",
+    "body": "<p>🚀 Mistrz strategii: jak zaplanować idealną trasę?</p><p>Porównaj dwie drogi i zbuduj licznik długości trasy.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-route.svg\" alt=\"Mistrz strategii: jak zaplanować idealną trasę?\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Cel zadania:</strong> Dokładnie określony wynik. Tutaj: dojść do mety, omijając przeszkody.</li><li><strong>Analiza problemu:</strong> Zebranie informacji i porównanie rozwiązań przed rozpoczęciem pracy.</li><li><strong>Zmienna:</strong> Nazwany schowek na wartość. W tym zadaniu zmienna „Trasa” przechowuje sumę wykonanych kroków.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Narysuj na kartce dwie drogi do mety. Zapisz długości odcinków. Ustal, co znaczy „najlepsza”: najkrótsza czy np. bez przeszkód?</li><li>W Scratchu utwórz zmienną <strong>Trasa</strong>. Po zielonej fladze dodaj <code>ustaw Trasa na 0</code> i ustaw duszka na starcie.</li><li>Zaplanuj ruch: <code>przesuń o 80 kroków</code> → <code>zmień Trasa o 80</code> → <code>obróć o 90 stopni</code> → <code>przesuń o 60 kroków</code> → <code>zmień Trasa o 60</code>.</li><li>Licznik powinien pokazać 140. Sam obrót w miejscu nie zwiększa długości drogi. W tym prostym przykładzie liczymy dodatnie ruchy bez kolizji.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Najpierw plan, potem bloczki. Najlepsza trasa spełnia ustalone warunki — nie zawsze jest najkrótsza.</p></blockquote><h2>🎯 Mała misja</h2><p>Porównaj trasę A: 80 + 60 kroków oraz trasę B: 50 + 50 + 60 kroków. Która jest krótsza? Dodaj przeszkodę na trasie A i ponownie oceń wybór.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Co zbierasz przed zaplanowaniem trasy?",
+        "a": "Położenie startu i mety, przeszkody, długości odcinków oraz warunki zadania."
+      },
+      {
+        "q": "Dlaczego ustawiamy Trasa na 0?",
+        "a": "Aby nowa próba nie doliczała kroków z poprzedniego uruchomienia."
+      },
+      {
+        "q": "Która z tras A i B jest krótsza?",
+        "a": "A ma 140 kroków, B ma 160. A jest krótsza o 20, ale musi też być możliwa do przejścia."
+      }
+    ]
+  },
+  "topic-5-3-2": {
+    "summary": "Ucieczka z labiryntu: zaprogramuj własną grę!",
+    "body": "<p>🚀 Ucieczka z labiryntu: zaprogramuj własną grę!</p><p>Zaprogramuj grę, w której strzałki prowadzą do skarbu.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-maze.svg\" alt=\"Ucieczka z labiryntu: zaprogramuj własną grę!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Współrzędne x i y:</strong> Adres duszka na scenie. x określa położenie w bok, y — w górę lub w dół.</li><li><strong>Dotyka koloru?:</strong> Czujnik sprawdzający kontakt z wybranym kolorem, np. ściany. Sam nie zatrzymuje ruchu.</li><li><strong>Jeżeli… to:</strong> Polecenie wykonujące wybrane bloczki, gdy warunek jest spełniony.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Narysuj tło z szerokimi korytarzami. Ściany zrób jednolitym kolorem, którego nie używasz w korytarzach. Dodaj gracza i duszka „Skarb”.</li><li>Po zielonej fladze ustaw gracza w pustym miejscu startowym. Wybierz mały rozmiar duszka i mały krok, np. 3.</li><li>W pętli <strong>zawsze</strong> umieść: <strong>jeżeli klawisz strzałka w prawo naciśnięty</strong> → <code>zmień x o 3</code> → <strong>jeżeli dotyka koloru ściany</strong> → <code>zmień x o -3</code>. Ostatni blok cofa niedozwolony ruch.</li><li>Dodaj analogicznie lewo (x o -3, cofnięcie +3), górę (y o 3, cofnięcie -3) i dół (y o -3, cofnięcie +3). Sprawdzaj ścianę po każdym ruchu.</li><li>W tej samej pętli dodaj: <strong>jeżeli dotyka Skarb</strong> → <code>powiedz Wygrana! przez 2 sekundy</code> → <code>zatrzymaj wszystko</code>. Przetestuj narożniki i ponowny start.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Gdy duszek przeskakuje przez ścianę, zmniejsz krok lub pogrub ściany. Czujnik sprawdza aktualne położenie, nie całą przebytą drogę.</p></blockquote><h2>🎯 Mała misja</h2><p>Zbuduj mały labirynt z jednym zakrętem. Sprawdź wszystkie strzałki i próbę wejścia w ścianę. Dopiero potem dodaj więcej korytarzy.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Do której kategorii należy dotyka koloru?",
+        "a": "Do Czujników."
+      },
+      {
+        "q": "Czy samo dotyka koloru zatrzyma duszka?",
+        "a": "Nie. Wynik czujnika trzeba wykorzystać w warunku i zaprogramować reakcję."
+      },
+      {
+        "q": "Po ruchu x o 3 duszek dotknął ściany. Jak cofniesz ruch?",
+        "a": "Zmieniam x o -3, czyli o tę samą wielkość w przeciwną stronę."
+      }
+    ]
+  },
+  "topic-5-3-3": {
+    "summary": "Duszek malarzem: twórz figury za pomocą kodu!",
+    "body": "<p>🚀 Duszek malarzem: twórz figury za pomocą kodu!</p><p>Zamień ruch duszka w rysunek i stwórz kwadrat.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-pen.svg\" alt=\"Duszek malarzem: twórz figury za pomocą kodu!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Rozszerzenie Pióro:</strong> Dodatkowe bloczki rysujące ślad ruchu duszka. Dodaj je przyciskiem rozszerzeń w Scratchu.</li><li><strong>Przyłóż i podnieś pisak:</strong> Przyłożony pisak rysuje podczas ruchu; podniesiony pozwala przenieść duszka bez linii.</li><li><strong>Wielokąt foremny:</strong> Figura, której boki mają jednakową długość, a kąty jednakową miarę.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Dodaj rozszerzenie <strong>Pióro</strong>. Po zielonej fladze użyj: <code>wyczyść wszystko</code>, <code>podnieś pisak</code>, <code>idź do x: -50 y: -50</code> i <code>ustaw kierunek na 90</code>.</li><li>Ustaw kolor oraz grubość pisaka, a potem go przyłóż.</li><li>Wstaw <strong>powtórz 4 razy</strong>, a do środka <code>przesuń o 100 kroków</code> oraz obrót w lewo o <code>90 stopni</code>. Na końcu podnieś pisak.</li><li>Sprawdź kwadrat. Samo obracanie nie narysuje boków — potrzebny jest także ruch. Aby zobaczyć kolejne etapy, dodaj krótkie czekanie w pętli.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>W regularnym wielokącie o n bokach obrót przy każdym wierzchołku wynosi 360° ÷ n. To kąt skrętu duszka, a nie kąt wewnątrz figury.</p></blockquote><h2>🎯 Mała misja</h2><p>Narysuj kwadrat, a potem trójkąt równoboczny: 3 powtórzenia, ten sam ruch i obrót o 120°. Zmieniaj kolor pisaka między bokami. Zapisz projekt.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Czy podnieś pisak usuwa już narysowaną linię?",
+        "a": "Nie. Wyłącza rysowanie kolejnych linii podczas ruchu."
+      },
+      {
+        "q": "Jakie dwa polecenia powtarzamy cztery razy dla kwadratu?",
+        "a": "Ruch o długość boku i obrót o 90°."
+      },
+      {
+        "q": "Jak rysować wielobarwne linie?",
+        "a": "Zmieniać kolor pisaka, np. odpowiednim bloczkiem wewnątrz pętli."
+      }
+    ]
+  },
+  "topic-5-3-4": {
+    "summary": "Geometryczne wzory: zaprogramuj rozetę!",
+    "body": "<p>🚀 Geometryczne wzory: zaprogramuj rozetę!</p><p>Połącz dwie pętle i wyczaruj wzór z obróconych kwadratów.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-rosette.svg\" alt=\"Geometryczne wzory: zaprogramuj rozetę!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Rozeta:</strong> Promienisty wzór z powtarzanych, obróconych kształtów.</li><li><strong>Pętla w pętli:</strong> Jedna pętla wykonuje się wewnątrz drugiej. Wewnętrzna narysuje figurę, zewnętrzna ją powieli.</li><li><strong>Zmienna Bok:</strong> Przechowuje długość boku. Możesz zmienić rozmiar rysunku w jednym miejscu.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Przygotuj start: wyczyść rysunek, podnieś pisak, ustaw duszka w środku sceny i jego kierunek na 90. Utwórz zmienną <strong>Bok</strong> i ustaw ją na 70. Przyłóż pisak.</li><li>Wstaw zewnętrzną pętlę <strong>powtórz 12 razy</strong>. W jej wnętrzu umieść <strong>powtórz 4 razy</strong>, a w niej: <code>przesuń o Bok kroków</code> i obrót o <code>90 stopni</code>.</li><li>Za pętlą rysującą kwadrat, ale nadal wewnątrz pętli zewnętrznej, dodaj obrót o <code>30 stopni</code>. Możesz też zmienić kolor pisaka.</li><li>Uruchom skrypt. Kwadrat wraca do swojego początku; dodatkowy obrót zmienia kierunek kolejnego kwadratu. Po zakończeniu podnieś pisak.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Pętla wewnętrzna rysuje jedną figurę. Zewnętrzna powtarza figurę i obrót. 12 × 30° daje pełne 360°.</p></blockquote><h2>🎯 Mała misja</h2><p>Zmień Bok z 70 na 50 i porównaj rozety. Dla chętnych: narysuj 8 kwadratów, obracając każdy kolejny o 45°. Zmieniaj tylko jeden parametr naraz.</p><p><a href=\"https://scratch.mit.edu/projects/editor/\">Otwórz Scratch i wypróbuj pomysł ↗</a></p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Co kontroluje zmienna Bok?",
+        "a": "Długość każdego boku rysowanego kwadratu."
+      },
+      {
+        "q": "Co się stanie bez dodatkowego obrotu między kwadratami?",
+        "a": "Przy niezmienionym rozmiarze i położeniu kolejne kwadraty pokryją się."
+      },
+      {
+        "q": "Ile ruchów rysujących bok wykona 12 powtórzeń po 4 boki?",
+        "a": "48 ruchów: 12 × 4."
+      }
+    ]
+  },
+  "topic-5-4-1": {
+    "summary": "Magia poklatkowa: ożyw patyczaka!",
+    "body": "<p>🚀 Magia poklatkowa: ożyw patyczaka!</p><p>Ożyw patyczaka, zmieniając jego pozę odrobinę w każdej klatce.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-frames.svg\" alt=\"Magia poklatkowa: ożyw patyczaka!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Klatka:</strong> Pojedynczy nieruchomy obraz. Szybko wyświetlane kolejne klatki tworzą wrażenie ruchu.</li><li><strong>Segment i uchwyt:</strong> Segment to część figury. Uchwyty służą do zmiany jej ułożenia lub położenia.</li><li><strong>Ślad poprzedniej klatki:</strong> Podgląd wcześniejszej pozy, często szary. Pomaga porównywać ruch; nie jest dodatkową postacią filmu.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Otwórz Pivot Animator używany w pracowni. Ustaw postać w pierwszej pozie i dodaj klatkę przyciskiem dodawania klatki.</li><li>Przesuń odrobinę rękę czerwonym uchwytem i dodaj kolejną klatkę. W głównym obszarze animacji skrót Spacja może dodawać lub zapisywać klatkę — sprawdź działanie w używanej wersji.</li><li>Czerwony uchwyt obraca segment i połączone z nim części. Pomarańczowy uchwyt przenosi całą zaznaczoną postać.</li><li>Zrób kilka kolejnych póz machania i odtwórz animację. Dostosuj tempo. Możesz wczytać własne tło przygotowane w edytorze grafiki.</li><li>Zapisz projekt jako <strong>PIV</strong> do dalszej edycji. Gotowy animowany GIF obejrzysz np. w przeglądarce; nie potrzebujesz do tego samego Pivota.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Małe, regularne zmiany między klatkami pomagają uzyskać płynny ruch. Znaczenie ma również tempo odtwarzania.</p></blockquote><h2>🎯 Mała misja</h2><p>Zrób 8–12 klatek machającego patyczaka. Porównaj animację z małymi zmianami pozy i z jednym nagłym przeskokiem ręki.</p><p>Nazwy poleceń i skróty mogą różnić się między wersjami programu używanymi w pracowni.</p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Który uchwyt przesuwa całą postać?",
+        "a": "Pomarańczowy uchwyt początku figury."
+      },
+      {
+        "q": "Czy szary ślad to druga postać w gotowym filmie?",
+        "a": "Nie. To pomocniczy podgląd poprzedniej pozy."
+      },
+      {
+        "q": "Po co zapisywać PIV oprócz GIF?",
+        "a": "PIV zachowuje projekt do wygodnej dalszej edycji w Pivocie."
+      }
+    ]
+  },
+  "topic-5-4-2": {
+    "summary": "Fabryka bohaterów: zaprojektuj postać!",
+    "body": "<p>🚀 Fabryka bohaterów: zaprojektuj postać!</p><p>Zaprojektuj własnego bohatera i sprawdź, jak się porusza.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-figure.svg\" alt=\"Fabryka bohaterów: zaprojektuj postać!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Edytor figur:</strong> Warsztat budowania nowych modeli z połączonych segmentów.</li><li><strong>Segment dynamiczny i statyczny:</strong> Dynamiczny ma uchwyt do sterowania w animacji. Statyczny nie ma własnego uchwytu końcowego, ale może poruszać się razem z połączoną częścią figury.</li><li><strong>Rekwizyt:</strong> Przedmiot potrzebny w scenie, np. parasol. Może być osobną figurą lub częścią konstrukcji.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Otwórz edytor figur. Zacznij od prostego szkieletu: tułów, głowa, ręce i nogi. Łącz segmenty w stawach.</li><li>Zastanów się, gdzie postać ma się zginać. Zostaw uchwyty tam, gdzie będziesz zmieniać pozę. Elementy ozdobne mogą być statyczne.</li><li>Długość segmentu zmień narzędziami edytora. W wersjach obsługujących ten gest możesz przytrzymać <strong>Ctrl podczas przeciągania uchwytu</strong>. Samo naciśnięcie Ctrl niczego nie wydłuża.</li><li>Zapisz figurę jako <strong>STK</strong>, dodaj ją do animacji i przetestuj trzy pozy. Popraw konstrukcję, jeśli części zginają się w niewłaściwym miejscu.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Statyczny nie znaczy przyklejony do ekranu. Taki segment może zmieniać położenie razem z resztą figury.</p></blockquote><h2>🎯 Mała misja</h2><p>Zbuduj robota z prostych segmentów i dodaj rekwizyt, np. chorągiewkę. Sprawdź, czy potrafi podnieść rękę bez przypadkowego przesuwania całej postaci.</p><p>Nazwy poleceń i skróty mogą różnić się między wersjami programu używanymi w pracowni.</p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Gdzie budujemy własne figury?",
+        "a": "W edytorze figur programu Pivot Animator."
+      },
+      {
+        "q": "Kiedy Ctrl może pomóc zmienić długość segmentu?",
+        "a": "Podczas przeciągania odpowiedniego uchwytu, w wersji i trybie obsługującym ten gest."
+      },
+      {
+        "q": "Czy segment statyczny może się przemieścić?",
+        "a": "Tak, razem z figurą lub jej połączoną częścią. Nie ma własnego uchwytu końcowego do sterowania w animacji."
+      }
+    ]
+  },
+  "topic-5-4-3": {
+    "summary": "Kinowy hit: film przygodowy patyczaków!",
+    "body": "<p>🚀 Kinowy hit: film przygodowy patyczaków!</p><p>Zaplanuj, narysuj i pokaż krótką przygodę patyczaka.</p><img src=\"https://informatyk-pruszcz.github.io/informatyka/k5-story.svg\" alt=\"Kinowy hit: film przygodowy patyczaków!\"><h2>🧠 Trzy rzeczy, które warto znać</h2><ul><li><strong>Scenariusz:</strong> Plan wydarzeń: początek, trudność i zakończenie.</li><li><strong>Projekt zespołowy:</strong> Wspólna praca z ustalonymi rolami i zasadami łączenia efektów.</li><li><strong>Próba filmu:</strong> Obejrzenie całości w celu znalezienia przeskoków, niejasnych zdarzeń i problemów z tempem.</li></ul><h2>🛠️ Wypróbuj krok po kroku</h2><ol><li>Narysujcie trzy kadry na kartce: bohater rusza, spotyka przeszkodę i dociera do celu. Zaplanujcie krótką scenkę zamiast długiego filmu.</li><li>Podzielcie role: scenarzysta, autor tła, konstruktor figury i animator. Ustalcie rozmiar sceny oraz wspólny wygląd.</li><li>Tło przygotujcie w znanym edytorze grafiki, np. Paint, i wczytajcie do Pivota. Wykorzystajcie własną figurę oraz prosty rekwizyt.</li><li>Animujcie małymi krokami. W Pivocie to autor ustawia omijanie przeszkody — nie działa tu automatyczny czujnik ścian jak w grze Scratch.</li><li>Obejrzyjcie film razem. Poprawcie tempo i zapisujcie kolejne wersje projektu PIV. Wyeksportujcie gotową animację w dostępnym formacie i sprawdźcie odtwarzanie.</li></ol><blockquote><strong>💡 Zapamiętaj</strong><p>Podział ról pomaga, ale potrzebne są także rozmowa, wspólne sprawdzanie i poprawki. Plan nie gwarantuje wyniku bez testowania.</p></blockquote><h2>🎯 Mała misja</h2><p>Stwórzcie scenkę „Most do skarbu”: patyczak zauważa przerwę w drodze, pokonuje ją i dociera do flagi. Poproście inną grupę, aby opowiedziała, co zobaczyła.</p><p>Nazwy poleceń i skróty mogą różnić się między wersjami programu używanymi w pracowni.</p>",
+    "pending": false,
+    "source": "Na podstawie notatek nauczyciela. Autorskie przykłady, zadania i ilustracje. Klasa 5, działy 3–4.",
+    "quiz": [
+      {
+        "q": "Po co szkic scenariusza przed animowaniem?",
+        "a": "Pomaga ustalić kolejność wydarzeń i uniknąć tworzenia niepotrzebnych klatek."
+      },
+      {
+        "q": "Gdzie można przygotować tło?",
+        "a": "W znanym edytorze grafiki, np. Paint, a potem wczytać zapisany obraz do Pivota."
+      },
+      {
+        "q": "Czy Pivot sam zatrzyma postać przed narysowaną ścianą?",
+        "a": "Nie. To animator planuje położenie figury w kolejnych klatkach."
+      }
+    ]
   }
 };
