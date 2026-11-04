@@ -1,4 +1,6 @@
-import {noteContents} from './notes-grade4.js?v=scratch5';
+import {noteContents as grade4Notes} from './notes-grade4.js?v=scratch5';
+import {grade5Notes} from './notes-grade5.js?v=1';
+const noteContents = {...grade4Notes,...grade5Notes};
 import {curriculum} from './curriculum.js';
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
