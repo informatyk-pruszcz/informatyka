@@ -178,5 +178,145 @@ export const grade6Notes = {
         "a": "Na przykład: dane, kontrola obliczeń, wykres i opisy. Ustalamy zakresy, żeby nie nadpisywać zmian."
       }
     ]
+  },
+  "topic-6-3-1": {
+    "summary": "Odkryj projekty innych uczniów. Zmień wybrany projekt według własnego pomysłu.",
+    "body": "<p>🚀 Razem tworzysz więcej!</p><p><strong>Temat oficjalny:</strong> Razem możemy więcej. O społeczności użytkowników Scratcha | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Odkryj projekty innych uczniów. Zmień wybrany projekt według własnego pomysłu.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-3-1.svg\" alt=\"Schemat: PROJEKT → TWÓJ REMIKS → KLASOWE STUDIO\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Społeczność Scratcha</strong><p>Co to jest: To użytkownicy dzielący się projektami i pomysłami.</p><p>Przykład z życia: Oglądasz animację kolegi i poznajesz jej skrypty.</p></li><li><strong>🔹 Remiks</strong><p>Co to jest: To własna wersja cudzego projektu z zachowaniem informacji o autorze.</p><p>Przykład z życia: Zmieniasz tło gry i dodajesz nowego bohatera.</p></li><li><strong>🔹 Studio</strong><p>Co to jest: To miejsce zbierania projektów wokół wybranego tematu.</p><p>Przykład z życia: Klasa gromadzi swoje gry w jednym studiu.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Sprawdź autorstwo. Dodaj własny pomysł. Podziękuj za inspirację.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Remiks:</strong> Własna wersja istniejącego projektu.</li><li>📌 <strong>Studio:</strong> Miejsce grupowania projektów Scratcha.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Remiks pozwala zmodyfikować istniejący projekt. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Gdzie zbierzesz klasowe projekty?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Zmieniasz tylko tło gry. Czy zostałeś autorem całego oryginału?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Remiks pozwala zmodyfikować istniejący projekt.",
+        "a": "Prawda. Pamiętaj o autorze oryginału."
+      },
+      {
+        "q": "Gdzie zbierzesz klasowe projekty?",
+        "a": "W studiu Scratcha."
+      },
+      {
+        "q": "Zmieniasz tylko tło gry. Czy zostałeś autorem całego oryginału?",
+        "a": "Nie. Jesteś autorem zmian; zachowaj informację o pierwotnym twórcy."
+      }
+    ]
+  },
+  "topic-6-3-2": {
+    "summary": "Wyślij komunikat między duszkami. Zaprogramuj ich wspólny start w grze.",
+    "body": "<p>🚀 Jeden sygnał — wspólna akcja!</p><p><strong>Temat oficjalny:</strong> Do biegu, gotowi, start! Komunikaty w programie Scratch | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Wyślij komunikat między duszkami. Zaprogramuj ich wspólny start w grze.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-3-2.svg\" alt=\"Schemat: KLIKNIĘCIE → NADAJ „START” → ODBIERZ I DZIAŁAJ\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Kliknięcie duszka</strong><p>Co to jest: To zdarzenie uruchamiające przypisany skrypt.</p><p>Przykład z życia: Klikasz przycisk „Start”, aby rozpocząć grę.</p></li><li><strong>🔹 Nadawanie komunikatu</strong><p>Co to jest: To wysłanie nazwanego sygnału w projekcie.</p><p>Przykład z życia: Przycisk nadaje komunikat „Start gry”.</p></li><li><strong>🔹 Odbieranie komunikatu</strong><p>Co to jest: To uruchomienie skryptu reagującego na wskazany sygnał.</p><p>Przykład z życia: Bohater rusza po odebraniu „Start gry”.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Nazwa u nadawcy i odbiorcy musi być taka sama.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Komunikat:</strong> Nazwany sygnał uruchamiający reakcję.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Komunikat może uruchomić skrypt innego duszka. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Co dodasz u duszka odbierającego sygnał?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Nadajesz „Start”, ale odbiorca czeka na „Meta”. Co poprawisz?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Komunikat może uruchomić skrypt innego duszka.",
+        "a": "Prawda. Odbiorca potrzebuje odpowiedniego skryptu."
+      },
+      {
+        "q": "Co dodasz u duszka odbierającego sygnał?",
+        "a": "Zdarzenie „kiedy otrzymam” z właściwą nazwą komunikatu."
+      },
+      {
+        "q": "Nadajesz „Start”, ale odbiorca czeka na „Meta”. Co poprawisz?",
+        "a": "Wybiorę tę samą nazwę komunikatu w obu skryptach."
+      }
+    ]
+  },
+  "topic-6-3-3": {
+    "summary": "Zapisz wynik w zmiennej. Dodaj kolejne wyniki do listy.",
+    "body": "<p>🚀 Zachowaj wyniki swojej gry!</p><p><strong>Temat oficjalny:</strong> Moje wyniki. Jak zapisać dane w jednym miejscu? | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Zapisz wynik w zmiennej. Dodaj kolejne wyniki do listy.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-3-3.svg\" alt=\"Schemat: GRA → ZMIENNA „PUNKTY” → LISTA „WYNIKI”\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Zmienna</strong><p>Co to jest: To nazwane miejsce przechowujące jedną aktualną wartość.</p><p>Przykład z życia: Zmienna „Punkty” pokazuje bieżący wynik gracza.</p></li><li><strong>🔹 Lista</strong><p>Co to jest: To uporządkowany zbiór wielu elementów.</p><p>Przykład z życia: Lista „Wyniki” zawiera rezultaty kolejnych rozgrywek.</p></li><li><strong>🔹 Dodawanie wyniku</strong><p>Co to jest: To umieszczenie nowego elementu na liście.</p><p>Przykład z życia: Po zakończeniu gry dodajesz wartość „Punkty” do „Wyników”.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Na początku wyzeruj punkty. Wynik dodaj po zakończeniu rozgrywki.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Zmienna:</strong> Miejsce na jedną aktualną wartość.</li><li>📌 <strong>Lista:</strong> Uporządkowany zbiór wielu elementów.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Lista może przechowywać kilka wyników gry. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Gdzie zapiszesz aktualną liczbę punktów?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Masz wynik 8 i wcześniejsze wyniki 3 oraz 5. Co dopiszesz?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Lista może przechowywać kilka wyników gry.",
+        "a": "Prawda. Każdy wynik może stanowić osobny element."
+      },
+      {
+        "q": "Gdzie zapiszesz aktualną liczbę punktów?",
+        "a": "W zmiennej, na przykład „Punkty”."
+      },
+      {
+        "q": "Masz wynik 8 i wcześniejsze wyniki 3 oraz 5. Co dopiszesz?",
+        "a": "Dodam 8 jako kolejny element listy „Wyniki”."
+      }
+    ]
+  },
+  "topic-6-4-1": {
+    "summary": "Ułóż elementy na warstwach w GIMP-ie. Sprawdź ich kolejność i krycie.",
+    "body": "<p>🚀 Zbuduj obraz z osobnych części!</p><p><strong>Temat oficjalny:</strong> Tort ma warstwy i cebula ma warstwy. O tworzeniu grafik z wykorzystaniem warstw | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Ułóż elementy na warstwach w GIMP-ie. Sprawdź ich kolejność i krycie.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-4-1.svg\" alt=\"Schemat: TŁO → POSTAĆ → NAPIS\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Warstwa</strong><p>Co to jest: To osobna część obrazu, którą możesz niezależnie zmieniać.</p><p>Przykład z życia: Umieszczasz tło, postać i napis na osobnych warstwach.</p></li><li><strong>🔹 Kolejność warstw</strong><p>Co to jest: Określa, które elementy mogą przykrywać pozostałe.</p><p>Przykład z życia: Przenosisz napis nad zdjęcie, aby stał się widoczny.</p></li><li><strong>🔹 Krycie</strong><p>Co to jest: Określa stopień widoczności warstwy.</p><p>Przykład z życia: Zmniejszasz krycie napisu, aby częściowo odsłonić tło.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Najpierw wybierz warstwę. Dopiero potem zmieniaj jej zawartość.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Warstwa:</strong> Osobno edytowana część obrazu.</li><li>📌 <strong>Krycie:</strong> Stopień widoczności warstwy.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Kolejność warstw wpływa na wygląd obrazu. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Co zmienisz, aby warstwa była mniej widoczna?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Napis przykryło tło. Jak go odsłonisz?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Kolejność warstw wpływa na wygląd obrazu.",
+        "a": "Prawda. Wyższa warstwa może zasłaniać niższą."
+      },
+      {
+        "q": "Co zmienisz, aby warstwa była mniej widoczna?",
+        "a": "Zmniejszę jej krycie."
+      },
+      {
+        "q": "Napis przykryło tło. Jak go odsłonisz?",
+        "a": "Przeniosę warstwę napisu nad warstwę tła."
+      }
+    ]
+  },
+  "topic-6-4-2": {
+    "summary": "Popraw jasność i kontrast zdjęcia. Połącz wybrane fragmenty na osobnych warstwach.",
+    "body": "<p>🚀 Połącz zdjęcia w nową historię!</p><p><strong>Temat oficjalny:</strong> Zdjęć cięcie-gięcie. Elementy retuszu i fotomontażu zdjęć | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Popraw jasność i kontrast zdjęcia. Połącz wybrane fragmenty na osobnych warstwach.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-4-2.svg\" alt=\"Schemat: WYBIERZ FRAGMENT → OSOBNA WARSTWA → DOPASUJ OBRAZ\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Retusz</strong><p>Co to jest: To poprawianie wybranych fragmentów zdjęcia.</p><p>Przykład z życia: Korygujesz zbyt ciemny fragment fotografii.</p></li><li><strong>🔹 Fotomontaż</strong><p>Co to jest: To połączenie elementów różnych zdjęć w jeden obraz.</p><p>Przykład z życia: Wklejasz wyciętą postać na inne tło.</p></li><li><strong>🔹 Jasność i kontrast</strong><p>Co to jest: To ustawienia zmieniające widoczność szczegółów oraz różnice między tonami.</p><p>Przykład z życia: Poprawiasz zdjęcie, którego szczegóły trudno rozpoznać.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Zmieniaj jeden parametr naraz. Porównuj efekt z poprzednim wyglądem.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Retusz:</strong> Poprawianie wybranych fragmentów zdjęcia.</li><li>📌 <strong>Fotomontaż:</strong> Obraz połączony z różnych zdjęć.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Fotomontaż może zawierać fragmenty kilku zdjęć. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Jakie dwa ustawienia poprawiają czytelność zdjęcia?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Chcesz poprawić postać bez zmieniania tła. Co pomoże?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Fotomontaż może zawierać fragmenty kilku zdjęć.",
+        "a": "Prawda. Osobne warstwy ułatwiają ich poprawianie."
+      },
+      {
+        "q": "Jakie dwa ustawienia poprawiają czytelność zdjęcia?",
+        "a": "Jasność i kontrast."
+      },
+      {
+        "q": "Chcesz poprawić postać bez zmieniania tła. Co pomoże?",
+        "a": "Umieszczenie postaci na osobnej warstwie."
+      }
+    ]
+  },
+  "topic-6-4-3": {
+    "summary": "Przygotuj projekt o wybranym zainteresowaniu. Połącz jego strony czytelnymi linkami.",
+    "body": "<p>🚀 Pokaż swoje „naj” w Canvie!</p><p><strong>Temat oficjalny:</strong> Moje naj... Tworzenie projektu w programie Canva | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Przygotuj projekt o wybranym zainteresowaniu. Połącz jego strony czytelnymi linkami.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-4-3.svg\" alt=\"Schemat: STRONA GŁÓWNA → STRONY TEMATYCZNE → LINK POWROTNY\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Strona główna</strong><p>Co to jest: To początek projektu przedstawiający jego temat.</p><p>Przykład z życia: Dodajesz tytuł „Moje ulubione miejsca” oraz krótkie wprowadzenie.</p></li><li><strong>🔹 Układ elementów</strong><p>Co to jest: To rozmieszczenie tekstu, tła i ilustracji.</p><p>Przykład z życia: Ustawiasz podpis obok pasującego zdjęcia.</p></li><li><strong>🔹 Nawigacja</strong><p>Co to jest: To sposób przechodzenia między stronami projektu.</p><p>Przykład z życia: Link „Wróć” prowadzi do strony głównej.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Najpierw zaplanuj strony. Potem sprawdź działanie każdego linku.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Nawigacja:</strong> Przechodzenie między stronami projektu.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Projekt w Canvie może mieć wiele stron. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Jak wrócisz z podstrony do początku projektu?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Zdjęcie zasłania podpis. Co poprawisz?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Projekt w Canvie może mieć wiele stron.",
+        "a": "Prawda. Możesz połączyć je linkami."
+      },
+      {
+        "q": "Jak wrócisz z podstrony do początku projektu?",
+        "a": "Dodam link prowadzący do strony głównej."
+      },
+      {
+        "q": "Zdjęcie zasłania podpis. Co poprawisz?",
+        "a": "Zmieniam rozmieszczenie elementów, aby podpis był czytelny."
+      }
+    ]
+  },
+  "topic-6-4-4": {
+    "summary": "Przygotuj z zespołem pamiątkowy obraz. Połącz materiały na warstwach w GIMP-ie.",
+    "body": "<p>🚀 Zatrzymaj szkolne wspomnienie w obrazie!</p><p><strong>Temat oficjalny:</strong> Czar szkolnych lat. Przygotowanie pamiątkowego obrazu – zadanie projektowe | <strong>Data:</strong> ....................</p><h2>🎯 TWOJA MISJA NA DZIŚ</h2><blockquote><p>Przygotuj z zespołem pamiątkowy obraz. Połącz materiały na warstwach w GIMP-ie.</p></blockquote><img src=\"https://informatyk-pruszcz.github.io/informatyka/k6-4-4.svg\" alt=\"Schemat: PLAN I ROLE → MATERIAŁY → WSPÓLNY OBRAZ\"><h2>🧠 KLUCZ DO GŁOWY</h2><ol><li><strong>🔹 Plan projektu</strong><p>Co to jest: To ustalenie tematu, potrzebnych materiałów i kolejności działań.</p><p>Przykład z życia: Wybieracie wydarzenie, które pokażecie na pamiątkowym obrazie.</p></li><li><strong>🔹 Podział zadań</strong><p>Co to jest: To uzgodnienie odpowiedzialności każdej osoby.</p><p>Przykład z życia: Jedna osoba przygotowuje ilustracje, druga napis, trzecia sprawdza całość.</p></li><li><strong>🔹 Wspólne materiały</strong><p>Co to jest: To pliki udostępniane zespołowi do realizacji projektu.</p><p>Przykład z życia: Korzystacie ze szkolnej chmury i poczty według ustalonych zasad.</p></li></ol><h2>⭐ ZŁOTA ZASADA (PRO-TIP)</h2><blockquote><strong>💡 ZAPAMIĘTAJ NA ZAWSZE:</strong><p>Uzgodnij zadania. Łącz elementy na warstwach. Wspólnie sprawdź efekt.</p></blockquote><h2>📖 MINI-SŁOWNICZEK TRUDNYCH SŁÓW</h2><ul><li>📌 <strong>Projekt zespołowy:</strong> Wspólne zadanie z podziałem ról.</li></ul><h2>🎮 STREFA AKCJI</h2><p>Masz dwie minuty. Ćwicz dla siebie, bez oceny.</p><ol><li><strong>Prawda czy Fałsz?</strong><p>Warstwy pomagają poprawiać elementy pamiątkowego obrazu. ➔ [ P / F ]</p></li><li><strong>Wyzwanie 10 sekund:</strong><p>Jakimi narzędziami wymienicie materiały do projektu?</p></li><li><strong>Zadanie z gwiazdką (dla chętnych):</strong><p>Dwie osoby przygotowały ten sam napis. Co ustalicie?</p></li></ol>",
+    "pending": false,
+    "source": "Opracowanie na podstawie rozkładu materiału i wymagań edukacyjnych „Lubię to!”, klasa 6, 2025. Autorskie przykłady i ilustracje.",
+    "quiz": [
+      {
+        "q": "Warstwy pomagają poprawiać elementy pamiątkowego obrazu.",
+        "a": "Prawda. Możesz niezależnie zmieniać wybrane części."
+      },
+      {
+        "q": "Jakimi narzędziami wymienicie materiały do projektu?",
+        "a": "Szkolną chmurą lub pocztą, zgodnie z poleceniem nauczyciela."
+      },
+      {
+        "q": "Dwie osoby przygotowały ten sam napis. Co ustalicie?",
+        "a": "Podzielimy zadania i wybierzemy napis pasujący do wspólnego planu."
+      }
+    ]
   }
 };
