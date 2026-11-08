@@ -5,6 +5,15 @@ import {grade6Notes} from './notes-grade6.js?v=2';
 import {grade7Notes} from './notes-grade7.js?v=2';
 const noteContents = {...grade4Notes,...grade5Notes,...grade6Notes,...grade7Notes};
 import {curriculum} from './curriculum.js';
+for (const topic of curriculum.filter(t => t.grade === 8 && t.chapter === '1')) {
+  const fragment = topic.number.replace('.', '-');
+  noteContents['topic-8-' + fragment] = {
+    pending: false,
+    summary: 'Interaktywna lekcja z podglądami arkusza i quizem.',
+    body: '<p>Obejrzyj trzy przykłady i sprawdź swoje odpowiedzi.</p><p><a href="https://informatyk-pruszcz.github.io/informatyka/arkusz-viii.html#' + fragment + '">Otwórz lekcję ' + topic.number + ' w pracowni arkusza →</a></p>',
+    source: 'Opracowanie na podstawie notatek nauczyciela.'
+  };
+}
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
 import {connectCloud} from './cloud.js?v=account1';

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Arkusz w praktyce · Klasa VIII</title>
+<style>
+*{box-sizing:border-box}body{--ink:#152c38;--muted:#405964;--paper:#fff;--wash:#edf4f4;--accent:#076652;--line:#9cb4b4;margin:0;background:var(--wash);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}main{max-width:960px;margin:auto;padding:clamp(14px,4vw,38px)}header,article,fieldset,aside{background:var(--paper);padding:clamp(16px,3vw,28px);border:1px solid var(--line);border-radius:14px;margin:14px 0}h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1}h2,h3{line-height:1.25}h3{display:flex;gap:.65em;align-items:center}h3 svg{width:24px;height:24px;color:var(--accent);flex:none}button,select,input{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:8px;min-height:44px;max-width:100%}button{cursor:pointer}button:hover,button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 -3px var(--accent)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}a{color:var(--accent)}nav,.opts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}figure{background:var(--wash);border:1px solid var(--line);border-radius:9px;margin:14px 0 0;padding:12px}figcaption,small{color:var(--muted)}figure svg{display:block;width:100%;max-width:520px;margin:6px auto;color:var(--ink);font:13px ui-monospace,monospace}code{font:1em ui-monospace,monospace;overflow-wrap:anywhere}fieldset{min-width:0}legend{font-weight:700;max-width:100%;padding:0 5px}p[role=status]{margin:.6em 0 0;color:var(--accent);font-weight:650}.focus{--ink:#fff;--paper:#111;--wash:#000;--muted:#eee;--line:#ccc;--accent:#ffdf65}.focus main{max-width:790px;line-height:1.85}.focus figure svg{font-weight:bold}label{font-weight:600}output{font-weight:bold}
+</style>
+<main><a href="./#class/8/notes">← Notatki klasy VIII</a><header><small>Informatyka · Klasa VIII · Arkusz kalkulacyjny</small><h1>Arkusz w praktyce</h1><nav><label for="lesson">Lekcja</label><select id="lesson"><option>1.1 · Formuły</option><option>1.2 · Funkcje i adresy</option><option>1.3 · Wykresy</option><option>1.4 · Zastosowania</option></select><button id="focus" aria-pressed="false">Tryb skupienia / wysoki kontrast</button></nav></header><section id="content"></section></main>
+<script>
+const lessons=[
+{title:'Formuły i adresowanie względne w arkuszu kalkulacyjnym',goal:'Policz koszt zakupów klasy. Zmień jedną cenę i obserwuj wynik.',cards:[
+['Adres komórki','Litera wskazuje kolumnę, liczba wskazuje wiersz. W cenniku odszukaj cenę w B2. Tak samo K17 oznacza kolumnę K i wiersz 17.','Komórka B2',['','A','B','1','Notes','8 zł','2','Blok','12 zł'],8],
+['Formuła przelicza wynik','Zacznij od znaku =. Odwołaj się do komórek, żeby arkusz reagował na zmianę danych. Zmień liczbę poniżej.','=A1+B1',['','A','B','C','1','8','12','20'],7],
+['Kopiowanie formuły','Po skopiowaniu o jeden wiersz w dół względne adresy przesuwają się o jeden wiersz. W prawo zmieniają się litery kolumn.','Kopia w dół ↓',['','A','B','C','1','8','12','=A1+B1','2','4','7','=A2+B2'],11]],
+tip:'Jeśli cena pochodzi z A1, użyj =A1*1,23. Wzór =100*1,23 zachowa wpisane 100 po zmianie ceny w A1.',words:'Formula — wzór obliczenia. Cell address — adres komórki. Relative reference — adres przesuwany przy kopiowaniu.',
+quiz:[
+['Po zmianie A1 musisz ponownie wpisać formułę =A1+B1.',['Prawda','Fałsz'],1,'Przy automatycznym przeliczaniu arkusz sam odświeża wynik.','Zmień A1 w podglądzie drugiego modułu. Obserwuj C1.'],
+['Kopiujesz =A1+B1 z C1 do C2. Co pojawi się w C2?',['=B1+C1','=A2+B2','=A1+B1'],1,'Oba odwołania przesunęły się o jeden wiersz.','Sprawdź, czy ruch z C1 do C2 zmienia literę kolumny.'],
+['Obok formuły masz 500 kolejnych, wypełnionych wierszy. Jak szybko wypełnisz kolumnę w Excelu?',['Kliknę dwukrotnie uchwyt wypełniania','Kliknę nagłówek kolumny','Włączę filtr'],0,'Dwuklik małego kwadratu w rogu zaznaczenia kopiuje wzór wzdłuż sąsiednich danych.','Poszukaj narzędzia w prawym dolnym rogu zaznaczonej komórki.']]},
+{title:'Funkcje oraz adresowanie bezwzględne i mieszane w arkuszu kalkulacyjnym',goal:'Użyj jednej stawki dla wielu zakupów i sprawdź, czy wystarczy pieniędzy.',cards:[
+['Która część adresu zostaje?','Znak $ blokuje część adresu stojącą po nim. Porównaj kopie o jedno pole. Stały kurs zapisany w K17 oznacz jako $K$17.','Adres po skopiowaniu',['Start','W prawo','W dół','A1','B1','A2','$A$1','$A$1','$A$1','$A1','$A1','$A2','A$1','B$1','A$1'],6],
+['SUMA i ŚREDNIA','Dwukropek wyznacza cały zakres. Dla 4, 6 i 8 suma wynosi 18. Średnia wynosi 18 podzielone przez 3.','=ŚREDNIA(A1:A3)',['','A','1','4','2','6','3','8','Wynik','6'],9],
+['JEŻELI wybiera wynik','Warunek A1>50 decyduje o komunikacie. Pierwszy tekst dotyczy prawdy, drugi fałszu. Przy dokładnie 50 warunek jest fałszywy.','=JEŻELI(A1>50;"Tak";"Nie")',['A1','A1>50','Wynik','51','PRAWDA','Tak','50','FAŁSZ','Nie'],8]],
+tip:'Po skopiowaniu wzoru sprawdź adres stawki. Gdy każdy wiersz korzysta z B1, zapisz $B$1.',words:'Absolute reference — stały adres. Conditional logic — wybór na podstawie warunku. Argument — wartość przekazana funkcji.',
+quiz:[
+['Po skopiowaniu =A1*$B$1 trzy wiersze niżej otrzymasz adres $B$4.',['Prawda','Fałsz'],1,'Pozostaje $B$1. Zmienia się tylko A1 na A4.','Spójrz, przed którymi częściami adresu stoją znaki $.'],
+['W =JEŻELI(A1>50;"Zaliczono") chcesz wyświetlić „Popraw” dla 50 punktów. Co dopiszesz?',['Trzeci argument „Popraw”','Kolejny znak =','Symbol $'],0,'Podaj trzeci argument: =JEŻELI(A1>50;"Zaliczono";"Popraw"). W Excelu pominięty argument może dać FAŁSZ.','Znajdź miejsce na wynik zwracany, gdy warunek jest fałszywy.'],
+['Tabliczka mnożenia ma liczby w A2:A11 i B1:K1. Jaki wzór w B2 skopiujesz w prawo i w dół?',['=$A$2*$B$1','=$A2*B$1','=A2*B1'],1,'Pierwszy czynnik zawsze pochodzi z kolumny A, drugi z wiersza 1.','Która kolumna zawiera liczby z lewej? Który wiersz zawiera liczby z góry?']]},
+{title:'Przedstawianie danych na wykresie',goal:'Dobierz wykres do pytania. Pokaż trend, różnicę albo udział w całości.',cards:[
+['Typ wykresu','Linia pokazuje zmiany temperatury w czasie. Słupki porównują klasy. Koło pokazuje części jednej całości, na przykład wydatki z jednego budżetu.','Temperatura · °C',null,'line'],
+['Elementy wykresu','Tytuł nazywa temat, osie opisują wielkości, a etykiety podają wartości. Legenda wyjaśnia znaczenie serii.','Liczba książek w klasach',null,'bar'],
+['Dwie serie danych','Porównaj plan i wynik kiermaszu w tych samych miesiącach. Użyj wspólnej skali i opisz obie serie.','Kiermasz · liczba książek',null,'pair']],
+tip:'Koło wymaga części jednej całości. Możesz podać liczby sztuk, a arkusz wyliczy udziały. Przy wielu kategoriach łatwiej porównać słupki.',words:'Data series — seria powiązanych wartości. Chart legend — opis oznaczeń serii. Data labels — wartości przy punktach lub słupkach.',
+quiz:[
+['Koło dobrze pokaże zmiany temperatury w ciągu doby.',['Prawda','Fałsz'],1,'Wykres liniowy pokazuje kolejność pomiarów i przebieg zmian.','Czy temperatury są częściami jednej całości?'],
+['Co pomoże odróżnić serię „Plan” od serii „Wynik”?',['Legenda','Tło wykresu','Większy tytuł'],0,'Legenda przypisuje oznaczenie do nazwy każdej serii.','Szukasz klucza wyjaśniającego oznaczenia.'],
+['Jak w Excelu dla Windows zaznaczysz A1:A5 i D1:D5 z pominięciem B i C?',['Shift','Alt','Ctrl'],2,'Zaznacz pierwszy zakres, przytrzymaj Ctrl i zaznacz drugi.','Shift rozszerza zaznaczenie na sąsiadujące komórki. Potrzebujesz osobnego zakresu.']]},
+{title:'Zastosowania arkusza kalkulacyjnego',goal:'Wybierz interesujące wiersze, policz wyniki i zasymuluj rzut kostką.',cards:[
+['Sortowanie i filtrowanie','Sortowanie zmienia kolejność całych wierszy. Filtr pozostawia na ekranie rekordy pasujące do warunku. Po usunięciu filtra widzisz wszystkie dane.','Filtr: wynik ≥ 5',['Imię','Wynik','Widok','Ola','7','widoczny','Iwo','3','ukryty','Ewa','5','widoczny'],8],
+['LICZ.JEŻELI','Policz, ile razy w kolumnie obecności pojawia się „Tak”. Podaj zakres i warunek.','=LICZ.JEŻELI(A1:A3;"Tak")',['','A','1','Tak','2','Nie','3','Tak','Wynik','2'],9],
+['Wirtualna kostka','LOS() daje liczbę od 0 włącznie do 1 wyłącznie. Pomnóż ją przez 6. LICZBA.CAŁK usunie część ułamkową. Dodaj 1.','=LICZBA.CAŁK(LOS()*6)+1',['LOS()','× 6','Obetnij','+ 1','0,72','4,32','4','5'],7]],
+tip:'LOS() losuje ponownie przy przeliczeniu arkusza. Aby zachować rzut, skopiuj komórkę i wybierz „Wklej specjalnie → Wartości”.',words:'Data filtering — wybór widocznych wierszy. Random generation — losowanie wartości. Część całkowita — dla dodatniego wyniku pomijasz ułamek.',
+quiz:[
+['Filtr trwale usuwa wiersze niespełniające warunku.',['Prawda','Fałsz'],1,'Filtr ukrywa wiersze. Po wyłączeniu filtra wracają do widoku.','Pomyśl, co zobaczysz po wyczyszczeniu filtra.'],
+['Jakie wyniki może zwrócić =LICZBA.CAŁK(LOS()*6) bez dodawania jedynki?',['1–6','0–5','0–6'],1,'Najmniejszy wynik to 0. Liczba przed zaokrągleniem zawsze jest mniejsza od 6.','Rozważ dwa losowania: 0 oraz 0,999. Pomnóż każde przez 6.'],
+['Jak sprawdzisz w modelu stałą prędkość pojazdu?',['Koło z udziałami kolejnych czasów','Wykres punktowy XY: czas na X, droga na Y','Słupki posortowane według długości'],1,'Oblicz drogę s=v·t. Punkty drogi od czasu leżą na prostej o stałym nachyleniu.','Potrzebujesz dwóch wielkości liczbowych. Która zmienia się wraz z upływem czasu?']]}
+];
+const icons=['M3 3h18v18H3z M3 9h18 M9 3v18','M4 17l5-10 5 10 6-10','M3 19h18 M6 16V9 M12 16V4 M18 16v-5'];
+function text(x,y,value){return '<text x="'+x+'" y="'+y+'" fill="currentColor" text-anchor="middle">'+value+'</text>'}
+function diagram(card){
+ const [name,,caption,cells,kind]=card;
+ let parts='',height=125;
+ if(cells){
+ const cols=cells[0]==='Start'||cells[0]==='Imię'||cells[0]==='A1'?3:cells[0]==='LOS()'||cells.includes('C')?4:cells.includes('B')?3:2;
+ const w=340/cols;height=Math.ceil(cells.length/cols)*27+4;
+ cells.forEach((v,i)=>{const x=i%cols*w+2,y=Math.floor(i/cols)*27+2;
+ parts+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="27" fill="'+(i===kind?'var(--accent)':'var(--paper)')+'" stroke="var(--line)"/><text x="'+(x+w/2)+'" y="'+(y+18)+'" text-anchor="middle" fill="'+(i===kind?'var(--paper)':'currentColor')+'">'+v+'</text>';});
+ }else{
+ parts='<path d="M34 9v83h282" fill="none" stroke="currentColor"/>';
+ if(kind==='line'){parts+='<path d="M60 70L160 32L268 56" fill="none" stroke="var(--accent)" stroke-width="4"/>';['8 °C','14 °C','10 °C'].forEach((v,i)=>parts+=text([60,160,268][i],[62,24,48][i],v)+text([60,160,268][i],112,['8:00','12:00','16:00'][i]));}
+ else{const pair=kind==='pair';(pair?[4,6,5,7]:[3,5,7]).forEach((v,i)=>{let x=pair?[58,100,207,249][i]:58+i*88;parts+='<rect x="'+x+'" y="'+(92-v*9)+'" width="30" height="'+v*9+'" fill="'+(pair&&i%2?'var(--ink)':'var(--accent)')+'"/>'+text(x+15,87-v*9,v);if(!pair)parts+=text(x+15,110,['VI','VII','VIII'][i]);});if(pair){parts+=text(92,111,'Marzec')+text(242,111,'Kwiecień')+text(170,135,'W parze: lewy = plan, prawy = wynik');height=145;}}
+ }
+ return '<figure><figcaption>Podgląd wizualny · <code>'+caption+'</code></figcaption><svg viewBox="0 0 344 '+height+'" role="img" aria-label="'+name+'"><title>'+name+'</title>'+parts+'</svg></figure>';
+}
+const select=document.querySelector('#lesson'),area=document.querySelector('#content'),stored=new Map();
+function render(){
+ const idx=['1-1','1-2','1-3','1-4'].indexOf(location.hash.slice(1));select.selectedIndex=Math.max(0,idx);const l=lessons[select.selectedIndex];
+ area.innerHTML='<h2>'+l.title+'</h2><p>Data: ....................</p><aside><strong>Cel operacyjny</strong><br>'+l.goal+'</aside><h2>Mechanika i wiedza bazowa</h2>'+l.cards.map((c,i)=>'<article><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+icons[i]+'" stroke="currentColor" stroke-width="2" fill="none"/></svg>'+c[0]+'</h3><p>'+c[1]+'</p>'+diagram(c)+(select.selectedIndex===0&&i===1?'<p><label>A1 <input id="price" type="number" value="8" step="1"></label> + B1 (12) = <output id="sum">20</output></p>':'')+'</article>').join('')+'<aside><strong>Typowy błąd i wskazówka</strong><p>'+l.tip+'</p></aside><h2>Słownik techniczny</h2><p>'+l.words+'</p><h2>Fast Check</h2><p>Wybierz odpowiedź. Możesz spróbować ponownie.</p>';
+ if(document.querySelector('#price')) document.querySelector('#price').oninput=e=>{let n=e.target.valueAsNumber;const val=Number.isFinite(n)?String(n+12):'—';document.querySelector('#sum').textContent=val;const labels=e.target.closest('article').querySelectorAll('svg[role=img] text');labels[5].textContent=Number.isFinite(n)?n:'—';labels[7].textContent=val;};
+ l.quiz.forEach(([question,choices,correct,why,hint],i)=>{
+ const box=document.createElement('fieldset'),key=select.selectedIndex+'-'+i;
+ box.innerHTML='<legend>'+question+'</legend><div class="opts"></div><p role="status"></p>';
+ const status=box.lastElementChild,opts=box.querySelector('.opts');
+ function feedback(j){status.textContent=j===correct?'Dobrze. '+why:(j===-1?'Wskazówka. ':'Spróbuj jeszcze raz. ')+hint;[...opts.children].forEach((b,k)=>{if(k<choices.length)b.setAttribute('aria-pressed',String(j===k));});}
+ [...choices,'Pokaż wskazówkę'].forEach((s,j)=>{const b=document.createElement('button');b.textContent=s;if(j<choices.length)b.setAttribute('aria-pressed','false');b.onclick=()=>{const choice=j===choices.length?-1:j;stored.set(key,choice);feedback(choice);};opts.append(b);});
+ area.append(box);if(stored.has(key))feedback(stored.get(key));
+ });
+}
+select.onchange=()=>{location.hash='1-'+(select.selectedIndex+1);};window.addEventListener('hashchange',render);
+document.querySelector('#focus').onclick=e=>{e.currentTarget.setAttribute('aria-pressed',String(document.body.classList.toggle('focus')));};render();
+</script></html>
