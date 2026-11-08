@@ -17,3 +17,4 @@ main{margin:0 auto;align-self:start}#sidebar{position:sticky;top:0;max-height:10
 .sample>div{padding:.6rem;background:white;color:#132332;border-radius:8px;margin:.3rem 0 .8rem}
 .sample img{max-width:100%;max-height:100px}
 #session-end::backdrop{background:#182a30}
+.issue-number{background:#ffe4a3;color:#392700;border-radius:3px;outline:2px solid #ffe4a3}.feedback-box ol{padding-inline-start:1.5em}.feedback-box li{margin:.65em 0}.feedback-box li button{font-weight:700}#code::selection{background:#f8d782;color:#16202a}

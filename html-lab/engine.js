@@ -2,18 +2,8 @@ const PARK_SVG='<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"
 const PARK_DATA='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(PARK_SVG);
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function parseHTML(code){return new DOMParser().parseFromString(code,'text/html');}
-function syntaxNotes(code){
- const notes=[],stack=[],voids=new Set('area base br col embed hr img input link meta param source track wbr'.split(' '));
- const stripped=code.replace(/<!--[\s\S]*?-->/g,'').replace(/<(style|script)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,'');
- const tokens=stripped.match(/<\/?[a-zA-Z][\w:-]*(?:\s+(?:[^<>"']|"[^"]*"|'[^']*')*)?\s*\/?>/g)||[];
- for(const token of tokens){const tag=token.match(/^<\/?([\w:-]+)/)[1].toLowerCase();const end=token.startsWith('</');if(voids.has(tag)){if(end)notes.push(`Element ${tag} nie potrzebuje znacznika zamykającego.`);continue;}if(end){if(stack.at(-1)===tag)stack.pop();else{notes.push(`Sprawdź </${tag}>: ${stack.length?'najpierw zamknij <'+stack.at(-1)+'>.':'brakuje odpowiadającego znacznika otwierającego.'}`);const pos=stack.lastIndexOf(tag);if(pos>=0)stack.splice(pos);}}else stack.push(tag);}
- if(stack.length)notes.push('Domknij elementy: '+[...new Set(stack)].map(t=>'</'+t+'>').join(', ')+'.');
- const remainder=stripped.replace(/<!doctype[^>]*>/gi,'').replace(/<\/?[a-zA-Z][\w:-]*(?:\s+(?:[^<>"']|"[^"]*"|'[^']*')*)?\s*\/?>/g,'');
- if(/<\/?[a-zA-Z]/.test(remainder))notes.push('Sprawdź nawiasy < > oraz cudzysłowy w znaczniku.');
- return [...new Set(notes)].slice(0,5);
-}
 function inspect(code,lesson){
- const doc=parseHTML(code);const notes=syntaxNotes(code);
+ const doc=parseHTML(code);const scan=scanSource(code), notes=scan.problems.map(p=>p.msg);
  const results=lesson.rules.map(r=>{const els=[...doc.querySelectorAll(r.selector)].filter(el=>{
   if(!['IMG','META'].includes(el.tagName)&&!el.textContent.trim())return false;
   if(r.attr==='css-color')return !!el.style.color;
@@ -23,7 +13,7 @@ function inspect(code,lesson){
  if(lesson.full){results.push({label:'Dokument ma DOCTYPE HTML5, html lang="pl", head, body i UTF-8.',ok:/<!doctype\s+html\s*>/i.test(code)&&/<html\b/i.test(code)&&doc.documentElement.lang==='pl'&&/<head\b/i.test(code)&&/<body\b/i.test(code)&&!!doc.querySelector('meta[charset="UTF-8" i]')});}
  if(doc.querySelector('script,iframe,object,embed,form,base')||[...doc.querySelectorAll('*')].some(el=>[...el.attributes].some(a=>/^on/i.test(a.name))))notes.push('W tym ćwiczeniu używaj HTML i CSS bez skryptów, formularzy i osadzonych stron.');
  results.push({label:'Znaczniki mają poprawną kolejność i jawne zamknięcia.',ok:notes.length===0});
- return {results,notes,ok:results.every(r=>r.ok)};
+ return {results,notes,scan,ok:results.every(r=>r.ok)};
 }
 function cleanDocument(code,preview=true){
  const doc=parseHTML(code);
