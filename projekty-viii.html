@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kod i projekty · Klasa VIII</title>
+<style>
+*{box-sizing:border-box}body{--ink:#152c38;--muted:#405964;--paper:#fff;--wash:#edf4f4;--accent:#076652;--line:#9cb4b4;margin:0;background:var(--wash);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}main{max-width:960px;margin:auto;padding:clamp(14px,4vw,38px)}header,article,fieldset,aside{background:var(--paper);padding:clamp(16px,3vw,28px);border:1px solid var(--line);border-radius:14px;margin:14px 0}h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1}h2,h3{line-height:1.25}h3{display:flex;gap:.65em;align-items:center}h3 svg{width:24px;height:24px;color:var(--accent);flex:none}button,select,input{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:8px;min-height:44px;max-width:100%}button{cursor:pointer}button:hover,button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 -3px var(--accent)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}a{color:var(--accent)}nav,.opts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}figure{background:var(--wash);border:1px solid var(--line);border-radius:9px;margin:14px 0 0;padding:12px}figcaption,small{color:var(--muted)}figure svg{display:block;width:100%;max-width:520px;margin:6px auto;color:var(--ink);font:13px ui-monospace,monospace}code{font:1em ui-monospace,monospace;overflow-wrap:anywhere}fieldset{min-width:0}legend{font-weight:700;max-width:100%;padding:0 5px}p[role=status]{margin:.6em 0 0;color:var(--accent);font-weight:650}.focus{--ink:#fff;--paper:#111;--wash:#000;--muted:#eee;--line:#ccc;--accent:#ffdf65}.focus main{max-width:790px;line-height:1.85}.focus figure svg{font-weight:bold}label{font-weight:600}output{font-weight:bold}
+</style>
+<main><a href="./#class/8/notes">← Notatki klasy VIII</a><header><small>Informatyka · Klasa VIII · Działy 3 i 4</small><h1>Kod i projekty</h1><nav><label for="lesson">Lekcja</label><select id="lesson"><option>3 · C++ (zamiast Pythona)</option><option>4.1 · Dokumentacja zawodów</option><option>4.2 · Sterowanie obiektem</option></select><button id="focus" aria-pressed="false">Tryb skupienia / wysoki kontrast</button></nav></header><section id="content"></section></main>
+<script>
+const lessons=[
+{title:'Programowanie w C++ · Jak z przepisu powstaje program?',goal:'Prześledź drogę od pomysłu do programu. Rozpoznaj algorytm, nawet gdy zmieni się język zapisu.',cards:[
+['Od zadania do programu','Chcesz sprawdzić, czy wynik jest parzysty. Najpierw określ dane i wynik. Zapisz warunek w kodzie C++. Kompilator tłumaczy kod przed uruchomieniem.','Droga programu',['Zadanie','Kod C++','Kompilacja','Program'],'Wejście: 8 → sprawdź resztę z dzielenia przez 2 → parzysta'],
+['Jedna liczba czy cała drużyna?','Zmienna przechowa jeden wynik. Tablica wynik przechowa wyniki trzech rund. Numer miejsca (indeks) liczymy od zera. Funkcja może dostać dane i wykonać jedno zadanie, np. znaleźć minimum.','Tablica int wynik[3] = {7, 2, 5};',['wynik[0]','wynik[1]','wynik[2]'],'7|2|5'],
+['Ten sam algorytm w dwóch językach','Szukając liczby, sprawdzaj kolejne pola. Sortując przez wybór, znajdź najmniejszą liczbę w nieuporządkowanej części. Zamień ją z pierwszą liczbą tej części. Powtarzaj dla pozostałych pól.','Sortowanie przez wybór',['7  2  5','2  7  5','2  5  7'],'Start → wybierz 2 → z pozostałych wybierz 5']],
+tip:'Kompilacja sprawdza zapis, ale nie gwarantuje dobrego wyniku. Sprawdź algorytm na małym przykładzie. Dla liczb naturalnych n % 10 daje ostatnią cyfrę, a n / 10 (dzielenie całkowite) ją usuwa. Dla dodatnich liczb algorytm Euklidesa wyznacza NWD przez odejmowanie lub reszty z dzielenia.',words:'Kompilator — tłumaczy kod przed wykonaniem. Tablica — ponumerowane pola na dane tego samego typu. Funkcja — wydzielona część programu.',
+quiz:[
+['Czy sortowanie przez wybór i algorytm Euklidesa można zapisać zarówno w Pythonie, jak i C++?',['Prawda','Fałsz'],0,'Kroki algorytmu zostają te same. Zmienia się sposób ich zapisania.','Wyobraź sobie sortowanie kart na stole. Czy potrzebujesz do tego konkretnego języka?'],
+['Co w przykładzie wynik[3] przechowuje kilka wyników pod jedną nazwą?',['Kompilator','Tablica','Warunek'],1,'Każdy wynik zajmuje osobne pole tablicy. Wybierasz je indeksem.','Poszukaj struktury, w której każde miejsce ma numer.'],
+['Czym różni się praca kompilatora od pracy interpretera?',['Oba wyłącznie szukają błędów.','Interpreter zawsze tworzy osobny plik wykonywalny.','Kompilator tłumaczy kod przed startem; interpreter wykonuje instrukcje podczas działania.'],2,'W typowym projekcie C++ najpierw budujesz program, potem go uruchamiasz.','Zastanów się, kiedy powstaje program gotowy do uruchomienia.']]},
+{title:'4.1 · Dokumentacja szkolnej imprezy sportowej',goal:'Przygotujcie relację, z której czytelnik dowie się, kto wygrał i skąd pochodzi wynik.',cards:[
+['Jedno wydarzenie, trzy role','Przed zawodami ustalcie, kto zapisuje punkty, kto zbiera zdjęcia, a kto składa relację. Pracujcie we wspólnym folderze. Każda osoba powinna wiedzieć, gdzie oddać swoją część.','Plan pracy zespołu',['Punktacja','Zdjęcia','Relacja'],'arkusz|album|prezentacja'],
+['Z arkusza do sprawozdania','Wpisz punkty raz. Zsumuj wyniki rund, posortuj drużyny i przygotuj wykres. Wstaw tabelę lub wykres do dokumentu. Jeśli wklejasz kopię, po zmianie punktów odśwież także relację.','Dwie rundy drużyny Lisów',['Runda 1','Runda 2','Suma'],'8 pkt|6 pkt|14 pkt'],
+['Zdjęcia i film z podpisem','Wybierz zdjęcie oddające ważny moment. Dodaj krótki podpis. Zanim użyjesz cudzego zdjęcia lub muzyki, sprawdź warunki wykorzystania. Ustal z osobami nagrywanymi, czy chcą znaleźć się w relacji.','Od zdjęcia do slajdu',['Wybór ujęcia','Sprawdzenie','Slajd'],'Co widać? → Czy wolno go użyć? → Dodaj podpis i autora']],
+tip:'Link do zdjęcia mówi, gdzie je znaleziono. Sam link nie mówi, czy wolno je wykorzystać. Sprawdź źródło i warunki licencji.',words:'Chmura — wspólne miejsce na pliki w sieci. Licencja — warunki użycia utworu. Multimedia — połączenie np. obrazu, dźwięku i filmu.',
+quiz:[
+['W relacji szkolnej możesz dowolnie użyć każdego nagrania z internetu.',['Prawda','Fałsz'],1,'Dostęp do pliku nie oznacza dowolności użycia. Sprawdź warunki i uszanuj nagrywane osoby.','Czy przycisk pobierania wyjaśnia, na co zgodził się autor?'],
+['Tabela i wykres są już w arkuszu. Jak przenieść je do relacji bez przepisywania?',['Wstawić lub skopiować gotową tabelę i wykres.','Przepisać każdy wynik.','Wpisać wyniki z pamięci.'],0,'Przenosisz gotowe dane i zmniejszasz ryzyko pomyłki przy przepisywaniu.','Która czynność zachowa gotowe zestawienie?'],
+['Który plan pozwoli trzem osobom przygotować całą relację?',['Każdy robi osobny album.','Jedna osoba sama wykonuje wszystkie zadania.','Jedna opracowuje wyniki, druga zdjęcia, trzecia składa prezentację.'],2,'Każdy odpowiada za określoną część. Na końcu sprawdzacie wspólny materiał.','Kto w każdym planie sprawdzi punkty, a kto połączy materiały?']]},
+{title:'4.2 · Sterowanie obiektem na ekranie',goal:'Zaplanuj ruch postaci. Przewiduj jej położenie i sprawdź, czy reaguje na granicę planszy.',cards:[
+['Zapisz regułę ruchu','Ustal, co uruchamia ruch i jaki ma być efekt. Przykład: po naciśnięciu strzałki w prawo postać przesuwa się o jedno pole. Zacznij od przewidzenia nowej pozycji.','Jeden ruch na osi x',['Start','Pole obok','Po ruchu'],'x = 2|krok +1|x = 3'],
+['Narysuj kwadrat pętlą','Zmienna bok określa długość kroku. W funkcji kwadrat(bok) powtórz cztery razy: idź o bok, obróć się o 90°. Po czterech powtórzeniach wrócisz na start.','Cztery odcinki, jedna instrukcja',[],'square'],
+['Sprawdź ruch przy krawędzi','Jedna osoba pisze kod, druga przewiduje wynik. Zamieńcie się rolami. Ustaw postać tuż przy prawej krawędzi. Warunek powinien zatrzymać ruch, zanim postać opuści planszę.','Test planszy z polami od 0 do 4',['Start','Próba w prawo','Po teście'],'x = 4|4 + 1 > 4|x = 4']],
+tip:'Testuj środek planszy i jej brzeg. Program może działać w środku, choć przy krawędzi robi krok za daleko.',words:'Warunek — wybiera działanie. Pętla — powtarza instrukcje. Test — porównanie wyniku z przewidywaniem.',
+quiz:[
+['Każdy krok postaci trzeba zapisać oddzielnie.',['Prawda','Fałsz'],1,'Pętla powtarza zapisane polecenia, a funkcja pozwala ich ponownie użyć.','Sprawdź, co pozostaje takie samo podczas rysowania boków kwadratu.'],
+['Jak cztery razy wykonać ruch i obrót o 90°?',['Powtórzyć tylko obrót.','Włożyć ruch i obrót do pętli o czterech powtórzeniach.','Zwiększyć krok cztery razy.'],1,'W każdym obiegu powstaje jeden bok i obrót przed następnym bokiem.','Które dwie czynności składają się na jedno powtórzenie?'],
+['Pozycja to x, a ostatnie pole to 4. Kiedy pozwolisz na ruch o +1?',['Gdy x + 1 jest najwyżej 4.','Zawsze, gdy x wynosi 4.','Dopiero gdy x przekroczy 4.'],0,'Warunek sprawdza przyszłą pozycję. Przy x = 4 następny krok zostaje zatrzymany.','Podstaw x = 3, potem x = 4. Na którym polu zakończyłby się każdy ruch?']]}];
+const icons=['M3 4h18v16H3z M6 8l3 3-3 3 M12 15h5','M3 5h18v14H3z M9 5v14 M15 5v14','M3 17l6-7 4 3 7-9 M15 4h5v5'];
+const escapeText=v=>v.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+function diagram([,,caption,labels,note]){
+ let drawing='',alt='';
+ if(note==='square'){
+ drawing='<path d="M157 70h96v-54h-96z" fill="none" stroke="currentColor" stroke-width="2" transform="translate(25 0) scale(.56 1)"/><text x="160" y="49">4 × (krok + obrót)</text><circle cx="113" cy="70" r="5" fill="currentColor"/><text x="45" y="75">Start</text>';alt='Cztery równe boki. Po ostatnim obrocie postać wraca do punktu startu.';
+ }else{const values=note.includes('|')?note.split('|'):null,w=360/labels.length;
+ labels.forEach((label,i)=>{const x=i*w+3; drawing+='<rect x="'+x+'" y="7" width="'+(w-8)+'" height="'+(values?58:36)+'" rx="6" fill="var(--paper)" stroke="currentColor"/><text text-anchor="middle" x="'+(x+(w-8)/2)+'" y="30">'+escapeText(label)+'</text>';if(values)drawing+='<text text-anchor="middle" x="'+(x+(w-8)/2)+'" y="53">'+escapeText(values[i])+'</text>';});alt=values?labels.map((k,i)=>k+': '+values[i]).join('. '):labels.join(' → ');}
+ return '<figure><figcaption><strong>Podgląd wizualny</strong> · '+escapeText(caption)+'</figcaption><svg viewBox="0 0 360 '+(note==='square'?85:note.includes('|')?72:51)+'" role="img" aria-label="'+escapeText(alt)+'" style="fill:currentColor">'+drawing+'</svg>'+(!note.includes('|')?'<small>'+escapeText(note==='square'?alt:note)+'</small>':'')+'</figure>';}
+
+const select=document.querySelector('#lesson'),area=document.querySelector('#content'),stored=new Map();
+function render(){
+ const idx=['cpp','4-1','4-2'].indexOf(location.hash.slice(1));select.selectedIndex=Math.max(0,idx);const l=lessons[select.selectedIndex];
+ area.innerHTML='<h2>'+l.title+'</h2><p>Data: ....................</p><aside><strong>Cel operacyjny</strong><br>'+l.goal+'</aside><h2>Mechanika i wiedza bazowa</h2>'+l.cards.map((c,i)=>'<article><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+icons[i]+'" stroke="currentColor" stroke-width="2" fill="none"/></svg>'+c[0]+'</h3><p>'+c[1]+'</p>'+diagram(c)+'</article>').join('')+'<aside><strong>Typowy błąd i wskazówka</strong><p>'+l.tip+'</p></aside><h2>Słownik techniczny</h2><p>'+l.words+'</p><h2>Fast Check</h2><p>Wybierz odpowiedź. Możesz spróbować ponownie.</p>';
+
+ l.quiz.forEach(([question,choices,correct,why,hint],i)=>{
+ const box=document.createElement('fieldset'),key=select.selectedIndex+'-'+i;
+ box.innerHTML='<legend>'+question+'</legend><div class="opts"></div><p role="status"></p>';
+ const status=box.lastElementChild,opts=box.querySelector('.opts');
+ function feedback(j){status.textContent=j===correct?'Dobrze. '+why:(j===-1?'Wskazówka. ':'Spróbuj jeszcze raz. ')+hint;[...opts.children].forEach((b,k)=>{if(k<choices.length)b.setAttribute('aria-pressed',String(j===k));});}
+ [...choices,'Pokaż wskazówkę'].forEach((s,j)=>{const b=document.createElement('button');b.textContent=s;if(j<choices.length)b.setAttribute('aria-pressed','false');b.onclick=()=>{const choice=j===choices.length?-1:j;stored.set(key,choice);feedback(choice);};opts.append(b);});
+ area.append(box);if(stored.has(key))feedback(stored.get(key));
+ });
+}
+select.onchange=()=>{location.hash=['cpp','4-1','4-2'][select.selectedIndex];};window.addEventListener('hashchange',render);
+document.querySelector('#focus').onclick=e=>{e.currentTarget.setAttribute('aria-pressed',String(document.body.classList.toggle('focus')));};render();
+</script></html>
+

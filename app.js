@@ -5,7 +5,7 @@ import {grade5Notes} from './notes-grade5.js?v=2';
 import {grade6Notes} from './notes-grade6.js?v=2';
 import {grade7Notes} from './notes-grade7.js?v=2';
 const noteContents = {...grade4Notes,...grade5Notes,...grade6Notes,...grade7Notes};
-import {curriculum} from './curriculum.js';
+import {curriculum} from './curriculum.js?v=cpp34';
 for (const topic of curriculum.filter(t => t.grade === 8 && t.chapter === '1')) {
   const fragment = topic.number.replace('.', '-');
   noteContents['topic-8-' + fragment] = {
@@ -14,6 +14,13 @@ for (const topic of curriculum.filter(t => t.grade === 8 && t.chapter === '1')) 
     body: '<p>Obejrzyj trzy przykłady i sprawdź swoje odpowiedzi.</p><p><a href="https://informatyk-pruszcz.github.io/informatyka/arkusz-viii.html#' + fragment + '">Otwórz lekcję ' + topic.number + ' w pracowni arkusza →</a></p>',
     source: 'Opracowanie na podstawie notatek nauczyciela.'
   };
+}
+for (const [id, anchor, summary] of [
+  ['3','cpp','C++ zamiast Pythona: od kodu źródłowego do sortowania tablicy.'],
+  ['4-1','4-1','Przygotujcie wyniki zawodów, zdjęcia i wspólną relację.'],
+  ['4-2','4-2','Zaplanuj ruch postaci i przetestuj granice planszy.']
+]) {
+  noteContents['topic-8-'+id]={pending:false,summary,body:'<p>'+summary+'</p><p><a href="https://informatyk-pruszcz.github.io/informatyka/projekty-viii.html#'+anchor+'">Otwórz notatkę i Fast Check →</a></p>',source:'Na podstawie notatki nauczyciela do programu „Lubię to!”.'};
 }
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';

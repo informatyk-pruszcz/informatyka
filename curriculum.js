@@ -710,6 +710,7 @@ export const curriculum = [
     "hours": 2,
     "optional": false
   },
+  {"grade":8,"chapter":"3","section":"3. Programowanie w języku C++ (zamiast Pythona)","number":"3","title":"Programowanie w C++ — przegląd działu","hours":13,"optional":true},
   {
     "grade": 8,
     "chapter": "4",
