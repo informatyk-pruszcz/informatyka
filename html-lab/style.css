@@ -10,3 +10,10 @@ main{margin:0 auto;align-self:start}#sidebar{position:sticky;top:0;max-height:10
 .main-menu-link{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;background:var(--soft);border:1px solid var(--green);color:var(--green);border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none}.main-menu-link:hover{background:var(--green);color:var(--surface)}@media(max-width:850px){.top{height:auto;min-height:86px;flex-wrap:wrap;gap:12px;padding:16px}.top .main-menu-link{order:3;width:100%}.top-actions{margin-left:auto}}
 
 .top{position:sticky;top:0;z-index:20}
+
+.session-strip,.choices{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.session-strip{justify-content:space-between;padding:.65rem 0;margin-bottom:.8rem;border-bottom:1px solid currentColor;font-size:.86rem}
+#export-now{padding:0;border:0;background:none;color:inherit;text-decoration:underline}
+.sample>div{padding:.6rem;background:white;color:#132332;border-radius:8px;margin:.3rem 0 .8rem}
+.sample img{max-width:100%;max-height:100px}
+#session-end::backdrop{background:#182a30}
