@@ -26,5 +26,5 @@ function cleanDocument(code,preview=true){
  if(!doc.querySelector('meta[charset]')){const m=doc.createElement('meta');m.setAttribute('charset','utf-8');doc.head.prepend(m);}
  const viewport=doc.createElement('meta');viewport.name='viewport';viewport.content='width=device-width, initial-scale=1';doc.head.append(viewport);
  const style=doc.createElement('style');style.textContent='body{font-family:system-ui,sans-serif;line-height:1.6;margin:24px;color:#263e46;background:white;overflow-wrap:anywhere}img{max-width:100%;height:auto}table{border-collapse:collapse}td,th{border:1px solid #bdd0cc;padding:8px}h1{line-height:1.25}a{color:#167765}';doc.head.insertBefore(style,doc.head.querySelector('style'));
- return {html:'<!DOCTYPE html>\n'+doc.documentElement.outerHTML,title:doc.title||'Twoja strona'};
+ return {html:'<!DOCTYPE html>\n'+doc.documentElement.outerHTML,title:doc.title.trim()||'index.html'};
 }

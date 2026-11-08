@@ -18,3 +18,15 @@ main{margin:0 auto;align-self:start}#sidebar{position:sticky;top:0;max-height:10
 .sample img{max-width:100%;max-height:100px}
 #session-end::backdrop{background:#182a30}
 .issue-number{background:#ffe4a3;color:#392700;border-radius:3px;outline:2px solid #ffe4a3}.feedback-box ol{padding-inline-start:1.5em}.feedback-box li{margin:.65em 0}.feedback-box li button{font-weight:700}#code::selection{background:#f8d782;color:#16202a}
+
+/* Ramka przeglądarki jak na karcie pracy „Pierwsza strona”. */
+.lab-browser{margin:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+.lab-tabbar{display:flex;align-items:center;gap:8px;padding:7px 9px 0;background:#e2e8f0;border-bottom:1px solid var(--line)}
+.dark .lab-tabbar{background:#102129}
+.lab-lights{display:flex;gap:4px;flex:none}
+.lab-lights i{width:8px;height:8px;border-radius:50%;background:#ef645d}
+.lab-lights i:nth-child(2){background:#eaaa32}.lab-lights i:last-child{background:#38a36c}
+.lab-tab{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;background:var(--surface);padding:5px 9px;font-size:13px}
+.lab-tab #preview-title{min-width:0;color:var(--ink)}
+.lab-tabbar #refresh{margin-left:auto;min-width:30px;min-height:30px;color:var(--ink)}
+.lab-address{display:flex;align-items:center;justify-content:space-between;gap:4px 10px;flex-wrap:wrap;padding:5px 9px;font-size:12px;background:var(--surface);color:var(--ink);border-bottom:1px solid var(--line)}
