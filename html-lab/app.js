@@ -1,16 +1,31 @@
 const $=s=>document.querySelector(s), KEY=labSession.key;
 let store={version:1,drafts:{},passed:{}},current,hintIndex=0,timer,toastTimer;
 const free={id:'swobodna',group:4,title:'Twój pomysł. Twoja strona.',tag:'swobodna pracownia',time:'Bez pośpiechu',intro:'Tu decydujesz, co powstanie. Użyj poznanych znaczników, podejrzyj efekt i pobierz stronę. Nie ma punktów ani obowiązkowej treści.',example:'<h1>Mój pomysł</h1>\n<p>Wszystko zaczyna się od pierwszego zdania.</p>',task:'Zaplanuj stronę na wybrany temat. Potem dodawaj kolejne elementy. Dołączony obraz ma nazwę park.svg.',starter:full('<h1>Mój pomysł</h1>\n<p>Tu zaczyna się moja strona.</p>'),rules:[],hints:['Zacznij od tytułu, opisu i listy.','Skorzystaj ze ściągi HTML w prawym górnym rogu.'],try:'Pokaż projekt koledze. Poproś, żeby wskazał jedną rzecz, którą można jeszcze poprawić.'};
-function validStore(s){if(!s||s.version!==1||!s.drafts||typeof s.drafts!=='object'||Array.isArray(s.drafts)||!s.passed||typeof s.passed!=='object')throw Error('Nieprawidłowy plik prac.');for(const [id,v]of Object.entries(s.drafts)){if(![...LESSONS.map(l=>l.id),'swobodna'].includes(id)||typeof v!=='string'||v.length>30000)throw Error('Nieprawidłowy kod lub identyfikator ćwiczenia.');}return {version:1,drafts:{...s.drafts},passed:{...s.passed}};}
+function validStore(s){if(!s||s.version!==1||!s.drafts||typeof s.drafts!=='object'||Array.isArray(s.drafts)||!s.passed||typeof s.passed!=='object')throw Error('Nieprawidłowy plik prac.');for(const [id,v]of Object.entries(s.drafts)){if(![...LESSONS.map(l=>l.id),'swobodna'].includes(id)||typeof v!=='string'||v.length>30000)throw Error('Nieprawidłowy kod lub identyfikator ćwiczenia.');}const passed = {};
+  for (const lesson of LESSONS) {
+    const draft = s.drafts[lesson.id];
+    if (typeof draft !== 'string') continue;
+    const previous = s.passed[lesson.id];
+    if (typeof previous === 'string' && previous.length <= 30000 && inspect(previous, lesson).ok) {
+      passed[lesson.id] = previous;
+    } else if (draft !== lesson.starter && inspect(draft, lesson).ok) {
+      passed[lesson.id] = draft;
+    }
+  }
+  return {version:1,drafts:{...s.drafts},passed};
+}
 try{const s=localStorage.getItem(KEY);if(s)store=validStore(JSON.parse(s));if(localStorage.getItem('html-theme')==='dark')document.body.classList.add('dark');}catch{setTimeout(()=>toast('Nie odczytano zapisanych prac. Możesz wczytać kopię JSON.'),400);}
 function toast(text){$('#toast').textContent=text;$('#toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').style.display='none',4500);}
-function save(){if(!labSession.check())return;store.drafts[current.id]=$('#code').value;try{localStorage.setItem(KEY,JSON.stringify(store));$('#save-state').textContent='Zapisano na tym urządzeniu.';}catch{$('#save-state').textContent='Nie zapisano w przeglądarce — wyeksportuj prace.';}}
-function passed(id){return store.passed[id]===store.drafts[id]&&typeof store.drafts[id]==='string';}
+function save(){if(!labSession.check())return;store.drafts[current.id]=$('#code').value;const draft = store.drafts[current.id];
+if (current !== free && draft !== current.starter && store.passed[current.id] !== draft && inspect(draft,current).ok) {
+  store.passed[current.id] = draft;
+}try{localStorage.setItem(KEY,JSON.stringify(store));$('#save-state').textContent='Zapisano na tym urządzeniu.';}catch{$('#save-state').textContent='Nie zapisano w przeglądarce — wyeksportuj prace.';}}
+function passed(id){return typeof store.passed[id]==='string';}
 function sidebar(){const count=LESSONS.filter(l=>passed(l.id)).length;$('#progress').value=count;$('#progress-text').textContent=`${count} / ${LESSONS.length} ukończonych`;$('#lesson-nav').innerHTML=GROUPS.map((g,idx)=>`<div class="nav-group">${g}</div>`+LESSONS.filter(l=>l.group===idx).map(l=>`<a href="#${l.id}" class="lesson-link ${l.id===current.id?'active':''} ${passed(l.id)?'done':''}" ${l.id===current.id?'aria-current="step"':''}><span class="lesson-num">${passed(l.id)?'✓':String(LESSONS.indexOf(l)+1).padStart(2,'0')}</span><span>${escapeHTML(l.title)}</span></a>`).join('')).join('');}
 function goals(results){const rows=results||[...current.rules.map(r=>({label:r.label})),...(current.full?[{label:'Dokument ma DOCTYPE HTML5, html lang="pl", head, body i UTF-8.'}]:[])];$('#requirements').innerHTML='<ul class="requirements">'+rows.map(r=>`<li class="${r.ok===true?'good':r.ok===false?'bad':''}"><span>${r.ok===true?'✓':r.ok===false?'○':'□'}</span>${escapeHTML(r.label)}</li>`).join('')+'</ul>';}
 function preview(){const code=$('#code').value;const p=cleanDocument(code);$('#preview').srcdoc=p.html;$('#preview-title').textContent=p.title;$('#char-count').textContent=' · '+code.length+' znaków';paintNumbers();}
 function openLesson(){markedLines.clear();clearTimeout(timer);const id=location.hash.slice(1);current=LESSONS.find(l=>l.id===id)||(id==='swobodna'?free:LESSONS[0]);hintIndex=0;showDiscovery(current.id);$('#lesson-title').textContent=current.title;$('#lesson-summary').textContent=current.id==='swobodna'?'Eksperymentuj z HTML i CSS we własnym tempie.':'Jedna nowa umiejętność. Jeden widoczny efekt. Spróbuj samodzielnie.';$('#lesson-time').textContent='◷ '+current.time;$('#lesson-kind').textContent=current.tag;$('#group-name').textContent=GROUPS[current.group]||'Swobodna pracownia';$('#lesson-position').textContent=current.id==='swobodna'?'Bez oceniania':`Ćwiczenie ${LESSONS.indexOf(current)+1} z ${LESSONS.length}`;$('#intro').textContent=current.intro;$('#example').textContent=current.example;$('#task').textContent=current.task;$('#experiment').textContent=current.try;$('#code').value=store.drafts[current.id]??current.starter;$('#feedback').innerHTML='';$('#hint-text').hidden=true;$('#hint-count').textContent='';$('#solution').hidden=!current.solution;$('#check').innerHTML=current.id==='swobodna'?'Sprawdź znaczniki ✓':'Sprawdź zadanie ✓';$('#next').textContent=current===LESSONS.at(-1)?'Przejdź do swobodnej pracowni →':'Następne ćwiczenie →';$('#next').hidden=current.id==='swobodna';goals();preview();sidebar();document.body.classList.remove('menu-open');$('#toggle-menu').setAttribute('aria-expanded','false');document.title=current.title+' · Pracownia HTML';}
-$('#code').addEventListener('input',()=>{markedLines.clear();paintNumbers();delete store.passed[current.id];save();sidebar();$('#feedback').innerHTML='';goals();clearTimeout(timer);timer=setTimeout(preview,180);});
+$('#code').addEventListener('input',()=>{markedLines.clear();paintNumbers();save();sidebar();$('#feedback').innerHTML='';goals();clearTimeout(timer);timer=setTimeout(preview,180);});
 $('#code').addEventListener('scroll',()=>$('#line-numbers').scrollTop=$('#code').scrollTop);
 $('#code').addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();const el=e.target;el.setRangeText('  ',el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();$('#check').click();}});
 $('#check').onclick=()=>{clearTimeout(timer);preview();const result=inspect($('#code').value,current);goals(result.results);if(result.ok&&current.id!=='swobodna'){store.passed[current.id]=$('#code').value;save();sidebar();}drawConsole($('#code').value,current,result);};
@@ -43,9 +58,7 @@ $('#restore-file').onchange = async event => {
       const passed = {...store.passed};
       for (const id of ids) {
         delete passed[id];
-        const lesson = LESSONS.find(item => item.id === id);
-        const draft = incoming.drafts[id];
-        if (lesson && incoming.passed[id] === draft && inspect(draft,lesson).ok) passed[id] = draft;
+        if (typeof incoming.passed[id] === 'string') passed[id] = incoming.passed[id];
       }
       store = {version:1, drafts:{...store.drafts,...incoming.drafts}, passed};
       let message = 'Wczytano kod i postęp z pliku JSON.';
