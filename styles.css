@@ -230,3 +230,16 @@ body.dark .ws-card-check{background:#241734;border-color:#7e22ce}
   main,.detail.ws-detail,.ws-article{padding:0!important;margin:0!important;max-width:100%!important;border:0!important;background:#fff!important}
   .ws-sheet{border:0!important;box-shadow:none!important;padding:0!important}
 }
+.vat-header{background:#14532d;color:white;padding:22px;border-radius:12px;border-bottom:4px solid #f59e0b}
+.ws-sheet [data-vat][aria-invalid=true]{border:2px solid #b03737}
+body.dark .ws-sheet [data-vat][aria-invalid=true]{border-color:#ff9999}
+@media screen {
+  body.dark .ws-word-sheet:has(.ws-excel-grid),body.dark .ws-excel-grid{background:var(--surface);color:var(--text);border-color:var(--line)}
+  body.dark .ws-excel-grid td,body.dark .ws-excel-grid th{background:var(--surface);color:var(--text);border-color:#536674}
+  body.dark .ws-excel-grid thead th,body.dark .ws-excel-grid .ws-excel-rownum,body.dark .ws-excel-grid .ws-excel-row-head td{background:#2c404e;color:#eef5fa}
+  body.dark .ws-excel-grid .ws-sim-new-row td,body.dark .ws-excel-grid tr[style*="#dcfce7"] td{background:#21463a;color:#dbfbea}
+  body.dark .ws-excel-grid .ws-formula-yellow{background:#493b20;color:#ffe6a0}
+  body.dark .ws-excel-grid .ws-formula-placeholder{background:#24333e;color:#cbd7df}
+  body.dark .ws-excel-grid .ws-cond-red{background:#572a31!important;color:#ffdade!important}
+  body.dark .ws-word-sheet:has(.ws-excel-grid) :is(h3,h4,p,strong)[style*="color:#15803d"]{color:#8ae0af!important}
+}

@@ -1,8 +1,9 @@
+import {vatCard, renderVat, bindVat} from './vat-worksheet.js';
 // Interaktywne karty pracy dla klas 4, 7 i 8.
 // Treść wszystkich zadań, kroków, tabel, wskazówek, kryteriów oceniania i notatki dla nauczyciela zachowana wiernie 1:1 z oryginałów.
 import { downloadPrawoJazdyXlsx, PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 
-export const extraWorksheets = [
+export const extraWorksheets = [vatCard,
   {
     id: 'karta-4-1-urzadzenia-pliki',
     type: 'task',
@@ -111,6 +112,7 @@ function renderToolbar(activeId, gradeGroup) {
     ? [
         { id: 'karta-8-1-kosztorys-balu', icon: '🎈', label: 'Kosztorys Balu', sub: 'SUMA, JEŻELI, Formatowanie' },
         { id: 'karta-8-1-rentownosc-excel', icon: '🚗', label: 'Rentowność Warsztatu', sub: 'Adresowanie $, LICZ/SUMA.JEŻELI' },
+        { id: vatCard.id, icon: '🛒', label: 'Misja VAT', sub: 'Zakupy nastolatków' },
         { id: 'karta-8-1-tabele-przestawne', icon: '🔎', label: '3 Misje Detektywistyczne', sub: 'Tabele Przestawne (prawo-jazdy.xlsx)' }
       ]
     : gradeGroup === 7
@@ -1229,7 +1231,7 @@ function renderGrade8PivotWorksheet() {
         <button type="button" class="btn" id="piv-copy-csv-tsv">📋 Skopiuj wszystkie 500 wierszy do Excela</button>
         <button type="button" class="btn" id="piv-toggle-raw">👁️ Podgląd bazy danych Arkusz1 na stronie (500 wierszy)</button>
       </div>
-      <div id="piv-raw-preview" hidden style="margin-top:14px;background:#fff;border:1px solid #86efac;border-radius:10px;padding:12px">
+      <div id="piv-raw-preview" hidden style="margin-top:14px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
           <strong>📊 Podgląd arkusza <code>Arkusz1</code> z pliku <code>prawo-jazdy.xlsx</code> (16 województw, 24 miasta, 500 wierszy):</strong>
           <input type="search" id="piv-raw-search" placeholder="Filtruj podgląd (np. małopolskie, Toruń, 2018)..." style="max-width:320px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px">
@@ -1410,6 +1412,7 @@ function renderGrade8PivotWorksheet() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === vatCard.id) return renderVat(renderToolbar(id, 8));
   if (id === 'karta-4-1-urzadzenia-pliki') return renderGrade4DevicesWorksheet();
   if (id === 'karta-7-2-1-pierwsza-strona') return renderGrade7FirstPageWorksheet();
   if (id === 'karta-8-1-kosztorys-balu') return renderGrade8BalWorksheet();
@@ -1514,6 +1517,7 @@ export function bindExtraWorksheet(id, toast) {
   updateProgress();
 
   // ==========================================================================
+  if (id === vatCard.id) bindVat(sheet,state,saveState);
   // Logic for Grade 4 Worksheet (Auto-grading 25 points)
   // ==========================================================================
   if (id === 'karta-4-1-urzadzenia-pliki') {
