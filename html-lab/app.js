@@ -22,7 +22,7 @@ $('#reset').onclick=()=>{modal('Zacząć to ćwiczenie od nowa?',`<p>Wrócisz do
 $('#next').onclick=()=>{save();const index=LESSONS.indexOf(current);location.hash=LESSONS[index+1]?.id||'swobodna';};
 $('#playground').onclick=()=>location.hash='swobodna';$('#refresh').onclick=preview;
 function download(name,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-function downloadHTML(){save();download(current.id+'.html',cleanDocument($('#code').value,false).html,'text/html;charset=utf-8');toast('Pobrano stronę HTML. Otwórz plik w przeglądarce.');}
+function downloadHTML(){save();download(current.id+'.html',exportPage($('#code').value),'text/html;charset=utf-8');toast('Pobrano stronę HTML. Otwórz plik w przeglądarce.');}
 $('#download').onclick=downloadHTML;
 $('#backup').onclick=()=>{save();download('moje-prace-html.json',JSON.stringify(store,null,2),'application/json');};
 $('#restore').onclick=()=>$('#restore-file').click();
@@ -38,4 +38,38 @@ $('#new-student').onclick=()=>{
   modal('Przekazać stanowisko?', '<p>Kod i postęp tej sesji znikną ze wszystkich kart pracowni. Jeśli chcesz wrócić do zadań, najpierw wybierz „Eksportuj prace”.</p><button id="cancel-session">Wróć do pracy</button> <button class="primary" id="confirm-session">Zacznij nową sesję</button>');
   $('#cancel-session').onclick=()=>$('#modal').close();
   $('#confirm-session').onclick=labSession.restart;
+};
+// W przeglądarce otwiera się gotowa strona; pracownia odzyskuje dokładny kod ucznia.
+function exportPage(source) {
+  const bytes = new TextEncoder().encode(source);
+  const payload = btoa(Array.from(bytes, b => String.fromCharCode(b)).join(''));
+  return cleanDocument(source,false).html + '\n<!--pracownia-html:source:v1:' + payload + '-->';
+}
+$('#upload-html').onclick = () => $('#html-file').click();
+$('#html-file').onchange = async e => {
+  const file = e.target.files[0], lesson = current, editor = $('#code');
+  e.target.value = '';
+  if (!file) return;
+  try {
+    if (!/\.html?$/i.test(file.name)) throw Error('Wybierz plik z końcówką .html lub .htm.');
+    // Obraz w gotowej stronie może być duży. Do odzyskania kodu wystarczy końcówka pliku.
+    const tail = await file.slice(-180000).text();
+    const match = /\n<!--pracownia-html:source:v1:([A-Za-z0-9+/=]*)-->\s*$/.exec(tail);
+    if (!match && file.size > 120000) throw Error('Ten plik jest za duży. Edytor mieści 30 000 znaków.');
+    const source = match ? new TextDecoder('utf-8',{fatal:true}).decode(Uint8Array.from(atob(match[1]), c => c.charCodeAt(0))) : await file.text();
+    if (source.length > editor.maxLength) throw Error('Edytor mieści 30 000 znaków. Wybierz krótszy plik.');
+    if (!labSession.check() || current !== lesson) return;
+    modal('Wczytać kod do tego ćwiczenia?', '<p>Plik <strong id="incoming-file"></strong> zastąpi kod w ćwiczeniu „<span id="incoming-lesson"></span>”. Inne zadania pozostaną bez zmian.</p><button id="cancel-html">Anuluj</button> <button id="accept-html" class="primary">Wczytaj kod</button>');
+    $('#incoming-file').textContent = file.name;
+    $('#incoming-lesson').textContent = lesson.title;
+    $('#cancel-html').onclick = () => $('#modal').close();
+    $('#accept-html').onclick = () => {
+      $('#modal').close();
+      if (!labSession.check() || current !== lesson) return;
+      editor.value = source;
+      editor.dispatchEvent(new Event('input'));
+      editor.focus();
+      toast('Wczytano kod. Możesz go zmieniać i sprawdzić zadanie.');
+    };
+  } catch (err) { toast('Nie wczytano kodu. ' + err.message); }
 };
