@@ -17,6 +17,18 @@ export const extraWorksheets = [
     source: 'Karta pracy dla klasy 4 • Część 1: Urządzenia cyfrowe • Część 2: Programy, pliki i foldery • Strona 1–2 z 2'
   },
   {
+    id: 'karta-6-2-1-plan-lekcji',
+    type: 'task',
+    grades: [6],
+    title: 'KARTA PRACY: Mój tygodniowy plan lekcji w MS Excel 2016 (Temat 2.1: Kartka w kratkę)',
+    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
+    tags: ['Excel2016', 'PlanLekcji', 'SkrótyKlawiszowe', 'Lekcja 2.1', 'KartaPracy'],
+    summary: 'Temat 2.1: Kartka w kratkę. Tworzymy tygodniowy plan lekcji w MS Excel 2016 • Licznik 25 min, Shortcut HUD, 7 kroków + zadanie na 6 ⭐, interaktywny Mini-Arkusz i zapis postępu.',
+    body: `<h2>KARTA PRACY: MÓJ TYGODNIOWY PLAN LEKCJI — Temat 2.1: Kartka w kratkę (Klasa VI)</h2>
+<p>Odwzorujesz swój szkolny plan lekcji w arkuszu kalkulacyjnym MS Excel 2016, łącząc skróty klawiszowe (Tab, Enter, Shift+Strzałki, Ctrl+C/V, Ctrl+S) z trikiem dwukliku myszy.</p>`,
+    source: 'Informatyka – Klasa VI • Temat 2.1: Kartka w kratkę. Wprowadzenie do programu MS Excel 2016'
+  },
+  {
     id: 'karta-7-2-1-pierwsza-strona',
     type: 'task',
     grades: [7],
@@ -1842,12 +1854,40 @@ function renderGrade8MisjaVatWorksheet() {
       </ul>
     </section>
 
-    
+    <footer class="ws-footer">
+      <span>MISJA VAT | 2000 rekordów | dane fikcyjne: 2025</span>
+      <span>Strona 1–2 z 2</span>
+    </footer>
+  </div>`;
+}
+
+// ============================================================================
+// 7. KLASA 6: Temat 2.1. Kartka w kratkę — Mój tygodniowy plan lekcji (Excel)
+// ============================================================================
+function renderGrade6ScheduleWorksheet() {
+  return `
+  <div class="ws-sheet" id="ws-sheet" data-ws-id="karta-6-2-1-plan-lekcji">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:12px 16px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px">
+      <div>
+        <strong style="color:#0F172A">📘 Temat 2.1: Kartka w kratkę. Tworzymy tygodniowy plan lekcji w MS Excel 2016</strong>
+        <p style="margin:2px 0 0;font-size:0.9rem;color:#334155">Wszystkie Twoje postępy, notatki i stan licznika 25 minut zapisują się automatycznie w przeglądarce (<code>inf_pruszcz_klasa6_lekcja2_1</code>).</p>
+      </div>
+      <a class="btn primary" href="./klasa6/excel-plan-lekcji.html" target="_blank" rel="noopener" style="background:#2563EB;border-color:#2563EB;text-decoration:none;font-weight:700">
+        🚀 Otwórz na pełnym ekranie (klasa6/excel-plan-lekcji.html) ↗
+      </a>
+    </div>
+    <iframe
+      src="./klasa6/excel-plan-lekcji.html"
+      title="Temat 2.1: Kartka w kratkę. Tworzymy tygodniowy plan lekcji w MS Excel 2016"
+      style="width:100%;min-height:1450px;border:1px solid #CBD5E1;border-radius:16px;background:#F8FAFC"
+      loading="lazy"
+    ></iframe>
   </div>`;
 }
 
 export function renderExtraWorksheet(id) {
   if (id === 'karta-4-1-urzadzenia-pliki') return renderGrade4DevicesWorksheet();
+  if (id === 'karta-6-2-1-plan-lekcji') return renderGrade6ScheduleWorksheet();
   if (id === 'karta-7-2-1-pierwsza-strona') return renderGrade7FirstPageWorksheet();
   if (id === 'karta-8-1-kosztorys-balu') return renderGrade8BalWorksheet();
   if (id === 'karta-8-1-rentownosc-excel') return renderGrade8RentownoscWorksheet();
