@@ -1,7 +1,7 @@
 import {fastQuestions, mountFastCheck} from './fast-check.js';
 import {aiWriting} from './ai-writing.js';
 import {grade5Worksheets, isWorksheet, renderWorksheet, bindWorksheet} from './worksheets-grade5.js';
-import {extraWorksheets, isExtraWorksheet, renderExtraWorksheet, bindExtraWorksheet} from './worksheets-478.js?v=vat1';
+import {extraWorksheets, isExtraWorksheet, renderExtraWorksheet, bindExtraWorksheet} from './worksheets-478.js?v=vat2';
 const allWorksheets = [...grade5Worksheets, ...extraWorksheets];
 import {noteContents as grade4Notes} from './notes-grade4.js?v=scratch5';
 import {grade5Notes} from './notes-grade5.js?v=2';

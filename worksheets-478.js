@@ -1,9 +1,9 @@
-import {vatCard, renderVat, bindVat} from './vat-worksheet.js';
 // Interaktywne karty pracy dla klas 4, 7 i 8.
 // Treść wszystkich zadań, kroków, tabel, wskazówek, kryteriów oceniania i notatki dla nauczyciela zachowana wiernie 1:1 z oryginałów.
 import { downloadPrawoJazdyXlsx, PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
+import './zakupy-vat-xlsx-data.js';
 
-export const extraWorksheets = [vatCard,
+export const extraWorksheets = [
   {
     id: 'karta-4-1-urzadzenia-pliki',
     type: 'task',
@@ -63,6 +63,18 @@ export const extraWorksheets = [vatCard,
     body: `<h2>3 Misje Detektywistyczne – Tabele Przestawne w Excelu 2016</h2>
 <p>KARTA PRACY UCZNIA – ZADANIE PRAKTYCZNE • INFORMATYKA – KLASA 8 • Plik: prawo-jazdy.xlsx.</p>`,
     source: 'Zadanie Praktyczne: Tabele Przestawne w Excelu 2016 (prawo-jazdy.xlsx) • Strona 1–2 z 2'
+  },
+  {
+    id: 'karta-8-1-misja-vat',
+    type: 'task',
+    grades: [8],
+    title: 'KARTA PRACY: Nie pracuję, więc nie płacę podatków? Excel sprawdza! (Misja VAT)',
+    section: '1. Arkusz kalkulacyjny',
+    tags: ['ArkuszKalkulacyjny', 'Excel', 'TabelePrzestawne', 'Fragmentatory', 'WykresPrzestawny', 'MisjaVAT', 'KartaPracy'],
+    summary: 'MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • Plik do pobrania: Zakupy_nastolatkow_2000_rekordow.xlsx • Dwie tabele przestawne, wykres kolumnowy, dwa fragmentatory i analiza podatku VAT w zakupach nastolatków.',
+    body: `<h2>NIE PRACUJĘ, WIĘC NIE PŁACĘ PODATKÓW? EXCEL SPRAWDZA! • MISJA VAT</h2>
+<p>Masz 14 lat. Nie pracujesz. Nie rozliczasz PIT-u. Myślisz, że nie płacisz żadnych podatków? Sprawdź, ile podatku kryje się w zakupach podobnych do Twoich! Plik: Zakupy_nastolatkow_2000_rekordow.xlsx (2000 rekordów).</p>`,
+    source: 'MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • Klasa VIII • Strona 1–2 z 2'
   }
 ];
 
@@ -112,8 +124,8 @@ function renderToolbar(activeId, gradeGroup) {
     ? [
         { id: 'karta-8-1-kosztorys-balu', icon: '🎈', label: 'Kosztorys Balu', sub: 'SUMA, JEŻELI, Formatowanie' },
         { id: 'karta-8-1-rentownosc-excel', icon: '🚗', label: 'Rentowność Warsztatu', sub: 'Adresowanie $, LICZ/SUMA.JEŻELI' },
-        { id: vatCard.id, icon: '🛒', label: 'Misja VAT', sub: 'Zakupy nastolatków' },
-        { id: 'karta-8-1-tabele-przestawne', icon: '🔎', label: '3 Misje Detektywistyczne', sub: 'Tabele Przestawne (prawo-jazdy.xlsx)' }
+        { id: 'karta-8-1-tabele-przestawne', icon: '🔎', label: '3 Misje Detektywistyczne', sub: 'Tabele Przestawne (prawo-jazdy.xlsx)' },
+        { id: 'karta-8-1-misja-vat', icon: '🧾', label: 'Misja VAT (2000 rekordów)', sub: 'Tabele, Wykres i Fragmentatory' }
       ]
     : gradeGroup === 7
     ? [
@@ -1231,7 +1243,7 @@ function renderGrade8PivotWorksheet() {
         <button type="button" class="btn" id="piv-copy-csv-tsv">📋 Skopiuj wszystkie 500 wierszy do Excela</button>
         <button type="button" class="btn" id="piv-toggle-raw">👁️ Podgląd bazy danych Arkusz1 na stronie (500 wierszy)</button>
       </div>
-      <div id="piv-raw-preview" hidden style="margin-top:14px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px">
+      <div id="piv-raw-preview" hidden style="margin-top:14px;background:#fff;border:1px solid #86efac;border-radius:10px;padding:12px">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
           <strong>📊 Podgląd arkusza <code>Arkusz1</code> z pliku <code>prawo-jazdy.xlsx</code> (16 województw, 24 miasta, 500 wierszy):</strong>
           <input type="search" id="piv-raw-search" placeholder="Filtruj podgląd (np. małopolskie, Toruń, 2018)..." style="max-width:320px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px">
@@ -1411,13 +1423,449 @@ function renderGrade8PivotWorksheet() {
   </div>`;
 }
 
+// ============================================================================
+// 6. KLASA 8: NIE PRACUJĘ, WIĘC NIE PŁACĘ PODATKÓW? EXCEL SPRAWDZA! (Misja VAT)
+// ============================================================================
+function renderGrade8MisjaVatWorksheet() {
+  return `
+  <div class="ws-sheet" id="ws-sheet" data-ws-id="karta-8-1-misja-vat">
+    ${renderToolbar('karta-8-1-misja-vat', 8)}
+
+    <header class="ws-header-banner ws-banner-green">
+      <div class="ws-banner-top">
+        <div>
+          <span class="ws-eyebrow">MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • INFORMATYKA – KLASA VIII</span>
+          <h1>NIE PRACUJĘ, WIĘC NIE PŁACĘ PODATKÓW? EXCEL SPRAWDZA!</h1>
+          <p class="ws-subtitle">Plik źródłowy: <strong>Zakupy_nastolatkow_2000_rekordow.xlsx</strong> (arkusz <code>BAZA_ZAKUPÓW</code>, tabela <code>Zakupy</code>)</p>
+        </div>
+        <div class="ws-badge-icon" aria-hidden="true">🧾</div>
+      </div>
+      <div class="ws-student-bar">
+        <label class="ws-student-field">
+          <span>Imię i klasa:</span>
+          <input type="text" id="ws-student-name" placeholder="................................................">
+        </label>
+        <label class="ws-student-field">
+          <span>Data:</span>
+          <input type="text" id="vat-student-date" data-vat-ans="meta-date" placeholder="........................">
+        </label>
+      </div>
+    </header>
+
+    <!-- Wprowadzenie i cel zadania -->
+    <section class="ws-card ws-card-intro">
+      <div class="ws-context-box">
+        <p style="margin:0 0 10px;font-size:1.05rem;font-weight:700;color:#14532d">
+          Masz 14 lat. Nie pracujesz. Nie rozliczasz PIT-u. Myślisz, że nie płacisz żadnych podatków? Sprawdź, ile podatku kryje się w zakupach podobnych do Twoich!
+        </p>
+        <p style="margin:0">
+          <strong>Twój cel:</strong> stworzyć dwie tabele przestawne, wykres i dwa fragmentatory. Pracuj na komputerze w polskim Excelu. Baza to 2000 wybranych zakupów 16 fikcyjnych osób z całego 2025 r., a nie ich kompletne roczne wydatki.
+        </p>
+      </div>
+    </section>
+
+    <!-- Załącznik do pobrania: Zakupy_nastolatkow_2000_rekordow.xlsx -->
+    <section class="ws-card ws-card-setup">
+      <div class="ws-card-head">
+        <span class="ws-step-Time" style="background:#dcfce7;color:#166534">Załącznik do zadania (2000 rekordów · 12 kolumn)</span>
+        <h2>📥 Pobierz plik źródłowy: <code>Zakupy_nastolatkow_2000_rekordow.xlsx</code></h2>
+      </div>
+      <p style="margin:0 0 12px">
+        Pobierz oryginalny arkusz z bazą <strong>2000 transakcji</strong> (arkusz <code>BAZA_ZAKUPÓW</code> ze sformatowaną tabelą Excela o nazwie <code>Zakupy</code> w zakresie <code>A1:L2001</code>) lub podejrzyj dane bezpośrednio na stronie:
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+        <a class="btn primary" href="./Zakupy_nastolatkow_2000_rekordow.xlsx" download="Zakupy_nastolatkow_2000_rekordow.xlsx" id="vat-download-xlsx" style="background:#15803d;border-color:#15803d;font-weight:700;text-decoration:none">
+          📥 Pobierz plik: Zakupy_nastolatkow_2000_rekordow.xlsx
+        </a>
+        <a class="btn" href="./Misja_VAT_klasa_8_2000.pdf" download="Misja_VAT_klasa_8_2000.pdf" style="text-decoration:none">
+          📄 Pobierz kartę pracy (PDF)
+        </a>
+        <button type="button" class="btn" id="vat-download-csv">
+          📊 Pobierz jako CSV (Zakupy_nastolatkow_2000_rekordow.csv)
+        </button>
+        <button type="button" class="btn" id="vat-copy-tsv">
+          📋 Kopiuj 2000 wierszy do schowka (Ctrl+V do Excela)
+        </button>
+        <button type="button" class="btn" id="vat-toggle-raw">
+          👁️ Podgląd bazy BAZA_ZAKUPÓW na stronie (2000 rekordów)
+        </button>
+      </div>
+
+      <div id="vat-raw-preview" hidden style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+          <strong style="color:#14532d">📋 Podgląd arkusza <code>BAZA_ZAKUPÓW</code> (tabela <code>Zakupy</code> — 2000 wierszy danych):</strong>
+          <input type="search" id="vat-raw-search" placeholder="🔎 Szukaj osoby, produktu, kategorii (np. Pola, Słuchawki, Gry)..." style="max-width:360px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px">
+        </div>
+        <div class="ws-table-wrap" style="max-height:320px;overflow-y:auto" id="vat-raw-table-wrap"></div>
+      </div>
+
+      <div class="ws-table-wrap">
+        <table class="ws-excel-grid">
+          <thead>
+            <tr>
+              <th>Kolumna</th>
+              <th>Nazwa pola w tabeli <code>Zakupy</code></th>
+              <th>Przykładowa wartość (wiersz 2)</th>
+              <th>Opis / Zastosowanie w misjach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="ws-center-cell"><strong>A</strong></td><td><code>ID transakcji</code></td><td><code>T0001</code> … <code>T2000</code></td><td>Unikalny identyfikator zakupu (2000 rekordów)</td></tr>
+            <tr><td class="ws-center-cell"><strong>B</strong></td><td><code>Data zakupu</code></td><td><code>2025-01-01</code></td><td>Data transakcji z 2025 roku</td></tr>
+            <tr><td class="ws-center-cell"><strong>C</strong></td><td><code>Imię kupującego (fikcyjne)</code></td><td><code>Hania</code>, <code>Pola</code>, <code>Lena</code>…</td><td>16 fikcyjnych nastolatków (Wiersze w <strong>Misji 2</strong> + Fragmentator w <strong>Misji 4</strong>)</td></tr>
+            <tr><td class="ws-center-cell"><strong>D</strong></td><td><code>Wiek</code></td><td><code>13</code> lub <code>14</code></td><td>Wiek kupującego (13–14 lat)</td></tr>
+            <tr><td class="ws-center-cell"><strong>E</strong></td><td><code>Produkt lub usługa</code></td><td><code>Słuchawki przewodowe</code>…</td><td>19 produktów/usług (w <strong>Misji 5</strong> szukasz tu ceny słuchawek przewodowych)</td></tr>
+            <tr><td class="ws-center-cell"><strong>F</strong></td><td><code>Kategoria zakupów</code></td><td><code>Ubrania</code>, <code>Gry</code>, <code>Akcesoria</code>…</td><td>9 kategorii (Wiersze w <strong>Misji 1</strong> i <strong>Misji 3</strong> + Fragmentator w <strong>Misji 4</strong>)</td></tr>
+            <tr><td class="ws-center-cell"><strong>G</strong></td><td><code>Miejsce zakupu</code></td><td><code>Drogeria</code>, <code>Kino</code>…</td><td>Typ sklepu lub punktu usługowego</td></tr>
+            <tr><td class="ws-center-cell"><strong>H</strong></td><td><code>Cena brutto (PLN)</code></td><td><code>12,18 zł</code></td><td>Kwota zapłacona przy kasie (Wartości w <strong>Misji 1</strong> i <strong>Bonusie</strong>)</td></tr>
+            <tr><td class="ws-center-cell"><strong>I</strong></td><td><code>Stawka VAT</code></td><td><code>23%</code>, <code>8%</code>, <code>5%</code></td><td>Stawka podatku VAT (Wiersze w <strong>Bonusie</strong>)</td></tr>
+            <tr><td class="ws-center-cell"><strong>J</strong></td><td><code>Kwota VAT (PLN)</code></td><td><code>=ZAOKR(H2*I2/(1+I2);2)</code></td><td>Podatek zawarty w cenie brutto (Wartości w <strong>Misjach 1–5</strong> i <strong>Bonusie</strong>)</td></tr>
+            <tr><td class="ws-center-cell"><strong>K</strong></td><td><code>Cena netto (PLN)</code></td><td><code>=ZAOKR(H2-J2;2)</code></td><td>Cena bez podatku VAT</td></tr>
+            <tr><td class="ws-center-cell"><strong>L</strong></td><td><code>Miesiąc</code></td><td><code>01</code> … <code>12</code></td><td>Numer miesiąca zakupu (Wiersze w <strong>Bonusie</strong>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- START | przygotuj warsztat -->
+    <section class="ws-card">
+      <div class="ws-card-head">
+        <span class="ws-step-Time" style="background:#dcfce7;color:#166534">Strona 1 z 2 • Przygotowanie i Tabele Przestawne</span>
+        <h2>🚀 START oraz MISJE 1–2: Odkryj podatek i sprawdź, kto płaci najwięcej</h2>
+      </div>
+
+      <div class="ws-step-list">
+        <!-- START -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-start">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">START | przygotuj warsztat</span>
+            </div>
+            <p style="margin:6px 0 0">
+              Otwórz plik <code>Zakupy_nastolatkow_2000_rekordow.xlsx</code> i zapisz kopię jako <code>Misja_VAT_Imię.xlsx</code>. W arkuszu <code>BAZA_ZAKUPÓW</code> kliknij komórkę tabeli <code>Zakupy</code>. Wybierz <span class="ws-ui-path">Wstawianie → Tabela przestawna → Z tabeli/zakresu</span> (w niektórych wydaniach bezpośrednio <span class="ws-ui-path">Tabela przestawna</span>), potem <span class="ws-ui-path">Nowy arkusz → OK</span>. Nazwij nowy arkusz <code>ANALIZY</code>.
+            </p>
+          </div>
+        </article>
+
+        <!-- MISJA 1 -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-m1">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">MISJA 1 | ODKRYJ PODATEK</span>
+            </div>
+            <p style="margin:6px 0">W panelu <strong>Pola tabeli przestawnej</strong> przeciągnij:</p>
+            <ul class="ws-bullet-list">
+              <li><strong>Wiersze:</strong> <code>Kategoria zakupów</code>.</li>
+              <li><strong>Wartości:</strong> <code>Cena brutto (PLN)</code> oraz <code>Kwota VAT (PLN)</code>.</li>
+            </ul>
+            <p style="margin:6px 0 12px">
+              Przy każdym polu wartości wybierz <span class="ws-ui-path">Ustawienia pola wartości → Suma</span>, potem <span class="ws-ui-path">Format liczby → Walutowe, 2 miejsca dziesiętne</span>. Jeśli nie widzisz panelu, użyj <span class="ws-ui-path">Analiza tabeli przestawnej → Lista pól</span>.
+            </p>
+            <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1">
+              <div class="ws-grid-2" style="gap:10px;margin-bottom:8px">
+                <label class="ws-ans-line"><span>Suma brutto:</span> <input type="text" data-vat-ans="m1-brutto" placeholder="........................"> <span>zł</span></label>
+                <label class="ws-ans-line"><span>Suma VAT:</span> <input type="text" data-vat-ans="m1-vat" placeholder="........................"> <span>zł</span></label>
+              </div>
+              <label class="ws-ans-line"><span>Kategoria z największą kwotą VAT:</span> <input type="text" data-vat-ans="m1-max-cat" placeholder="................................................"></label>
+            </div>
+          </div>
+        </article>
+
+        <!-- MISJA 2 -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-m2">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">MISJA 2 | KTO PŁACI NAJWIĘCEJ?</span>
+            </div>
+            <p style="margin:6px 0">
+              Skopiuj całą pierwszą tabelę przestawną i wklej ją np. od komórki <code>A18</code>, zostawiając miejsce między tabelami. Kopia ułatwi wspólne połączenie fragmentatorów. W kopii usuń kategorię z <strong>Wierszy</strong> i cenę brutto z <strong>Wartości</strong>. Ustaw:
+            </p>
+            <ul class="ws-bullet-list">
+              <li><strong>Wiersze:</strong> <code>Imię kupującego (fikcyjne)</code>.</li>
+              <li><strong>Wartości:</strong> <code>Suma z Kwota VAT (PLN)</code>.</li>
+            </ul>
+            <p style="margin:6px 0 12px">
+              Kliknij kwotę VAT prawym przyciskiem: <span class="ws-ui-path">Sortuj → Sortuj od największych do najmniejszych</span>. Zapisz pierwsze trzy osoby i ich kwoty.
+            </p>
+            <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1">
+              <div class="ws-grid-2" style="gap:10px;margin-bottom:8px">
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                  <strong>1.</strong>
+                  <input type="text" data-vat-ans="m2-1-name" placeholder="Imię ...................." style="flex:1;min-width:110px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>/</span>
+                  <input type="text" data-vat-ans="m2-1-val" placeholder="............... zł" style="width:120px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>zł</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                  <strong>2.</strong>
+                  <input type="text" data-vat-ans="m2-2-name" placeholder="Imię ...................." style="flex:1;min-width:110px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>/</span>
+                  <input type="text" data-vat-ans="m2-2-val" placeholder="............... zł" style="width:120px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>zł</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:48%">
+                <strong>3.</strong>
+                <input type="text" data-vat-ans="m2-3-name" placeholder="Imię ...................." style="flex:1;min-width:110px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                <span>/</span>
+                <input type="text" data-vat-ans="m2-3-val" placeholder="............... zł" style="width:120px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                <span>zł</span>
+              </div>
+            </div>
+            <div class="ws-Subtle-tip" style="margin-top:10px">
+              ℹ️ <strong>Uwaga:</strong> ranking dotyczy VAT w zarejestrowanych zakupach. To nie jest osobiste rozliczenie podatkowe tych osób.
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- STRONA 2: ZOBACZ, FILTRUJ I WYCIĄGNIJ WNIOSKI -->
+    <section class="ws-card">
+      <div class="ws-card-head">
+        <span class="ws-step-Time" style="background:#dcfce7;color:#166534">Strona 2 z 2 • Wykres, Fragmentatory i Wnioski</span>
+        <h2>📊 ZOBACZ, FILTRUJ I WYCIĄGNIJ WNIOSKI</h2>
+      </div>
+
+      <div class="ws-step-list">
+        <!-- MISJA 3 -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-m3">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">MISJA 3 | PODATKI NA WYKRESIE</span>
+            </div>
+            <p style="margin:6px 0 0">
+              Skopiuj pierwszą tabelę do nowego arkusza <code>WYKRES</code>. Usuń z kopii cenę brutto, pozostawiając sumę VAT. Kliknij tę kopię: <span class="ws-ui-path">Analiza tabeli przestawnej → Wykres przestawny</span>. Wybierz <span class="ws-ui-path">Kolumnowy → Kolumnowy grupowany</span>. Nadaj tytuł <strong>„VAT w zakupach według kategorii”</strong>. Zadbaj o czytelne etykiety i kwoty w zł.
+            </p>
+          </div>
+        </article>
+
+        <!-- MISJA 4 -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-m4">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">MISJA 4 | FRAGMENTATORY W AKCJI</span>
+            </div>
+            <p style="margin:6px 0 10px">
+              Kliknij pierwszą tabelę: <span class="ws-ui-path">Analiza tabeli przestawnej → Wstaw fragmentator</span>. Zaznacz <code>Kategoria zakupów</code> i <code>Imię kupującego (fikcyjne)</code>. Rozsuń przyciski, aby nie zasłaniały tabel. Zaznacz kolejno każdy fragmentator: <span class="ws-ui-path">Fragmentator → Połączenia raportu</span>; zaznacz obie tabele oraz kopię do wykresu, jeśli ją utworzyłeś. Muszą korzystać z tego samego źródła. Jeśli tabeli nie ma na liście, utwórz ją ponownie przez skopiowanie pierwszej.
+            </p>
+            <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1;margin-bottom:10px">
+              <label class="ws-ans-line">
+                <span>Wybierz <strong>Pola</strong> oraz <strong>Gry</strong>. VAT po obu filtrach:</span>
+                <input type="text" data-vat-ans="m4-pola-gry" placeholder=".................." style="max-width:180px">
+                <span>zł.</span>
+              </label>
+            </div>
+            <p style="margin:0">
+              Sprawdź, czy zmieniły się tabele i wykres. Potem na obu fragmentatorach kliknij ikonę <strong>Wyczyść filtr</strong>. <code>Ctrl</code> pozwala wybrać kilka przycisków.
+            </p>
+          </div>
+        </article>
+
+        <!-- MISJA 5 -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-m5">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">MISJA 5 | ILE PODATKU JEST W TWOICH ZAKUPACH?</span>
+            </div>
+            <p style="margin:6px 0 10px">
+              Wybierz jedną fikcyjną osobę, pozostawiając wszystkie kategorie. Odczytaj jej sumę VAT. Porównaj ją z ceną słuchawek przewodowych: wybierz jedną ich cenę brutto z bazy (kolumna <code>Produkt lub usługa</code>). Oblicz: <strong>suma VAT ÷ wybrana cena słuchawek</strong>.
+            </p>
+            <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+                <label style="display:flex;align-items:center;gap:6px">
+                  <span>Osoba:</span>
+                  <input type="text" id="vat-m5-person" data-vat-ans="m5-person" placeholder="......................" style="width:130px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                </label>
+                <label style="display:flex;align-items:center;gap:6px">
+                  <span>VAT:</span>
+                  <input type="text" id="vat-m5-vat" data-vat-ans="m5-vat" placeholder="..............." style="width:110px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>zł.</span>
+                </label>
+                <label style="display:flex;align-items:center;gap:6px">
+                  <span>Słuchawki:</span>
+                  <input type="text" id="vat-m5-hp" data-vat-ans="m5-hp" placeholder="..............." style="width:110px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>zł.</span>
+                </label>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+                <label style="display:flex;align-items:center;gap:6px">
+                  <span>Iloraz:</span>
+                  <input type="text" id="vat-m5-ratio" data-vat-ans="m5-ratio" placeholder="..............." style="width:120px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                  <span>.</span>
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;flex:1">
+                  <span>Czy VAT wystarczyłby na jedną sztukę?</span>
+                  <input type="text" id="vat-m5-enough" data-vat-ans="m5-enough" placeholder="................ (TAK / NIE)" style="flex:1;min-width:120px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+                </label>
+              </div>
+              <p class="ws-subnote" style="margin:8px 0 0">
+                💡 <em>Pomocnik do Misji 5:</em> w bazie jest 138 zakupów produktu <code>Słuchawki przewodowe</code> w cenach brutto od <strong>22,34 zł</strong> do <strong>91,54 zł</strong> (np. w wierszu <code>T0004</code> Filip: <strong>79,24 zł</strong>, <code>T0005</code> Dawid: <strong>83,06 zł</strong>, <code>T0016</code> Lena: <strong>81,30 zł</strong>, <code>T0019</code> Hania: <strong>28,56 zł</strong>).
+              </p>
+            </div>
+            <div class="ws-Subtle-tip" style="margin-top:10px">
+              ℹ️ To porównanie wartości. VAT jest częścią zapłaconej ceny, nie dodatkową kwotą do wydania. Wynik nie opisuje każdego nastolatka ani pełnego roku jego zakupów.
+            </div>
+          </div>
+        </article>
+
+        <!-- BONUS -->
+        <article class="ws-step ws-step-star">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-bonus">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num ws-num-gold">BONUS | DETEKTYW PODATKOWY</span>
+            </div>
+            <p style="margin:6px 0 10px">
+              Skopiuj tabelę i ustaw w <strong>Wierszach</strong> <code>Miesiąc</code> lub <code>Stawka VAT</code>, a w <strong>Wartościach</strong> sumę brutto i sumę VAT. Wyczyść filtry. Sformułuj wniosek poparty dwiema liczbami:
+            </p>
+            <textarea rows="2" class="ws-textarea" data-vat-ans="bonus-text" placeholder="................................................................................................................................................................" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-family:inherit"></textarea>
+          </div>
+        </article>
+
+        <!-- FINAŁ -->
+        <article class="ws-step">
+          <label class="ws-step-check">
+            <input type="checkbox" data-step-check="vat-final">
+            <span class="ws-Cache"></span>
+          </label>
+          <div class="ws-step-body">
+            <div class="ws-step-header">
+              <span class="ws-step-num" style="background:#15803d">FINAŁ | ODPOWIEDZ I ZAPISZ PLIK</span>
+            </div>
+            <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1;margin-top:8px">
+              <label class="ws-ans-line" style="margin-bottom:8px">
+                <span><strong>1.</strong> Czy osoba, która nie pracuje, może płacić podatki?</span>
+                <input type="text" data-vat-ans="final-1" placeholder="................................">
+              </label>
+              <label class="ws-ans-line" style="margin-bottom:8px">
+                <span><strong>2.</strong> Dlaczego VAT na paragonie to nie podatek dochodowy?</span>
+                <input type="text" data-vat-ans="final-2" placeholder="................................................................................">
+              </label>
+              <label class="ws-ans-line">
+                <span><strong>3.</strong> Co najbardziej zaskoczyło Cię w wynikach?</span>
+                <input type="text" data-vat-ans="final-3" placeholder="..........................................">
+              </label>
+            </div>
+            <div class="ws-tip-box" style="margin-top:12px;background:#ecfdf5;border-color:#86efac">
+              <strong>📌 Zapamiętaj:</strong> konsument ponosi ekonomiczny ciężar VAT w cenie; sprzedawca rozlicza go z urzędem. PIT dotyczy dochodów. <code>VAT = brutto × stawka ÷ (1 + stawka)</code>, gdy stawka jest procentem w Excelu. Przy 23% VAT stanowi <code>23/123</code> ceny brutto.
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+        <button type="button" class="btn primary" id="vat-check-answers" style="background:#15803d;border-color:#15803d">
+          ✓ Sprawdź moje obliczenia z bazą Zakupy_nastolatkow_2000_rekordow.xlsx
+        </button>
+        <button type="button" class="btn" id="vat-fill-sample">
+          💡 Pokaż wzorcowe odpowiedzi (do samokontroli)
+        </button>
+      </div>
+      <div id="vat-check-feedback" style="margin-top:10px"></div>
+    </section>
+
+    <!-- Interaktywny Symulator Misji VAT: Tabele przestawne + Wykres + Fragmentatory -->
+    <section class="ws-card ws-card-sim">
+      <div class="ws-card-head">
+        <span class="ws-step-Time">Interaktywny warsztat Excela na żywo (2000 rekordów)</span>
+        <h2>🖥️ Symulator Misji VAT: Fragmentatory, Tabele Przestawne i Wykres</h2>
+      </div>
+      <p style="margin:0 0 12px">
+        Klikaj przyciski na obu <strong>Fragmentatorach</strong> poniżej tak samo jak w Excelu! Zobaczysz na żywo, jak zmieniają się obie tabele przestawne z arkusza <code>ANALIZY</code> oraz wykres kolumnowy z arkusza <code>WYKRES</code>:
+      </p>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button type="button" class="btn primary" id="vat-sim-pola-gry" style="background:#15803d;border-color:#15803d">
+          🎯 Misja 4: Wybierz filtr Pola + Gry (250,86 zł VAT)
+        </button>
+        <button type="button" class="btn" id="vat-sim-clear">
+          🧹 Wyczyść oba fragmentatory (pokaż wszystkie 2000 zakupów)
+        </button>
+        <button type="button" class="btn" id="vat-sim-bonus-month">
+          📅 Bonus: Tabela wg Miesiąca (01–12)
+        </button>
+        <button type="button" class="btn" id="vat-sim-bonus-rate">
+          🏷️ Bonus: Tabela wg Stawki VAT (5%, 8%, 23%)
+        </button>
+      </div>
+
+      <!-- Dwa fragmentatory obok siebie -->
+      <div class="ws-grid-2" style="gap:12px;margin-bottom:14px">
+        <div class="ws-piv-box" style="background:#f8fafc">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <strong>🎛️ Fragmentator 1: Kategoria zakupów</strong>
+            <button type="button" class="ws-reset-link" id="vat-clear-cat">Wyczyść filtr</button>
+          </div>
+          <div id="vat-slicer-cat" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+        <div class="ws-piv-box" style="background:#f8fafc">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <strong>🎛️ Fragmentator 2: Imię kupującego (fikcyjne)</strong>
+            <button type="button" class="ws-reset-link" id="vat-clear-buyer">Wyczyść filtr</button>
+          </div>
+          <div id="vat-slicer-buyer" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+      </div>
+
+      <div id="vat-sim-status" class="ws-sim-ribbon" style="margin-bottom:12px"></div>
+      <div id="vat-sim-output"></div>
+    </section>
+
+    <!-- Lista kontrolna przed zapisaniem pliku Misja_VAT_Imię.xlsx -->
+    <section class="ws-card ws-card-magic">
+      <div class="ws-card-head">
+        <h2>✅ Lista kontrolna przed zapisaniem pliku <code>Misja_VAT_Imię.xlsx</code></h2>
+      </div>
+      <ul class="ws-checklist">
+        <li><label><input type="checkbox" data-step-check="vat-chk-1"> <span>Plik został zapisany jako <code>Misja_VAT_Imię.xlsx</code>, a nowy arkusz z dwiema tabelami przestawnymi nosi nazwę <code>ANALIZY</code>.</span></label></li>
+        <li><label><input type="checkbox" data-step-check="vat-chk-2"> <span>W obu tabelach przestawnych kwoty mają ustawiony format <strong>Walutowe (2 miejsca dziesiętne)</strong>, a druga tabela (kupujący) jest posortowana malejąco według kwoty VAT.</span></label></li>
+        <li><label><input type="checkbox" data-step-check="vat-chk-3"> <span>W arkuszu <code>WYKRES</code> znajduje się wykres kolumnowy grupowany z tytułem <strong>„VAT w zakupach według kategorii”</strong>.</span></label></li>
+        <li><label><input type="checkbox" data-step-check="vat-chk-4"> <span>Oba fragmentatory (<code>Kategoria zakupów</code> oraz <code>Imię kupującego (fikcyjne)</code>) mają włączone <strong>Połączenia raportu</strong> ze wszystkimi tabelami przestawnymi.</span></label></li>
+      </ul>
+    </section>
+
+    <footer class="ws-footer">
+      <span>MISJA VAT | 2000 rekordów | dane fikcyjne: 2025</span>
+      <span>Strona 1–2 z 2</span>
+    </footer>
+  </div>`;
+}
+
 export function renderExtraWorksheet(id) {
-  if (id === vatCard.id) return renderVat(renderToolbar(id, 8));
   if (id === 'karta-4-1-urzadzenia-pliki') return renderGrade4DevicesWorksheet();
   if (id === 'karta-7-2-1-pierwsza-strona') return renderGrade7FirstPageWorksheet();
   if (id === 'karta-8-1-kosztorys-balu') return renderGrade8BalWorksheet();
   if (id === 'karta-8-1-rentownosc-excel') return renderGrade8RentownoscWorksheet();
   if (id === 'karta-8-1-tabele-przestawne') return renderGrade8PivotWorksheet();
+  if (id === 'karta-8-1-misja-vat') return renderGrade8MisjaVatWorksheet();
   return '';
 }
 
@@ -1517,7 +1965,6 @@ export function bindExtraWorksheet(id, toast) {
   updateProgress();
 
   // ==========================================================================
-  if (id === vatCard.id) bindVat(sheet,state,saveState);
   // Logic for Grade 4 Worksheet (Auto-grading 25 points)
   // ==========================================================================
   if (id === 'karta-4-1-urzadzenia-pliki') {
@@ -2225,5 +2672,554 @@ export function bindExtraWorksheet(id, toast) {
     }
     pivTabs.forEach(t => { t.onclick = () => renderPivSim(t.dataset.pivSim); });
     renderPivSim(1);
+  }
+
+  // ==========================================================================
+  // Logic for Grade 8 Misja VAT Worksheet (2000 records + Slicers + Chart)
+  // ==========================================================================
+  if (id === 'karta-8-1-misja-vat') {
+    const helper = window.ZAKUPY_VAT_HELPER;
+    const allRows = helper ? helper.getRows() : [];
+    const fmtZl = n => n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' zł';
+    const round2 = n => Math.round(n * 100) / 100;
+
+    // 1. Download original .xlsx file
+    const dlXlsxBtn = document.getElementById('vat-download-xlsx');
+    if (dlXlsxBtn) {
+      dlXlsxBtn.onclick = e => {
+        if (location.protocol === 'file:' && helper) {
+          e.preventDefault();
+          const bytes = helper.buildXlsxBytes();
+          const blob = new Blob([bytes], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Zakupy_nastolatkow_2000_rekordow.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1500);
+        }
+        toast('✓ Pobrano plik Zakupy_nastolatkow_2000_rekordow.xlsx (2000 rekordów)!');
+      };
+    }
+
+    // 2. Download CSV file
+    const dlCsvBtn = document.getElementById('vat-download-csv');
+    if (dlCsvBtn && helper) {
+      dlCsvBtn.onclick = () => {
+        const csv = '\uFEFF' + helper.buildCsv(';');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Zakupy_nastolatkow_2000_rekordow.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+        toast('✓ Pobrano plik Zakupy_nastolatkow_2000_rekordow.csv!');
+      };
+    }
+
+    // 3. Copy TSV to clipboard
+    const copyTsvBtn = document.getElementById('vat-copy-tsv');
+    if (copyTsvBtn && helper) {
+      copyTsvBtn.onclick = () => {
+        copyText(helper.buildCsv('\t'), toast);
+      };
+    }
+
+    // 4. Raw 2000-row table preview + search
+    const toggleRawBtn = document.getElementById('vat-toggle-raw');
+    const rawPreview = document.getElementById('vat-raw-preview');
+    const rawWrap = document.getElementById('vat-raw-table-wrap');
+    const rawSearch = document.getElementById('vat-raw-search');
+
+    function renderVatRawTable(query = '') {
+      if (!rawWrap) return;
+      const q = query.trim().toLowerCase();
+      const filtered = allRows.filter(r =>
+        !q ||
+        r.id.toLowerCase().includes(q) ||
+        r.buyer.toLowerCase().includes(q) ||
+        r.product.toLowerCase().includes(q) ||
+        r.category.toLowerCase().includes(q) ||
+        r.place.toLowerCase().includes(q) ||
+        r.date.includes(q)
+      );
+      rawWrap.innerHTML = `
+        <table class="ws-excel-grid">
+          <thead>
+            <tr>
+              <th>Wiersz</th>
+              <th>A: ID</th>
+              <th>B: Data zakupu</th>
+              <th>C: Imię kupującego</th>
+              <th>D: Wiek</th>
+              <th>E: Produkt lub usługa</th>
+              <th>F: Kategoria</th>
+              <th>G: Miejsce zakupu</th>
+              <th>H: Cena brutto</th>
+              <th>I: Stawka</th>
+              <th>J: Kwota VAT</th>
+              <th>K: Cena netto</th>
+              <th>L: Miesiąc</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.slice(0, 150).map(r => `
+              <tr>
+                <td class="ws-excel-rownum">${Number(r.id.slice(1)) + 1}</td>
+                <td class="ws-center-cell"><code>${r.id}</code></td>
+                <td class="ws-center-cell">${r.date}</td>
+                <td><strong>${r.buyer}</strong></td>
+                <td class="ws-center-cell">${r.age}</td>
+                <td>${r.product}</td>
+                <td>${r.category}</td>
+                <td>${r.place}</td>
+                <td class="ws-num-cell">${r.gross.toFixed(2).replace('.', ',')} zł</td>
+                <td class="ws-center-cell">${r.rateLabel}</td>
+                <td class="ws-num-cell"><strong>${r.vat.toFixed(2).replace('.', ',')} zł</strong></td>
+                <td class="ws-num-cell">${r.net.toFixed(2).replace('.', ',')} zł</td>
+                <td class="ws-center-cell">${r.month}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <p class="ws-subnote" style="margin:6px 0 0">
+          Wyświetlono ${Math.min(filtered.length, 150)} z <strong>${filtered.length}</strong> pasujących rekordów (pełna tabela <code>Zakupy</code> zawiera 2000 wierszy).
+        </p>`;
+    }
+
+    if (toggleRawBtn && rawPreview) {
+      toggleRawBtn.onclick = () => {
+        const isHidden = rawPreview.hasAttribute('hidden');
+        if (isHidden) {
+          rawPreview.removeAttribute('hidden');
+          toggleRawBtn.textContent = '🙈 Ukryj podgląd bazy BAZA_ZAKUPÓW';
+          renderVatRawTable(rawSearch?.value || '');
+        } else {
+          rawPreview.setAttribute('hidden', '');
+          toggleRawBtn.textContent = '👁️ Podgląd bazy BAZA_ZAKUPÓW na stronie (2000 rekordów)';
+        }
+      };
+    }
+    if (rawSearch) {
+      rawSearch.oninput = () => renderVatRawTable(rawSearch.value);
+    }
+
+    // 5. Persist student inputs
+    document.querySelectorAll('[data-vat-ans]').forEach(inp => {
+      const k = 'vat_' + inp.dataset.vatAns;
+      inp.value = state[k] || '';
+      inp.addEventListener('input', () => {
+        state[k] = inp.value;
+        saveState();
+      });
+    });
+
+    // 6. Interactive Slicers + Pivot Tables + Chart Simulator
+    const categories = ['Akcesoria', 'Bilety', 'Gry', 'Kosmetyki', 'Książki', 'Napoje', 'Przekąski', 'Szkoła', 'Ubrania'];
+    const buyers = ['Alicja', 'Bartek', 'Celina', 'Dawid', 'Emilia', 'Filip', 'Hania', 'Igor', 'Julia', 'Kacper', 'Lena', 'Michał', 'Natalia', 'Oskar', 'Pola', 'Tymon'];
+
+    let activeCats = new Set(); // empty = all
+    let activeBuyers = new Set(); // empty = all
+    let bonusMode = 'rate'; // 'rate' or 'month'
+
+    const catContainer = document.getElementById('vat-slicer-cat');
+    const buyerContainer = document.getElementById('vat-slicer-buyer');
+    const simStatus = document.getElementById('vat-sim-status');
+    const simOutput = document.getElementById('vat-sim-output');
+
+    function renderSlicersAndTables() {
+      if (catContainer) {
+        catContainer.innerHTML = categories.map(cat => {
+          const isSelected = activeCats.size === 0 || activeCats.has(cat);
+          const isExplicit = activeCats.has(cat);
+          return `<button type="button" class="btn ${isExplicit ? 'primary' : ''}" data-slicer-cat="${cat}" style="padding:4px 10px;font-size:0.85rem;opacity:${isSelected ? '1' : '0.45'};${isExplicit ? 'background:#15803d;border-color:#15803d' : ''}">${cat}</button>`;
+        }).join('');
+        catContainer.querySelectorAll('[data-slicer-cat]').forEach(btn => {
+          btn.onclick = e => {
+            const c = btn.dataset.slicerCat;
+            if (e.ctrlKey || e.metaKey) {
+              if (activeCats.has(c)) activeCats.delete(c);
+              else activeCats.add(c);
+            } else {
+              if (activeCats.size === 1 && activeCats.has(c)) activeCats.clear();
+              else activeCats = new Set([c]);
+            }
+            renderSlicersAndTables();
+          };
+        });
+      }
+
+      if (buyerContainer) {
+        buyerContainer.innerHTML = buyers.map(b => {
+          const isSelected = activeBuyers.size === 0 || activeBuyers.has(b);
+          const isExplicit = activeBuyers.has(b);
+          return `<button type="button" class="btn ${isExplicit ? 'primary' : ''}" data-slicer-buyer="${b}" style="padding:4px 10px;font-size:0.85rem;opacity:${isSelected ? '1' : '0.45'};${isExplicit ? 'background:#15803d;border-color:#15803d' : ''}">${b}</button>`;
+        }).join('');
+        buyerContainer.querySelectorAll('[data-slicer-buyer]').forEach(btn => {
+          btn.onclick = e => {
+            const b = btn.dataset.slicerBuyer;
+            if (e.ctrlKey || e.metaKey) {
+              if (activeBuyers.has(b)) activeBuyers.delete(b);
+              else activeBuyers.add(b);
+            } else {
+              if (activeBuyers.size === 1 && activeBuyers.has(b)) activeBuyers.clear();
+              else activeBuyers = new Set([b]);
+            }
+            renderSlicersAndTables();
+          };
+        });
+      }
+
+      const filtered = allRows.filter(r =>
+        (activeCats.size === 0 || activeCats.has(r.category)) &&
+        (activeBuyers.size === 0 || activeBuyers.has(r.buyer))
+      );
+
+      let sumGross = 0;
+      let sumVat = 0;
+      const byCat = {};
+      const byBuyer = {};
+      const byBonus = {};
+
+      for (const r of filtered) {
+        sumGross = round2(sumGross + r.gross);
+        sumVat = round2(sumVat + r.vat);
+
+        if (!byCat[r.category]) byCat[r.category] = { gross: 0, vat: 0 };
+        byCat[r.category].gross = round2(byCat[r.category].gross + r.gross);
+        byCat[r.category].vat = round2(byCat[r.category].vat + r.vat);
+
+        if (!byBuyer[r.buyer]) byBuyer[r.buyer] = { vat: 0, gross: 0 };
+        byBuyer[r.buyer].vat = round2(byBuyer[r.buyer].vat + r.vat);
+        byBuyer[r.buyer].gross = round2(byBuyer[r.buyer].gross + r.gross);
+
+        const bKey = bonusMode === 'month' ? r.month : r.rateLabel;
+        if (!byBonus[bKey]) byBonus[bKey] = { gross: 0, vat: 0 };
+        byBonus[bKey].gross = round2(byBonus[bKey].gross + r.gross);
+        byBonus[bKey].vat = round2(byBonus[bKey].vat + r.vat);
+      }
+
+      const catEntries = Object.entries(byCat).sort((a, b) => a[0].localeCompare(b[0], 'pl'));
+      const maxCatVat = catEntries.reduce((m, [, v]) => Math.max(m, v.vat), 0.01);
+      const topCat = [...catEntries].sort((a, b) => b[1].vat - a[1].vat)[0];
+
+      const buyerEntries = Object.entries(byBuyer).sort((a, b) => b[1].vat - a[1].vat);
+      const bonusEntries = Object.entries(byBonus).sort((a, b) =>
+        bonusMode === 'month' ? a[0].localeCompare(b[0]) : parseInt(a[0]) - parseInt(b[0])
+      );
+
+      if (simStatus) {
+        const catFilterDesc = activeCats.size ? [...activeCats].join(', ') : 'Wszystkie kategorie (9)';
+        const buyerFilterDesc = activeBuyers.size ? [...activeBuyers].join(', ') : 'Wszyscy kupujący (16)';
+        simStatus.innerHTML = `
+          🔎 <strong>Aktywne filtry fragmentatorów:</strong> Kategoria = <code>${catFilterDesc}</code> | Kupujący = <code>${buyerFilterDesc}</code>
+          • Liczba transakcji: <strong>${filtered.length}</strong>
+          • Suma brutto: <strong>${fmtZl(sumGross)}</strong>
+          • Suma VAT: <strong style="color:#15803d">${fmtZl(sumVat)}</strong>
+        `;
+      }
+
+      if (simOutput) {
+        simOutput.innerHTML = `
+          <div class="ws-word-sheet">
+            <div class="ws-grid-2" style="gap:16px;align-items:start">
+              <!-- Tabela 1: Misja 1 -->
+              <div>
+                <h4 style="margin:0 0 8px;color:#14532d">📋 Tabela przestawna 1 (Misja 1 — wg kategorii zakupów):</h4>
+                <table class="ws-excel-grid">
+                  <thead>
+                    <tr>
+                      <th>Etykiety wierszy</th>
+                      <th>Suma z Cena brutto (PLN)</th>
+                      <th>Suma z Kwota VAT (PLN)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${catEntries.map(([c, st]) => `
+                      <tr class="${topCat && topCat[0] === c ? 'ws-sim-new-row' : ''}">
+                        <td><strong>${c}</strong> ${topCat && topCat[0] === c ? '🏆' : ''}</td>
+                        <td class="ws-num-cell">${fmtZl(st.gross)}</td>
+                        <td class="ws-num-cell"><strong>${fmtZl(st.vat)}</strong></td>
+                      </tr>
+                    `).join('')}
+                    <tr style="background:#dcfce7;font-weight:700">
+                      <td>Suma końcowa</td>
+                      <td class="ws-num-cell">${fmtZl(sumGross)}</td>
+                      <td class="ws-num-cell">${fmtZl(sumVat)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Tabela 2: Misja 2 -->
+              <div>
+                <h4 style="margin:0 0 8px;color:#14532d">🏆 Tabela przestawna 2 (Misja 2 — ranking kupujących wg VAT):</h4>
+                <div style="max-height:310px;overflow-y:auto">
+                  <table class="ws-excel-grid">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Etykiety wierszy (Imię)</th>
+                        <th>Suma z Kwota VAT (PLN)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${buyerEntries.map(([b, st], idx) => `
+                        <tr class="${idx < 3 ? 'ws-sim-new-row' : ''}">
+                          <td class="ws-center-cell"><strong>${idx + 1}.</strong></td>
+                          <td><strong>${b}</strong> ${idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : ''}</td>
+                          <td class="ws-num-cell"><strong>${fmtZl(st.vat)}</strong></td>
+                        </tr>
+                      `).join('')}
+                      <tr style="background:#dcfce7;font-weight:700">
+                        <td></td>
+                        <td>Suma końcowa</td>
+                        <td class="ws-num-cell">${fmtZl(sumVat)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wykres przestawny (Misja 3) + Bonus -->
+            <div class="ws-grid-2" style="gap:16px;margin-top:16px;align-items:start">
+              <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:12px">
+                <h4 style="margin:0 0 10px;text-align:center;color:#0f172a">📊 Wykres przestawny (Misja 3): „VAT w zakupach według kategorii”</h4>
+                ${catEntries.map(([c, st]) => {
+                  const pct = Math.max(3, Math.round((st.vat / maxCatVat) * 100));
+                  return `
+                    <div style="margin-bottom:7px">
+                      <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:2px">
+                        <strong>${c}</strong>
+                        <span>${fmtZl(st.vat)}</span>
+                      </div>
+                      <div style="height:12px;background:#e2e8f0;border-radius:6px;overflow:hidden">
+                        <div style="width:${pct}%;height:100%;background:#15803d;border-radius:6px"></div>
+                      </div>
+                    </div>`;
+                }).join('')}
+              </div>
+
+              <div>
+                <h4 style="margin:0 0 8px;color:#14532d">🕵️ Tabela BONUS (Detektyw Podatkowy — wg ${bonusMode === 'month' ? 'Miesiąca 01–12' : 'Stawki VAT'}):</h4>
+                <table class="ws-excel-grid">
+                  <thead>
+                    <tr>
+                      <th>${bonusMode === 'month' ? 'Miesiąc' : 'Stawka VAT'}</th>
+                      <th>Suma z Cena brutto (PLN)</th>
+                      <th>Suma z Kwota VAT (PLN)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${bonusEntries.map(([k, st]) => `
+                      <tr>
+                        <td class="ws-center-cell"><strong>${k}</strong></td>
+                        <td class="ws-num-cell">${fmtZl(st.gross)}</td>
+                        <td class="ws-num-cell"><strong>${fmtZl(st.vat)}</strong></td>
+                      </tr>
+                    `).join('')}
+                    <tr style="background:#dcfce7;font-weight:700">
+                      <td class="ws-center-cell">Suma końcowa</td>
+                      <td class="ws-num-cell">${fmtZl(sumGross)}</td>
+                      <td class="ws-num-cell">${fmtZl(sumVat)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>`;
+      }
+    }
+
+    const polaGryBtn = document.getElementById('vat-sim-pola-gry');
+    if (polaGryBtn) {
+      polaGryBtn.onclick = () => {
+        activeCats = new Set(['Gry']);
+        activeBuyers = new Set(['Pola']);
+        renderSlicersAndTables();
+        toast('Ustawiono fragmentatory: Pola + Gry → VAT = 250,86 zł!');
+      };
+    }
+
+    const clearAllBtn = document.getElementById('vat-sim-clear');
+    if (clearAllBtn) {
+      clearAllBtn.onclick = () => {
+        activeCats.clear();
+        activeBuyers.clear();
+        renderSlicersAndTables();
+      };
+    }
+
+    const clearCatBtn = document.getElementById('vat-clear-cat');
+    if (clearCatBtn) {
+      clearCatBtn.onclick = () => {
+        activeCats.clear();
+        renderSlicersAndTables();
+      };
+    }
+
+    const clearBuyerBtn = document.getElementById('vat-clear-buyer');
+    if (clearBuyerBtn) {
+      clearBuyerBtn.onclick = () => {
+        activeBuyers.clear();
+        renderSlicersAndTables();
+      };
+    }
+
+    const bonusMonthBtn = document.getElementById('vat-sim-bonus-month');
+    if (bonusMonthBtn) {
+      bonusMonthBtn.onclick = () => {
+        bonusMode = 'month';
+        renderSlicersAndTables();
+      };
+    }
+
+    const bonusRateBtn = document.getElementById('vat-sim-bonus-rate');
+    if (bonusRateBtn) {
+      bonusRateBtn.onclick = () => {
+        bonusMode = 'rate';
+        renderSlicersAndTables();
+      };
+    }
+
+    renderSlicersAndTables();
+
+    // 7. Auto-check answers against the 2000-row database
+    const buyerTotals = {
+      lena: 857.32, celina: 740.42, natalia: 723.78, pola: 723.53,
+      emilia: 699.22, alicja: 681.72, hania: 676.37, julia: 670.20,
+      igor: 617.12, oskar: 560.46, kacper: 505.88, filip: 503.77,
+      tymon: 427.88, 'michał': 406.25, michal: 406.25, bartek: 364.79, dawid: 307.34
+    };
+
+    const parsePlNum = str => {
+      if (!str) return NaN;
+      const cleaned = String(str).replace(/zł|pln|\s+/gi, '').replace(',', '.');
+      const m = cleaned.match(/-?\d+(\.\d+)?/);
+      return m ? Number(m[0]) : NaN;
+    };
+    const normStr = s => (s || '').trim().toLowerCase();
+
+    const checkBtn = document.getElementById('vat-check-answers');
+    const sampleBtn = document.getElementById('vat-fill-sample');
+    const fb = document.getElementById('vat-check-feedback');
+
+    if (checkBtn) {
+      checkBtn.onclick = () => {
+        const pVal = normStr(document.getElementById('vat-m5-person')?.value);
+        const vVal = parsePlNum(document.getElementById('vat-m5-vat')?.value);
+        const hpVal = parsePlNum(document.getElementById('vat-m5-hp')?.value);
+        const ratioVal = parsePlNum(document.getElementById('vat-m5-ratio')?.value);
+        const expectedBuyerVat = buyerTotals[pVal];
+
+        const rules = {
+          'm1-brutto': v => Math.abs(parsePlNum(v) - 59225.15) < 0.05,
+          'm1-vat': v => Math.abs(parsePlNum(v) - 9466.05) < 0.05,
+          'm1-max-cat': v => normStr(v).includes('ubrania'),
+          'm2-1-name': v => normStr(v).includes('lena'),
+          'm2-1-val': v => Math.abs(parsePlNum(v) - 857.32) < 0.05,
+          'm2-2-name': v => normStr(v).includes('celina'),
+          'm2-2-val': v => Math.abs(parsePlNum(v) - 740.42) < 0.05,
+          'm2-3-name': v => normStr(v).includes('natalia'),
+          'm2-3-val': v => Math.abs(parsePlNum(v) - 723.78) < 0.05,
+          'm4-pola-gry': v => Math.abs(parsePlNum(v) - 250.86) < 0.05,
+          'm5-person': () => !!expectedBuyerVat,
+          'm5-vat': () => !!expectedBuyerVat && Math.abs(vVal - expectedBuyerVat) < 0.1,
+          'm5-hp': () => !isNaN(hpVal) && hpVal >= 22.34 && hpVal <= 91.54,
+          'm5-ratio': () => !isNaN(vVal) && !isNaN(hpVal) && hpVal > 0 && !isNaN(ratioVal) && Math.abs(ratioVal - (vVal / hpVal)) < 0.25,
+          'm5-enough': v => /(tak|wystarczy)/i.test(normStr(v)),
+          'bonus-text': v => (v.match(/\d+/g) || []).length >= 2 && normStr(v).length >= 12,
+          'final-1': v => /(tak|może|moze|płaci|placi|vat)/i.test(normStr(v)),
+          'final-2': v => normStr(v).length >= 8,
+          'final-3': v => normStr(v).length >= 4
+        };
+
+        let good = 0;
+        const keys = Object.keys(rules);
+        keys.forEach(k => {
+          const inp = document.querySelector(`[data-vat-ans="${k}"]`);
+          if (!inp) return;
+          const ok = rules[k](inp.value);
+          inp.classList.toggle('ws-good-cell', !!ok);
+          inp.classList.toggle('ws-bad-cell', !ok);
+          if (ok) good++;
+        });
+
+        if (fb) {
+          fb.innerHTML = `<div class="feedback ${good === keys.length ? '' : 'error'}">${
+            good === keys.length
+              ? '🎉 Brawo! Wszystkie obliczenia z Misji 1–5, Bonusu i Finału zgadzają się z bazą Zakupy_nastolatkow_2000_rekordow.xlsx!'
+              : `Poprawnie uzupełnione pola: <strong>${good} z ${keys.length}</strong>. Sprawdź pola podświetlone na czerwono lub skorzystaj z symulatora tabel przestawnych poniżej.`
+          }</div>`;
+        }
+        toast(`Sprawdzono Misję VAT: ${good} / ${keys.length} poprawnych pól!`);
+      };
+    }
+
+    if (sampleBtn) {
+      sampleBtn.onclick = () => {
+        const samples = {
+          'm1-brutto': '59 225,15',
+          'm1-vat': '9 466,05',
+          'm1-max-cat': 'Ubrania (2 991,54 zł)',
+          'm2-1-name': 'Lena',
+          'm2-1-val': '857,32',
+          'm2-2-name': 'Celina',
+          'm2-2-val': '740,42',
+          'm2-3-name': 'Natalia',
+          'm2-3-val': '723,78',
+          'm4-pola-gry': '250,86',
+          'm5-person': 'Pola',
+          'm5-vat': '723,53',
+          'm5-hp': '79,24',
+          'm5-ratio': '9,13',
+          'm5-enough': 'TAK (wystarczyłoby na ponad 9 sztuk)',
+          'bonus-text': 'Największa kwota VAT pochodzi ze stawki 23% (8 707,75 zł VAT przy 46 568,46 zł brutto), a wśród miesięcy najwyższy VAT odnotowano w lipcu (07): 1 005,72 zł.',
+          'final-1': 'Tak — płaci podatek pośredni VAT w cenie każdego kupowanego towaru lub usługi.',
+          'final-2': 'VAT to podatek od towarów i usług wliczony w cenę zakupu, a podatek dochodowy (PIT) płaci się od osiągniętych dochodów/zarobków.',
+          'final-3': 'Łączna kwota VAT w 2000 zakupach wyniosła aż 9 466,05 zł, a najwięcej VAT-u zapłacono w kategoriach Ubrania (2 991,54 zł) oraz Gry (2 617,01 zł).'
+        };
+        Object.entries(samples).forEach(([k, val]) => {
+          const inp = document.querySelector(`[data-vat-ans="${k}"]`);
+          if (inp) {
+            inp.value = val;
+            state['vat_' + k] = val;
+            inp.classList.remove('ws-bad-cell');
+            inp.classList.add('ws-good-cell');
+          }
+        });
+        saveState();
+        toast('Wstawiono wzorcowe odpowiedzi wyliczone z bazy 2000 rekordów!');
+      };
+    }
+  }
+
+  // Reset button for any extra worksheet
+  const resetBtn = document.getElementById('ws-reset-progress');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      checks.forEach(c => {
+        c.checked = false;
+        delete state[c.dataset.stepCheck];
+      });
+      sheet.querySelectorAll('input[type="text"], textarea').forEach(inp => {
+        if (inp.id === 'ws-student-name' || inp.id === 'g7-live-editor') return;
+        inp.value = '';
+        inp.classList.remove('ws-good-cell', 'ws-bad-cell');
+        if (inp.dataset.pivAns) delete state['piv_' + inp.dataset.pivAns];
+        if (inp.dataset.vatAns) delete state['vat_' + inp.dataset.vatAns];
+      });
+      saveState();
+      updateProgress();
+      toast('Wyczyszczono zaznaczenia i odpowiedzi na karcie pracy.');
+    };
   }
 }
