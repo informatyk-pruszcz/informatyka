@@ -1,0 +1,501 @@
+Województwo,Miasto,Data,Liczba zdanych egzaminów (kobiety),Liczba zdanych egzaminów (mężczyźni)
+śląskie,Katowice,2015-01-01,46,157
+kujawsko-pomorskie,Bydgoszcz,2015-02-01,149,75
+podkarpackie,Rzeszów,2015-07-01,67,37
+podkarpackie,Rzeszów,2015-12-01,23,86
+opolskie,Opole,1/18/2015,134,50
+lubelskie,Zamość,1/20/2015,68,3
+łódzkie,Łódź,1/25/2015,143,3
+lubelskie,Biała Podlaska,1/27/2015,36,43
+lubelskie,Zamość,1/29/2015,137,120
+dolnośląskie,Wrocław,2015-02-02,116,55
+podkarpackie,Rzeszów,2015-04-02,40,126
+warmińsko-mazurskie,Olsztyn,2015-05-02,36,101
+mazowieckie,Warszawa,2/16/2015,42,123
+dolnośląskie,Wrocław,2/17/2015,10,90
+kujawsko-pomorskie,Bydgoszcz,2/21/2015,82,118
+dolnośląskie,Wrocław,2/25/2015,149,157
+kujawsko-pomorskie,Toruń,2/26/2015,65,9
+małopolskie,Kraków,2015-06-03,71,6
+łódzkie,Łódź,2015-09-03,24,77
+lubelskie,Biała Podlaska,2015-11-03,6,104
+małopolskie,Kraków,3/13/2015,103,82
+lubelskie,Biała Podlaska,3/14/2015,4,150
+lubuskie,Gorzów Wielkopolski,3/25/2015,44,14
+podkarpackie,Rzeszów,3/29/2015,145,110
+wielkopolskie,Piła,3/31/2015,131,142
+małopolskie,Zakopane,2015-02-04,102,47
+lubelskie,Lublin,2015-04-04,41,15
+lubelskie,Biała Podlaska,2015-12-04,150,65
+łódzkie,Łódź,4/16/2015,30,19
+opolskie,Opole,4/20/2015,4,96
+podlaskie,Łomża,4/23/2015,38,20
+kujawsko-pomorskie,Toruń,4/24/2015,78,147
+kujawsko-pomorskie,Toruń,4/29/2015,47,5
+mazowieckie,Warszawa,2015-04-05,142,79
+śląskie,Katowice,2015-08-05,31,5
+małopolskie,Kraków,2015-09-05,6,132
+mazowieckie,Warszawa,2015-12-05,65,146
+zachodniopomorskie,Szczecin,5/17/2015,58,30
+lubelskie,Biała Podlaska,5/23/2015,106,133
+lubelskie,Biała Podlaska,5/26/2015,18,149
+lubelskie,Zamość,5/30/2015,71,7
+lubuskie,Gorzów Wielkopolski,5/31/2015,57,34
+warmińsko-mazurskie,Olsztyn,2015-05-06,134,96
+lubelskie,Biała Podlaska,2015-08-06,51,60
+śląskie,Bytom,2015-12-06,123,156
+zachodniopomorskie,Szczecin,6/13/2015,30,124
+kujawsko-pomorskie,Toruń,6/17/2015,27,166
+mazowieckie,Warszawa,6/24/2015,83,30
+kujawsko-pomorskie,Toruń,6/25/2015,60,33
+lubelskie,Zamość,2015-02-07,110,127
+lubuskie,Gorzów Wielkopolski,2015-04-07,11,160
+lubuskie,Zielona Góra,2015-10-07,100,85
+podkarpackie,Rzeszów,2015-12-07,124,14
+wielkopolskie,Piła,7/17/2015,88,49
+małopolskie,Kraków,7/21/2015,4,39
+zachodniopomorskie,Szczecin,7/24/2015,79,152
+małopolskie,Zakopane,7/26/2015,13,46
+podlaskie,Łomża,2015-01-08,28,93
+małopolskie,Zakopane,2015-02-08,47,46
+wielkopolskie,Piła,2015-06-08,96,49
+lubuskie,Gorzów Wielkopolski,2015-09-08,50,54
+opolskie,Opole,8/15/2015,28,2
+lubelskie,Biała Podlaska,8/16/2015,43,142
+łódzkie,Łódź,8/23/2015,71,89
+śląskie,Katowice,8/25/2015,75,29
+świętokrzyskie,Kielce,8/27/2015,43,116
+opolskie,Opole,2015-03-09,23,170
+lubelskie,Biała Podlaska,2015-04-09,64,129
+mazowieckie,Warszawa,2015-07-09,44,24
+lubelskie,Biała Podlaska,2015-12-09,45,153
+kujawsko-pomorskie,Bydgoszcz,9/14/2015,63,166
+małopolskie,Kraków,9/16/2015,135,158
+zachodniopomorskie,Szczecin,9/24/2015,117,150
+kujawsko-pomorskie,Toruń,9/26/2015,104,33
+małopolskie,Tarnów,2015-02-10,53,40
+małopolskie,Kraków,2015-03-10,55,30
+lubelskie,Zamość,2015-08-10,93,83
+opolskie,Opole,10/13/2015,59,24
+kujawsko-pomorskie,Bydgoszcz,10/15/2015,77,18
+pomorskie,Gdańsk,10/19/2015,15,12
+kujawsko-pomorskie,Toruń,10/20/2015,78,76
+lubelskie,Lublin,10/24/2015,140,42
+lubelskie,Lublin,10/27/2015,1,142
+lubelskie,Lublin,10/31/2015,122,13
+łódzkie,Łódź,2015-06-11,28,162
+lubelskie,Lublin,2015-07-11,140,131
+małopolskie,Tarnów,11/13/2015,111,83
+lubuskie,Zielona Góra,11/18/2015,71,162
+dolnośląskie,Wrocław,11/21/2015,42,125
+podlaskie,Łomża,11/26/2015,90,40
+podlaskie,Łomża,11/27/2015,55,114
+dolnośląskie,Wrocław,2015-01-12,139,42
+kujawsko-pomorskie,Toruń,2015-02-12,118,12
+zachodniopomorskie,Szczecin,2015-09-12,150,46
+śląskie,Katowice,2015-12-12,31,152
+wielkopolskie,Poznań,12/17/2015,108,159
+wielkopolskie,Piła,12/20/2015,93,34
+pomorskie,Gdańsk,12/24/2015,140,66
+wielkopolskie,Piła,12/26/2015,19,22
+opolskie,Opole,2016-01-01,137,135
+śląskie,Katowice,2016-03-01,48,71
+warmińsko-mazurskie,Olsztyn,2016-07-01,129,142
+pomorskie,Gdańsk,2016-11-01,29,154
+warmińsko-mazurskie,Olsztyn,1/15/2016,129,133
+pomorskie,Gdańsk,1/16/2016,4,153
+lubelskie,Biała Podlaska,1/22/2016,68,128
+wielkopolskie,Poznań,1/23/2016,142,20
+małopolskie,Zakopane,1/25/2016,105,165
+kujawsko-pomorskie,Bydgoszcz,1/30/2016,3,46
+dolnośląskie,Wrocław,2016-06-02,95,156
+kujawsko-pomorskie,Bydgoszcz,2016-07-02,103,116
+kujawsko-pomorskie,Toruń,2016-10-02,141,11
+wielkopolskie,Piła,2/17/2016,110,37
+lubuskie,Zielona Góra,2/21/2016,71,81
+śląskie,Bytom,2/24/2016,147,31
+małopolskie,Tarnów,2/26/2016,51,8
+małopolskie,Tarnów,2016-03-03,3,113
+wielkopolskie,Poznań,2016-06-03,40,68
+kujawsko-pomorskie,Toruń,2016-07-03,21,12
+lubelskie,Zamość,2016-11-03,142,72
+lubuskie,Zielona Góra,2016-12-03,4,8
+zachodniopomorskie,Szczecin,3/18/2016,125,126
+dolnośląskie,Wrocław,3/24/2016,44,89
+świętokrzyskie,Kielce,3/29/2016,37,165
+zachodniopomorskie,Szczecin,2016-02-04,12,49
+lubelskie,Lublin,2016-04-04,76,119
+warmińsko-mazurskie,Olsztyn,2016-05-04,66,52
+wielkopolskie,Poznań,4/13/2016,39,77
+lubelskie,Lublin,4/16/2016,90,97
+zachodniopomorskie,Szczecin,4/17/2016,96,131
+lubelskie,Biała Podlaska,4/21/2016,23,115
+lubuskie,Gorzów Wielkopolski,4/26/2016,110,74
+małopolskie,Kraków,4/28/2016,2,25
+pomorskie,Gdańsk,2016-01-05,121,8
+śląskie,Katowice,2016-03-05,121,56
+podlaskie,Łomża,2016-10-05,95,62
+śląskie,Katowice,2016-12-05,30,1
+kujawsko-pomorskie,Toruń,5/18/2016,89,163
+małopolskie,Zakopane,5/21/2016,69,49
+lubuskie,Zielona Góra,5/22/2016,59,1
+śląskie,Bytom,5/25/2016,140,36
+małopolskie,Zakopane,5/28/2016,32,160
+lubuskie,Gorzów Wielkopolski,5/29/2016,61,52
+podkarpackie,Rzeszów,2016-08-06,136,113
+podkarpackie,Rzeszów,2016-12-06,32,167
+zachodniopomorskie,Szczecin,6/16/2016,93,103
+małopolskie,Tarnów,6/19/2016,127,165
+warmińsko-mazurskie,Olsztyn,6/25/2016,56,11
+śląskie,Bytom,6/26/2016,76,167
+wielkopolskie,Piła,6/28/2016,78,118
+łódzkie,Łódź,6/29/2016,93,22
+łódzkie,Łódź,2016-09-07,99,158
+śląskie,Katowice,2016-10-07,74,111
+lubuskie,Gorzów Wielkopolski,7/13/2016,51,139
+łódzkie,Łódź,7/20/2016,1,170
+lubuskie,Gorzów Wielkopolski,7/23/2016,88,147
+lubuskie,Gorzów Wielkopolski,7/27/2016,34,89
+lubelskie,Zamość,7/29/2016,72,28
+zachodniopomorskie,Szczecin,2016-02-08,52,103
+lubelskie,Zamość,2016-08-08,124,97
+opolskie,Opole,2016-09-08,23,144
+zachodniopomorskie,Szczecin,2016-12-08,96,169
+lubuskie,Gorzów Wielkopolski,8/19/2016,42,39
+świętokrzyskie,Kielce,8/21/2016,84,112
+świętokrzyskie,Kielce,8/24/2016,117,161
+kujawsko-pomorskie,Toruń,8/25/2016,130,31
+małopolskie,Kraków,8/30/2016,16,79
+warmińsko-mazurskie,Olsztyn,2016-06-09,29,102
+łódzkie,Łódź,2016-07-09,14,33
+kujawsko-pomorskie,Bydgoszcz,2016-11-09,8,111
+zachodniopomorskie,Szczecin,9/16/2016,113,45
+mazowieckie,Warszawa,9/17/2016,130,83
+dolnośląskie,Wrocław,9/21/2016,149,63
+lubuskie,Gorzów Wielkopolski,9/25/2016,117,141
+warmińsko-mazurskie,Olsztyn,9/28/2016,50,99
+dolnośląskie,Wrocław,2016-03-10,4,50
+wielkopolskie,Poznań,2016-08-10,73,20
+lubuskie,Zielona Góra,10/13/2016,80,166
+lubelskie,Zamość,10/16/2016,2,92
+kujawsko-pomorskie,Toruń,10/18/2016,20,115
+zachodniopomorskie,Szczecin,10/19/2016,105,31
+małopolskie,Zakopane,10/26/2016,105,135
+podlaskie,Łomża,10/29/2016,85,147
+lubuskie,Gorzów Wielkopolski,2016-01-11,37,157
+małopolskie,Zakopane,2016-02-11,45,1
+lubuskie,Gorzów Wielkopolski,2016-08-11,25,164
+dolnośląskie,Wrocław,2016-09-11,87,106
+podkarpackie,Rzeszów,11/13/2016,8,165
+dolnośląskie,Wrocław,11/15/2016,137,22
+kujawsko-pomorskie,Toruń,11/16/2016,10,110
+kujawsko-pomorskie,Toruń,11/21/2016,128,167
+lubuskie,Gorzów Wielkopolski,11/26/2016,111,16
+świętokrzyskie,Kielce,2016-06-12,7,76
+zachodniopomorskie,Szczecin,2016-09-12,139,132
+lubelskie,Biała Podlaska,12/13/2016,73,76
+śląskie,Katowice,12/17/2016,118,7
+wielkopolskie,Piła,12/19/2016,131,29
+wielkopolskie,Poznań,12/22/2016,64,92
+podkarpackie,Rzeszów,12/28/2016,146,22
+małopolskie,Zakopane,2017-01-01,23,124
+opolskie,Opole,2017-04-01,83,0
+kujawsko-pomorskie,Toruń,2017-06-01,56,23
+opolskie,Opole,2017-09-01,78,10
+śląskie,Katowice,1/13/2017,102,46
+świętokrzyskie,Kielce,1/19/2017,15,115
+świętokrzyskie,Kielce,1/23/2017,78,28
+śląskie,Katowice,1/26/2017,137,93
+łódzkie,Łódź,1/29/2017,139,168
+podkarpackie,Rzeszów,1/30/2017,127,62
+świętokrzyskie,Kielce,2017-02-02,37,69
+małopolskie,Zakopane,2017-09-02,6,58
+śląskie,Katowice,2017-12-02,24,45
+wielkopolskie,Piła,2/16/2017,145,43
+lubuskie,Zielona Góra,2/18/2017,6,89
+małopolskie,Tarnów,2/22/2017,96,53
+opolskie,Opole,2/24/2017,134,116
+kujawsko-pomorskie,Toruń,2017-02-03,34,63
+pomorskie,Gdańsk,2017-06-03,73,167
+mazowieckie,Warszawa,2017-10-03,124,53
+zachodniopomorskie,Szczecin,3/14/2017,67,16
+śląskie,Bytom,3/18/2017,144,139
+małopolskie,Zakopane,3/20/2017,28,117
+zachodniopomorskie,Szczecin,3/23/2017,48,170
+wielkopolskie,Piła,3/24/2017,138,124
+kujawsko-pomorskie,Toruń,3/26/2017,120,158
+łódzkie,Łódź,2017-04-04,79,3
+łódzkie,Łódź,2017-09-04,19,45
+pomorskie,Gdańsk,2017-11-04,6,90
+lubelskie,Biała Podlaska,4/16/2017,135,65
+śląskie,Katowice,4/19/2017,69,149
+pomorskie,Gdańsk,4/24/2017,48,165
+wielkopolskie,Poznań,4/26/2017,65,128
+wielkopolskie,Piła,2017-01-05,61,61
+małopolskie,Zakopane,2017-03-05,93,81
+mazowieckie,Warszawa,2017-06-05,119,140
+opolskie,Opole,5/13/2017,47,46
+lubelskie,Zamość,5/14/2017,143,166
+zachodniopomorskie,Szczecin,5/19/2017,110,147
+warmińsko-mazurskie,Olsztyn,5/22/2017,20,156
+małopolskie,Tarnów,5/25/2017,61,97
+lubuskie,Zielona Góra,5/30/2017,19,88
+łódzkie,Łódź,2017-02-06,135,116
+kujawsko-pomorskie,Bydgoszcz,2017-06-06,62,48
+dolnośląskie,Wrocław,2017-07-06,141,44
+łódzkie,Łódź,6/14/2017,66,68
+podkarpackie,Rzeszów,6/18/2017,80,63
+śląskie,Bytom,6/20/2017,61,48
+wielkopolskie,Poznań,6/26/2017,47,24
+lubelskie,Zamość,6/28/2017,48,35
+zachodniopomorskie,Szczecin,6/29/2017,21,149
+opolskie,Opole,2017-04-07,25,56
+małopolskie,Zakopane,2017-07-07,90,125
+lubelskie,Zamość,7/14/2017,66,56
+łódzkie,Łódź,7/17/2017,140,52
+podkarpackie,Rzeszów,7/20/2017,56,48
+warmińsko-mazurskie,Olsztyn,7/21/2017,53,139
+lubuskie,Gorzów Wielkopolski,7/22/2017,118,147
+wielkopolskie,Poznań,2017-01-08,12,122
+lubuskie,Zielona Góra,2017-04-08,74,104
+wielkopolskie,Piła,2017-06-08,5,5
+pomorskie,Gdańsk,2017-10-08,146,6
+świętokrzyskie,Kielce,8/13/2017,1,139
+kujawsko-pomorskie,Bydgoszcz,8/15/2017,94,51
+dolnośląskie,Wrocław,8/18/2017,117,67
+kujawsko-pomorskie,Bydgoszcz,8/21/2017,141,149
+małopolskie,Zakopane,8/23/2017,86,159
+podlaskie,Łomża,2017-02-09,128,61
+warmińsko-mazurskie,Olsztyn,2017-03-09,70,127
+pomorskie,Gdańsk,2017-06-09,149,0
+warmińsko-mazurskie,Olsztyn,2017-10-09,79,134
+kujawsko-pomorskie,Bydgoszcz,9/17/2017,15,30
+podkarpackie,Rzeszów,9/18/2017,100,4
+lubelskie,Zamość,9/20/2017,65,111
+zachodniopomorskie,Szczecin,9/21/2017,139,162
+kujawsko-pomorskie,Toruń,9/29/2017,118,131
+podkarpackie,Rzeszów,2017-04-10,145,137
+małopolskie,Zakopane,2017-09-10,121,153
+podlaskie,Łomża,10/13/2017,8,16
+zachodniopomorskie,Szczecin,10/14/2017,102,102
+lubelskie,Zamość,10/20/2017,28,100
+warmińsko-mazurskie,Olsztyn,10/23/2017,84,79
+wielkopolskie,Poznań,10/27/2017,116,62
+lubelskie,Biała Podlaska,10/29/2017,67,94
+podlaskie,Łomża,2017-01-11,24,47
+wielkopolskie,Piła,2017-03-11,125,138
+małopolskie,Kraków,2017-11-11,48,109
+lubuskie,Zielona Góra,11/13/2017,54,47
+pomorskie,Gdańsk,11/16/2017,34,142
+mazowieckie,Warszawa,11/17/2017,145,19
+podlaskie,Łomża,11/22/2017,42,85
+wielkopolskie,Piła,11/25/2017,149,52
+śląskie,Katowice,11/26/2017,64,159
+śląskie,Katowice,11/27/2017,143,73
+małopolskie,Zakopane,2017-01-12,149,54
+kujawsko-pomorskie,Toruń,2017-11-12,105,135
+dolnośląskie,Wrocław,12/17/2017,91,150
+lubelskie,Lublin,12/18/2017,61,14
+wielkopolskie,Poznań,12/23/2017,123,43
+śląskie,Bytom,12/24/2017,74,152
+małopolskie,Tarnów,12/30/2017,73,117
+lubelskie,Biała Podlaska,2018-02-01,4,122
+zachodniopomorskie,Szczecin,2018-06-01,143,55
+małopolskie,Tarnów,2018-12-01,91,30
+pomorskie,Gdańsk,1/15/2018,19,160
+opolskie,Opole,1/18/2018,47,164
+łódzkie,Łódź,1/24/2018,21,160
+zachodniopomorskie,Szczecin,1/25/2018,129,5
+śląskie,Katowice,1/28/2018,70,95
+dolnośląskie,Wrocław,1/30/2018,24,50
+świętokrzyskie,Kielce,2018-07-02,59,32
+dolnośląskie,Wrocław,2018-10-02,149,27
+pomorskie,Gdańsk,2/14/2018,55,130
+lubuskie,Gorzów Wielkopolski,2/16/2018,90,110
+małopolskie,Zakopane,2/21/2018,95,33
+zachodniopomorskie,Szczecin,2/26/2018,96,13
+lubuskie,Gorzów Wielkopolski,2018-01-03,121,152
+lubuskie,Gorzów Wielkopolski,2018-04-03,54,86
+wielkopolskie,Piła,2018-08-03,68,147
+świętokrzyskie,Kielce,2018-11-03,42,56
+małopolskie,Zakopane,3/15/2018,36,51
+warmińsko-mazurskie,Olsztyn,3/18/2018,10,134
+dolnośląskie,Wrocław,3/19/2018,148,15
+śląskie,Bytom,3/23/2018,15,155
+śląskie,Bytom,3/29/2018,140,31
+dolnośląskie,Wrocław,2018-01-04,150,101
+łódzkie,Łódź,2018-02-04,50,36
+dolnośląskie,Wrocław,2018-04-04,96,21
+lubelskie,Biała Podlaska,2018-11-04,120,125
+podlaskie,Łomża,2018-12-04,137,82
+kujawsko-pomorskie,Toruń,4/18/2018,134,9
+pomorskie,Gdańsk,4/25/2018,87,10
+kujawsko-pomorskie,Toruń,4/27/2018,22,56
+małopolskie,Tarnów,4/29/2018,7,163
+pomorskie,Gdańsk,2018-01-05,121,63
+podlaskie,Łomża,2018-08-05,113,155
+kujawsko-pomorskie,Bydgoszcz,2018-09-05,51,86
+lubelskie,Zamość,2018-12-05,124,16
+zachodniopomorskie,Szczecin,5/16/2018,56,71
+małopolskie,Zakopane,5/18/2018,58,51
+opolskie,Opole,5/28/2018,96,18
+łódzkie,Łódź,2018-01-06,137,160
+lubuskie,Gorzów Wielkopolski,2018-04-06,10,108
+warmińsko-mazurskie,Olsztyn,2018-08-06,37,126
+lubelskie,Zamość,2018-12-06,33,91
+podkarpackie,Rzeszów,6/13/2018,150,150
+opolskie,Opole,6/15/2018,70,7
+kujawsko-pomorskie,Toruń,6/23/2018,23,26
+małopolskie,Zakopane,6/26/2018,145,135
+małopolskie,Tarnów,6/27/2018,99,17
+lubelskie,Lublin,6/30/2018,23,11
+lubuskie,Gorzów Wielkopolski,2018-06-07,146,114
+zachodniopomorskie,Szczecin,2018-08-07,57,70
+warmińsko-mazurskie,Olsztyn,2018-12-07,76,149
+świętokrzyskie,Kielce,7/16/2018,67,167
+lubuskie,Zielona Góra,7/22/2018,63,101
+warmińsko-mazurskie,Olsztyn,7/23/2018,123,24
+pomorskie,Gdańsk,7/28/2018,43,139
+lubelskie,Biała Podlaska,2018-01-08,150,8
+lubuskie,Zielona Góra,2018-04-08,30,5
+lubelskie,Zamość,2018-07-08,102,15
+dolnośląskie,Wrocław,8/13/2018,111,54
+kujawsko-pomorskie,Bydgoszcz,8/16/2018,71,42
+małopolskie,Tarnów,8/18/2018,109,19
+świętokrzyskie,Kielce,8/20/2018,133,16
+mazowieckie,Warszawa,8/21/2018,63,32
+warmińsko-mazurskie,Olsztyn,8/27/2018,143,78
+małopolskie,Kraków,2018-01-09,82,167
+łódzkie,Łódź,2018-02-09,99,6
+kujawsko-pomorskie,Bydgoszcz,2018-06-09,147,66
+lubelskie,Biała Podlaska,2018-10-09,118,136
+wielkopolskie,Piła,9/14/2018,146,16
+opolskie,Opole,9/18/2018,142,144
+małopolskie,Tarnów,9/23/2018,17,112
+kujawsko-pomorskie,Toruń,9/28/2018,87,140
+warmińsko-mazurskie,Olsztyn,2018-03-10,33,5
+łódzkie,Łódź,2018-04-10,100,127
+śląskie,Bytom,2018-06-10,114,45
+podkarpackie,Rzeszów,2018-10-10,75,90
+lubelskie,Zamość,10/16/2018,50,73
+wielkopolskie,Poznań,10/20/2018,42,70
+podlaskie,Łomża,10/21/2018,38,105
+kujawsko-pomorskie,Toruń,10/24/2018,113,42
+pomorskie,Gdańsk,10/26/2018,24,27
+łódzkie,Łódź,2018-03-11,54,162
+zachodniopomorskie,Szczecin,2018-05-11,84,75
+łódzkie,Łódź,2018-07-11,135,102
+wielkopolskie,Poznań,2018-11-11,117,142
+kujawsko-pomorskie,Toruń,11/18/2018,41,146
+lubelskie,Biała Podlaska,11/22/2018,23,155
+lubelskie,Biała Podlaska,11/27/2018,115,158
+kujawsko-pomorskie,Toruń,11/28/2018,78,8
+pomorskie,Gdańsk,2018-04-12,3,59
+lubelskie,Lublin,2018-05-12,19,125
+małopolskie,Zakopane,2018-09-12,104,99
+podlaskie,Łomża,2018-11-12,44,0
+mazowieckie,Warszawa,12/15/2018,131,53
+śląskie,Katowice,12/17/2018,111,59
+śląskie,Bytom,12/21/2018,129,2
+małopolskie,Tarnów,12/24/2018,142,150
+pomorskie,Gdańsk,12/26/2018,123,145
+kujawsko-pomorskie,Bydgoszcz,2019-03-01,70,85
+lubuskie,Zielona Góra,2019-04-01,21,86
+opolskie,Opole,2019-05-01,61,52
+lubelskie,Zamość,1/17/2019,122,148
+lubelskie,Lublin,1/20/2019,107,40
+łódzkie,Łódź,1/24/2019,115,103
+mazowieckie,Warszawa,1/28/2019,74,54
+podkarpackie,Rzeszów,1/31/2019,45,119
+świętokrzyskie,Kielce,2019-03-02,1,15
+dolnośląskie,Wrocław,2019-04-02,90,29
+łódzkie,Łódź,2019-06-02,23,33
+wielkopolskie,Piła,2/13/2019,105,127
+lubelskie,Lublin,2/14/2019,112,137
+lubelskie,Biała Podlaska,2/16/2019,29,99
+śląskie,Bytom,2/17/2019,115,166
+świętokrzyskie,Kielce,2/22/2019,38,130
+lubuskie,Gorzów Wielkopolski,2/23/2019,47,86
+małopolskie,Kraków,2019-02-03,59,142
+mazowieckie,Warszawa,2019-05-03,42,62
+małopolskie,Zakopane,2019-11-03,102,88
+lubuskie,Zielona Góra,3/18/2019,17,116
+łódzkie,Łódź,3/20/2019,116,169
+świętokrzyskie,Kielce,3/26/2019,82,3
+zachodniopomorskie,Szczecin,3/29/2019,133,89
+kujawsko-pomorskie,Toruń,2019-03-04,3,46
+wielkopolskie,Piła,2019-06-04,132,92
+warmińsko-mazurskie,Olsztyn,2019-10-04,4,129
+zachodniopomorskie,Szczecin,2019-11-04,3,53
+dolnośląskie,Wrocław,4/18/2019,138,14
+lubelskie,Biała Podlaska,4/21/2019,44,45
+małopolskie,Zakopane,4/24/2019,129,67
+warmińsko-mazurskie,Olsztyn,4/26/2019,67,103
+kujawsko-pomorskie,Toruń,2019-01-05,104,141
+małopolskie,Kraków,2019-03-05,95,67
+opolskie,Opole,2019-08-05,139,30
+lubelskie,Biała Podlaska,5/14/2019,92,4
+dolnośląskie,Wrocław,5/17/2019,103,8
+lubelskie,Biała Podlaska,5/18/2019,107,46
+małopolskie,Zakopane,5/23/2019,38,66
+łódzkie,Łódź,5/28/2019,83,85
+małopolskie,Zakopane,5/31/2019,56,57
+mazowieckie,Warszawa,2019-03-06,89,38
+małopolskie,Kraków,2019-07-06,10,54
+lubelskie,Zamość,2019-11-06,75,66
+kujawsko-pomorskie,Toruń,6/13/2019,61,106
+łódzkie,Łódź,6/18/2019,120,91
+wielkopolskie,Poznań,6/22/2019,99,147
+małopolskie,Zakopane,6/27/2019,36,54
+lubelskie,Lublin,6/30/2019,140,60
+lubelskie,Biała Podlaska,2019-01-07,42,3
+lubelskie,Zamość,2019-02-07,141,76
+małopolskie,Zakopane,2019-08-07,125,132
+podlaskie,Łomża,2019-11-07,51,154
+małopolskie,Tarnów,7/14/2019,113,52
+mazowieckie,Warszawa,7/15/2019,47,5
+małopolskie,Kraków,7/20/2019,17,98
+lubuskie,Gorzów Wielkopolski,7/26/2019,46,152
+lubuskie,Gorzów Wielkopolski,2019-03-08,1,93
+lubuskie,Zielona Góra,2019-05-08,65,90
+wielkopolskie,Piła,2019-08-08,82,149
+wielkopolskie,Piła,8/14/2019,143,155
+lubelskie,Lublin,8/17/2019,131,5
+opolskie,Opole,8/18/2019,52,140
+lubelskie,Zamość,8/19/2019,122,43
+lubelskie,Biała Podlaska,8/24/2019,97,43
+małopolskie,Kraków,8/30/2019,62,70
+warmińsko-mazurskie,Olsztyn,2019-01-09,85,110
+kujawsko-pomorskie,Bydgoszcz,2019-05-09,103,108
+małopolskie,Kraków,2019-08-09,37,99
+kujawsko-pomorskie,Bydgoszcz,2019-12-09,34,8
+lubelskie,Lublin,9/17/2019,135,117
+małopolskie,Kraków,9/19/2019,57,71
+zachodniopomorskie,Szczecin,9/24/2019,144,132
+śląskie,Bytom,9/27/2019,98,93
+pomorskie,Gdańsk,2019-04-10,68,102
+małopolskie,Tarnów,2019-07-10,118,109
+małopolskie,Tarnów,2019-08-10,62,37
+śląskie,Bytom,10/13/2019,83,93
+mazowieckie,Warszawa,10/15/2019,145,112
+dolnośląskie,Wrocław,10/18/2019,84,148
+śląskie,Katowice,10/24/2019,30,119
+lubuskie,Zielona Góra,10/27/2019,66,86
+śląskie,Katowice,2019-01-11,111,120
+lubuskie,Gorzów Wielkopolski,2019-06-11,127,31
+mazowieckie,Warszawa,2019-07-11,114,57
+mazowieckie,Warszawa,11/13/2019,20,19
+małopolskie,Kraków,11/16/2019,150,31
+podkarpackie,Rzeszów,11/17/2019,80,164
+kujawsko-pomorskie,Toruń,11/18/2019,67,20
+małopolskie,Tarnów,11/24/2019,126,105
+wielkopolskie,Poznań,11/29/2019,136,79
+lubelskie,Biała Podlaska,11/30/2019,77,149
+mazowieckie,Warszawa,2019-09-12,95,59
+wielkopolskie,Piła,2019-10-12,17,34
+śląskie,Bytom,12/15/2019,15,76
+dolnośląskie,Wrocław,12/19/2019,138,131
+wielkopolskie,Poznań,12/20/2019,29,101
+małopolskie,Tarnów,12/21/2019,2,86
+warmińsko-mazurskie,Olsztyn,12/26/2019,33,87
+śląskie,Katowice,12/31/2019,50,145

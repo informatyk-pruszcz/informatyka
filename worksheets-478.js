@@ -1,5 +1,6 @@
 // Interaktywne karty pracy dla klas 4, 7 i 8.
 // Treść wszystkich zadań, kroków, tabel, wskazówek, kryteriów oceniania i notatki dla nauczyciela zachowana wiernie 1:1 z oryginałów.
+import { downloadPrawoJazdyXlsx, PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 
 export const extraWorksheets = [
   {
@@ -1215,6 +1216,28 @@ function renderGrade8PivotWorksheet() {
       </label>
     </div>
 
+    <!-- Załącznik do pobrania: prawo-jazdy.xlsx -->
+    <section class="ws-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #22c55e">
+      <div class="ws-card-head" style="margin-bottom:8px">
+        <h2 style="color:#14532d;margin:0">📎 Załącznik do zadania: Baza danych <code>prawo-jazdy.xlsx</code> (500 raportów z egzaminów 2015–2019)</h2>
+        <span class="ws-badge" style="background:#15803d;color:#fff">Arkusz1 • 500 wierszy</span>
+      </div>
+      <p style="margin:0 0 12px;color:#14532d">Pobierz oryginalny plik <code>prawo-jazdy.xlsx</code> na swój komputer i otwórz go w programie <strong>MS Excel</strong> (lub skopiuj wszystkie 500 wierszy jednym kliknięciem prosto do schowka):</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <button type="button" class="btn primary" id="piv-download-xlsx" style="background:#15803d;border-color:#15803d;font-weight:700">📥 Pobierz załącznik: prawo-jazdy.xlsx (MS Excel)</button>
+        <a class="btn" href="./prawo-jazdy.csv" download="prawo-jazdy.csv">📥 Pobierz plik CSV (prawo-jazdy.csv)</a>
+        <button type="button" class="btn" id="piv-copy-csv-tsv">📋 Skopiuj wszystkie 500 wierszy do Excela</button>
+        <button type="button" class="btn" id="piv-toggle-raw">👁️ Podgląd bazy danych Arkusz1 na stronie (500 wierszy)</button>
+      </div>
+      <div id="piv-raw-preview" hidden style="margin-top:14px;background:#fff;border:1px solid #86efac;border-radius:10px;padding:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+          <strong>📊 Podgląd arkusza <code>Arkusz1</code> z pliku <code>prawo-jazdy.xlsx</code> (16 województw, 24 miasta, 500 wierszy):</strong>
+          <input type="search" id="piv-raw-search" placeholder="Filtruj podgląd (np. małopolskie, Toruń, 2018)..." style="max-width:320px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px">
+        </div>
+        <div class="ws-table-wrap" style="max-height:280px;overflow-y:auto" id="piv-raw-table-wrap"></div>
+      </div>
+    </section>
+
     <section class="ws-card">
       <h2 style="color:#15803d;margin:0 0 10px">Praktyczne zadanie dla Ciebie – 3 Misje Detektywistyczne</h2>
       <p>Czas sprawdzić nasz „magiczny sorter” w praktyce! Otwórz plik <code>prawo-jazdy.xlsx</code>, wstaw tabelę przestawną na nowym arkuszu (<strong>Wstawianie → Tabela przestawna → Nowy arkusz → OK</strong>) i odpowiedz na poniższe 3 pytania badawcze, układając odpowiednio klocki w panelu <strong>Pola tabeli przestawnej</strong>. Zapisz swoje odpowiedzi w tabeli na kolejnej stronie.</p>
@@ -1360,6 +1383,11 @@ function renderGrade8PivotWorksheet() {
           </tbody>
         </table>
       </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <button type="button" class="btn primary" id="piv-check-answers" style="background:#15803d;border-color:#15803d">✓ Sprawdź moje odpowiedzi z bazą prawo-jazdy.xlsx</button>
+        <button type="button" class="btn" id="piv-fill-sample">💡 Pokaż wzorcowe wyniki z bazy (do samokontroli)</button>
+      </div>
+      <div id="piv-check-feedback" style="margin-top:10px"></div>
     </section>
 
     <!-- Lista kontrolna Detektywa Danych -->
@@ -1899,6 +1927,97 @@ export function bindExtraWorksheet(id, toast) {
   // Logic for Grade 8 Pivot Tables Worksheet
   // ==========================================================================
   if (id === 'karta-8-1-tabele-przestawne') {
+    const dlXlsxBtn = document.getElementById('piv-download-xlsx');
+    if (dlXlsxBtn) {
+      dlXlsxBtn.onclick = () => downloadPrawoJazdyXlsx(toast);
+    }
+
+    let cachedCsvRows = null;
+    async function loadCsvRows() {
+      if (cachedCsvRows) return cachedCsvRows;
+      try {
+        const res = await fetch('./prawo-jazdy.csv');
+        const txt = await res.text();
+        cachedCsvRows = txt.trim().split(/\r?\n/).map(line => line.split(','));
+        return cachedCsvRows;
+      } catch {
+        return null;
+      }
+    }
+
+    const copyCsvTsvBtn = document.getElementById('piv-copy-csv-tsv');
+    if (copyCsvTsvBtn) {
+      copyCsvTsvBtn.onclick = async () => {
+        const rows = await loadCsvRows();
+        if (rows && rows.length > 1) {
+          const tsv = rows.map(r => r.join('\t')).join('\n');
+          copyText(tsv, toast);
+        } else {
+          toast('Pobierz plik prawo-jazdy.xlsx przyciskiem obok!');
+        }
+      };
+    }
+
+    const toggleRawBtn = document.getElementById('piv-toggle-raw');
+    const rawPreview = document.getElementById('piv-raw-preview');
+    const rawTableWrap = document.getElementById('piv-raw-table-wrap');
+    const rawSearch = document.getElementById('piv-raw-search');
+
+    function renderRawTable(rows, query = '') {
+      if (!rawTableWrap || !rows || !rows.length) return;
+      const q = query.trim().toLowerCase();
+      const bodyRows = rows.slice(1).filter(r => !q || r.some(c => c.toLowerCase().includes(q)));
+      rawTableWrap.innerHTML = `
+        <table class="ws-excel-grid">
+          <thead>
+            <tr>
+              <th class="ws-excel-corner">Wiersz</th>
+              <th>A: Województwo</th>
+              <th>B: Miasto</th>
+              <th>C: Data</th>
+              <th>D: Liczba zdanych egzaminów (kobiety)</th>
+              <th>E: Liczba zdanych egzaminów (mężczyźni)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${bodyRows.slice(0, 150).map((r, idx) => `
+              <tr>
+                <td class="ws-excel-rownum">${idx + 2}</td>
+                <td>${r[0] || ''}</td>
+                <td><strong>${r[1] || ''}</strong></td>
+                <td class="ws-center-cell">${r[2] || ''}</td>
+                <td class="ws-num-cell">${r[3] || ''}</td>
+                <td class="ws-num-cell">${r[4] || ''}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <p class="ws-subnote" style="margin:6px 0 0">Wyświetlono ${Math.min(bodyRows.length, 150)} z ${bodyRows.length} pasujących rekordów (w całym pliku <code>prawo-jazdy.xlsx</code> jest 500 wierszy danych).</p>
+      `;
+    }
+
+    if (toggleRawBtn && rawPreview) {
+      toggleRawBtn.onclick = async () => {
+        const isHidden = rawPreview.hasAttribute('hidden');
+        if (isHidden) {
+          rawPreview.removeAttribute('hidden');
+          toggleRawBtn.textContent = '🙈 Ukryj podgląd bazy danych Arkusz1';
+          const rows = await loadCsvRows();
+          if (rows) renderRawTable(rows, rawSearch?.value || '');
+        } else {
+          rawPreview.setAttribute('hidden', '');
+          toggleRawBtn.textContent = '👁️ Podgląd bazy danych Arkusz1 na stronie (500 wierszy)';
+        }
+      };
+    }
+
+    if (rawSearch) {
+      rawSearch.oninput = async () => {
+        const rows = await loadCsvRows();
+        if (rows) renderRawTable(rows, rawSearch.value);
+      };
+    }
+
     document.querySelectorAll('[data-piv-ans]').forEach(inp => {
       const k = 'piv_' + inp.dataset.pivAns;
       inp.value = state[k] || '';
@@ -1907,6 +2026,81 @@ export function bindExtraWorksheet(id, toast) {
         saveState();
       });
     });
+
+    // Walidacja Karty odpowiedzi Detektywa Danych na podstawie prawo-jazdy.xlsx
+    const norm = s => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const hasNum = (s, n) => norm(s).replace(/\s/g, '').includes(String(n));
+    const pivValidators = {
+      'm1-k-max': v => norm(v).includes('lubelskie') && (hasNum(v, 5183) || !/\d/.test(v)),
+      'm1-k-min': v => (norm(v).includes('świętokrzyskie') || norm(v).includes('swietokrzyskie')) && (hasNum(v, 841) || !/\d/.test(v)),
+      'm1-m-max': v => norm(v).includes('lubelskie') && (hasNum(v, 5392) || !/\d/.test(v)),
+      'm1-m-min': v => norm(v).includes('podlaskie') && (hasNum(v, 1181) || !/\d/.test(v)),
+      'm1-sum-k': v => hasNum(v, 38546),
+      'm1-sum-m': v => hasNum(v, 42053),
+      'm2-city': v => norm(v).includes('toruń') || norm(v).includes('torun'),
+      'm2-count': v => hasNum(v, 31),
+      'm2-max-k': v => norm(v).includes('szczecin') && (hasNum(v, 2597) || !/\d/.test(v)),
+      'm2-max-m': v => norm(v).includes('szczecin') && (hasNum(v, 2700) || !/\d/.test(v)),
+      'm3-mal-cities': v => (norm(v).includes('kraków') || norm(v).includes('krakow')) && (norm(v).includes('tarnów') || norm(v).includes('tarnow')) && norm(v).includes('zakopane'),
+      'm3-mal-rec': v => norm(v).includes('zakopane') || hasNum(v, 2038),
+      'm3-lub-city': v => norm(v).includes('biała podlaska') || norm(v).includes('biala podlaska'),
+      'm3-lub-rec': v => hasNum(v, 2699)
+    };
+
+    const checkAnsBtn = document.getElementById('piv-check-answers');
+    const fillSampleBtn = document.getElementById('piv-fill-sample');
+    const checkFb = document.getElementById('piv-check-feedback');
+
+    if (checkAnsBtn) {
+      checkAnsBtn.onclick = () => {
+        const inputs = [...document.querySelectorAll('[data-piv-ans]')];
+        let good = 0;
+        inputs.forEach(inp => {
+          const ok = pivValidators[inp.dataset.pivAns]?.(inp.value);
+          inp.classList.toggle('ws-good-cell', !!ok);
+          inp.classList.toggle('ws-bad-cell', !ok);
+          if (ok) good++;
+        });
+        if (checkFb) {
+          checkFb.innerHTML = `<div class="feedback ${good === inputs.length ? '' : 'error'}">${
+            good === inputs.length
+              ? '🎉 Brawo Detektywie Danych! Wszystkie 14 odpowiedzi zgadza się w 100% z bazą danych prawo-jazdy.xlsx!'
+              : `Poprawne odpowiedzi: <strong>${good} z ${inputs.length}</strong>. Pola podświetlone na czerwono wymagają poprawy — możesz porównać swoją tabelę przestawną z podglądem wyników w Pomocniku powyżej.`
+          }</div>`;
+        }
+        toast(`Sprawdzono Kartę Detektywa: ${good} / ${inputs.length} poprawnych!`);
+      };
+    }
+
+    if (fillSampleBtn) {
+      fillSampleBtn.onclick = () => {
+        const samples = {
+          'm1-k-max': 'lubelskie (5183)',
+          'm1-k-min': 'świętokrzyskie (841)',
+          'm1-m-max': 'lubelskie (5392)',
+          'm1-m-min': 'podlaskie (1181)',
+          'm1-sum-k': '38 546',
+          'm1-sum-m': '42 053',
+          'm2-city': 'Toruń',
+          'm2-count': '31',
+          'm2-max-k': 'Szczecin (2597)',
+          'm2-max-m': 'Szczecin (2700)',
+          'm3-mal-cities': 'Kraków, Tarnów, Zakopane',
+          'm3-mal-rec': 'Zakopane (2038)',
+          'm3-lub-city': 'Biała Podlaska',
+          'm3-lub-rec': '2699'
+        };
+        document.querySelectorAll('[data-piv-ans]').forEach(inp => {
+          const key = inp.dataset.pivAns;
+          inp.value = samples[key] || '';
+          state['piv_' + key] = inp.value;
+          inp.classList.remove('ws-bad-cell');
+          inp.classList.add('ws-good-cell');
+        });
+        saveState();
+        toast('Wstawiono wzorcowe wyniki wyliczone z pliku prawo-jazdy.xlsx!');
+      };
+    }
 
     const pivPage = document.getElementById('piv-sim-page');
     const pivTabs = [...document.querySelectorAll('[data-piv-sim]')];
@@ -1919,21 +2113,96 @@ export function bindExtraWorksheet(id, toast) {
           kolumny: '∑ Wartości',
           wiersze: '🏷️ Województwo',
           wartosci: '∑ Suma z Liczba zdanych egzaminów (kobiety)<br>∑ Suma z Liczba zdanych egzaminów (mężczyźni)',
-          tip: 'Kliknij PPM na liczbie w kolumnie kobiet → Sortuj → Sortuj od największych do najmniejszych.'
+          tip: 'Kliknij PPM na liczbie w kolumnie kobiet → Sortuj → Sortuj od największych do najmniejszych.',
+          tableHtml: `
+            <h4 style="margin:14px 0 8px;color:#14532d">📊 Wynikowa Tabela Przestawna w Excelu dla Misji 1 (posortowana malejąco wg kobiet):</h4>
+            <div class="ws-table-wrap" style="max-height:260px;overflow-y:auto">
+              <table class="ws-excel-grid">
+                <thead>
+                  <tr><th>Etykiety wierszy (Województwo)</th><th>Suma z Liczba zdanych egzaminów (kobiety)</th><th>Suma z Liczba zdanych egzaminów (mężczyźni)</th></tr>
+                </thead>
+                <tbody>
+                  ${PRAWO_JAZDY_STATS.byWoj.map(([woj, k, men], idx) => `
+                    <tr class="${idx === 0 || idx === PRAWO_JAZDY_STATS.byWoj.length - 1 || woj === 'podlaskie' ? 'ws-sim-new-row' : ''}">
+                      <td><strong>${woj}</strong> ${idx === 0 ? '🏆 (MAX kobiety i mężczyźni)' : woj === 'świętokrzyskie' ? '⬇️ (MIN kobiety)' : woj === 'podlaskie' ? '⬇️ (MIN mężczyźni)' : ''}</td>
+                      <td class="ws-num-cell"><strong>${k}</strong></td>
+                      <td class="ws-num-cell"><strong>${men}</strong></td>
+                    </tr>
+                  `).join('')}
+                  <tr style="background:#dcfce7;font-weight:700">
+                    <td><strong>Suma końcowa</strong></td>
+                    <td class="ws-num-cell"><strong>${PRAWO_JAZDY_STATS.totalK}</strong></td>
+                    <td class="ws-num-cell"><strong>${PRAWO_JAZDY_STATS.totalM}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`
         },
         '2': {
           filtry: '— (puste)',
           kolumny: '∑ Wartości',
           wiersze: '🏷️ Miasto',
           wartosci: '🔢 <strong>Liczba z Miasto</strong> (przeciągnij Miasto drugi raz!)<br>∑ Suma z Liczba zdanych egzaminów (kobiety)<br>∑ Suma z Liczba zdanych egzaminów (mężczyźni)',
-          tip: 'Ponieważ „Miasto” to tekst, po wrzuceniu do okienka Wartości Excel automatycznie ustawia „Liczba z Miasto” i zlicza raporty!'
+          tip: 'Ponieważ „Miasto” to tekst, po wrzuceniu do okienka Wartości Excel automatycznie ustawia „Liczba z Miasto” i zlicza raporty!',
+          tableHtml: `
+            <h4 style="margin:14px 0 8px;color:#14532d">📊 Wynikowa Tabela Przestawna w Excelu dla Misji 2 (24 miasta, posortowane wg Liczba z Miasto):</h4>
+            <div class="ws-table-wrap" style="max-height:260px;overflow-y:auto">
+              <table class="ws-excel-grid">
+                <thead>
+                  <tr><th>Etykiety wierszy (Miasto)</th><th>Liczba z Miasto (raporty)</th><th>Suma z Liczba zdanych egzaminów (kobiety)</th><th>Suma z Liczba zdanych egzaminów (mężczyźni)</th></tr>
+                </thead>
+                <tbody>
+                  ${PRAWO_JAZDY_STATS.byCity.map(([city, cnt, k, men]) => `
+                    <tr class="${city === 'Toruń' || city === 'Szczecin' ? 'ws-sim-new-row' : ''}">
+                      <td><strong>${city}</strong> ${city === 'Toruń' ? '🏆 (Najwięcej raportów: 31)' : city === 'Szczecin' ? '🏆 (MAX kobiety: 2597 i MAX mężczyźni: 2700)' : ''}</td>
+                      <td class="ws-center-cell"><strong>${cnt}</strong></td>
+                      <td class="ws-num-cell"><strong>${k}</strong></td>
+                      <td class="ws-num-cell"><strong>${men}</strong></td>
+                    </tr>
+                  `).join('')}
+                  <tr style="background:#dcfce7;font-weight:700">
+                    <td><strong>Suma końcowa</strong></td>
+                    <td class="ws-center-cell"><strong>${PRAWO_JAZDY_STATS.totalRows}</strong></td>
+                    <td class="ws-num-cell"><strong>${PRAWO_JAZDY_STATS.totalK}</strong></td>
+                    <td class="ws-num-cell"><strong>${PRAWO_JAZDY_STATS.totalM}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`
         },
         '3': {
           filtry: '🔎 <strong>Województwo</strong> (wybierz w B1: <code>małopolskie</code>, a potem <code>lubelskie</code>)',
           kolumny: '∑ Wartości',
           wiersze: '🏷️ Miasto',
           wartosci: '∑ Suma z Liczba zdanych egzaminów (kobiety)<br>∑ Suma z Liczba zdanych egzaminów (mężczyźni)',
-          tip: 'W komórce B1 nad tabelą przestawną klikaj strzałkę filtru i przełączaj między województwem małopolskim a lubelskim.'
+          tip: 'W komórce B1 nad tabelą przestawną klikaj strzałkę filtru i przełączaj między województwem małopolskim a lubelskim.',
+          tableHtml: `
+            <div class="ws-grid-2" style="margin-top:14px">
+              <div>
+                <h4 style="margin:0 0 6px;color:#14532d">🔎 Filtr B1: Województwo = <code>małopolskie</code></h4>
+                <table class="ws-excel-grid">
+                  <thead><tr><th>Miasto</th><th>Suma (kobiety)</th><th>Suma (mężczyźni)</th></tr></thead>
+                  <tbody>
+                    <tr class="ws-sim-new-row"><td><strong>Zakopane</strong> 🏆</td><td class="ws-num-cell"><strong>2038</strong></td><td class="ws-num-cell">2353</td></tr>
+                    <tr><td><strong>Tarnów</strong></td><td class="ws-num-cell">1461</td><td class="ws-num-cell">1556</td></tr>
+                    <tr><td><strong>Kraków</strong></td><td class="ws-num-cell">1009</td><td class="ws-num-cell">1459</td></tr>
+                    <tr style="background:#dcfce7;font-weight:700"><td>Suma końcowa</td><td class="ws-num-cell">4508</td><td class="ws-num-cell">5368</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4 style="margin:0 0 6px;color:#14532d">🔎 Filtr B1: Województwo = <code>lubelskie</code></h4>
+                <table class="ws-excel-grid">
+                  <thead><tr><th>Miasto</th><th>Suma (kobiety)</th><th>Suma (mężczyźni)</th></tr></thead>
+                  <tbody>
+                    <tr class="ws-sim-new-row"><td><strong>Biała Podlaska</strong> 🏆</td><td class="ws-num-cell">1907</td><td class="ws-num-cell"><strong>2699</strong></td></tr>
+                    <tr><td><strong>Zamość</strong></td><td class="ws-num-cell">1938</td><td class="ws-num-cell">1625</td></tr>
+                    <tr><td><strong>Lublin</strong></td><td class="ws-num-cell">1338</td><td class="ws-num-cell">1068</td></tr>
+                    <tr style="background:#dcfce7;font-weight:700"><td>Suma końcowa</td><td class="ws-num-cell">5183</td><td class="ws-num-cell">5392</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>`
         }
       }[m];
 
@@ -1947,6 +2216,7 @@ export function bindExtraWorksheet(id, toast) {
             <div class="ws-piv-box"><strong>∑ WARTOŚCI</strong><div>${configs.wartosci}</div></div>
           </div>
           <p class="ws-subnote" style="margin:0">💡 <strong>Wskazówka:</strong> ${configs.tip}</p>
+          ${configs.tableHtml}
         </div>`;
     }
     pivTabs.forEach(t => { t.onclick = () => renderPivSim(t.dataset.pivSim); });
