@@ -163,8 +163,64 @@ body.dark .ws-card-check{background:#241734;border-color:#7e22ce}
 .ws-lesson-link-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;text-decoration:none!important;font-weight:600;font-size:13px}
 .ws-lesson-link-card:hover{border-color:var(--accent)}
 
+/* Karty pracy klas 4, 7 i 8 — komponenty interaktywne */
+.ws-word-bank{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin:10px 0;text-align:center}
+.ws-inline-select{background:var(--bg);border:1.5px solid var(--line);border-radius:7px;padding:5px 10px;color:var(--text);font-weight:600;max-width:100%}
+.ws-x-cell{text-align:center!important;font:800 18px/1 system-ui,sans-serif;min-width:90px;user-select:none}
+.ws-x-selected{color:var(--accent);background:var(--soft)}
+.ws-match-grid{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.ws-match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;align-items:center;padding:8px 12px;background:var(--bg);border:1px solid var(--line);border-radius:9px}
+.ws-dot-blue{color:#0284c7;margin-right:6px}
+.ws-pf-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.ws-pf-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 13px;background:var(--bg);border:1px solid var(--line);border-radius:9px;flex-wrap:wrap}
+.ws-pf-btns{display:flex;gap:6px}
+.ws-pf-btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:6px;padding:5px 12px;font:700 12.5px monospace}
+.ws-pf-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ws-section-banner{background:#0284c7;color:#fff;font-weight:800;padding:9px 16px;border-radius:8px;margin:18px 0 14px;display:inline-block;font-size:13px;letter-spacing:.04em}
+.ws-self-eval{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.ws-self-eval label{display:flex;align-items:flex-start;gap:8px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:13px}
+.ws-good-cell{border:2px solid #16a34a!important;background:#dcfce7!important;color:#14532d!important}
+.ws-bad-cell{border:2px solid #dc2626!important;background:#fee2e2!important;color:#7f1d1d!important}
+
+/* Siatka MS Excel w kartach pracy Klasy 8 */
+.ws-excel-grid{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface)}
+.ws-excel-grid th,.ws-excel-grid td{border:1px solid #cbd5e1;padding:7px 10px}
+.ws-excel-grid thead th{background:#e2e8f0;color:#334155;text-align:center;font:700 12px monospace}
+.ws-excel-corner{width:34px}
+.ws-excel-rownum{background:#e2e8f0;color:#475569;text-align:center;font:700 12px monospace;width:34px}
+.ws-excel-row-head td:not(.ws-excel-rownum){background:#f1f5f9;font-weight:700}
+.ws-num-cell{text-align:right;font-variant-numeric:tabular-nums}
+.ws-center-cell{text-align:center}
+.ws-formula-placeholder{text-align:center;color:#64748b;font-style:italic;background:#f8fafc}
+.ws-formula-yellow{text-align:right;background:#fef9c3;color:#713f12;font:600 12.5px Consolas,monospace}
+.ws-cond-red{background:#fee2e2!important;color:#991b1b!important;font-weight:700}
+.ws-subcard{margin-top:12px;padding:13px 16px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.ws-subcard-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ws-formula-input-row{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 11px;margin-top:8px;width:100%}
+.ws-formula-input-row code{white-space:nowrap;font-weight:700;color:var(--accent)}
+.ws-formula-entry{border:0;background:transparent;width:100%;font:600 13.5px Consolas,monospace;color:var(--text);outline:none}
+.ws-ans-line{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12.5px}
+.ws-ans-line span{min-width:110px;font-weight:600;color:var(--muted)}
+.ws-ans-line input{width:100%;border:1px dashed var(--line);background:var(--bg);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12.5px}
+.ws-piv-box{border:1px solid #cbd5e1;border-radius:8px;padding:10px 12px;background:#f8fafc;color:#1e293b;font-size:13px}
+.ws-piv-box strong{display:block;font-size:11.5px;color:#475569;margin-bottom:6px;border-bottom:1px solid #e2e8f0;padding-bottom:4px}
+
+/* Edytor VS Code + Przeglądarka dla Klasy 7 */
+.ws-code-textarea{width:100%;min-height:220px;background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:10px;padding:14px;font:13px/1.6 Consolas,monospace;resize:vertical}
+.ws-browser-mock{border:1px solid #cbd5e1;border-radius:10px;overflow:hidden;background:#fff;color:#0f172a;min-height:220px;display:flex;flex-direction:column}
+.ws-browser-tabbar{background:#e2e8f0;padding:8px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #cbd5e1}
+.ws-browser-dots{display:flex;gap:5px}
+.ws-browser-dots i{width:9px;height:9px;border-radius:50%;background:#ef4444;display:inline-block}
+.ws-browser-dots i:nth-child(2){background:#f59e0b}
+.ws-browser-dots i:nth-child(3){background:#22c55e}
+.ws-browser-tab{background:#fff;padding:4px 12px;border-radius:6px 6px 0 0;font-size:12px;border:1px solid #cbd5e1;border-bottom:0}
+.ws-browser-body{padding:18px 22px;flex:1;font-family:system-ui,sans-serif}
+.ws-browser-body h1{font-size:26px;margin:0 0 10px;color:#0f172a}
+.ws-browser-body h2{font-size:20px;margin:14px 0 8px;color:#1e293b}
+.ws-browser-body p{margin:0 0 10px;color:#334155}
+
 @media(max-width:800px){
-  .ws-grid-2,.ws-checklist-inline{grid-template-columns:1fr}
+  .ws-grid-2,.ws-checklist-inline,.ws-match-row{grid-template-columns:1fr}
   .ws-sheet{padding:18px}
   .ws-header h1{font-size:20px}
 }
