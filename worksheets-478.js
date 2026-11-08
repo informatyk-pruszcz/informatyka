@@ -68,7 +68,7 @@ export const extraWorksheets = [
     id: 'karta-8-1-misja-vat',
     type: 'task',
     grades: [8],
-    title: 'KARTA PRACY: Nie pracuję, więc nie płacę podatków? Excel sprawdza! (Misja VAT)',
+    title: 'Misja VAT — ile podatku kryje się w zakupach?',
     section: '1. Arkusz kalkulacyjny',
     tags: ['ArkuszKalkulacyjny', 'Excel', 'TabelePrzestawne', 'Fragmentatory', 'WykresPrzestawny', 'MisjaVAT', 'KartaPracy'],
     summary: 'MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • Plik do pobrania: Zakupy_nastolatkow_2000_rekordow.xlsx • Dwie tabele przestawne, wykres kolumnowy, dwa fragmentatory i analiza podatku VAT w zakupach nastolatków.',
@@ -1428,19 +1428,10 @@ function renderGrade8PivotWorksheet() {
 // ============================================================================
 function renderGrade8MisjaVatWorksheet() {
   return `
-  <div class="ws-sheet" id="ws-sheet" data-ws-id="karta-8-1-misja-vat">
-    ${renderToolbar('karta-8-1-misja-vat', 8)}
-
-    <header class="ws-header-banner ws-banner-green">
-      <div class="ws-banner-top">
-        <div>
-          <span class="ws-eyebrow">MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • INFORMATYKA – KLASA VIII</span>
-          <h1>NIE PRACUJĘ, WIĘC NIE PŁACĘ PODATKÓW? EXCEL SPRAWDZA!</h1>
-          <p class="ws-subtitle">Plik źródłowy: <strong>Zakupy_nastolatkow_2000_rekordow.xlsx</strong> (arkusz <code>BAZA_ZAKUPÓW</code>, tabela <code>Zakupy</code>)</p>
-        </div>
-        <div class="ws-badge-icon" aria-hidden="true">🧾</div>
-      </div>
-      <div class="ws-student-bar">
+  ${renderToolbar('karta-8-1-misja-vat', 8)}
+  <div class="ws-sheet ws-theme-green vat-sheet" id="ws-sheet" data-ws-id="karta-8-1-misja-vat">
+    <h1 class="vat-print-title">Misja VAT — karta pracy</h1>
+    <div class="ws-student-bar">
         <label class="ws-student-field">
           <span>Imię i klasa:</span>
           <input type="text" id="ws-student-name" placeholder="................................................">
@@ -1450,7 +1441,6 @@ function renderGrade8MisjaVatWorksheet() {
           <input type="text" id="vat-student-date" data-vat-ans="meta-date" placeholder="........................">
         </label>
       </div>
-    </header>
 
     <!-- Wprowadzenie i cel zadania -->
     <section class="ws-card ws-card-intro">
@@ -1539,11 +1529,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-start">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">START | przygotuj warsztat</span>
+              <h3>START | przygotuj warsztat</h3>
             </div>
             <p style="margin:6px 0 0">
               Otwórz plik <code>Zakupy_nastolatkow_2000_rekordow.xlsx</code> i zapisz kopię jako <code>Misja_VAT_Imię.xlsx</code>. W arkuszu <code>BAZA_ZAKUPÓW</code> kliknij komórkę tabeli <code>Zakupy</code>. Wybierz <span class="ws-ui-path">Wstawianie → Tabela przestawna → Z tabeli/zakresu</span> (w niektórych wydaniach bezpośrednio <span class="ws-ui-path">Tabela przestawna</span>), potem <span class="ws-ui-path">Nowy arkusz → OK</span>. Nazwij nowy arkusz <code>ANALIZY</code>.
@@ -1555,11 +1545,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-m1">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">MISJA 1 | ODKRYJ PODATEK</span>
+              <h3>MISJA 1 | ODKRYJ PODATEK</h3>
             </div>
             <p style="margin:6px 0">W panelu <strong>Pola tabeli przestawnej</strong> przeciągnij:</p>
             <ul class="ws-bullet-list">
@@ -1583,11 +1573,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-m2">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">MISJA 2 | KTO PŁACI NAJWIĘCEJ?</span>
+              <h3>MISJA 2 | KTO PŁACI NAJWIĘCEJ?</h3>
             </div>
             <p style="margin:6px 0">
               Skopiuj całą pierwszą tabelę przestawną i wklej ją np. od komórki <code>A18</code>, zostawiając miejsce między tabelami. Kopia ułatwi wspólne połączenie fragmentatorów. W kopii usuń kategorię z <strong>Wierszy</strong> i cenę brutto z <strong>Wartości</strong>. Ustaw:
@@ -1644,11 +1634,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-m3">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">MISJA 3 | PODATKI NA WYKRESIE</span>
+              <h3>MISJA 3 | PODATKI NA WYKRESIE</h3>
             </div>
             <p style="margin:6px 0 0">
               Skopiuj pierwszą tabelę do nowego arkusza <code>WYKRES</code>. Usuń z kopii cenę brutto, pozostawiając sumę VAT. Kliknij tę kopię: <span class="ws-ui-path">Analiza tabeli przestawnej → Wykres przestawny</span>. Wybierz <span class="ws-ui-path">Kolumnowy → Kolumnowy grupowany</span>. Nadaj tytuł <strong>„VAT w zakupach według kategorii”</strong>. Zadbaj o czytelne etykiety i kwoty w zł.
@@ -1660,11 +1650,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-m4">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">MISJA 4 | FRAGMENTATORY W AKCJI</span>
+              <h3>MISJA 4 | FRAGMENTATORY W AKCJI</h3>
             </div>
             <p style="margin:6px 0 10px">
               Kliknij pierwszą tabelę: <span class="ws-ui-path">Analiza tabeli przestawnej → Wstaw fragmentator</span>. Zaznacz <code>Kategoria zakupów</code> i <code>Imię kupującego (fikcyjne)</code>. Rozsuń przyciski, aby nie zasłaniały tabel. Zaznacz kolejno każdy fragmentator: <span class="ws-ui-path">Fragmentator → Połączenia raportu</span>; zaznacz obie tabele oraz kopię do wykresu, jeśli ją utworzyłeś. Muszą korzystać z tego samego źródła. Jeśli tabeli nie ma na liście, utwórz ją ponownie przez skopiowanie pierwszej.
@@ -1686,11 +1676,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-m5">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">MISJA 5 | ILE PODATKU JEST W TWOICH ZAKUPACH?</span>
+              <h3>MISJA 5 | ILE PODATKU JEST W TWOICH ZAKUPACH?</h3>
             </div>
             <p style="margin:6px 0 10px">
               Wybierz jedną fikcyjną osobę, pozostawiając wszystkie kategorie. Odczytaj jej sumę VAT. Porównaj ją z ceną słuchawek przewodowych: wybierz jedną ich cenę brutto z bazy (kolumna <code>Produkt lub usługa</code>). Oblicz: <strong>suma VAT ÷ wybrana cena słuchawek</strong>.
@@ -1737,11 +1727,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step ws-step-star">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-bonus">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num ws-num-gold">BONUS | DETEKTYW PODATKOWY</span>
+              <h3>Bonus · Detektyw podatkowy</h3>
             </div>
             <p style="margin:6px 0 10px">
               Skopiuj tabelę i ustaw w <strong>Wierszach</strong> <code>Miesiąc</code> lub <code>Stawka VAT</code>, a w <strong>Wartościach</strong> sumę brutto i sumę VAT. Wyczyść filtry. Sformułuj wniosek poparty dwiema liczbami:
@@ -1754,11 +1744,11 @@ function renderGrade8MisjaVatWorksheet() {
         <article class="ws-step">
           <label class="ws-step-check">
             <input type="checkbox" data-step-check="vat-final">
-            <span class="ws-Cache"></span>
+            <span>Gotowe</span>
           </label>
           <div class="ws-step-body">
             <div class="ws-step-header">
-              <span class="ws-step-num" style="background:#15803d">FINAŁ | ODPOWIEDZ I ZAPISZ PLIK</span>
+              <h3>FINAŁ | ODPOWIEDZ I ZAPISZ PLIK</h3>
             </div>
             <div class="ws-fill-box" style="background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #cbd5e1;margin-top:8px">
               <label class="ws-ans-line" style="margin-bottom:8px">
@@ -1852,10 +1842,7 @@ function renderGrade8MisjaVatWorksheet() {
       </ul>
     </section>
 
-    <footer class="ws-footer">
-      <span>MISJA VAT | 2000 rekordów | dane fikcyjne: 2025</span>
-      <span>Strona 1–2 z 2</span>
-    </footer>
+    
   </div>`;
 }
 

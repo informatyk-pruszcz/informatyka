@@ -243,3 +243,32 @@ body.dark .ws-sheet [data-vat][aria-invalid=true]{border-color:#ff9999}
   body.dark .ws-excel-grid .ws-cond-red{background:#572a31!important;color:#ffdade!important}
   body.dark .ws-word-sheet:has(.ws-excel-grid) :is(h3,h4,p,strong)[style*="color:#15803d"]{color:#8ae0af!important}
 }
+
+/* Karta VAT korzysta z tytułu widoku materiału. Na wydruku ma własny nagłówek. */
+.vat-print-title{display:none}
+@media print{.vat-print-title{display:block}}
+.vat-sheet{overflow-wrap:anywhere;container-type:inline-size}
+.vat-sheet .ws-step{padding:16px 0;border-top:1px solid var(--line)}
+.vat-sheet .ws-step-header h3{color:var(--ws-brand);margin:0 0 8px}
+.vat-sheet .ws-step-check{display:inline-flex;gap:6px;align-items:center;margin-bottom:8px;font-size:.85em}
+.vat-sheet .ws-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.vat-sheet .ws-grid-2>*{min-width:0}
+.vat-sheet .ws-ans-line{flex-wrap:wrap}
+.vat-sheet .ws-ans-line input{flex:1 1 9em;min-width:0}
+.vat-sheet .ws-ans-line span{min-width:0}
+.vat-sheet .btn,.vat-sheet input,.vat-sheet textarea{max-width:100%}
+.vat-sheet .ws-word-sheet{max-width:100%}
+.vat-sheet .ws-word-sheet .ws-grid-2>div{overflow-x:auto}
+@container (max-width:700px){
+  .vat-sheet .ws-grid-2{grid-template-columns:1fr}
+  .vat-sheet .ws-student-field{min-width:0;flex-basis:100%;flex-wrap:wrap}
+  .vat-sheet .ws-card-head{display:block}
+  .vat-sheet .ws-ans-line{display:grid;grid-template-columns:minmax(0,1fr)}
+  .vat-sheet .ws-fill-box div[style*="max-width:48%"]{max-width:100%!important}
+  .vat-sheet .ws-word-sheet{padding:10px}
+}
+@media(max-width:600px){
+  .ws-detail:has(.vat-sheet) .ws-article{padding:0;border:0}
+  .vat-sheet{padding:12px}
+  .vat-sheet .ws-card{padding:12px}
+}
