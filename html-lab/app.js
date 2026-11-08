@@ -26,7 +26,37 @@ function downloadHTML(){save();download(current.id+'.html',exportPage($('#code')
 $('#download').onclick=downloadHTML;
 $('#backup').onclick=()=>{save();download('moje-prace-html.json',JSON.stringify(store,null,2),'application/json');};
 $('#restore').onclick=()=>$('#restore-file').click();
-$('#restore-file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>1500000)throw Error('Plik jest za duży.');const incoming=validStore(JSON.parse(await f.text()));modal('Wczytaj zapisane prace',`<p>Plik zawiera ${Object.keys(incoming.drafts).length} zapisanych ćwiczeń. Zastąpią one prace o tych samych nazwach na tym urządzeniu.</p><button id="import-confirm" class="primary">Wczytaj prace</button>`);$('#import-confirm').onclick=()=>{store.drafts={...store.drafts,...incoming.drafts};for(const id of Object.keys(incoming.drafts)){delete store.passed[id];const lesson=LESSONS.find(l=>l.id===id);if(lesson&&incoming.passed[id]===incoming.drafts[id]&&inspect(incoming.drafts[id],lesson).ok)store.passed[id]=incoming.drafts[id];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch{toast('Prace wczytano do pamięci, ale brak miejsca na trwały zapis.');}$('#modal').close();openLesson();};}catch(err){toast('Nie wczytano prac: '+err.message);}e.target.value='';};
+$('#import-now').onclick = () => $('#restore-file').click();
+$('#restore-file').onchange = async event => {
+  const file = event.target.files[0];
+  event.target.value = '';
+  if (!file) return;
+  try {
+    if (file.size > 8 * 1024 * 1024) throw Error('Plik jest za duży.');
+    const incoming = validStore(JSON.parse(await file.text()));
+    if (!labSession.check()) return;
+    const ids = Object.keys(incoming.drafts);
+    modal('Wczytać postęp z pliku JSON?', '<p>Liczba ćwiczeń w pliku: '+ids.length+'. Ich kod i zaliczenia zastąpią obecny zapis tych ćwiczeń.</p><button id="cancel-progress">Anuluj</button> <button id="import-confirm" class="primary">Wczytaj postęp</button>');
+    $('#cancel-progress').onclick = () => $('#modal').close();
+    $('#import-confirm').onclick = () => {
+      if (!labSession.check()) return;
+      const passed = {...store.passed};
+      for (const id of ids) {
+        delete passed[id];
+        const lesson = LESSONS.find(item => item.id === id);
+        const draft = incoming.drafts[id];
+        if (lesson && incoming.passed[id] === draft && inspect(draft,lesson).ok) passed[id] = draft;
+      }
+      store = {version:1, drafts:{...store.drafts,...incoming.drafts}, passed};
+      let message = 'Wczytano kod i postęp z pliku JSON.';
+      try { localStorage.setItem(KEY,JSON.stringify(store)); }
+      catch { message = 'Wczytano postęp na tę chwilę. Brakuje miejsca na zapis po odświeżeniu.'; }
+      $('#modal').close();
+      openLesson();
+      toast(message);
+    };
+  } catch { toast('Nie wczytano postępu. Wybierz plik .json zapisany przez Pracownię HTML (do 8 MB).'); }
+};
 $('#theme').onclick=()=>{document.body.classList.toggle('dark');try{localStorage.setItem('html-theme',document.body.classList.contains('dark')?'dark':'light');}catch{}};
 $('#toggle-menu').onclick=()=>{$('#toggle-menu').setAttribute('aria-expanded',String(document.body.classList.toggle('menu-open')));};
 $('#cheatsheet').onclick=()=>modal('Mała ściąga HTML',`<p>Znacznik otwierający → treść → znacznik zamykający. Przykład: <code>&lt;p&gt;Cześć!&lt;/p&gt;</code></p><table><tr><th>Element</th><th>Do czego służy?</th></tr>${[['h1 / h2','Główny nagłówek / śródtytuł'],['p','Akapit'],['strong / em','Ważna treść / nacisk'],['ul / ol / li','Lista punktowana / numerowana / punkt'],['img src="park.svg" alt="Opis"','Obraz i jego opis; img nie ma zamknięcia'],['a href="https://zpe.gov.pl/"','Odsyłacz; opis wpisujesz przed </a>'],['table / tr / th / td','Tabela / wiersz / nagłówek / komórka'],['header / main / footer','Wprowadzenie / główna treść / stopka'],['title','Tytuł karty przeglądarki, wewnątrz head'],['style="color: teal;"','Kolor tekstu za pomocą CSS']].map(r=>`<tr><td><code>${escapeHTML(r[0])}</code></td><td>${escapeHTML(r[1])}</td></tr>`).join('')}</table><p>Nie wszystkie elementy są widoczne: title widzisz nad podglądem. Sam Enter nie tworzy akapitu. Wielkość liter w nazwach znaczników HTML nie ma znaczenia; dla czytelności pisz małymi.</p>`);
