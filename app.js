@@ -71,6 +71,7 @@ function bindAdmin(){
    const feedback = $('#login-error');
    async function authenticate(action) {
      try { await action(); } catch(error) {
+       if (error.code === 'auth/unauthorized-domain') { feedback.textContent = 'Aby używać Google na tej stronie, dodaj '+location.hostname+' w Firebase → Authentication → Settings → Authorized domains. Możesz też zalogować się e-mailem i hasłem.'; return; }
        feedback.textContent = error.code === 'auth/popup-closed-by-user' ? 'Zamknięto okno logowania.' : 'Logowanie nie powiodło się. Sprawdź konto nauczyciela, hasło i połączenie.';
      }
    }
