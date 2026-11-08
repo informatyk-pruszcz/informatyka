@@ -29,6 +29,17 @@ export const extraWorksheets = [
     source: 'Informatyka – Klasa VI • Temat 2.1: Kartka w kratkę. Wprowadzenie do programu MS Excel 2016'
   },
   {
+    id: 'karta-6-2-2-porzadki',
+    type: 'task',
+    grades: [6],
+    title: '2.2. Porządki w komórce — ranking kanałów naukowych',
+    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
+    tags: ['Excel 2016', 'Sortowanie', 'Formatowanie warunkowe'],
+    summary: 'Uporządkuj ranking sześciu kanałów i sprawdź, jak zmiana liczby subskrypcji wpływa na kolor komórki.',
+    body: '',
+    source: 'Karta pracy nauczyciela do tematu 2.2.'
+  },
+  {
     id: 'karta-7-2-1-pierwsza-strona',
     type: 'task',
     grades: [7],
@@ -1886,6 +1897,9 @@ function renderGrade6ScheduleWorksheet() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === 'karta-6-2-2-porzadki') {
+    return '<p><a class="btn primary" href="./lekcja2-2.html">Otwórz laboratorium Excel — Porządki w komórce →</a></p>';
+  }
   if (id === 'karta-4-1-urzadzenia-pliki') return renderGrade4DevicesWorksheet();
   if (id === 'karta-6-2-1-plan-lekcji') return renderGrade6ScheduleWorksheet();
   if (id === 'karta-7-2-1-pierwsza-strona') return renderGrade7FirstPageWorksheet();

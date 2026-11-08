@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Porządki w komórce · Excel 2016 · Klasa VI</title>
+<script defer src="https://cdn.tailwindcss.com"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#0f172a;font:16px/1.55 "Segoe UI",system-ui,sans-serif;text-align:left}
+main{max-width:1050px;margin:auto;padding:18px}nav{display:flex;gap:8px;flex-wrap:wrap;color:#475569;font-size:.9rem}a{color:#174cae;text-decoration:underline}
+header,section,dialog{border:1px solid #cbd5e1;border-radius:16px;background:white;padding:clamp(16px,3vw,30px);margin:18px 0}
+header{background:#0f172a;color:white}h1,h2,h3{font-weight:700;line-height:1.23}h1{font-size:clamp(1.55rem,4vw,2.3rem);max-width:32em}h2{font-size:1.4rem}h3{font-size:1.05rem}
+h1,h2,h3,p{margin:0 0 .7em}p:last-child{margin-bottom:0}.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+button,summary,input{font:inherit}button,summary{cursor:pointer}button,summary,kbd{border:1px solid #94a3b8;border-radius:8px;background:#fff;color:#0f172a;padding:7px 12px}
+button:hover,summary:hover{background:#eff6ff}button:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
+button:disabled{opacity:.55;cursor:default}.primary{background:#2563eb;color:white;border-color:#2563eb}.primary:hover{background:#174cae}
+kbd{display:inline-block;padding:1px 5px;border-bottom:3px solid #94a3b8;font:600 .9em monospace}
+time{font:700 1.7rem monospace;margin-right:12px}progress{width:min(100%,430px);height:14px;accent-color:#10b981;display:block}
+.shortcuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px}details p{padding:8px}summary{height:auto;min-height:45px}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:12px 0}td,th{border:1px solid #cbd5e1;padding:9px;text-align:left}th{background:#0f172a;color:white}.hit{background:#d1fae5;color:#064e3b}.bar{display:block;height:5px;background:#10b981;margin-top:3px}.value{width:6em;border:1px solid #64748b;border-radius:5px;background:white;color:#0f172a;padding:3px}
+@keyframes fillNumber{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}.number-flash{animation:fillNumber .24s backwards}
+@media(prefers-reduced-motion:reduce){.number-flash{animation:none}}
+.step{padding:16px 0;border-top:1px solid #dbe3ec}.step label{display:flex;align-items:baseline;gap:10px;font-weight:700}.step input{width:18px;height:18px;accent-color:#2563eb}.step p{margin:.4em 0 0 28px}.step:has(input:checked){border-left:4px solid #10b981;padding-left:8px}
+dialog{position:fixed;inset:0;margin:auto;max-width:min(90vw,580px);max-height:90vh;overflow:auto}dialog::backdrop{background:#0f172ab3}#reportList{list-style:disc;padding-left:1.3em}.note{color:#475569;font-size:.92rem}
+</style></head><body><main>
+<nav><a href="./#home">← Powrót do informatyk-pruszcz.github.io/informatyka</a> | <a href="./#class/6">Klasa 6</a> | <a href="./#item/topic-6-2-2">Dział 2: Arkusz kalkulacyjny</a></nav>
+<header><h1>Temat 2.2: Porządki w komórce. Formatowanie warunkowe i sortowanie danych w MS Excel 2016</h1>
+<p>Zbuduj ranking sześciu kanałów. Sprawdź, co zrobi Excel, gdy liczba subskrypcji przekroczy 500 tysięcy.</p>
+<div class="tools"><time id="clock" aria-label="Pozostały czas">25:00</time><button id="start">Start</button><button id="pause">Pauza</button><button id="resetTime">Reset licznika</button></div>
+<label for="progress" id="progressText"></label><progress id="progress" max="6" value="0"></progress>
+</header>
+<section><h2>Shortcut HUD 2.2 · Skróty i triki</h2><p>Otwórz kafelek, aby zobaczyć, kiedy użyć skrótu.</p><div class="shortcuts" id="hud"></div></section>
+<section><h2>Symulator · Kanały Naukowe</h2><p>Wypróbuj operacje tutaj, a potem wykonaj je w Excelu. Liczby pochodzą z karty pracy i są podane w tysiącach.</p>
+<div class="tools"><button id="number">Symuluj autonumerowanie (1–6)</button><button id="sort">Symuluj sortowanie malejąco wg subskrypcji</button><button id="format" aria-pressed="false">Symuluj formatowanie warunkowe (&gt;500 tys.)</button></div>
+<div class="scroll"><table><caption class="sr-only">Ranking kanałów naukowych</caption><thead><tr><th>Lp.</th><th>Nazwa kanału</th><th>Tematyka</th><th>Subskrypcje (w tys.)</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="note">Włącz regułę. Zmień liczbę przy Astrofazie z 490 na 600. Sprawdź też 500. Paski pokazują wielkość wyróżnionych wyników względem największego.</p>
+<p id="simNote" role="status"></p></section>
+<section><h2>Twoja praca w Excelu</h2><p>Zaznacz krok po wykonaniu go w swoim skoroszycie.</p><div id="steps"></div></section>
+<section><h2>Samoocena</h2><p id="grade"></p><p class="note">Propozycja wynika z Twoich zaznaczeń. Nauczyciel może ją potwierdzić po obejrzeniu pliku.</p>
+<div class="tools"><button class="primary" id="report">Podsumowanie dla nauczyciela</button><button id="resetAll">Resetuj postęp lekcji</button></div><p id="storageNote" role="status"></p></section>
+<dialog id="summary" aria-labelledby="summaryTitle"><h2 id="summaryTitle">Podsumowanie dla nauczyciela</h2><p id="reportGrade"></p><ul id="reportList"></ul><form method="dialog"><button>Zamknij</button></form></dialog>
+</main><script>
+'use strict';
+const key='inf_pruszcz_klasa6_lekcja2_2';
+const channels=[
+ ['Nauka. To Lubię','Fizyka i przyroda',680],['Astrofaza','Kosmos i astronomia',490],
+ ['Uwaga! Naukowy Bełkot','Biologia i chemia',750],['Huyen i Marcin (EMCE)','Nauka i psychologia',420],
+ ['Historia bez cenzury','Historia',1500],['Smartgasm','Świat i matematyka',310]
+];
+const shortcuts=[
+ [['Ctrl','A'],'Kliknij komórkę wewnątrz tabeli. Skrót zaznaczy spójny obszar danych.'],
+ [['Ctrl','Shift','↓'],'Zacznij w D2. Zaznaczysz kolejne liczby aż do ostatniej przed pustą komórką.'],
+ [['Ctrl','B'],'Zaznacz A1:D1 i pogrub nagłówki. Ponowne użycie wyłącza pogrubienie.'],
+ [['Ctrl','1'],'Otwórz okno Formatowanie komórek. Znajdziesz tu obramowanie, liczby i wyrównanie.'],
+ [['Zielony kwadracik (+)'],'Zaznacz komórki z 1 i 2. Przeciągnij uchwyt z prawego dolnego rogu do A7.']
+];
+const tasks=[
+ ['Krok 1 · Wpisz dane','Otwórz pusty skoroszyt. Od A1 wpisz <b>Lp., Nazwa kanału, Tematyka, Subskrypcje (w tys.)</b>. Między nagłówkami naciskaj <kbd>Tab</kbd>. Przepisz dane początkowe z tabeli poniżej do B2:D7. Zostaw A2:A7 puste. Kliknij dwukrotnie granice liter kolumn, aby dopasować szerokość.'],
+ ['Krok 2 · Ponumeruj wiersze','W A2 wpisz <b>1</b>, w A3 wpisz <b>2</b>. Zaznacz obie komórki. Przeciągnij zielony kwadracik do A7. Sprawdź ostatni numer.'],
+ ['Krok 3 · Wyróżnij nagłówki i obramuj tabelę','W tabeli naciśnij <kbd>Ctrl</kbd> + <kbd>A</kbd>. Wybierz <b>Narzędzia główne → Obramowanie → Wszystkie krawędzie</b>. Zaznacz A1:D1, naciśnij <kbd>Ctrl</kbd> + <kbd>B</kbd>, wyśrodkuj i dodaj błękitne tło. Wyśrodkuj też A2:A7.'],
+ ['Krok 4 · Ułóż ranking','Kliknij liczbę w D2. Wybierz <b>Sortuj i filtruj → Sortuj od największych do najmniejszych</b>. Jeśli Excel zapyta, rozszerz zaznaczenie na całą tabelę. Sprawdź, czy 1500 nadal należy do Historii bez cenzury. Ponownie ponumeruj miejsca metodą z kroku 2.'],
+ ['Krok 5 · Włącz regułę i sprawdź granicę','Od D2 naciśnij <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↓</kbd>. Wybierz <b>Formatowanie warunkowe → Reguły wyróżniania komórek → Większe niż</b>. Wpisz 500 i ustaw jasnozielone wypełnienie z ciemnozielonym tekstem. Zmień wynik Astrofazy na 600. Czy kolor się zmienił?'],
+ ['Krok 6 · Zapisz skoroszyt','Naciśnij <kbd>Ctrl</kbd> + <kbd>S</kbd>. Zapisz pracę w swojej teczce jako <b>kanaly_naukowe_Nazwisko_Imie.xlsx</b>.'],
+ ['⭐ Zadanie dodatkowe · Rozszerz ranking','Dodaj dwa własne kanały w wierszach 8 i 9. Przedłuż numerację. Dla D2:D9 wybierz <b>Formatowanie warunkowe → Paski danych → Wypełnienie gradientowe</b>. Wybierz <b>Sortowanie niestandardowe</b> i uporządkuj całą tabelę według tematyki od A do Z.']
+];
+const $=id=>document.getElementById(id);
+const initial=()=>({checks:tasks.map(()=>false),values:channels.map(c=>c[2]),order:channels.map((_,i)=>i),numbers:Array(6).fill(null),format:false,remaining:1500000,end:0});
+let state=initial();
+try{
+ const saved=JSON.parse(localStorage.getItem(key));
+ if(saved && ['checks','values','order','numbers'].every(k=>Array.isArray(saved[k])&&saved[k].length===state[k].length)
+ && saved.order.every(i=>Number.isInteger(i)&&i>=0&&i<6)&&new Set(saved.order).size===6
+ && saved.values.every(n=>Number.isSafeInteger(n)&&n>=0)&&saved.numbers.every(n=>n===null||(Number.isInteger(n)&&n>=1&&n<=6))
+ && Number.isFinite(saved.remaining)&&Number.isFinite(saved.end))state=saved;
+}catch{}
+function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch{$('storageNote').textContent='Przeglądarka blokuje zapis. Postęp będzie dostępny do zamknięcia tej strony.';}}
+function timeLeft(){return state.end?Math.max(0,state.end-Date.now()):state.remaining;}
+function clock(){
+ const left=timeLeft(), seconds=Math.ceil(left/1000);
+ $('clock').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+ if(!left && state.end){state.end=0;state.remaining=0;save();}
+ $('start').disabled=!!state.end||!left;$('pause').disabled=!state.end;
+}
+$('start').onclick=()=>{state.end=Date.now()+state.remaining;save();clock();};
+$('pause').onclick=()=>{state.remaining=timeLeft();state.end=0;save();clock();};
+$('resetTime').onclick=()=>{state.remaining=1500000;state.end=0;save();clock();};
+function shade(){
+ const max=Math.max(1,...state.values);
+ for(const cell of $('rows').querySelectorAll('[data-channel]')){
+  const n=state.values[cell.dataset.channel],hit=state.format&&n>500;
+  cell.classList.toggle('hit',hit);cell.querySelector('small').textContent=hit?'Powyżej progu':'';
+  cell.querySelector('.bar').style.width=(hit?n/max*100:0)+'%';
+ }
+ $('format').setAttribute('aria-pressed',String(state.format));
+}
+function table(animate=false){
+ $('rows').innerHTML=state.order.map((id,pos)=>`<tr><td><span style="display:inline-block;animation-delay:${pos*90}ms" class="${animate?'number-flash':''}">${state.numbers[id]??''}</span></td>
+ <td>${channels[id][0]}</td><td>${channels[id][1]}</td><td data-channel="${id}"><input class="value" type="number" min="0" step="1" aria-label="Subskrypcje w tysiącach: ${channels[id][0]}" value="${state.values[id]}"> <small></small><span class="bar"></span></td></tr>`).join('');
+ shade();
+}
+$('rows').oninput=e=>{const input=e.target;if(!input.matches('.value'))return;const n=input.valueAsNumber;
+ if(Number.isSafeInteger(n)&&n>=0){state.values[input.parentElement.dataset.channel]=n;shade();save();}};
+$('rows').addEventListener('focusout',e=>{if(e.target.matches('.value'))e.target.value=state.values[e.target.parentElement.dataset.channel];});
+$('number').onclick=()=>{state.order.forEach((id,pos)=>state.numbers[id]=pos+1);table(true);save();$('simNote').textContent='Kolumna Lp. zawiera kolejne liczby od 1 do 6.';};
+$('sort').onclick=()=>{state.order.sort((a,b)=>state.values[b]-state.values[a]);table();save();$('simNote').textContent='Całe wiersze zmieniły kolejność. Aby nadać im nowe miejsca, użyj autonumerowania.';};
+$('format').onclick=()=>{state.format=!state.format;shade();save();$('simNote').textContent=state.format?'Reguła działa. Dokładnie 500 pozostaje bez wyróżnienia.':'Wyłączono regułę i paski danych.';};
+$('hud').innerHTML=shortcuts.map(([keys,tip])=>`<details><summary>${keys.map(k=>'<kbd>'+k+'</kbd>').join(' + ')}</summary><p>${tip}</p></details>`).join('');
+const sourceTable='<details><summary>Dane początkowe do przepisania</summary><div class="scroll"><table><thead><tr><th>Nazwa kanału</th><th>Tematyka</th><th>Subskrypcje (w tys.)</th></tr></thead><tbody>'+channels.map(row=>'<tr>'+row.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></details>';
+$('steps').innerHTML=tasks.map(([title,body],i)=>`<div class="step"><label><input type="checkbox" data-index="${i}">${title}</label><p>${body}</p>${i===0?sourceTable:''}</div>`).join('');
+function assessment(){
+ const [data,number,style,sort,format,file,bonus]=state.checks;
+ if(!(data&&style))return 'Do oceny dopuszczającej wykonaj kroki 1 i 3.';
+ if(!number)return 'Proponowana ocena: dopuszczająca (2).';
+ if(!sort)return 'Proponowana ocena: dostateczna (3).';
+ if(!(format&&file))return 'Proponowana ocena: dobra (4).';
+ return bonus?'Proponowana ocena: celująca (6).':'Proponowana ocena: bardzo dobra (5).';
+}
+function progress(){
+ const n=state.checks.slice(0,6).filter(Boolean).length;
+ $('progress').value=n;$('progressText').textContent='Kroki podstawowe: '+n+' z 6 ('+Math.round(n/6*100)+'%)';
+ $('grade').textContent=assessment();
+ $('steps').querySelectorAll('input').forEach((box,i)=>box.checked=state.checks[i]);
+}
+$('steps').onchange=e=>{if(e.target.matches('input')){state.checks[e.target.dataset.index]=e.target.checked;save();progress();}};
+$('report').onclick=()=>{$('reportGrade').textContent=$('progressText').textContent+' · '+assessment();$('reportList').innerHTML=tasks.map(([title],i)=>'<li>'+title+' — '+(state.checks[i]?'wykonano':'do wykonania')+'</li>').join('');$('summary').showModal();};
+$('resetAll').onclick=()=>{if(!confirm('Wyczyścić zaznaczenia, tabelę i licznik dla następnego ucznia?'))return;
+ state=initial();try{localStorage.removeItem(key);}catch{}$('hud').querySelectorAll('details').forEach(d=>d.open=false);$('steps').querySelector('details').open=false;$('simNote').textContent='';table();progress();clock();};
+clock();setInterval(clock,250);table();progress();
+</script></body></html>
