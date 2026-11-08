@@ -1,8 +1,150 @@
 <!doctype html>
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pracownia klawiatury · Informatyka w akcji</title>
 <style>
-:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#183344;background:#f8fafc;color-scheme:light}*{box-sizing:border-box}body{margin:0}button,a,input{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer;border:1px solid #cbd5e1;border-radius:10px;background:white;color:inherit;padding:10px 14px;font-weight:650}button:hover{background:#f0fdfa}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #0d9488;outline-offset:3px}button.primary{background:#147d68;color:white;border-color:#147d68}button[aria-pressed=true]{border-color:#147d68;background:#e7f5ef}button:disabled{cursor:default;opacity:.6}a{color:#147d68;text-decoration:none}.app{max-width:1100px;margin:0 auto;padding:16px;overflow:hidden}header,.bar,.stats,.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}header{margin-bottom:14px}h1{font-size:21px;margin:0}h2{font-size:20px;margin:0 0 10px}p{line-height:1.6}small,.muted{color:#526575;font-size:13px}.card{background:#fff;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px #0000000d;border-radius:16px;padding:18px;margin-bottom:12px}.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.level{text-align:left;padding:14px;min-width:0}.level b,.level small{display:block}.level b{margin:6px 0}.badge{display:inline-grid;place-items:center;background:#e5f4ef;color:#146b5a;width:28px;height:28px;border-radius:9px}.stars{color:#946000;letter-spacing:2px;font-size:14px}.level.current{border:2px solid #15836a;background:#f0fdf7}.stats{font-size:14px;justify-content:flex-start;gap:20px}.stats b{font-variant-numeric:tabular-nums}.work{position:relative;overflow:hidden}.target{font-size:clamp(28px,3.4vw,36px);line-height:1.7;letter-spacing:.03em;overflow-wrap:anywhere;white-space:pre-wrap;margin:12px 0;min-height:62px}.char.done{color:#147d68;background:#e9f9ee}.char.now{color:#075f50;background:#d3f6e8;border-bottom:4px solid #137b64;font-weight:750;border-radius:4px}.char.space{display:inline-block;min-width:.5em}.char.space.now:after{content:'␣';font-size:.7em}.char.space.now{font-size:0;width:20px}.char.space.now:after{font-size:23px}.entry{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:10px 12px;background:#f8fafc;font-size:16px;caret-color:#137b64}.feedback{min-height:24px;font-size:14px;margin:8px 0;color:#46616d}.progress{width:100%;height:8px;accent-color:#147d68;display:block;margin-top:12px}.hint{background:#edf8f4;border-radius:10px;padding:12px;line-height:1.6;margin-bottom:12px;min-height:50px}.hint kbd{font:700 14px system-ui;border:1px solid #b5cec6;border-bottom-width:3px;padding:3px 7px;border-radius:6px;background:white;white-space:nowrap}.keyboard{user-select:none}.row{display:flex;gap:5px;margin:5px 0;width:100%}.key{flex:var(--size,1);min-width:0;position:relative;height:clamp(30px,4.5vw,47px);border:1px solid #d3dce5;border-bottom:3px solid #bfcbd7;border-radius:7px;background:#f8fafc;display:flex;justify-content:center;align-items:center;gap:5px;font-weight:650;font-size:clamp(8px,1.4vw,15px);transition:transform .08s,box-shadow .12s}.key .top{font-size:.75em;color:#607183;position:absolute;left:6px;top:2px}.key .pl{color:#8a5913;font-size:.72em;position:absolute;right:5px;bottom:3px}.key.altgr{background:#fbbf24;color:#422c08;border-color:#d3950c}.key.shift{background:#0284c7;color:white;border-color:#03699b}.key.need{outline:2px solid #10b981;outline-offset:1px;box-shadow:0 0 0 4px #34d39925;background:#d1fae5}.key.altgr.need{background:#fbbf24;outline-color:#e99a06;box-shadow:0 0 0 4px #fbbf2433}.key.shift.need{background:#0284c7;outline-color:#38bdf8;box-shadow:0 0 0 4px #38bdf833}.key.pressed{transform:translateY(2px);border-bottom-width:1px;box-shadow:inset 0 2px 7px #0002;background:#cbd5e1}.key.altgr.pressed{background:#f59e0b}.key.shift.pressed{background:#0369a1}.legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 0;font-size:12px;color:#526575}.notice{background:#fff8e6;padding:10px;border-radius:10px;font-size:14px}.wrong{animation:wrong .3s}@keyframes wrong{50%{background:#fff0f0}}.summary{text-align:center}.summary .medal{font-size:48px;color:#ca8a04;margin:10px}.summary h2{font-size:26px}.summary .actions{justify-content:center}.hidden,[hidden]{display:none!important}details{font-size:14px;line-height:1.7}summary{cursor:pointer;font-weight:650}footer{font-size:12px;color:#607183;line-height:1.6}canvas{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:100%}.compact-note{margin:0 0 12px;font-size:14px}.options{display:flex;gap:8px;flex-wrap:wrap}.options button{font-size:13px;padding:7px 10px}.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.btn-reset-student{font-size:13px;padding:7px 12px;border-color:#cbd5e1;background:#fff;color:#334155;display:inline-flex;align-items:center;gap:6px}.btn-reset-student:hover{background:#fef2f2;border-color:#fca5a5;color:#991b1b}.btn-reset-student.confirming{background:#dc2626;border-color:#dc2626;color:#fff}@media(max-width:650px){.app{padding:10px}.card{padding:12px}.levels{grid-template-columns:repeat(2,1fr)}.row{gap:3px}.key{border-radius:4px}.key .top{left:2px;top:0}.key .pl{right:2px;bottom:0}.stats{gap:12px}header h1{font-size:18px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-@media(min-width:800px) and (max-height:850px){.app{padding:12px 16px}header{margin-bottom:10px}.level{padding:9px 12px}.level small{display:none}.level .badge{float:left;margin-right:8px}.level b{margin:3px 0}.card{padding:12px 16px;margin-bottom:10px}.key{height:33px}.target{margin:6px 0;min-height:50px;font-size:30px}.hint{padding:8px;margin-bottom:8px;min-height:42px}.entry{padding:6px 10px}.feedback{margin:5px 0}.compact-note{margin-bottom:5px}.progress{margin-top:8px}.legend{margin-top:6px}} </style></head><body><main class="app" id="app">
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#0f172a;background:#f1f5f9;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0}
+button,a,input{font:inherit}
+button,a{touch-action:manipulation}
+button{cursor:pointer;border:1px solid #cbd5e1;border-radius:10px;background:white;color:inherit;padding:10px 14px;font-weight:650;transition:background .15s,border-color .15s,transform .08s}
+button:hover{background:#f0fdfa}
+button:active{transform:translateY(1px)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #0d9488;outline-offset:3px}
+button.primary{background:#0f766e;color:white;border-color:#0f766e;box-shadow:0 2px 0 #115e59}
+button.primary:hover{background:#0d9488}
+button[aria-pressed=true]{border-color:#0f766e;background:#ccfbf1;color:#134e4a}
+button:disabled{cursor:default;opacity:.6}
+a{color:#0f766e;text-decoration:none;font-weight:650}
+.app{max-width:1140px;margin:0 auto;padding:14px 16px;overflow:hidden}
+header,.bar,.stats,.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{margin-bottom:12px}
+h1{font-size:22px;margin:0}
+h2{font-size:20px;margin:0 0 6px}
+p{line-height:1.55}
+small,.muted{color:#475569;font-size:13px}
+.card{background:#fff;border:1px solid #cbd5e1;box-shadow:0 4px 10px -2px #0f172a0d;border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.level{text-align:left;padding:12px 14px;min-width:0}
+.level b,.level small{display:block}
+.level b{margin:5px 0}
+.badge{display:inline-grid;place-items:center;background:#ccfbf1;color:#0f766e;width:28px;height:28px;border-radius:9px;font-weight:800}
+.stars{color:#d97706;letter-spacing:2px;font-size:15px}
+.level.current{border:2px solid #0f766e;background:#f0fdfa;box-shadow:0 0 0 3px #14b8a626}
+.stats{font-size:14px;justify-content:flex-start;gap:20px}
+.stats b{font-variant-numeric:tabular-nums;font-size:16px;color:#0f766e}
+.work{position:relative;overflow:hidden}
+.target{font-size:clamp(28px,3.4vw,38px);line-height:1.65;letter-spacing:.04em;overflow-wrap:anywhere;white-space:pre-wrap;margin:10px 0;min-height:60px;padding:10px 14px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px}
+.char{padding:1px 2px;border-radius:5px;transition:background .1s,color .1s}
+.char.done{color:#0f766e;background:#dcfce7;font-weight:600}
+.char.now{color:#064e3b;background:#6ee7b7;border-bottom:4px solid #059669;font-weight:800;border-radius:5px;box-shadow:0 0 0 3px #10b98133}
+.char.space{display:inline-block;min-width:.55em}
+.char.space.now{font-size:0;width:24px;vertical-align:bottom}
+.char.space.now:after{content:'␣';font-size:24px;line-height:1}
+.entry{width:100%;border:2px solid #94a3b8;border-radius:10px;padding:10px 12px;background:#fff;font-size:16px;caret-color:#0f766e;font-weight:600}
+.entry:focus{border-color:#0f766e;background:#f0fdfa}
+.feedback{min-height:24px;font-size:14px;font-weight:600;margin:8px 0;color:#334155}
+.progress{width:100%;height:10px;accent-color:#0f766e;display:block;margin-top:8px}
+
+/* NOWY PANEL PODPOWIEDZI I MONITOR KLAWISZY NA ŻYWO */
+.hud-bar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch;margin-bottom:14px}
+.hint{background:linear-gradient(135deg,#ecfdf5 0%,#f0f9ff 100%);border:2px solid #6ee7b7;border-radius:14px;padding:12px 16px;line-height:1.5;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 3px 10px #10b98118}
+.hint-steps{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px;font-weight:700;color:#0f172a}
+.hint-plus{font-size:18px;font-weight:900;color:#475569;margin:0 2px}
+.hint kbd{font:800 15px/1.2 system-ui,sans-serif;border:2px solid #94a3b8;border-bottom-width:4px;padding:6px 12px;border-radius:9px;background:#fff;color:#0f172a;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 4px #00000014;transition:transform .1s,background .15s,box-shadow .15s}
+.hint kbd.kbd-shift{background:linear-gradient(180deg,#38bdf8,#0284c7);color:#fff;border-color:#0369a1;text-shadow:0 1px 1px #0004}
+.hint kbd.kbd-altgr{background:linear-gradient(180deg,#fbbf24,#ea580c);color:#fff;border-color:#9a3412;text-shadow:0 1px 1px #0004}
+.hint kbd.kbd-ctrl{background:linear-gradient(180deg,#a78bfa,#7c3aed);color:#fff;border-color:#5b21b6;text-shadow:0 1px 1px #0004}
+.hint kbd.kbd-target{background:linear-gradient(180deg,#34d399,#059669);color:#fff;border-color:#065f46;font-size:17px;padding:6px 14px;text-shadow:0 1px 1px #0004}
+.hint kbd.held{transform:translateY(2px) scale(1.04);border-bottom-width:2px;box-shadow:0 0 0 4px #22c55e66;filter:brightness(1.08)}
+.hint kbd.held::after{content:'✓ TRZYMASZ';font-size:11px;background:#fff;color:#065f46;padding:2px 6px;border-radius:99px;font-weight:900;text-shadow:none}
+.hint-result{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid #cbd5e1;padding:5px 12px;border-radius:10px;font-weight:800;font-size:16px;color:#0f172a}
+.hint-result b{font-size:22px;color:#047857;background:#d1fae5;padding:1px 9px;border-radius:7px}
+
+.live-monitor{background:#0f172a;color:#f8fafc;border:2px solid #334155;border-radius:14px;padding:10px 14px;min-width:235px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.live-monitor-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:700;display:flex;align-items:center;gap:6px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#475569;display:inline-block}
+.live-dot.on{background:#22c55e;box-shadow:0 0 8px #22c55e}
+.live-keys{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:30px}
+.live-chip{font:800 13px system-ui,sans-serif;padding:4px 9px;border-radius:7px;background:#334155;color:#fff;border:1px solid #64748b;box-shadow:0 2px 0 #020617;animation:popIn .1s ease-out}
+.live-chip.mod-shift{background:#0284c7;border-color:#7dd3fc}
+.live-chip.mod-altgr{background:#ea580c;border-color:#fde047}
+.live-chip.mod-ctrl{background:#7c3aed;border-color:#ddd6fe}
+.live-chip.mod-warn{background:#dc2626;border-color:#fca5a5}
+.live-empty{font-size:13px;color:#64748b;font-style:italic}
+@keyframes popIn{from{transform:scale(.88);opacity:.5}to{transform:scale(1);opacity:1}}
+
+/* KONTRASTOWA KLAWIATURA EDUKACYJNA 3D */
+.keyboard-card{background:#0f172a;color:#f8fafc;border:2px solid #1e293b;box-shadow:0 10px 25px -5px #0f172a40;border-radius:18px;padding:16px 18px;margin-bottom:12px}
+.keyboard{user-select:none;background:#1e293b;padding:12px;border-radius:14px;border:2px solid #334155;box-shadow:inset 0 2px 6px #0006}
+.row{display:flex;gap:6px;margin:7px 0;width:100%}
+.row:first-child{margin-top:2px}
+.row:last-child{margin-bottom:2px}
+.key{flex:var(--size,1);min-width:0;position:relative;height:clamp(36px,4.8vw,54px);border:2px solid #94a3b8;border-bottom:5px solid #64748b;border-radius:9px;background:linear-gradient(180deg,#ffffff 0%,#f1f5f9 100%);color:#0f172a;display:flex;justify-content:center;align-items:center;gap:4px;font-weight:800;font-size:clamp(10px,1.45vw,16px);transition:transform .06s,box-shadow .1s,background .1s,border-color .1s;box-shadow:0 2px 4px #0004}
+.key .main-lbl{position:relative;z-index:1;line-height:1.1;text-align:center}
+.key .top{font-size:.74em;color:#475569;font-weight:700;position:absolute;left:6px;top:3px;line-height:1}
+.key .pl{color:#9a3412;background:#ffedd5;border:1px solid #fdba74;padding:0 4px;border-radius:4px;font-size:.72em;font-weight:800;position:absolute;right:4px;bottom:3px;line-height:1.2}
+
+/* WYRÓŻNIONE KLAWISZE SPECJALNE: SHIFT, PRAWY ALT (AltGr), CTRL, LEWY ALT */
+.key.shift{background:linear-gradient(180deg,#38bdf8 0%,#0284c7 100%);color:#fff;border-color:#7dd3fc;border-bottom-color:#075985;font-size:clamp(10px,1.3vw,15px);letter-spacing:.02em;text-shadow:0 1px 2px #0005}
+.key.altgr{background:linear-gradient(180deg,#fbbf24 0%,#ea580c 100%);color:#fff;border-color:#fde047;border-bottom-color:#9a3412;font-size:clamp(10px,1.3vw,15px);letter-spacing:.02em;text-shadow:0 1px 2px #0006}
+.key.ctrl{background:linear-gradient(180deg,#a78bfa 0%,#6d28d9 100%);color:#fff;border-color:#ddd6fe;border-bottom-color:#4c1d95;font-size:clamp(10px,1.25vw,14px);text-shadow:0 1px 2px #0005}
+.key.altleft{background:linear-gradient(180deg,#e2e8f0 0%,#cbd5e1 100%);color:#334155;border-color:#94a3b8;border-bottom-color:#475569;font-size:clamp(9px,1.15vw,13px)}
+.key.spacekey{background:linear-gradient(180deg,#f8fafc 0%,#e2e8f0 100%);font-size:clamp(11px,1.3vw,14px);color:#334155}
+
+/* PODPOWIEDŹ NA KLAWIATURZE (.need) - PULSUJĄCE PODŚWIETLENIE + PLAKIETKA */
+@keyframes pulseTarget{
+ 0%,100%{box-shadow:0 0 0 3px #10b981,0 0 18px 4px #10b98188;transform:translateY(-2px) scale(1.04)}
+ 50%{box-shadow:0 0 0 6px #34d399,0 0 26px 8px #34d399aa;transform:translateY(-4px) scale(1.07)}
+}
+@keyframes pulseAlt{
+ 0%,100%{box-shadow:0 0 0 4px #fde047,0 0 22px 6px #f59e0b99;transform:translateY(-2px) scale(1.05)}
+ 50%{box-shadow:0 0 0 7px #fef08a,0 0 30px 10px #fbbf24cc;transform:translateY(-4px) scale(1.08)}
+}
+@keyframes pulseShift{
+ 0%,100%{box-shadow:0 0 0 4px #7dd3fc,0 0 22px 6px #0284c799;transform:translateY(-2px) scale(1.05)}
+ 50%{box-shadow:0 0 0 7px #bae6fd,0 0 30px 10px #38bdf8cc;transform:translateY(-4px) scale(1.08)}
+}
+.key.need{z-index:4;background:linear-gradient(180deg,#6ee7b7 0%,#10b981 100%);color:#042f2e;border-color:#ecfdf5;border-bottom-color:#047857;animation:pulseTarget 1.15s infinite ease-in-out}
+.key.need .top{color:#042f2e;font-weight:900}
+.key.need .pl{background:#fef08a;color:#7c2d12;border-color:#f59e0b;transform:scale(1.12)}
+.key.altgr.need{z-index:5;background:linear-gradient(180deg,#fde047 0%,#ea580c 100%);color:#431407;border-color:#fff;border-bottom-color:#9a3412;text-shadow:none;animation:pulseAlt 1.1s infinite ease-in-out}
+.key.shift.need{z-index:5;background:linear-gradient(180deg,#7dd3fc 0%,#0284c7 100%);color:#fff;border-color:#fff;border-bottom-color:#075985;animation:pulseShift 1.1s infinite ease-in-out}
+
+/* PŁYWAJĄCE ETYKIETY NAD KLAWISZAMI DO WCIŚNIĘCIA */
+.key.need::before{content:'▼ NACIŚNIJ';position:absolute;top:-19px;left:50%;transform:translateX(-50%);background:#10b981;color:#022c22;font-size:10px;font-weight:900;padding:2px 6px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 6px #0006;border:1px solid #fff;pointer-events:none;z-index:8;letter-spacing:.03em}
+.key.altgr.need::before{content:'▼ TRZYMAJ PRAWY ALT';background:#f59e0b;color:#431407}
+.key.shift.need::before{content:'▼ TRZYMAJ SHIFT';background:#0284c7;color:#fff}
+
+/* FIZYCZNE WCIŚNIĘCIE KLAWISZA PRZEZ UCZNIA (.pressed) - BARDZO WYRAŹNY EFEKT */
+.key.pressed{z-index:6;transform:translateY(4px) scale(.95)!important;border-bottom-width:1px!important;background:linear-gradient(180deg,#fde047 0%,#f59e0b 100%)!important;color:#0f172a!important;border-color:#fff!important;box-shadow:0 0 0 4px #fde047aa,0 0 18px #f59e0b!important;animation:none!important;text-shadow:none!important}
+.key.shift.pressed{background:linear-gradient(180deg,#38bdf8 0%,#0369a1 100%)!important;color:#fff!important;box-shadow:0 0 0 5px #38bdf8aa,0 0 22px #38bdf8!important}
+.key.altgr.pressed{background:linear-gradient(180deg,#fde047 0%,#d97706 100%)!important;color:#431407!important;box-shadow:0 0 0 5px #fde047cc,0 0 24px #fbbf24!important}
+.key.ctrl.pressed{background:linear-gradient(180deg,#c4b5fd 0%,#6d28d9 100%)!important;color:#fff!important;box-shadow:0 0 0 5px #a78bfaaa,0 0 22px #8b5cf6!important}
+.key.need.pressed{background:linear-gradient(180deg,#4ade80 0%,#16a34a 100%)!important;color:#052e16!important;box-shadow:0 0 0 5px #4ade80cc,0 0 24px #22c55e!important}
+.key.shift.pressed::before,.key.altgr.pressed::before{content:'✓ TRZYMASZ!';position:absolute;top:-19px;left:50%;transform:translateX(-50%);background:#22c55e;color:#052e16;font-size:10px;font-weight:900;padding:2px 7px;border-radius:99px;white-space:nowrap;border:1px solid #fff;z-index:9}
+.key.flash-ok{background:linear-gradient(180deg,#4ade80,#16a34a)!important;color:#052e16!important;border-color:#fff!important;box-shadow:0 0 0 4px #4ade8099!important}
+.key.flash-wrong{background:linear-gradient(180deg,#f87171,#dc2626)!important;color:#fff!important;border-color:#fecaca!important;box-shadow:0 0 0 5px #ef444499!important}
+.key.flash-wrong::before{content:'✗ TO NIE TEN';position:absolute;top:-19px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;font-size:10px;font-weight:900;padding:2px 6px;border-radius:99px;white-space:nowrap;border:1px solid #fff;z-index:9}
+
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 0;font-size:13px;color:#cbd5e1;font-weight:600}
+.legend span{display:inline-flex;align-items:center;gap:6px;background:#1e293b;padding:5px 10px;border-radius:8px;border:1px solid #334155}
+.dot-badge{width:12px;height:12px;border-radius:4px;display:inline-block}
+.notice{background:#fef3c7;border:2px solid #f59e0b;color:#78350f;font-weight:700;padding:10px 14px;border-radius:10px;font-size:14px}
+.wrong{animation:wrong .3s}@keyframes wrong{50%{background:#fff1f2}}
+.summary{text-align:center}.summary .medal{font-size:48px;color:#ca8a04;margin:10px}.summary h2{font-size:26px}.summary .actions{justify-content:center}
+.hidden,[hidden]{display:none!important}
+details{font-size:14px;line-height:1.7}summary{cursor:pointer;font-weight:650}
+footer{font-size:12px;color:#475569;line-height:1.6}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:100%}
+.compact-note{margin:0 0 8px;font-size:14px}
+.options{display:flex;gap:8px;flex-wrap:wrap}.options button{font-size:13px;padding:7px 10px}
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn-reset-student{font-size:13px;padding:7px 12px;border-color:#cbd5e1;background:#fff;color:#334155;display:inline-flex;align-items:center;gap:6px}
+.btn-reset-student:hover{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
+@media(max-width:760px){.hud-bar{grid-template-columns:1fr}.app{padding:10px}.card,.keyboard-card{padding:12px}.levels{grid-template-columns:repeat(2,1fr)}.row{gap:3px}.key{border-radius:5px;height:38px}.key .top{left:2px;top:1px}.key .pl{right:2px;bottom:1px}.key.need::before,.key.shift.pressed::before,.key.altgr.pressed::before,.key.flash-wrong::before{display:none}.stats{gap:12px}header h1{font-size:18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+@media(min-width:800px) and (max-height:860px){.app{padding:10px 16px}header{margin-bottom:8px}.level{padding:8px 12px}.level small{display:none}.level .badge{float:left;margin-right:8px}.level b{margin:2px 0}.card,.keyboard-card{padding:12px 16px;margin-bottom:10px}.key{height:40px}.target{margin:6px 0;min-height:48px;font-size:29px;padding:8px 12px}.hud-bar{margin-bottom:10px}.hint{padding:9px 12px}.entry{padding:7px 10px}.feedback{margin:5px 0}.compact-note{margin-bottom:4px}.progress{margin-top:6px}.legend{margin-top:8px}}
+</style></head><body><main class="app" id="app">
 <header><div><h1>⌨ Pracownia klawiatury</h1><small>Klasy 4–5 · Polski (programisty) · Bez pośpiechu</small></div><div class="header-actions"><button id="resetStudent" type="button" class="btn-reset-student" title="Zeruje gwiazdki i cały postęp dla kolejnego ucznia bez czyszczenia historii przeglądarki">🔄 Nowy uczeń</button><a id="home" href="./#home">← Menu główne</a></div></header>
 <nav class="levels" id="levels" aria-label="Wybierz poziom"></nav>
 <section class="card work" id="work" aria-label="Ćwiczenie pisania">
@@ -13,11 +155,26 @@
 <label for="entry" class="muted">Wpisuj na swojej klawiaturze. Błąd nie przesuwa kursora — spróbuj jeszcze raz.</label>
 <input id="entry" class="entry" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="feedback" placeholder="Wybierz „Zaczynam” i pisz…">
 <p id="feedback" class="feedback" role="status" aria-live="polite">Nie ścigamy się. Najpierw poprawność, potem płynność.</p>
-<p id="caps" class="notice" hidden>Caps Lock jest włączony. Wyłącz go, aby ćwiczyć wielkie litery z Shiftem.</p>
+<p id="caps" class="notice" hidden>⚠️ Caps Lock jest włączony! Wyłącz go klawiszem Caps Lock, aby ćwiczyć wielkie litery z klawiszem Shift.</p>
 <div class="bar"><div class="actions"><button id="start" class="primary">Zaczynam</button><button id="next" class="primary" hidden>Następne ćwiczenie →</button><button id="restart">Od początku</button></div><div class="options"><button id="sound" aria-pressed="false">Dźwięk: wył.</button><button id="hintToggle" aria-pressed="true">Podpowiedzi: wł.</button><button id="timerToggle" aria-pressed="false">Stoper: wył.</button></div></div>
 </section>
 <section id="summary" class="card summary" hidden aria-label="Wynik poziomu"><div class="medal" id="medal"></div><h2 tabindex="-1" id="resultTitle">Świetna praca!</h2><p id="result"></p><p id="resultAdvice"></p><div class="actions"><button class="primary" id="nextLevel">Następny poziom →</button><button id="again">Powtórz poziom</button></div><p class="muted">1 gwiazdka za ukończenie · 2 od 85% · 3 od 95% celności</p></section>
-<section class="card" id="keyboardPanel" aria-label="Podpowiedź i model klawiatury"><div id="hint" class="hint"></div><div id="keyboard" class="keyboard" aria-hidden="true"></div><div class="legend"><span>🟠 Prawy Alt = AltGr</span><span>🔵 Shift — wystarczy jeden</span><span>🟢 Klawisz bieżącego znaku</span></div></section>
+<section class="keyboard-card" id="keyboardPanel" aria-label="Podpowiedź i model klawiatury">
+<div class="hud-bar">
+ <div id="hint" class="hint"></div>
+ <div class="live-monitor" aria-live="off">
+  <div class="live-monitor-label"><span id="liveDot" class="live-dot"></span> Wciśnięte na klawiaturze:</div>
+  <div id="liveKeys" class="live-keys"><span class="live-empty">Naciśnij klawisz…</span></div>
+ </div>
+</div>
+<div id="keyboard" class="keyboard" aria-hidden="true"></div>
+<div class="legend">
+ <span><i class="dot-badge" style="background:#f59e0b"></i> <b>Prawy Alt (AltGr)</b> — polskie litery (ą, ć, ę, ł, ń, ó, ś, ź, ż)</span>
+ <span><i class="dot-badge" style="background:#0284c7"></i> <b>Shift</b> — wielkie litery i górne znaki (! ? : " _)</span>
+ <span><i class="dot-badge" style="background:#7c3aed"></i> <b>Ctrl</b> — skróty (nie używaj zamiast Prawego Alta)</span>
+ <span><i class="dot-badge" style="background:#10b981"></i> <b>Zielony klawisz</b> — Twój bieżący cel</span>
+</div>
+</section>
 <details class="card"><summary>Ż czy Ź? I inne przydatne wskazówki</summary><p><b>ż = Prawy Alt + Z</b>, a <b>ź = Prawy Alt + X</b>. Wielkie Ż i Ź wymagają dodatkowo Shifta. Nie używaj lewego Alt zamiast prawego.</p><p><b>Średnik ; i łącznik - wpisujesz bez Shifta.</b> Dwukropek : to Shift + ;, a podkreślenie _ to Shift + -. Znak - nie jest typograficzną pauzą —.</p><p>Ustaw w Windows układ <b>Polski (programisty)</b>. Znaki @, ? i " mają tutaj położenie jak w układzie US. Klawiatura ekranowa jest mapą — wpisuj na fizycznej klawiaturze. Backspace cofa jeden poprawnie wpisany znak. Wklejanie tekstu nie zalicza ćwiczenia.</p><p>W iframe kliknij raz „Zaczynam”, aby przekazać klawiaturę ćwiczeniu. Gdy przejdziesz do innej karty lub okna, trening się zatrzyma. Nie ma limitu czasu. Zrób przerwę, gdy dłonie są zmęczone.</p></details>
 <footer id="storageInfo">Postęp z bieżącej lekcji zapisuje się automatycznie (odświeżenie strony F5 nie kasuje pracy). Po 45 minutach przerwy lub po kliknięciu „🔄 Nowy uczeń” stanowisko zeruje się dla kolejnej klasy.</footer>
 </main><canvas id="confetti" aria-hidden="true" hidden></canvas>
@@ -39,6 +196,7 @@ function combo(char){const lower=char.toLowerCase();if(POLISH[lower])return {cod
 const $=id=>document.getElementById(id),LEGACY_STORE='pracownia-klawiatury-v1',STORE='pracownia-klawiatury-lekcja-v2',LESSON_TTL_MS=45*60*1000;
 let best={},sound=false,hints=true,showClock=false,lastBackup=null;
 let level=0,task=0,index=0,attempts=0,correct=0,earned=0,active=false,finished=false,taskDone=false,elapsed=0,started=0,audioCtx=null,confettiFrame=0;
+const pressedCodes=new Map();
 const entry=$('entry'),reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 function currentElapsed(){return elapsed+(active?performance.now()-started:0);}
 function saveLessonState(){
@@ -70,19 +228,143 @@ function accuracy(){return attempts?Math.round(correct/attempts*100):100;}
 function levelButtons(){const nav=$('levels');nav.replaceChildren();LEVELS.forEach((l,i)=>{const b=document.createElement('button');b.className='level'+(i===level?' current':'');b.setAttribute('aria-pressed',String(i===level));b.innerHTML='<span class="badge">'+(i+1)+'</span><b>'+l.name+'</b><small>'+l.desc+'</small><span class="stars">'+(best[i]?'★'.repeat(best[i])+'☆'.repeat(3-best[i]):'☆☆☆')+'</span>';b.onclick=()=>loadLevel(i);nav.append(b);});}
 // Proporcje odpowiadają głównemu blokowi klawiatury QWERTY (bez bloku numerycznego).
 const keyRows=[
- [...PAIRS.slice(0,13).map(x=>[x[0],x[1],1,x[2]]),['Backspace','Backspace',2]],
- [['Tab','Tab',1.5],...Array.from('QWERTYUIOP').map(x=>['Key'+x,x]),['BracketLeft','[',1,'{'],['BracketRight',']',1,'}'],['Backslash','\\',1.5,'|']],
- [['CapsLock','Caps Lock',1.75],...Array.from('ASDFGHJKL').map(x=>['Key'+x,x]),['Semicolon',';',1,':'],['Quote',"'",1,'"'],['Enter','Enter',2.25]],
- [['ShiftLeft','Shift',2.25],...Array.from('ZXCVBNM').map(x=>['Key'+x,x]),['Comma',',',1,'<'],['Period','.',1,'>'],['Slash','/',1,'?'],['ShiftRight','Shift',2.75]],
- [['ControlLeft','Ctrl',1.25],['MetaLeft','Win',1.25],['AltLeft','Lewy Alt',1.25],['Space','Spacja',6.25],['AltRight','Prawy Alt',1.75],['ContextMenu','Menu',1.25],['ControlRight','Ctrl',2]]
+ [...PAIRS.slice(0,13).map(x=>[x[0],x[1],1,x[2]]),['Backspace','⌫ Backspace',2]],
+ [['Tab','Tab ⇥',1.5],...Array.from('QWERTYUIOP').map(x=>['Key'+x,x]),['BracketLeft','[',1,'{'],['BracketRight',']',1,'}'],['Backslash','\\',1.5,'|']],
+ [['CapsLock','Caps Lock',1.75],...Array.from('ASDFGHJKL').map(x=>['Key'+x,x]),['Semicolon',';',1,':'],['Quote',"'",1,'"'],['Enter','↵ Enter',2.25]],
+ [['ShiftLeft','⇧ SHIFT',2.25],...Array.from('ZXCVBNM').map(x=>['Key'+x,x]),['Comma',',',1,'<'],['Period','.',1,'>'],['Slash','/',1,'?'],['ShiftRight','⇧ SHIFT',2.75]],
+ [['ControlLeft','CTRL',1.3],['MetaLeft','Win',1.15],['AltLeft','Lewy Alt',1.35],['Space','␣ SPACJA',5.8],['AltRight','PRAWY ALT (AltGr)',2.15],['ContextMenu','Menu',1.1],['ControlRight','CTRL',1.4]]
 ];
-const keyEls=new Map();for(const row of keyRows){const r=document.createElement('div');r.className='row';for(const [code,label,size=1,upper]of row){const k=document.createElement('div');k.className='key'+(code==='AltRight'?' altgr':code.startsWith('Shift')?' shift':'');k.style.setProperty('--size',size);k.dataset.code=code;k.textContent=label;if(upper){const s=document.createElement('span');s.className='top';s.textContent=upper;k.append(s);}const pl=Object.keys(POLISH).find(c=>'Key'+POLISH[c]===code);if(pl){const s=document.createElement('span');s.className='pl';s.textContent=pl;k.append(s);}r.append(k);keyEls.set(code,k);}$('keyboard').append(r);}
+const keyEls=new Map(),keyLabels=new Map();
+for(const row of keyRows){
+ const r=document.createElement('div');r.className='row';
+ for(const [code,label,size=1,upper]of row){
+  const k=document.createElement('div');
+  const roleClass=code==='AltRight'?' altgr':code.startsWith('Shift')?' shift':code.startsWith('Control')?' ctrl':code==='AltLeft'?' altleft':code==='Space'?' spacekey':'';
+  k.className='key'+roleClass;
+  k.style.setProperty('--size',size);
+  k.dataset.code=code;
+  const mainSpan=document.createElement('span');
+  mainSpan.className='main-lbl';
+  mainSpan.textContent=label;
+  k.append(mainSpan);
+  if(upper){const s=document.createElement('span');s.className='top';s.textContent=upper;k.append(s);}
+  const pl=Object.keys(POLISH).find(c=>'Key'+POLISH[c]===code);
+  if(pl){const s=document.createElement('span');s.className='pl';s.textContent=pl;k.append(s);}
+  r.append(k);
+  keyEls.set(code,k);
+  keyLabels.set(code,label);
+ }
+ $('keyboard').append(r);
+}
+function renderLiveMonitor(){
+ const box=$('liveKeys'),dot=$('liveDot');
+ box.replaceChildren();
+ if(!pressedCodes.size){
+  dot.classList.remove('on');
+  const empty=document.createElement('span');
+  empty.className='live-empty';
+  empty.textContent='Naciśnij klawisz…';
+  box.append(empty);
+  return;
+ }
+ dot.classList.add('on');
+ for(const [code,info] of pressedCodes){
+  const chip=document.createElement('span');
+  chip.className='live-chip'+(info.cls?' '+info.cls:'');
+  chip.textContent=info.text;
+  box.append(chip);
+ }
+}
+function syncHeldHintBadges(){
+ const shiftHeld=pressedCodes.has('ShiftLeft')||pressedCodes.has('ShiftRight');
+ const altGrHeld=pressedCodes.has('AltRight');
+ document.querySelectorAll('#hint kbd.kbd-shift').forEach(el=>el.classList.toggle('held',shiftHeld));
+ document.querySelectorAll('#hint kbd.kbd-altgr').forEach(el=>el.classList.toggle('held',altGrHeld));
+}
 function render(){const list=chars();$('lessonTitle').textContent=LEVELS[level].tasks[task][0];$('lessonCount').textContent='Ćwiczenie '+(task+1)+' / '+LEVELS[level].tasks.length;$('progressText').textContent=index+'/'+list.length;$('progress').max=list.length;$('progress').value=index;$('accuracy').textContent=attempts?accuracy()+'%':'—';$('points').textContent=(earned+index)*10;$('instruction').textContent='Przepisz dokładnie. Widoczne przerwy między słowami i znakami to spacje.';$('target').replaceChildren();for(let i=0;i<list.length;i++){const s=document.createElement('span');s.className='char'+(i<index?' done':i===index?' now':'')+(list[i]===' '?' space':'');s.textContent=list[i];$('target').append(s);}$('target').setAttribute('aria-label','Przepisz: '+list.join(''));updateHint();}
-function updateHint(){keyEls.forEach(k=>k.classList.remove('need'));const char=chars()[index];if(!hints){$('hint').textContent='Podpowiedzi ukryte. Włącz je ponownie, kiedy potrzebujesz.';return;}if(!char){$('hint').textContent='✓ Ćwiczenie ukończone. Przejdź dalej, kiedy zechcesz.';return;}const c=combo(char);if(!c){$('hint').textContent='Wpisz: '+char;return;}keyEls.get(c.code)?.classList.add('need');if(c.alt)keyEls.get('AltRight').classList.add('need');if(c.shift){keyEls.get('ShiftLeft').classList.add('need');keyEls.get('ShiftRight').classList.add('need');}const parts=[];if(c.shift)parts.push('SHIFT');if(c.alt)parts.push('PRAWY ALT');parts.push(c.label);$('hint').replaceChildren(document.createTextNode('👉 '+(parts.length>1?'Przytrzymaj klawisz funkcyjny i naciśnij znak: ':'Naciśnij: ')));parts.forEach((p,i)=>{if(i)$('hint').append(document.createTextNode(' + '));const k=document.createElement('kbd');k.textContent=p;$('hint').append(k);});$('hint').append(document.createTextNode(' → '+(char===' '?'spacja':char)));if(c.shift)$('hint').append(document.createTextNode(' · Wystarczy jeden Shift.'));}
-function pause(){if(active){elapsed+=performance.now()-started;active=false;saveLessonState();}keyEls.forEach(k=>k.classList.remove('pressed'));if(!finished&&!taskDone){$('start').hidden=false;$('start').textContent=(index>0||task>0||attempts>0)?'Wznów pisanie':'Zaczynam';}}
-function begin(){if(finished||taskDone)return;lastBackup=null;active=true;started=performance.now();$('start').hidden=true;entry.disabled=false;entry.focus({preventScroll:true});$('feedback').textContent='Piszesz! Podświetlony znak jest teraz Twoim celem.';if(sound)prepareAudio();saveLessonState();}
+function updateHint(){
+ keyEls.forEach(k=>k.classList.remove('need'));
+ const char=chars()[index],hintBox=$('hint');
+ if(!hints){hintBox.textContent='Podpowiedzi ukryte. Włącz je ponownie przyciskiem „Podpowiedzi: wł.”, kiedy potrzebujesz.';return;}
+ if(!char){hintBox.textContent='✓ Ćwiczenie ukończone! Kliknij „Następne ćwiczenie →”, aby iść dalej.';return;}
+ const c=combo(char);
+ if(!c){hintBox.textContent='Wpisz znak: '+char;return;}
+ keyEls.get(c.code)?.classList.add('need');
+ if(c.alt)keyEls.get('AltRight')?.classList.add('need');
+ if(c.shift){keyEls.get('ShiftLeft')?.classList.add('need');keyEls.get('ShiftRight')?.classList.add('need');}
+ const steps=document.createElement('div');
+ steps.className='hint-steps';
+ const labelPrefix=document.createElement('span');
+ labelPrefix.textContent=(c.shift||c.alt)?'👉 Kombinacja klawiszy:':'👉 Naciśnij klawisz:';
+ steps.append(labelPrefix);
+ const parts=[];
+ if(c.shift)parts.push({text:'⇧ SHIFT (przytrzymaj)',cls:'kbd-shift'});
+ if(c.alt)parts.push({text:'🟠 PRAWY ALT (przytrzymaj)',cls:'kbd-altgr'});
+ parts.push({text:c.code==='Space'?'␣ SPACJA':'🟢 Klawisz '+c.label,cls:'kbd-target'});
+ parts.forEach((p,i)=>{
+  if(i){const plus=document.createElement('span');plus.className='hint-plus';plus.textContent='+';steps.append(plus);}
+  const k=document.createElement('kbd');
+  k.className=p.cls;
+  k.textContent=p.text;
+  steps.append(k);
+ });
+ const res=document.createElement('div');
+ res.className='hint-result';
+ res.append(document.createTextNode('Wynik: '));
+ const b=document.createElement('b');
+ b.textContent=char===' '?'␣ spacja':char;
+ res.append(b);
+ hintBox.replaceChildren(steps,res);
+ syncHeldHintBadges();
+}
+function clearPressedKeys(){
+ pressedCodes.clear();
+ keyEls.forEach(k=>k.classList.remove('pressed','flash-ok','flash-wrong'));
+ renderLiveMonitor();
+ syncHeldHintBadges();
+}
+function pause(){if(active){elapsed+=performance.now()-started;active=false;saveLessonState();}clearPressedKeys();if(!finished&&!taskDone){$('start').hidden=false;$('start').textContent=(index>0||task>0||attempts>0)?'Wznów pisanie':'Zaczynam';}}
+function begin(){if(finished||taskDone)return;lastBackup=null;active=true;started=performance.now();$('start').hidden=true;entry.disabled=false;entry.focus({preventScroll:true});$('feedback').textContent='Piszesz! Patrz na podświetlone klawisze na ekranie.';if(sound)prepareAudio();saveLessonState();}
 function loadLevel(n,skipSave){pause();stopConfetti();level=n;task=0;index=0;attempts=0;correct=0;earned=0;elapsed=0;finished=false;taskDone=false;$('summary').hidden=true;$('work').hidden=false;$('keyboardPanel').hidden=false;$('next').hidden=true;$('start').hidden=false;$('start').textContent='Zaczynam';entry.value='';entry.disabled=false;$('caps').hidden=true;$('feedback').textContent='Nie ścigamy się. Najpierw poprawność, potem płynność.';levelButtons();render();if(!skipSave)saveLessonState();}
-function accept(char){if(!active||finished||taskDone)return;attempts++;if(char===chars()[index]){correct++;index++;tone(true);$('feedback').textContent='Dobrze! '+index+' z '+chars().length+' znaków.';render();if(index===chars().length){pause();taskDone=true;entry.disabled=true;$('start').hidden=true;if(task===LEVELS[level].tasks.length-1)complete();else{$('next').hidden=false;$('next').focus();$('feedback').textContent='✓ Gotowe! Możesz przejść do następnego ćwiczenia.';saveLessonState();}}else{saveLessonState();}}else{tone(false);$('work').classList.remove('wrong');void $('work').offsetWidth;$('work').classList.add('wrong');$('accuracy').textContent=accuracy()+'%';$('feedback').textContent='Spróbuj jeszcze raz. Teraz wpisz '+(chars()[index]===' '?'spację':'„'+chars()[index]+'”')+'.';saveLessonState();}}
+function flashKeyFeedback(code,ok){
+ const el=keyEls.get(code);
+ if(!el)return;
+ const cls=ok?'flash-ok':'flash-wrong';
+ el.classList.remove('flash-ok','flash-wrong');
+ void el.offsetWidth;
+ el.classList.add(cls);
+ setTimeout(()=>el.classList.remove(cls),360);
+}
+function accept(char,physicalCode){
+ if(!active||finished||taskDone)return;
+ attempts++;
+ const expected=chars()[index];
+ if(char===expected){
+  correct++;index++;tone(true);
+  if(physicalCode)flashKeyFeedback(physicalCode,true);
+  $('feedback').textContent='✓ Brawo! '+index+' z '+chars().length+' znaków.';
+  render();
+  if(index===chars().length){
+   pause();taskDone=true;entry.disabled=true;$('start').hidden=true;
+   if(task===LEVELS[level].tasks.length-1)complete();
+   else{$('next').hidden=false;$('next').focus();$('feedback').textContent='✓ Gotowe! Możesz przejść do następnego ćwiczenia.';saveLessonState();}
+  }else{saveLessonState();}
+ }else{
+  tone(false);
+  if(physicalCode)flashKeyFeedback(physicalCode,false);
+  $('work').classList.remove('wrong');void $('work').offsetWidth;$('work').classList.add('wrong');
+  $('accuracy').textContent=accuracy()+'%';
+  const needCombo=combo(expected);
+  if(needCombo&&needCombo.alt&&!pressedCodes.has('AltRight')){
+   $('feedback').textContent='⚠️ Aby wpisać „'+expected+'”, przytrzymaj najpierw pomarańczowy PRAWY ALT (po prawej stronie spacji)!';
+  }else if(needCombo&&needCombo.shift&&!pressedCodes.has('ShiftLeft')&&!pressedCodes.has('ShiftRight')){
+   $('feedback').textContent='⚠️ Aby wpisać „'+expected+'”, przytrzymaj niebieski klawisz SHIFT!';
+  }else{
+   $('feedback').textContent='Spróbuj jeszcze raz. Teraz wpisz '+(expected===' '?'spację':'„'+expected+'”')+'.';
+  }
+  saveLessonState();
+ }
+}
 function showSummaryScreen(stars,a,withConfetti){$('work').hidden=true;$('keyboardPanel').hidden=true;$('summary').hidden=false;$('medal').textContent='★'.repeat(stars)+'☆'.repeat(3-stars);$('resultTitle').textContent=level===3?'Brawo, Mistrzu klawiatury!':'Poziom ukończony — dobra robota!';$('result').textContent=totalChars()+' znaków · Celność '+a+'% · '+totalChars()*10+' punktów';$('resultAdvice').textContent=a>=95?'Świetna dokładność! Spróbuj kolejnej rundy bez podpowiedzi.':'Każda próba pomaga zapamiętać klawisze. Możesz poćwiczyć ponownie bez pośpiechu.';$('nextLevel').textContent=level<3?'Następny poziom →':'Wróć do poziomu 1';levelButtons();if(withConfetti){$('resultTitle').focus();celebrate();}}
 function complete(){finished=true;const a=accuracy(),stars=a>=95?3:a>=85?2:1;best[level]=Math.max(best[level]||0,stars);saveLessonState();showSummaryScreen(stars,a,true);}
 function applySavedState(saved){
@@ -139,11 +421,52 @@ function resetForNewStudent(){
   fb.append(undoBtn);
  }
 }
-// event.key sprawdza rzeczywisty znak; event.code podświetla fizyczny klawisz.
-window.addEventListener('keydown',e=>{keyEls.get(e.code)?.classList.add('pressed');$('caps').hidden=!e.getModifierState('CapsLock');if(e.key==='Escape'){pause();return;}if(!active||e.isComposing)return;if(e.target!==entry&&e.target.closest?.('button,a,summary'))return;const altgr=e.getModifierState('AltGraph')||e.code==='AltRight'||(e.ctrlKey&&e.altKey);if(e.metaKey||(e.ctrlKey&&!altgr)||(e.altKey&&!altgr))return;if(e.repeat){if(e.key.length===1||e.key==='Backspace')e.preventDefault();return;}if(e.key==='Backspace'){e.preventDefault();if(index){index--;render();saveLessonState();$('feedback').textContent='Cofnięto znak. Wpisz go ponownie.';}return;}if(e.key.length===1){e.preventDefault();accept(e.key);entry.value='';}});
-window.addEventListener('keyup',e=>keyEls.get(e.code)?.classList.remove('pressed'));
+// event.key sprawdza rzeczywisty znak; event.code podświetla fizyczny klawisz i pokazuje go w monitorze na żywo.
+window.addEventListener('keydown',e=>{
+ const altgr=e.getModifierState('AltGraph')||e.code==='AltRight'||(e.ctrlKey&&e.altKey);
+ // W Windows Prawy Alt (AltGr) generuje czasem najpierw syntetyczny ControlLeft — ukrywamy ten fałszywy Ctrl, gdy to AltGr:
+ if(altgr&&e.code==='ControlLeft'){
+  keyEls.get('ControlLeft')?.classList.remove('pressed');
+  pressedCodes.delete('ControlLeft');
+ }else{
+  keyEls.get(e.code)?.classList.add('pressed');
+  const label=e.code==='AltRight'?'🟠 PRAWY ALT':e.code.startsWith('Shift')?'⇧ SHIFT':e.code.startsWith('Control')?'🟣 CTRL':e.code==='AltLeft'?'⚠️ LEWY ALT':(keyLabels.get(e.code)||e.key);
+  const cls=e.code==='AltRight'?'mod-altgr':e.code.startsWith('Shift')?'mod-shift':e.code.startsWith('Control')?'mod-ctrl':e.code==='AltLeft'?'mod-warn':'';
+  pressedCodes.set(e.code,{text:label,cls});
+ }
+ if(altgr){
+  keyEls.get('AltRight')?.classList.add('pressed');
+  pressedCodes.set('AltRight',{text:'🟠 PRAWY ALT',cls:'mod-altgr'});
+  pressedCodes.delete('ControlLeft');
+  keyEls.get('ControlLeft')?.classList.remove('pressed');
+ }
+ renderLiveMonitor();
+ syncHeldHintBadges();
+ $('caps').hidden=!e.getModifierState('CapsLock');
+ if(e.code==='AltLeft'&&active){
+  const exp=chars()[index],c=exp?combo(exp):null;
+  if(c&&c.alt)$('feedback').textContent='⚠️ Wciskasz LEWY Alt! Do polskich znaków użyj pomarańczowego PRAWEGO Alt (po prawej stronie spacji).';
+ }
+ if(e.key==='Escape'){pause();return;}
+ if(!active||e.isComposing)return;
+ if(e.target!==entry&&e.target.closest?.('button,a,summary'))return;
+ if(e.metaKey||(e.ctrlKey&&!altgr)||(e.altKey&&!altgr))return;
+ if(e.repeat){if(e.key.length===1||e.key==='Backspace')e.preventDefault();return;}
+ if(e.key==='Backspace'){e.preventDefault();if(index){index--;render();saveLessonState();$('feedback').textContent='Cofnięto znak. Wpisz go ponownie.';}return;}
+ if(e.key.length===1){e.preventDefault();accept(e.key,e.code);entry.value='';}
+});
+window.addEventListener('keyup',e=>{
+ keyEls.get(e.code)?.classList.remove('pressed');
+ pressedCodes.delete(e.code);
+ if(e.code==='AltRight'||!e.getModifierState('AltGraph')){
+  keyEls.get('ControlLeft')?.classList.remove('pressed');
+  pressedCodes.delete('ControlLeft');
+ }
+ renderLiveMonitor();
+ syncHeldHintBadges();
+});
 window.addEventListener('blur',pause);document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
-window.addEventListener('pagehide',()=>{if(active|| index>0||task>0||level>0||Object.keys(best).length>0)saveLessonState();});
+window.addEventListener('pagehide',()=>{if(active||index>0||task>0||level>0||Object.keys(best).length>0)saveLessonState();});
 // Dodatkowa obsługa klawiatur ekranowych i metod wprowadzania; wklejanie nie zalicza zadania.
 entry.addEventListener('beforeinput',e=>{if(e.isComposing)return;if(e.inputType==='insertText'&&e.data){e.preventDefault();if(Array.from(e.data).length===1)accept(e.data);entry.value='';}else if(e.inputType.startsWith('insert'))e.preventDefault();});
 entry.addEventListener('compositionend',e=>{if(Array.from(e.data||'').length===1)accept(e.data);entry.value='';});entry.addEventListener('input',()=>{entry.value='';});
@@ -164,5 +487,3 @@ if(window.parent!==window&&'ResizeObserver'in window)new ResizeObserver(()=>pare
 const initialSaved=readStoredState();
 if(initialSaved)applySavedState(initialSaved);else loadLevel(0,true);
 </script></body></html>
-
-
