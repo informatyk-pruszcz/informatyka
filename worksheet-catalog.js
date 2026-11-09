@@ -203,6 +203,15 @@ export const extraWorksheets = [
     source: 'Karta pracy nauczyciela do tematu 2.3.'
   },
   {
+    id: 'karta-6-2-4-wykresy',
+    type: 'task', grades: [6],
+    title: '2.4. Demokratyczne wybory — tworzenie wykresów (zadanie 1)',
+    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
+    tags: ['Excel 2016', 'Wykresy', 'Karta pracy'],
+    summary: 'Porównaj głosy w wyborach klasowych, a potem przedstaw wyniki biblioteki na wykresach kolumnowym i kołowym.',
+    body: '', source: 'Karta pracy nauczyciela do tematu 2.4.'
+  },
+  {
     id: 'karta-7-2-1-pierwsza-strona',
     type: 'task',
     grades: [7],

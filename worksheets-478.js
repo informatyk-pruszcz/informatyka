@@ -4,7 +4,7 @@ import { bindWorksheetProjector } from './worksheet-projector.js';
 import { PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 import './zakupy-vat-xlsx-data.js';
 
-import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js?v=cyber5';
+import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js?v=wykresy24';
 export {extraWorksheets, isExtraWorksheet};
 
 const STARTER_HTML_CODE = `<!DOCTYPE html>
@@ -1822,6 +1822,9 @@ function renderGrade4CyberDetectiveReview() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === 'karta-6-2-4-wykresy') {
+    return '<p><a class="btn primary" href="./lekcja2-4.html">Otwórz kartę pracy — Demokratyczne wybory →</a></p>';
+  }
   if (id === 'karta-6-2-3-budzet') {
     return '<p><a class="btn primary" href="./lekcja2-3.html">Otwórz laboratorium Excel — Budżet kieszonkowy →</a></p>';
   }

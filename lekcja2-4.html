@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demokratyczne wybory · Excel 2016 · Klasa VI</title>
+<script defer src="https://cdn.tailwindcss.com"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#0f172a;font:16px/1.55 "Segoe UI",system-ui,sans-serif;text-align:left}
+main{max-width:1050px;margin:auto;padding:18px}nav{display:flex;gap:8px;flex-wrap:wrap;color:#475569;font-size:.9rem}a{color:#174cae;text-decoration:underline}
+header,section,dialog{border:1px solid #cbd5e1;border-radius:16px;background:white;padding:clamp(16px,3vw,30px);margin:18px 0}
+header{background:#0f172a;color:white}h1,h2,h3{font-weight:700;line-height:1.23}h1{font-size:clamp(1.55rem,4vw,2.3rem);max-width:32em}h2{font-size:1.4rem}h3{font-size:1.05rem}
+h1,h2,h3,p{margin:0 0 .7em}p:last-child{margin-bottom:0}.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+button,summary,input{font:inherit}button,summary{cursor:pointer}button,summary,kbd{border:1px solid #94a3b8;border-radius:8px;background:#fff;color:#0f172a;padding:7px 12px}
+button:hover,summary:hover{background:#eff6ff}button:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
+button:disabled{opacity:.55;cursor:default}.primary{background:#2563eb;color:white;border-color:#2563eb}.primary:hover{background:#174cae}
+kbd{display:inline-block;padding:1px 5px;border-bottom:3px solid #94a3b8;font:600 .9em monospace}
+time{font:700 1.7rem monospace;margin-right:12px}progress{width:min(100%,430px);height:14px;accent-color:#10b981;display:block}
+.shortcuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px}details p{padding:8px}summary{height:auto;min-height:45px}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:12px 0}td,th{border:1px solid #cbd5e1;padding:9px;text-align:left}th{background:#0f172a;color:white}.hit{background:#d1fae5;color:#064e3b}.bar{display:block;height:5px;background:#10b981;margin-top:3px}.value{width:6em;border:1px solid #64748b;border-radius:5px;background:white;color:#0f172a;padding:3px}
+@keyframes fillNumber{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}.number-flash{animation:fillNumber .24s backwards}
+@media(prefers-reduced-motion:reduce){.number-flash{animation:none}}
+.step{padding:16px 0;border-top:1px solid #dbe3ec}.step label{display:flex;align-items:baseline;gap:10px;font-weight:700}.step input{width:18px;height:18px;accent-color:#2563eb}.step p{margin:.4em 0 0 28px}.step:has(input:checked){border-left:4px solid #10b981;padding-left:8px}
+dialog{position:fixed;inset:0;margin:auto;max-width:min(90vw,580px);max-height:90vh;overflow:auto}dialog::backdrop{background:#0f172ab3}#reportList{list-style:disc;padding-left:1.3em}.note{color:#475569;font-size:.92rem}
+</style><style>/* Wspólne kolory podstron. Preferencję zapisuje theme.js. */
+@media screen {
+  body.dark {
+    color-scheme:dark;
+    --night:#102129; --panel:#192e37; --soft-panel:#243e45;
+    --light-ink:#e9f1f2; --light-muted:#c3d4d8; --night-line:#68838a;
+    --link:#98e6cb;
+  }
+  body.dark:not(.focus) {
+    --ink:var(--light-ink); --muted:var(--light-muted); --paper:var(--panel);
+    --wash:var(--night); --accent:var(--link); --line:var(--night-line);
+    background:var(--night); color:var(--light-ink);
+  }
+  body.dark figure svg text:not([fill]) {fill:currentColor;}
+  body.dark #theme,body.dark #theme:hover {
+    color:var(--light-ink);background:var(--panel);border:1px solid var(--night-line);
+  }
+  body.dark #theme[aria-pressed=true]{box-shadow:inset 0 -3px var(--link);}
+  body.dark #theme:focus-visible {outline:3px solid var(--link);outline-offset:2px;}
+
+  body.dark[data-lesson-ui="channels"] :is(section,dialog,button:not(.primary),summary,kbd,input),
+  body.dark[data-lesson-ui="pilots"] :is(article,fieldset,input,select,textarea,button:not(.primary)),
+  body.dark[data-lesson-ui="keyboard"] :is(.card,.level,button:not(.primary),.entry,.target){
+    background:var(--panel);color:var(--light-ink);border-color:var(--night-line);
+  }
+  body.dark[data-lesson-ui="keyboard"] .level.current,body.dark[data-lesson-ui="pilots"] :is(pre,.data) {background:var(--soft-panel);}
+  body.dark[data-lesson-ui="keyboard"] :is(.stats b,a),body.dark[data-lesson-ui="pilots"] a,body.dark[data-lesson-ui="channels"] a {color:var(--link);}
+  body.dark[data-lesson-ui="keyboard"] :is(small,.muted,.feedback),
+  body.dark[data-lesson-ui="pilots"] #position,body.dark[data-lesson-ui="channels"] :is(nav,.note) {color:var(--light-muted);}
+  body.dark[data-lesson-ui="keyboard"] .hint {color:#173b31;}
+  body.dark[data-lesson-ui="keyboard"] .level.current {outline:2px solid var(--link);outline-offset:-2px;}
+  body.dark[data-lesson-ui="keyboard"] .stars {color:#ffe093;}
+
+  body.dark[data-lesson-ui="plan"] {
+    --bg-page:var(--night);--bg-card:var(--panel);--bg-muted:var(--soft-panel);
+    --text-main:var(--light-ink);--text-secondary:var(--light-muted);--text-muted:var(--light-muted);
+    --border-color:#526d77;--border-strong:var(--night-line);
+  }
+  body.dark[data-lesson-ui="plan"] :is(.ergo-badge:not(.unlocked),.btn:not(.btn-primary,.btn-mint,.btn-soft-reset),.hud-tile:hover,.step-status-pill) {
+    background:var(--soft-panel);color:var(--light-ink);
+  }
+  body.dark[data-lesson-ui="plan"] :is(.back-link,.timer-display){color:var(--link);}
+  body.dark[data-lesson-ui="plan"] .back-link:hover {background:var(--soft-panel);}
+  body.dark[data-lesson-ui="plan"] .excel-window {
+    color-scheme:light; color:#142331;--text-main:#172737;--text-muted:#475569;--bg-muted:#edf2f6;--bg-card:white;
+  }
+  body.dark[data-lesson-ui="plan"] kbd {color:#102129;}
+  body.dark[data-lesson-ui="plan"] .cert-stat {background:var(--panel);}
+}
+@media print { #theme{display:none;} }
+@media screen {
+  body.dark[data-lesson-ui="plan"] :is(.step-card.star-step,.step-card.completed,.criteria-row.achieved) {background:#244339;}
+  body.dark[data-lesson-ui="plan"] .back-link {background:#203c46;}
+  body.dark[data-lesson-ui="keyboard"] #storageInfo {color:var(--light-muted);}
+}</style>
+<style>
+code{font-family:Consolas,monospace;border:1px solid #94a3b8;border-radius:5px;padding:1px 4px;overflow-wrap:anywhere}
+.income,.expense,.balance{font-weight:700}.income{background:#d1fae5;color:#064e3b}.expense{background:#fef3c7;color:#713f12}.balance{background:#dbeafe;color:#173d79}
+body.dark .income{background:#123f34;color:#defff3}body.dark .expense{background:#4a3314;color:#fff2ca}body.dark .balance{background:#193654;color:#deefff}
+table caption{text-align:left;font-weight:600}.tools+table{margin-top:0}.criteria{list-style:disc;padding-left:1.4em}details{margin-bottom:6px}dialog{width:34rem}
+@media print{nav,button,.tools,dialog{display:none!important} header,section{border:none;padding:0;margin:12pt 0;color:black;background:white}body{font-size:10pt}main{padding:0}.step,table,details{break-inside:avoid}.scroll{overflow:visible}th,td{padding:3pt}}
+</style><style>
+@media screen {
+  body { --soft:#f1f6f6; --edge:#d6e2e1; --brand:#126650; --text:#162e36; background:#f2f6f6; color:var(--text); }
+  body.dark { --soft:#203941; --edge:#405b62; --brand:#9aead0; --text:#e9f1f2; }
+  main { max-width:1120px; padding:clamp(12px,3vw,32px); }
+  main > nav:first-child { align-items:center; }
+  #theme { margin-left:auto; }
+  main > header { display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,28%); align-items:center; gap:24px;
+    background:linear-gradient(110deg,#123b46,#11594c); border:0; padding:clamp(22px,4vw,42px); }
+  header h1 { font-size:clamp(2rem,5vw,3.5rem); letter-spacing:-.04em; line-height:1.08; margin:.25em 0; }
+  .meta { font-size:.85rem; font-weight:650; color:#b9efdb; }
+  .subtitle { font-weight:650; }
+  .session { border:1px solid #71aa9e; border-radius:14px; background:#133e40; padding:16px; }
+  .session time { font-variant-numeric:tabular-nums; }
+  .session label { font-size:.88rem; }
+  .session progress { width:100%; margin-top:6px; }
+  .jump { gap:6px; }
+  .jump a { background:var(--soft); border:1px solid var(--edge); color:var(--brand); border-radius:24px; text-decoration:none; padding:7px 13px; font-weight:600; }
+  .jump a:hover { text-decoration:underline; }
+  section { border-color:var(--edge); box-shadow:0 5px 18px #122c340a; scroll-margin:12px; }
+  section h2 { letter-spacing:-.025em; margin-bottom:16px; }
+  .shortcuts { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .shortcuts summary { background:var(--soft); border-color:var(--edge); }
+  .scroll { border:1px solid var(--edge); border-radius:10px; }
+  table { margin:0; font-variant-numeric:tabular-nums; }
+  table caption { padding:10px 12px; color:var(--brand); }
+  th,td { border:0; border-bottom:1px solid var(--edge); padding:9px 12px; }
+  thead th { background:#203e48; white-space:nowrap; }
+  #preview th[scope=row] { background:transparent; color:inherit; }
+  #preview tr:not([class]), #preview tr[class=""]:nth-child(even), #dane tbody tr:nth-child(even) { background:var(--soft); }
+  #preview td,#preview thead th:not(:first-child), #dane tr > :nth-child(n+3) { text-align:right; white-space:nowrap; }
+  #symulator .tools { background:var(--soft); border-radius:10px; padding:12px; justify-content:space-between; }
+  .step { border:1px solid var(--edge); border-radius:12px; padding:14px 16px; margin:10px 0; }
+  .step label { cursor:pointer; color:var(--brand); align-items:center; }
+  .step input { flex:none; }
+  .step p { max-width:79ch; }
+  .step:has(input:checked) { background:var(--soft); padding-left:13px; }
+  .criteria li { margin:.45em 0; }
+  @media(max-width:680px) {
+    main > header { grid-template-columns:1fr; gap:14px; }
+    .shortcuts { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .step p { margin-left:0; }
+    .scroll { max-width:100%; }
+  }
+}
+</style><style>
+.warning{border-left:4px solid #d97706;padding:12px;background:#fff4da;color:#54340c}.selected tr>:is(:first-child,:last-child){background:#dbeafe;color:#12345a;box-shadow:inset 0 0 0 1px #3672af}
+#symulator [aria-pressed=true]{outline:2px solid #2563eb}#chart{margin:18px 0}figcaption{font-weight:700;margin:12px 0}figure svg{width:100%;display:block;fill:currentColor;font:12px system-ui}.scroll svg{min-width:570px}.legend,.pie-grid{display:flex;flex-wrap:wrap;gap:16px;align-items:center}.legend i,.pie-grid i{width:13px;height:13px;display:inline-block;margin-right:6px;border-radius:3px}.pie-grid svg{width:min(200px,100%)}.pie-grid li{padding:3px}select{background:Canvas;color:CanvasText;padding:6px;border:1px solid;border-radius:5px}#dataTable th[scope=row]{background:transparent;color:inherit}#dataTable.selected th[scope=row]{background:#dbeafe;color:#12345a}progress::-webkit-progress-value{transition:width .25s}@media(prefers-reduced-motion:reduce){progress::-webkit-progress-value{transition:none}}
+</style>
+<script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head><body data-lesson-ui="channels"><main>
+<nav><a href="./#home">← Strona główna</a> / <a href="./#class/6">Klasa 6</a> / <a href="./#item/karta-6-2-4-wykresy">Zadania praktyczne</a> / Dział 2 <button id="theme">Ciemny motyw</button></nav>
+<header><div><p class="meta">Klasa VI · Dział 2 · Temat 2.4 · Zadanie 1</p><h1>Demokratyczne wybory</h1><p class="subtitle">Tworzenie i analiza wykresów w MS Excel 2016</p><p>Kto wygrał wybory? Co czytają trzy szóste klasy? Zbuduj dwa wykresy i odczytaj z nich odpowiedzi.</p></div><div class="session"><strong>Czas pracy · 25–30 min</strong><div class="tools"><time id="clock">30:00</time><button id="timer">Start</button></div><label for="progress" id="progressText"></label><progress id="progress" max="6"></progress></div></header>
+<nav class="jump"><a href="#pliki">Pobierz dane</a><a href="#instrukcja">Kroki w Excelu</a><a href="#symulator">Porównaj wykresy</a><a href="#ocena">Sprawdź się</a></nav>
+<section id="pliki"><h2>Pliki startowe · Szkolna biblioteka</h2><div class="tools"><button id="xlsx" class="primary">Pobierz ksiazki.xlsx · Excel 2016</button><button id="csv">Pobierz ksiazki.csv</button></div><p id="notice" role="status"></p><p class="warning">Jeśli Excel wyświetli żółty pasek, kliknij <b>Włącz edytowanie</b>. Gotową pracę zapisz jako <b>.xlsx</b>. Format CSV zachowuje dane, ale pomija wykresy.</p></section>
+<section><h2>Ściągawka przy klawiaturze</h2><div class="shortcuts"><p><kbd>Alt + F1</kbd><br>Wykres na bieżącym arkuszu</p><p><kbd>F11</kbd><br>Wykres na osobnej karcie</p><p><kbd>Ctrl + mysz</kbd><br>Zaznacz osobno kolumny A i E</p><p><kbd>+ przy wykresie</kbd><br>Dodaj tytuł, legendę i etykiety</p><p><kbd>Pędzelek</kbd><br>Wybierz kolory i styl wykresu</p><p><kbd>Alt + =</kbd><br>Wstaw Autosumę</p></div></section>
+<section id="instrukcja"><h2>Twoja praca w Excelu</h2><div class="step"><label><input type="checkbox" data-step="0">Krok 1. Rozgrzewka · Wybory do samorządu</label><p>W pustym skoroszycie wpisz w A1 i B1 nagłówki <b>Kandydat</b> i <b>Liczba głosów</b>. W kolejnych wierszach wpisz pary: Kasia – 11, Tomek – 6, Zosia – 8, Michał – 3. Zaznacz A1:B5 i naciśnij <kbd>Alt + F1</kbd>. Kto ma najwyższą kolumnę? Wybierz <b>Projektowanie → Zmień typ wykresu → Kołowy</b>. Przyciskiem <b>+</b> włącz etykiety danych.</p></div><div class="step"><label><input type="checkbox" data-step="1">Krok 2. Oblicz wypożyczenia</label><p>Otwórz pobrany plik. Dwukrotnie kliknij granicę nagłówków kolumn, aby dopasować szerokość. W E2 naciśnij <kbd>Alt + =</kbd>. Sprawdź zakres <code>=SUMA(B2:D2)</code> i naciśnij Enter. Zaznacz ponownie E2. Kliknij dwukrotnie mały kwadrat w prawym dolnym rogu komórki. Sprawdź, czy wyniki sięgają E7.</p></div><div class="step"><label><input type="checkbox" data-step="2">Krok 3. Porównaj trzy klasy</label><p>Zaznacz <b>A1:D7</b>. Wybierz <b>Wstawianie → Kolumnowy grupowany</b>. Przenieś wykres pod tabelę. Przy każdym gatunku powinny stać trzy kolumny, po jednej dla każdej klasy.</p></div><div class="step"><label><input type="checkbox" data-step="3">Krok 4. Podpisz wykres i wybierz styl</label><p>Kliknij wykres, potem zielony <b>+</b>. Włącz tytuł wykresu, tytuły osi i legendę u dołu. Wpisz tytuł <b>Ulubione gatunki książek w klasach 6A, 6B i 6C</b>. Podpisz oś pionową „Liczba wypożyczonych książek”, a poziomą „Gatunek książki”. Kliknij <b>pędzelek</b> i wybierz czytelny styl.</p></div><div class="step"><label><input type="checkbox" data-step="4">Krok 5. Pokaż udział każdego gatunku</label><p>Zaznacz <b>A1:A7</b>. Przytrzymaj <kbd>Ctrl</kbd> i zaznacz <b>E1:E7</b>. Puść klawisz. Wybierz <b>Wstawianie → Kołowy → Kołowy 2-W</b>. Umieść wykres obok pierwszego. Nadaj mu tytuł „Podział wszystkich wypożyczeń w klasach VI”. Kliknij <b>+ → Etykiety danych</b>.</p></div><div class="step"><label><input type="checkbox" data-step="5">Krok 6. Zapisz wykresy</label><p>Wybierz <b>Plik → Zapisz jako → Skoroszyt programu Excel (*.xlsx)</b>. W Teczce ucznia zapisz plik <code>wykresy_ksiazki_Nazwisko_Imie.xlsx</code> ze swoim nazwiskiem i imieniem.</p></div><div class="step"><label><input type="checkbox" data-step="6">⭐ Zadanie dla Mistrza · Wyciągnij wnioski</label><p>Pod wykresami zaznacz A24:E26, scal komórki i włącz zawijanie tekstu. Napisz trzy zdania. Który gatunek ma najwięcej, a który najmniej wypożyczeń łącznie? Która klasa najczęściej wybierała fantastykę i przygodę? Dlaczego używasz kolumn do porównania klas, a koła do pokazania udziałów? Poprzyj odpowiedź liczbami i zapisz plik.</p></div></section>
+<section id="symulator"><h2>Jak z tabeli powstaje wykres?</h2><p>Sprawdź swoje wyniki z Excela. W tym podglądzie kolumna E zawiera już obliczone sumy.</p><button id="select" aria-pressed="false">Pokaż zaznaczenie z Ctrl · A + E</button><div class="scroll"><table id="dataTable"></table></div><div class="tools"><button id="bars">Kolumnowy · porównaj klasy</button><button id="pie">Kołowy · pokaż udział w całości</button></div><figure id="chart" aria-live="polite"></figure></section>
+<section id="ocena"><h2>Sprawdź swój odczyt</h2><label for="quiz">Która klasa najczęściej wypożyczała fantastykę i przygodę?</label> <select id="quiz"><option value="">Wybierz klasę</option><option>6A</option><option>6B</option><option>6C</option></select><p role="status" id="feedback"></p><h3>Checklista sukcesu</h3><ul class="criteria"><li>2 · Przedstawiam dane na wykresie.</li><li><label><input type="checkbox" id="styled"> 3 · Zmieniam styl lub kolor wykresu.</label></li><li>4 · Ustawiam tytuł, podpisy osi, legendę i etykiety.</li><li>5 · Porównuję klasy kolumnami, a udziały pokazuję na kole. Zapisuję skoroszyt.</li><li>6 · Odczytuję wartości i zapisuję trzy uzasadnione wnioski.</li></ul><p id="grade" role="status"></p><div class="tools"><button onclick="print()">Drukuj kartę</button><button id="reset">Resetuj postęp lekcji</button></div></section></main>
+<script>
+const $ = id => document.getElementById(id);
+const data = [["Gatunek książki","Klasa 6A","Klasa 6B","Klasa 6C","Razem wypożyczeń"],["Fantastyka i przygoda",28,34,25,null],["Komedie i humor",19,22,24,null],["Kryminały i zagadki",15,18,21,null],["Komiksy i manga",24,20,27,null],["Książki popularnonaukowe",12,15,10,null],["Biografie sportowców",14,11,16,null]];
+const header = data[0], records = data.slice(1);
+const totals = records.map(([,a,b,c])=>a+b+c);
+const grandTotal = totals.reduce((sum,n)=>sum+n,0);
+const colors = ['#2463a8','#147b67','#aa5716','#8054a0','#a53562','#556575'];
+const storageKey = 'inf_pruszcz_klasa6_lekcja2_4';
+const blank = () => ({steps:[], quiz:'', remaining:1800, deadline:0, mode:'bars', select:false});
+let state = blank();
+try { Object.assign(state,JSON.parse(localStorage.getItem(storageKey))); } catch {}
+function save(){try {localStorage.setItem(storageKey,JSON.stringify(state));}catch{}}
+$('xlsx').onclick = () => {
+  if (!window.XLSX) { $('notice').textContent='Generator Excela jest niedostępny. Pobierz CSV, otwórz go w Excelu i wybierz Zapisz jako → .xlsx.'; return; }
+  const sheet=XLSX.utils.aoa_to_sheet(data);
+  sheet['!cols']=[{wch:28},{wch:12},{wch:12},{wch:12},{wch:22}];
+  const book=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(book,sheet,'Wypożyczenia');
+  XLSX.writeFile(book,'ksiazki.xlsx');
+};
+$('csv').onclick=()=>{
+  const blob=new Blob(['\uFEFF'+data.map(row=>row.join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download='ksiazki.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),2000);
+};
+$('dataTable').innerHTML='<thead><tr>'+header.map((h,i)=>'<th>'+('ABCDE'[i])+' · '+h+'</th>').join('')+'</tr></thead><tbody>'+records.map(([name,a,b,c],i)=>'<tr><th scope="row">'+name+'</th>'+[a,b,c,totals[i]].map(n=>'<td>'+n+'</td>').join('')+'</tr>').join('')+'</tbody>';
+function draw(){
+  const bar=state.mode==='bars';
+  $('bars').setAttribute('aria-pressed',String(bar)); $('pie').setAttribute('aria-pressed',String(!bar));
+  $('select').setAttribute('aria-pressed',String(state.select)); $('dataTable').classList.toggle('selected',state.select);
+  const labels = ['Fantastyka','Komedie','Kryminały','Komiksy','Popularnonaukowe','Biografie'];
+  let graphic='';
+  if(bar){
+    for(let n=0;n<=40;n+=10){
+      const y=200-n*4;
+      graphic+='<path d="M42 '+y+'h600" stroke="currentColor" opacity=".2"/><text x="35" y="'+(y+4)+'" text-anchor="end">'+n+'</text>';
+    }
+    records.forEach((row,i)=>{
+      const x=53+i*100;
+      row.slice(1,4).forEach((v,j)=>{graphic+='<rect x="'+(x+j*22)+'" y="'+(200-v*4)+'" width="19" height="'+v*4+'" fill="'+colors[j]+'"><title>'+header[j+1]+': '+v+'</title></rect>';});
+      graphic+='<text x="'+(x+30)+'" y="220" text-anchor="middle">'+labels[i]+'</text>';
+    });
+    graphic+='<text x="44" y="22">Liczba wypożyczonych książek</text><text x="340" y="248" text-anchor="middle">Gatunek książki</text>';
+    $('chart').innerHTML='<figcaption>Ulubione gatunki książek w klasach 6A, 6B i 6C</figcaption><div class="scroll"><svg viewBox="0 0 660 258" role="img" aria-label="Wykres kolumnowy. Dokładne liczby podaje tabela powyżej.">'+graphic+'</svg></div><div class="legend">'+header.slice(1,4).map((s,i)=>'<span><i style="background:'+colors[i]+'"></i>'+s+'</span>').join('')+'</div>';
+  }else{
+    let angle=-Math.PI/2;
+    totals.forEach((v,i)=>{
+      const end=angle+2*Math.PI*v/grandTotal, mid=(angle+end)/2;
+      const xy=(a,r)=>[120+r*Math.cos(a),120+r*Math.sin(a)].join(' ');
+      graphic+='<path d="M120 120 L'+xy(angle,112)+' A112 112 0 0 1 '+xy(end,112)+' Z" fill="'+colors[i]+'" stroke="white"/><text x="'+(120+80*Math.cos(mid))+'" y="'+(125+80*Math.sin(mid))+'" text-anchor="middle" style="fill:white;font-weight:bold">'+v+'</text>';
+      angle=end;
+    });
+    $('chart').innerHTML='<figcaption>Podział wszystkich wypożyczeń w klasach VI</figcaption><div class="pie-grid"><svg viewBox="0 0 240 240" role="img" aria-label="Wykres kołowy. Liczby opisuje legenda.">'+graphic+'</svg><ul>'+records.map((r,i)=>'<li><i style="background:'+colors[i]+'"></i>'+r[0]+' · <b>'+totals[i]+'</b></li>').join('')+'</ul></div>';
+  }
+}
+for(const id of ['bars','pie','select']) $(id).onclick=()=>{if(id==='select')state.select=!state.select;else state.mode=id;save();draw();};
+function seconds(){return state.deadline?Math.max(0,Math.ceil((state.deadline-Date.now())/1000)):state.remaining;}
+function tick(){
+  const n=seconds(); if(!n && state.deadline){state.deadline=0;state.remaining=0;save();}
+  $('clock').textContent=Math.floor(n/60)+':'+String(n%60).padStart(2,'0');
+  $('timer').textContent=state.deadline?'Pauza':n?'Start':'Zacznij kolejne 30 minut';
+}
+$('timer').onclick=()=>{state.remaining=seconds()||1800;state.deadline=state.deadline?0:Date.now()+state.remaining*1000;save();tick();};
+function update(){
+  const items=[...document.querySelectorAll('[data-step]')];
+  items.forEach((box,i)=>box.checked=Boolean(state.steps[i]));
+  const count=items.slice(0,6).filter(box=>box.checked).length;
+  $('progress').value=count;
+  $('progressText').textContent='Kroki: '+count+' z 6 · '+Math.round(count/6*100)+'%';
+  let grade=state.steps[0]||state.steps[2]?2:0;
+  if(grade && state.steps[3])grade=4;
+  else if(grade && $('styled').checked)grade=3;
+  if(grade===4 && count===6)grade=state.steps[6] && state.quiz==='6B'?6:5;
+  $('grade').textContent=grade?'Proponowana ocena według samooceny: '+grade:'Zaznacz wykonane kroki, aby zobaczyć poziom.';
+  $('quiz').value=state.quiz;
+  $('feedback').textContent=!state.quiz?'':state.quiz==='6B'?'Tak! Klasa 6B wypożyczyła 34 książki z tej kategorii.':'Porównaj trzy liczby w pierwszym wierszu. W której klasie wynik jest największy?';
+}
+function refresh(){ $('styled').checked=!!state.styled;update();draw();tick(); }
+document.querySelectorAll('[data-step]').forEach((box,i)=>box.onchange=()=>{state.steps[i]=box.checked;update();save();});
+$('styled').onchange=()=>{state.styled=$('styled').checked;save();update();};
+$('quiz').onchange=()=>{state.quiz=$('quiz').value;update();save();};
+$('reset').onclick=()=>{if(confirm('Wyczyścić postęp tej lekcji?')){state=blank();save();refresh();}};
+refresh();setInterval(tick,1000);
+</script><script>// Wszystkie podstrony korzystają z ustawienia portalu, także w drugiej karcie.
+(() => {
+  const key = 'informatyka-theme';
+  const button = document.getElementById('theme');
+  if (!button) return;
+
+  function apply(value) {
+    const dark = value === 'dark';
+    document.body.classList.toggle('dark',dark);
+    button.setAttribute('aria-pressed', String(dark));
+    button.setAttribute('aria-label','Ciemny motyw');
+    button.title = dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
+    button.textContent = button.dataset.compact !== undefined ? (dark ? '☀' : '☾') : 'Ciemny motyw';
+  }
+  let initial;
+  try {
+    initial = localStorage.getItem(key);
+    if (!initial) {
+      initial = localStorage.getItem('html-theme');
+      if (initial) localStorage.setItem(key,initial);
+    }
+  } catch {}
+  apply(initial);
+  button.addEventListener('click', () => {
+    const value = document.body.classList.contains('dark') ? 'light' : 'dark';
+    apply(value);
+    try { localStorage.setItem(key,value); } catch {}
+  });
+  window.addEventListener('storage', e => { if (e.key === key || e.key === null) apply(e.newValue); });
+})();</script></body></html>
