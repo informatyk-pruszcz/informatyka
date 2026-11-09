@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MISJA: Internetowe Prawo Jazdy – Checklista Ucznia</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Canvas Confetti for 100% completion celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            cyber: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              800: '#065f46',
+              900: '#0f382c',
+              dark: '#091e18',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar & print styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+
+    /* Print styles optimized for standard black & white or color school printing */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 12px !important;
+      }
+      .print-text-dark {
+        color: #0f172a !important;
+      }
+      .print-checkbox {
+        border: 2px solid #0f172a !important;
+        background: transparent !important;
+      }
+      .print-page-break {
+        page-break-before: always;
+      }
+    }
+
+    /* Interactive checkbox animation */
+    .checkbox-custom:checked + label .check-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-slate-950 pb-16 transition-colors duration-300">
+
+  <!-- Ambient Glow Effects (Decorative Background) -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10 no-print">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-emerald-600/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10">
+
+    <!-- TOP NAV / ACTION BAR -->
+    <nav class="mb-4 no-print" aria-label="Powrót do portalu"><a class="text-emerald-300 underline" href="../#contest">← Wróć do konkursów</a></nav>
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800/80 mb-8 no-print">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20">
+          🪪
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-widest font-mono text-emerald-400 font-bold">Oficjalny Poradnik Ucznia Klas IV–V</span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Internetowe Prawo Jazdy</h1>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2 text-slate-200 transition-all shadow-sm active:scale-95">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          Drukuj na A4
+        </button>
+        <button onclick="resetChecklist()" class="px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-rose-950/40 border border-slate-800 hover:border-rose-800/60 text-xs text-slate-400 hover:text-rose-300 font-medium transition-all" title="Wyczyść postęp">
+          Resetuj
+        </button>
+      </div>
+    </header>
+
+    <!-- PRINT HEADER (Only visible when printing) -->
+    <div class="hidden print:block mb-6 border-b-2 border-slate-900 pb-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-black uppercase tracking-tight">🪪 KARTA PRACY: INTERNETOWE PRAWO JAZDY</h1>
+          <p class="text-xs text-slate-700 font-medium">Checklista zadań dla uczniów klas IV – przygotowanie pracy dla rówieśników i klas III</p>
+        </div>
+        <div class="text-right text-xs">
+          <p class="font-bold">Termin: 23.11.2026 r.</p>
+          <p>Wystawa: 25.11.2026 r.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO & BANNER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      
+      <!-- Main Intro Card (2 Columns) -->
+      <div class="lg:col-span-2 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-cyber-900/30 border border-slate-800 p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden shadow-xl print-card">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold mb-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          MISJA SPECJALNA Z INFORMATYKI
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
+          Zostań Autorem Szkolnego Bestsellera! 🚀
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          Stwórz <strong class="text-white">komiks</strong> lub interaktywny <strong class="text-white">lapbook</strong>, który wytłumaczy zasady bezpiecznego internetu prostym językiem zrozumiałym dla Ciebie i Twoich rówieśników z klas IV–V!
+        </p>
+
+        <!-- Deadlines Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 print-card">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-lg font-bold">
+              ⏰
+            </div>
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Termin oddania pracy</div>
+              <div class="text-sm font-bold text-white print-text-dark">23 listopada 2026 r.</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 print-card">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-lg font-bold">
+              🏆
+            </div>
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Wystawa i wyniki</div>
+              <div class="text-sm font-bold text-white print-text-dark">25 listopada 2026 r.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">🎁 Nagrody:</span>
+            <span>Ocena 5 lub 6 z informatyki + nagrody w 3 kategoriach!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gamified Live Badge & Progress Card -->
+      <div class="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 flex flex-col justify-between shadow-xl backdrop-blur-xl relative print-card">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono uppercase text-slate-400 tracking-wider">Twój Postęp Misji</span>
+            <span id="progress-percent" class="text-sm font-mono font-bold text-emerald-400">0%</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full h-3 rounded-full bg-slate-950 border border-slate-800 overflow-hidden p-0.5 mb-4">
+            <div id="progress-bar-fill" class="h-full rounded-full bg-gradient-to-r from-teal-500 to-emerald-400 transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
+
+          <!-- Task count status -->
+          <p id="task-counter-text" class="text-xs text-slate-400 font-medium mb-6">
+            Zrealizowano <span class="text-emerald-400 font-bold">0</span> z 15 kroków
+          </p>
+
+          <!-- Interactive Badge Visualizer -->
+          <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 relative overflow-hidden group">
+            <div class="text-[10px] font-mono uppercase text-slate-400 tracking-wider mb-2 flex items-center justify-between">
+              <span>Wizytówka Prawa Jazdy</span>
+              <span class="text-emerald-400 font-bold text-[10px] animate-pulse">PODGLĄD</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button onclick="changeAvatar()" title="Kliknij, aby zmienić awatar" class="w-12 h-12 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-emerald-500 flex items-center justify-center text-2xl transition-all cursor-pointer group-hover:scale-105 active:scale-95 shadow-inner">
+                <span id="preview-avatar">👾</span>
+              </button>
+              <div class="flex-1 min-w-0">
+                <div class="text-[11px] text-slate-500">Twój bezpieczny Nick:</div>
+                <input id="nick-input" type="text" maxlength="20" placeholder="Wpisz swój nick..." value="Cyber_Mistrz_04" oninput="updateNick(this.value)" class="w-full bg-transparent text-sm font-bold text-emerald-300 focus:outline-none placeholder:text-slate-600 font-mono" />
+              </div>
+            </div>
+
+            <!-- Miniature stamp preview -->
+            <div class="mt-3 pt-2.5 border-t border-dashed border-slate-800 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400 text-[10px]">Okienko 4×4 cm:</span>
+              <span id="badge-stamp-status" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700">
+                CZEKA NA PIECZĄTKĘ
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rank Status -->
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-slate-400">Ranga w misji:</span>
+          <span id="player-rank" class="text-xs font-bold font-mono text-amber-400">🚦 Kursant Sieci</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN BENTO GRID CHECKLIST -->
+    <main class="space-y-6">
+
+      <!-- ================= KROK 1 ================= -->
+      <section class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 sm:p-7 backdrop-blur-sm print-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 font-mono font-extrabold text-sm border border-emerald-500/30">
+              1
+            </span>
+            <h3 class="text-lg sm:text-xl font-bold text-white print-text-dark">KROK 1: Podłoże i forma pracy</h3>
+          </div>
+          <span class="text-xs font-mono text-emerald-400/80 bg-emerald-950/40 px-2.5 py-1 rounded-lg border border-emerald-800/40 w-fit">
+            Wymiary & Trwałość
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          
+          <!-- Item 1 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-1" onchange="toggleTask('task-1')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-1" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Sztywna kartka formatu A3
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Użyj kartki z bloku technicznego A3 (pionowo lub poziomo). <em>Możesz też skleić dwie kartki A4 szeroką taśmą od tyłu na całej długości.</em>
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-2" onchange="toggleTask('task-2')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-2" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Wybór formy: Komiks ALBO Lapbook
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                <strong>Forma A:</strong> Komiks podzielony na 4 kadry z dymkami dialogowymi.<br>
+                <strong>Forma B:</strong> Lapbook z 4 otwieranymi klapkami lub harmonijkami.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-3" onchange="toggleTask('task-3')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-3" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Próba grawitacji (Korytarzowy Test)
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Praca będzie wisieć pionowo na tablicy! Wszystkie elementy muszą być przyklejone na stałe. <strong>Zero luźnych karteczek wsuwanych do kieszonek.</strong>
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-4" onchange="toggleTask('task-4')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-4" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Praca własnoręczna (Zero ściąg z neta)
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Napisy i rysunki wykonaj ręcznie. Możesz użyć wycinków gazet, naklejek i kolażu, ale <strong>nie drukuj gotowych definicji ani grafik z internetu</strong>.
+              </span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= KROK 2 ================= -->
+      <section class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 sm:p-7 backdrop-blur-sm print-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-teal-500/20 text-teal-400 font-mono font-extrabold text-sm border border-teal-500/30">
+              2
+            </span>
+            <h3 class="text-lg sm:text-xl font-bold text-white print-text-dark">KROK 2: Wizytówka i ochrona danych (Przód vs Tył)</h3>
+          </div>
+          <span class="text-xs font-mono text-amber-400 bg-amber-950/40 px-2.5 py-1 rounded-lg border border-amber-800/40 w-fit">
+            🔒 Ściśle Tajne!
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          
+          <!-- Item 5 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-5" onchange="toggleTask('task-5')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-5" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Tytuł na froncie pracy
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                U góry pracy umieść czytelny i widoczny z daleka wielki napis: <strong>„INTERNETOWE PRAWO JAZDY”</strong>.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-6" onchange="toggleTask('task-6')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-6" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Makieta dokumentu (Identyfikator Kierowcy)
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Z przodu narysuj prostokątną wizytówkę: <strong>bezpieczny nick</strong>, <strong>własny awatar</strong> oraz <strong>puste okienko (min. 4 × 4 cm)</strong> na pieczątkę ZALICZONO.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="p-4 rounded-2xl bg-rose-950/20 hover:bg-rose-950/30 border border-rose-900/40 hover:border-rose-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-7" onchange="toggleTask('task-7')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-rose-800 checked:bg-rose-500 checked:border-rose-500 cursor-pointer accent-rose-500 print-checkbox" />
+            <label for="task-7" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-rose-300 group-hover:text-rose-200 transition-colors block mb-0.5 print-text-dark">
+                ⚠️ Ostrzeżenie: Zakaz danych z przodu!
+              </span>
+              <span class="text-rose-200/70 text-xs leading-relaxed block">
+                Zgodnie z ochroną prywatności na froncie pracy <strong>NIE WOLNO</strong> wpisywać swojego prawdziwego imienia i nazwiska! Tylko nick!
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 8 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-8" onchange="toggleTask('task-8')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-8" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Prawdziwe dane na odwrocie
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Odwróć plakat: swoje prawdziwe <strong>Imię, Nazwisko oraz Klasę</strong> wpisz wyłącznie z tyłu arkusza.
+              </span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= KROK 3 ================= -->
+      <section class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 sm:p-7 backdrop-blur-sm print-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-extrabold text-sm border border-cyan-500/30">
+              3
+            </span>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-white print-text-dark">KROK 3: Cztery obowiązkowe strefy wiedzy</h3>
+              <p class="text-xs text-slate-400">Pisz prosto i zrozumiale dla uczniów klas IV–V (język bez trudnych definicji!)</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded-lg border border-cyan-800/40 w-fit">
+            Merytoryka (0–8 pkt)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Item 9: POLE 1 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-9" onchange="toggleTask('task-9')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-9" class="text-sm cursor-pointer select-none">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">POLE 1</span>
+                <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors print-text-dark">Sieć i Chmura</span>
+              </div>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                <em>Wybierz JEDEN wariant:</em><br>
+                • <strong>Wariant A:</strong> Droga wiadomości od komputera do komputera (kable, routery, serwery).<br>
+                • <strong>Wariant B:</strong> Różnica między plikiem na własnym dysku a plikiem w chmurze internetowej.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 10: POLE 2 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-10" onchange="toggleTask('task-10')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-10" class="text-sm cursor-pointer select-none">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">POLE 2</span>
+                <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors print-text-dark">Bezpieczeństwo i Hasła</span>
+              </div>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                • Twój prosty <strong>„Przepis na silne hasło”</strong> (znaki, cyfry, skojarzenia).<br>
+                • <strong>3 sygnały ostrzegawcze</strong> („Uwaga, oszust!”), po których uczeń rozpozna próbę wyłudzenia danych lub oszustwo w grze/sieci.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 11: POLE 3 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-11" onchange="toggleTask('task-11')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-11" class="text-sm cursor-pointer select-none">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">POLE 3</span>
+                <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors print-text-dark">Wyszukiwanie i Prawa Autorskie</span>
+              </div>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                • <strong>Zagadka słów kluczowych:</strong> jakie słowa wpisać w wyszukiwarkę, by znaleźć konkretny cel.<br>
+                • <strong>Licencja w praktyce:</strong> podpisz swój rysunek nickiem i zasadą (np. <em>„Autor: [Nick] – możesz dzielić się pracą, podając autora”</em>).
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 12: POLE 4 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-12" onchange="toggleTask('task-12')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-12" class="text-sm cursor-pointer select-none">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">POLE 4</span>
+                <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors print-text-dark">Netykieta (Kultura w Sieci)</span>
+              </div>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                • <strong>3 zasady</strong> kulturalnej komunikacji na czacie lub w grach online.<br>
+                • <strong>1 Twoja autorska zasada</strong>, której najbardziej brakuje na Waszym czacie klasowym.
+              </span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= KROK 4 ================= -->
+      <section class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 sm:p-7 backdrop-blur-sm print-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 font-mono font-extrabold text-sm border border-purple-500/30">
+              4
+            </span>
+            <h3 class="text-lg sm:text-xl font-bold text-white print-text-dark">KROK 4: Finał przy biurku nauczyciela</h3>
+          </div>
+          <span class="text-xs font-mono text-purple-400 bg-purple-950/40 px-2.5 py-1 rounded-lg border border-purple-800/40 w-fit">
+            Odbiór Uprawnień
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          
+          <!-- Item 13 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-13" onchange="toggleTask('task-13')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-13" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Dostarczenie do 23.11.2026 r.
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Przynieś gotowy, suchy i sklejony plakat na lekcję informatyki w terminie.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 14 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-14" onchange="toggleTask('task-14')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-14" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                15-sekundowa weryfikacja ustna
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Bądź gotowy krótko opowiedzieć własnymi słowami o jednym wylosowanym kadrze/okienku.
+              </span>
+            </label>
+          </div>
+
+          <!-- Item 15 -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex items-start gap-3.5 group print-card">
+            <input type="checkbox" id="task-15" onchange="toggleTask('task-15')" class="checkbox-custom mt-1 w-5 h-5 rounded-lg border-2 border-slate-700 checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer accent-emerald-500 print-checkbox" />
+            <label for="task-15" class="text-sm cursor-pointer select-none">
+              <span class="font-bold text-slate-100 group-hover:text-emerald-300 transition-colors block mb-0.5 print-text-dark">
+                Pieczątka ZALICZONO i Ocena!
+              </span>
+              <span class="text-slate-400 text-xs leading-relaxed block">
+                Odbierz pieczątkę, zgarnij <strong>ocenę 5 lub 6</strong> i zobacz swój plakat na wystawie <strong>25.11.2026 r.</strong>!
+              </span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER INFO & TIPS -->
+    <footer class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 no-print">
+      <div class="flex items-center gap-2">
+        <span>🛡️</span>
+        <span>Konkurs Informatyczno-Plastyczny „Internetowe Prawo Jazdy”</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Zapisano lokalnie w Twojej przeglądarce 💾</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Task identifiers
+    const TOTAL_TASKS = 15;
+    const taskIds = Array.from({ length: TOTAL_TASKS }, (_, i) => `task-${i + 1}`);
+    
+    // Fun avatars for 10-11 year olds
+    const AVATARS = ['👾', '🦊', '🤖', '🐱', '🚀', '⚡', '🛡️', '🎮', '🐼', '🦖'];
+    let currentAvatarIndex = 0;
+
+    // Web Audio synthesizer for pleasant clicks without external files
+    let audioCtx = null;
+    function playBeep(type = 'check') {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'check') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'uncheck') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(300, now + 0.06);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        } else if (type === 'fanfare') {
+          // 3-tone arpeggio for 100% completion
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, index) => {
+            const noteOsc = audioCtx.createOscillator();
+            const noteGain = audioCtx.createGain();
+            noteOsc.connect(noteGain);
+            noteGain.connect(audioCtx.destination);
+            noteOsc.type = 'triangle';
+            noteOsc.frequency.setValueAtTime(freq, now + index * 0.1);
+            noteGain.gain.setValueAtTime(0.15, now + index * 0.1);
+            noteGain.gain.exponentialRampToValueAtTime(0.01, now + index * 0.1 + 0.25);
+            noteOsc.start(now + index * 0.1);
+            noteOsc.stop(now + index * 0.1 + 0.25);
+          });
+        }
+      } catch (e) {
+        // Audio might be blocked by browser policy prior to gesture
+      }
+    }
+
+    // Toggle single task & update
+    function toggleTask(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        playBeep(el.checked ? 'check' : 'uncheck');
+        saveState();
+        updateProgress();
+      }
+    }
+
+    // Change avatar on click
+    function changeAvatar() {
+      currentAvatarIndex = (currentAvatarIndex + 1) % AVATARS.length;
+      const avatar = AVATARS[currentAvatarIndex];
+      document.getElementById('preview-avatar').textContent = avatar;
+      localStorage.setItem('ipj_avatar', avatar);
+      playBeep('check');
+    }
+
+    // Update Nickname
+    function updateNick(val) {
+      localStorage.setItem('ipj_nick', val);
+    }
+
+    // Calculate progress and update rank
+    function updateProgress() {
+      let checkedCount = 0;
+      taskIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.checked) checkedCount++;
+      });
+
+      const percent = Math.round((checkedCount / TOTAL_TASKS) * 100);
+
+      // Elements
+      const barFill = document.getElementById('progress-bar-fill');
+      const percentEl = document.getElementById('progress-percent');
+      const counterEl = document.getElementById('task-counter-text');
+      const rankEl = document.getElementById('player-rank');
+      const stampBadge = document.getElementById('badge-stamp-status');
+
+      // Update text & bar
+      barFill.style.width = percent + '%';
+      percentEl.textContent = percent + '%';
+      counterEl.innerHTML = `Zrealizowano <span class="text-emerald-400 font-bold">${checkedCount}</span> z ${TOTAL_TASKS} kroków`;
+
+      // Update Rank Badge
+      if (percent === 100) {
+        rankEl.innerHTML = '🪪 <span class="text-emerald-400 font-extrabold animate-pulse">CERTYFIKOWANY KIEROWCA</span>';
+        stampBadge.textContent = 'GOTOWY NA 6!';
+        stampBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500 font-bold';
+        
+        // Trigger celebratory confetti if just completed
+        const hasCelebrated = sessionStorage.getItem('ipj_celebrated');
+        if (!hasCelebrated && typeof confetti === 'function') {
+          playBeep('fanfare');
+          confetti({
+            particleCount: 120,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+          sessionStorage.setItem('ipj_celebrated', 'true');
+        }
+      } else if (percent >= 75) {
+        rankEl.innerHTML = '⚡ <span class="text-cyan-400">Prawie Ekspert Sieci</span>';
+        stampBadge.textContent = 'OSTATNIA PROSTA';
+        stampBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-800';
+        sessionStorage.removeItem('ipj_celebrated');
+      } else if (percent >= 40) {
+        rankEl.innerHTML = '🛡️ <span class="text-teal-400">Odkrywca Zasad</span>';
+        stampBadge.textContent = 'W TRAKCIE PRACY';
+        stampBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700';
+        sessionStorage.removeItem('ipj_celebrated');
+      } else {
+        rankEl.innerHTML = '🚦 <span class="text-amber-400">Kursant Sieci</span>';
+        stampBadge.textContent = 'CZEKA NA PIECZĄTKĘ';
+        stampBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700';
+        sessionStorage.removeItem('ipj_celebrated');
+      }
+    }
+
+    // Save checklist state to localStorage
+    function saveState() {
+      const state = {};
+      taskIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) state[id] = el.checked;
+      });
+      localStorage.setItem('ipj_tasks_state', JSON.stringify(state));
+    }
+
+    // Load state from localStorage on init
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('ipj_tasks_state');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          taskIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && parsed[id] !== undefined) {
+              el.checked = parsed[id];
+            }
+          });
+        }
+
+        const savedNick = localStorage.getItem('ipj_nick');
+        if (savedNick) {
+          document.getElementById('nick-input').value = savedNick;
+        }
+
+        const savedAvatar = localStorage.getItem('ipj_avatar');
+        if (savedAvatar) {
+          document.getElementById('preview-avatar').textContent = savedAvatar;
+          const idx = AVATARS.indexOf(savedAvatar);
+          if (idx !== -1) currentAvatarIndex = idx;
+        }
+      } catch (e) {
+        console.warn('Could not read from localStorage', e);
+      }
+      updateProgress();
+    }
+
+    // Reset checklist
+    function resetChecklist() {
+      taskIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = false;
+      });
+      sessionStorage.removeItem('ipj_celebrated');
+      saveState();
+      updateProgress();
+      playBeep('uncheck');
+    }
+
+    // Initialize after DOM ready
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+    });
+  </script>
+</body>
+</html>
