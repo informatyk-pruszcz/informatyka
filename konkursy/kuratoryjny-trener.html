@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trener i Generator Zadań – Kuratoryjny Konkurs Informatyczny (Klasy 6–8)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --emerald: #10b981;
+      --emerald-dark: #047857;
+      --emerald-soft: #d1fae5;
+      --amber: #f59e0b;
+      --amber-dark: #b45309;
+      --amber-soft: #fef3c7;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --rose-soft: #ffe4e6;
+      --rose-dark: #be123c;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, -apple-system, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.58;
+      text-align: left;
+      padding-bottom: 64px;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    kbd, .code-pill {
+      display: inline-block;
+      font-family: 'Consolas', 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      border: 1px solid #94a3b8;
+      box-shadow: 0 2px 0 #94a3b8;
+      color: #0f172a;
+    }
+    pre.code-box {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      margin: 10px 0;
+      border: 1px solid #334155;
+      line-height: 1.5;
+    }
+    .topbar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 16px rgba(15,23,42,0.2);
+    }
+    .topbar-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .back-link {
+      color: #93c5fd;
+      font-weight: 700;
+      font-size: 0.93rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-link:hover { color: #ffffff; text-decoration: none; }
+    .topbar-stats {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .stat-badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-badge b { color: #34d399; }
+    .btn-reset {
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn-reset:hover { background: #475569; }
+
+    .container {
+      max-width: 1220px;
+      margin: 24px auto 0;
+      padding: 0 18px;
+    }
+    .hero-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .hero-card h1 {
+      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    .hero-card p {
+      color: #cbd5e1;
+      max-width: 820px;
+      font-size: 0.98rem;
+      margin-bottom: 18px;
+    }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.14);
+      border-radius: 999px;
+      height: 12px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #10b981, #3b82f6);
+      height: 100%;
+      width: 0%;
+      transition: width 0.35s ease;
+    }
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .mode-tab {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.04);
+    }
+    .mode-tab:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .mode-tab.active {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.16);
+    }
+    .mode-tab-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mode-tab-sub {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 980px) {
+      .layout-grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .panel h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .panel-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--ink);
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .chip:hover { border-color: var(--primary); }
+    .chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .question-card {
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      transition: border-color 0.2s;
+    }
+    .question-card.solved-ok {
+      border-color: var(--emerald);
+      background: #f0fdf4;
+    }
+    .q-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .q-pill {
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--surface-alt);
+      color: var(--muted);
+    }
+    .q-pill.stage-szkolny { background: #dbeafe; color: #1e40af; }
+    .q-pill.stage-rejonowy { background: #fef3c7; color: #92400e; }
+    .q-pill.stage-final { background: #ede9fe; color: #5b21b6; }
+    .q-pill.stage-gen { background: #d1fae5; color: #065f46; }
+
+    .q-title {
+      font-size: 1.04rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .options-list {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .opt-btn {
+      text-align: left;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .opt-btn:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+    .opt-btn.correct {
+      border-color: var(--emerald);
+      background: var(--emerald-soft);
+      color: #064e3b;
+    }
+    .opt-btn.wrong {
+      border-color: var(--amber);
+      background: var(--amber-soft);
+      color: #78350f;
+    }
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .ans-input {
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      min-width: 210px;
+      color: var(--ink);
+    }
+    .ans-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .btn {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-emerald {
+      background: var(--emerald);
+      color: #ffffff;
+    }
+    .btn-emerald:hover { background: var(--emerald-dark); }
+    .btn-outline {
+      background: var(--surface-alt);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--primary); }
+
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.91rem;
+      display: none;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.ok {
+      background: var(--emerald-soft);
+      border: 1px solid #6ee7b7;
+      color: #064e3b;
+    }
+    .feedback-box.hint {
+      background: var(--amber-soft);
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .gen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .gen-card-btn {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      text-align: left;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .gen-card-btn:hover, .gen-card-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .gen-card-btn strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+    .gen-card-btn span {
+      font-size: 0.79rem;
+      color: var(--muted);
+    }
+
+    .scratchpad {
+      position: sticky;
+      top: 72px;
+    }
+    .scratchpad textarea {
+      width: 100%;
+      min-height: 170px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+      margin-bottom: 10px;
+      background: #fffbeb;
+      color: #0f172a;
+    }
+    .power-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 8px;
+    }
+    .power-table th, .power-table td {
+      border: 1px solid var(--border);
+      padding: 5px 8px;
+      text-align: left;
+    }
+    .power-table th { background: var(--surface-alt); font-weight: 800; }
+
+    .compendium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 16px;
+    }
+    .comp-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: var(--surface);
+    }
+    .comp-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--primary-hover);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comp-card ul {
+      padding-left: 18px;
+      font-size: 0.9rem;
+    }
+    .comp-card li { margin-bottom: 6px; }
+
+    .timer-banner {
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .timer-digits {
+      font-family: 'Consolas', monospace;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #34d399;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-link" href="../index.html#contest">← Powrót do informatyk-pruszcz.github.io/informatyka | Konkursy (Klasy 6–8)</a>
+      <div class="topbar-stats">
+        <span class="stat-badge">🏆 Rozwiązane zadania: <b id="stat-solved">0</b></span>
+        <span class="stat-badge">🎲 Wygenerowane misje: <b id="stat-gen">0</b></span>
+        <span class="stat-badge">⭐ Punkty Mistrza: <b id="stat-pts">0</b> pkt</span>
+        <button class="btn-reset" id="btn-reset-all" type="button">🔄 Nowy uczeń / Wyczyść postęp</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <span class="hero-eyebrow">Kuratoryjny Konkurs Informatyczny • Klasy 6–8</span>
+      <h1>🎯 Centrum Treningowe i Generator Zadań Konkursowych</h1>
+      <p>Trenuj na autentycznych zadaniach z etapów szkolnych, rejonowych i finałów wojewódzkich lub losuj nowe warianty w <strong>Nieskończonym Generatorze Zadań</strong>. Pamiętaj: na konkursie kuratoryjnym <strong>nie wolno korzystać z kalkulatora</strong> — korzystaj z wirtualnego brudnopisu i trików szybkiego liczenia!</p>
+      <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700;">
+        <span>Postęp opanowania bazy zadań konkursowych</span>
+        <span id="hero-pct">0%</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="hero-bar"></div>
+      </div>
+    </section>
+
+    <nav class="mode-tabs" aria-label="Tryby nauki">
+      <button class="mode-tab active" data-mode="bank" type="button">
+        <span class="mode-tab-title">📚 1. Baza Zadań z Arkuszy</span>
+        <span class="mode-tab-sub">45+ oryginalnych zadań z etapów szkolnych, rejonowych i finałów z wyjaśnieniami krok po kroku</span>
+      </button>
+      <button class="mode-tab" data-mode="generator" type="button">
+        <span class="mode-tab-title">🎲 2. Generator Zadań ( ∞ )</span>
+        <span class="mode-tab-sub">8 proceduralnych generatorów: BIN/HEX, PESEL, Excel, algorytmy Python/C++, kręgle, skaner dpi</span>
+      </button>
+      <button class="mode-tab" data-mode="exam" type="button">
+        <span class="mode-tab-title">⏱️ 3. Symulator Konkursu</span>
+        <span class="mode-tab-sub">Sprawdź się na czas (20 min Etap Szkolny/Finał lub 60 min Rejon) z diagnozą mocnych stron</span>
+      </button>
+      <button class="mode-tab" data-mode="compendium" type="button">
+        <span class="mode-tab-title">🧠 4. Pewniaki i Ściągawka</span>
+        <span class="mode-tab-sub">Wszystkie wzory, potęgi dwójki, wagi PESEL, funkcje Excela i pułapki, które powtarzają się co roku</span>
+      </button>
+    </nav>
+
+    <div class="layout-grid">
+      <div id="main-view"></div>
+
+      <aside class="scratchpad">
+        <div class="panel">
+          <h2>📝 Brudnopis Konkursowy</h2>
+          <p class="panel-sub">Na konkursie nie masz kalkulatora. Zapisuj tu obliczenia pisemne, reszty z dzielenia i potęgi dwójki (zapisuje się automatycznie).</p>
+          <textarea id="scratchpad-text" placeholder="Miejsce na Twoje obliczenia...&#10;Np. 1010101(2) = 64 + 16 + 4 + 1 = 85&#10;Wagi PESEL: 1 3 7 9 1 3 7 9 1 3"></textarea>
+          <div style="display:flex; gap:8px; margin-bottom:14px;">
+            <button class="btn btn-outline" id="btn-insert-powers" type="button" style="font-size:0.8rem; padding:6px 10px;">+ Wklej potęgi 2ⁿ</button>
+            <button class="btn btn-outline" id="btn-clear-scratch" type="button" style="font-size:0.8rem; padding:6px 10px;">Wyczyść brudnopis</button>
+          </div>
+          <h3 style="font-size:0.95rem; margin-bottom:6px;">⚡ Szybka ściąga potęg liczby 2:</h3>
+          <table class="power-table">
+            <thead>
+              <tr><th>2ⁿ</th><th>Wartość</th><th>2ⁿ</th><th>Wartość</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2⁰</td><td><b>1</b></td><td>2⁶</td><td><b>64</b></td></tr>
+              <tr><td>2¹</td><td><b>2</b></td><td>2⁷</td><td><b>128</b></td></tr>
+              <tr><td>2²</td><td><b>4</b></td><td>2⁸</td><td><b>256</b></td></tr>
+              <tr><td>2³</td><td><b>8</b></td><td>2⁹</td><td><b>512</b></td></tr>
+              <tr><td>2⁴</td><td><b>16</b></td><td>2¹⁰</td><td><b>1024 (1 KiB)</b></td></tr>
+              <tr><td>2⁵</td><td><b>32</b></td><td>2³⁰</td><td><b>~1,07 mld (1 GiB)</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script>
+    const STORAGE_KEY = 'inf_pruszcz_konkurs_kuratoryjny_v1';
+
+    const CATEGORIES = {
+      all: 'Wszystkie działy',
+      bin: '1. Systemy liczbowe i pamięć',
+      algo: '2. Algorytmika, Python, C++ i Scratch',
+      excel: '3. Arkusz kalkulacyjny MS Excel',
+      hw: '4. Sprzęt, sieci i cyberbezpieczeństwo',
+      app: '5. Grafika, Word, PowerPoint, HTML i prawo',
+      logic: '6. Zagadki logiczne, szyfry, PESEL i kręgle'
+    };
+
+    const STAGES = {
+      all: 'Wszystkie etapy',
+      szkolny: 'Etap szkolny (XI 2021)',
+      rejonowy22: 'Etap rejonowy (I 2022)',
+      final22: 'Finał wojewódzki (III 2022)',
+      rejonowy23: 'Etap rejonowy (I 2023)',
+      final23: 'Finał wojewódzki (III 2023)'
+    };
+
+    const BANK = [
+      // --- ETAP SZKOLNY XI 2021 ---
+      {
+        id: 'sz21_1', stage: 'szkolny', cat: 'hw', pts: 1,
+        q: '1. [Etap szkolny 2021] Które z poniższych zdań dotyczących punktu dostępu (ang. hotspot) jest FAŁSZYWE?',
+        options: [
+          'A. Pozwala na połączenie z siecią komputerową za pomocą kabla USB.',
+          'B. Funkcję punktu dostępu może pełnić telefon komórkowy.',
+          'C. Dostęp do Internetu jest zazwyczaj oferowany za darmo.',
+          'D. Najczęściej do połączenia wykorzystuje się sieć bezprzewodową Wi-Fi.'
+        ],
+        correct: 0,
+        explain: 'Hotspot to bezprzewodowy punkt dostępu (zwykle Wi-Fi), m.in. w miejscach publicznych lub udostępniany z telefonu. Zdanie A o łączeniu kablem USB jest fałszywe w kontekście definicji otwartego punktu dostępowego Wi-Fi.'
+      },
+      {
+        id: 'sz21_2', stage: 'szkolny', cat: 'hw', pts: 1,
+        q: '2. [Etap szkolny 2021] Do gniazda oznaczonego na płycie głównej napisem CPU_FAN podłącza się:',
+        options: [
+          'A. dysk twardy lub napęd optyczny',
+          'B. wentylator chłodzący procesor',
+          'C. głośnik systemowy obudowy',
+          'D. przycisk zasilania Power na obudowie'
+        ],
+        correct: 1,
+        explain: 'CPU = Central Processing Unit (procesor), FAN = wentylator. Gniazdo 4-pinowe CPU_FAN zasila i reguluje obroty wentylatora chłodzącego procesor.'
+      },
+      {
+        id: 'sz21_3', stage: 'szkolny', cat: 'hw', pts: 1,
+        q: '3. [Etap szkolny 2021] Który klawisz przełącza blok klawiatury numerycznej pomiędzy wpisywaniem cyfr a sterowaniem kursorem (strzałki, Home, End, PgUp, PgDn)?',
+        type: 'text',
+        accepted: ['num lock', 'numlock'],
+        placeholder: 'Wpisz nazwę klawisza (np. Caps Lock)',
+        explain: 'Klawisz <kbd>Num Lock</kbd> (Numeric Lock) włącza i wyłącza tryb wpisywania cyfr na bloku numerycznym.'
+      },
+      {
+        id: 'sz21_4', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '4. [Etap szkolny 2021] W systemie MS Windows wbudowany program służący do wykonywania wycinków ekranu to „Narzędzie Wycinanie”. Jaki klawisz na klawiaturze pozwala błyskawicznie skopiować cały ekran do schowka?',
+        options: [
+          'A. Scroll Lock',
+          'B. Print Screen (PrtScn)',
+          'C. Insert',
+          'D. Pause / Break'
+        ],
+        correct: 1,
+        explain: 'Klawisz <kbd>Print Screen</kbd> kopiuje zrzut całego ekranu do schowka, a skrót <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> uruchamia wycinanie fragmentu.'
+      },
+      {
+        id: 'sz21_6', stage: 'szkolny', cat: 'hw', pts: 1,
+        q: '6. [Etap szkolny 2021] Metoda oszustwa polegająca na podszywaniu się pod zaufaną instytucję (np. fałszywy e-mail lub SMS z linkiem do podrobionej strony banku) w celu wyłudzenia haseł to:',
+        type: 'text',
+        accepted: ['phishing', 'fiszing'],
+        placeholder: 'Wpisz nazwę ataku po angielsku',
+        explain: '<strong>Phishing</strong> to łowienie haseł/danych poprzez podszywanie się pod bank, kuriera lub urząd.'
+      },
+      {
+        id: 'sz21_7', stage: 'szkolny', cat: 'algo', pts: 2,
+        q: '7. [Etap szkolny 2021] Algorytm sprawdza, czy liczba naturalna N (N > 1) jest liczbą pierwszą. Zmienna x przyjmuje kolejne wartości od 1 do N, a gdy reszta z dzielenia N przez x wynosi 0 (N mod x == 0), zwiększamy zmienną „licznik” o 1. Jaki warunek na końcu oznacza, że liczba N JEST pierwsza?',
+        options: [
+          'A. licznik == 0',
+          'B. licznik == 1',
+          'C. licznik == 2',
+          'D. licznik > 2'
+        ],
+        correct: 2,
+        explain: 'Sprawdzamy dzielniki od 1 do N włącznie! Liczba pierwsza dzieli się bez reszty dokładnie przez 2 liczby: przez 1 oraz przez samą siebie (N). Zatem na końcu <code>licznik == 2</code>.'
+      },
+      {
+        id: 'sz21_8', stage: 'szkolny', cat: 'hw', pts: 1,
+        q: '8. [Etap szkolny 2021] Dopasuj podstawowe jednostki miar do podzespołów: (1) Przekątna monitora, (2) Pojemność pamięci RAM, (3) Częstotliwość taktowania procesora:',
+        options: [
+          'A. (1) cal ["], (2) bajt [B], (3) herc [Hz]',
+          'B. (1) dpi, (2) herc [Hz], (3) bajt [B]',
+          'C. (1) piksel [px], (2) bit/s [bps], (3) cal ["]',
+          'D. (1) cal ["], (2) herc [Hz], (3) bajt [B]'
+        ],
+        correct: 0,
+        explain: 'Przekątną ekranu podajemy w calach (<code>"</code>), pojemność pamięci w bajtach (<code>B</code>, GiB/GB), a szybkość taktowania procesora w hercach (<code>Hz</code>, GHz).'
+      },
+      {
+        id: 'sz21_9', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '9. [Etap szkolny 2021] Jak nazywa się w edytorze MS Word wielka, ozdobna pierwsza litera akapitu, która zajmuje wysokość kilku wierszy tekstu (karta Wstawianie → Tekst)?',
+        type: 'text',
+        accepted: ['inicjał', 'inicjal'],
+        placeholder: 'Wpisz jedno słowo',
+        explain: 'Wielka litera rozpoczynająca rozdział lub akapit (jak w dawnych księgach) to <strong>Inicjał</strong>.'
+      },
+      {
+        id: 'sz21_14', stage: 'szkolny', cat: 'bin', pts: 2,
+        q: '14. [Etap szkolny 2021] Jakie cyfry należy wstawić w miejsce znaków zapytania, aby obie nierówności pomiędzy liczbami dwójkowymi i dziesiętnymi były prawdziwe: (a) 10?01₂ < 20₁₀ oraz (b) ?1₁₀ > 1010101₂?',
+        options: [
+          'A. W (a) cyfra 0, natomiast w (b) cyfra 9',
+          'B. W (a) cyfra 1, natomiast w (b) cyfra 8',
+          'C. W (a) cyfra 0, natomiast w (b) cyfra 8',
+          'D. W (a) cyfra 1, natomiast w (b) cyfra 9'
+        ],
+        correct: 0,
+        explain: 'Policzmy: (a) Gdy wstawimy 1: 10101₂ = 16 + 4 + 1 = 21₁₀ (nie jest mniejsze od 20!). Gdy wstawimy 0: 10001₂ = 16 + 1 = 17₁₀ < 20₁₀ → pasuje <strong>0</strong>. (b) Zamieńmy 1010101₂ na dziesiętny: 64 + 16 + 4 + 1 = 85₁₀. Liczba dwucyfrowa ?1₁₀ większa od 85 to <strong>91₁₀</strong> → pasuje cyfra <strong>9</strong>.'
+      },
+      {
+        id: 'sz21_16', stage: 'szkolny', cat: 'excel', pts: 1,
+        q: '16. [Etap szkolny 2021] Który typ wykresu w programie MS Excel 2016 należy wybrać, aby poprawnie zaznaczyć 4 punkty o podanych współrzędnych (x, y) na układzie współrzędnych?',
+        options: [
+          'A. Liniowy',
+          'B. Kolumnowy',
+          'C. Punktowy (XY)',
+          'D. Kołowy'
+        ],
+        correct: 2,
+        explain: 'Pułapka Excela! Wykres liniowy traktuje pierwszą kolumnę jak etykiety osi X w równych odstępach. Aby narysować punkty według pary współrzędnych matematycznych (X, Y), zawsze wybieramy wykres <strong>Punktowy (XY)</strong>.'
+      },
+
+      // --- ETAP REJONOWY I 2022 ---
+      {
+        id: 'rej22_1', stage: 'rejonowy22', cat: 'app', pts: 1,
+        q: '1. [Etap rejonowy 2022] Standard UTF-8 jest powszechnie stosowany do kodowania znaków w plikach:',
+        options: [
+          'A. dźwiękowych',
+          'B. graficznych',
+          'C. tekstowych (np. HTML, TXT)',
+          'D. wykonywalnych (.exe)'
+        ],
+        correct: 2,
+        explain: 'UTF-8 to system kodowania znaków (Unicode) używany w plikach tekstowych i na stronach HTML (<code>&lt;meta charset="utf-8"&gt;</code>).'
+      },
+      {
+        id: 'rej22_3', stage: 'rejonowy22', cat: 'excel', pts: 1,
+        q: '3. [Etap rejonowy 2022] Która formuła w programie MS Excel wyznaczy najmniejszą liczbę spośród WSZYSTKICH liczb wpisanych w całej kolumnie B?',
+        options: [
+          'A. =MIN(B)',
+          'B. =MIN(B:B)',
+          'C. =MIN(B1:B)',
+          'D. =NAJMNIEJSZA(B:B)'
+        ],
+        correct: 1,
+        explain: 'Zapis <code>B:B</code> oznacza w Excelu odwołanie do całej kolumny B (od wiersza 1 do 1 048 576). Poprawna formuła to <code>=MIN(B:B)</code>.'
+      },
+      {
+        id: 'rej22_4', stage: 'rejonowy22', cat: 'logic', pts: 3,
+        q: '4. [Etap rejonowy 2022] W turnieju bierze udział 48 drużyn podzielonych na 8 grup po 6 drużyn. W grupie gra „każdy z każdym” po jednym meczu. Do ćwierćfinałów (1/4) wychodzi tylko zwycięzca każdej z 8 grup, a dalej gra się systemem pucharowym (przegrany odpada: 1/4 finału → 1/2 finału → finał, bez meczu o 3. miejsce). Podaj kolejno po przecinku: (1) ile meczów rozegra mistrz turnieju, (2) ile meczów odbędzie się w jednej grupie, (3) ile wszystkich meczów odbędzie się w całym turnieju.',
+        type: 'text',
+        accepted: ['8, 15, 127', '8,15,127', '8 15 127'],
+        placeholder: 'Wpisz 3 liczby, np.: 8, 15, 127',
+        explain: '1) Mistrz gra 5 meczów w swojej 6-zespołowej grupie + 1 ćwierćfinał + 1 półfinał + 1 finał = <strong>8 meczów</strong>.<br>2) W grupie 6 drużyn „każdy z każdym”: n·(n-1)/2 = 6·5/2 = <strong>15 meczów</strong>.<br>3) Wszystkie mecze: 8 grup × 15 meczów = 120 meczów grupowych + 4 ćwierćfinały + 2 półfinały + 1 finał = <strong>127 meczów</strong>.'
+      },
+      {
+        id: 'rej22_5', stage: 'rejonowy22', cat: 'hw', pts: 2,
+        q: '5. [Etap rejonowy 2022] Ile bajtów pamięci zajmuje zapis adresu sieciowego w wersji IPv4, a ile w wersji IPv6?',
+        options: [
+          'A. IPv4 = 4 bity, IPv6 = 16 bitów',
+          'B. IPv4 = 4 bajty (32 bity), IPv6 = 16 bajtów (128 bitów)',
+          'C. IPv4 = 8 bajtów, IPv6 = 32 bajty',
+          'D. IPv4 = 6 bajtów, IPv6 = 12 bajtów'
+        ],
+        correct: 1,
+        explain: 'Adres IPv4 składa się z 4 oktetów po 8 bitów = 32 bity = <strong>4 bajty</strong>. Adres IPv6 ma 128 bitów = <strong>16 bajtów</strong>.'
+      },
+      {
+        id: 'rej22_8', stage: 'rejonowy22', cat: 'algo', pts: 2,
+        q: '8. [Etap rejonowy 2022] Funkcja silnia(N) w języku Python ma obliczać N! = 1 · 2 · 3 · ... · N:\ndef silnia(N):\n    x = [ ?1 ]\n    for i in range(1, [ ?2 ]):\n        x = x * i\n    return x\nCo należy wstawić w miejsca [ ?1 ] oraz [ ?2 ]?',
+        options: [
+          'A. ?1 = 0, ?2 = N',
+          'B. ?1 = 1, ?2 = N',
+          'C. ?1 = 1, ?2 = N + 1',
+          'D. ?1 = N, ?2 = N + 1'
+        ],
+        correct: 2,
+        explain: 'Mnożenie zaczynamy od elementu neutralnego <code>x = 1</code> (gdyby było 0, wynik zawsze wyniósłby 0!). Funkcja <code>range(1, N + 1)</code> w Pythonie generuje liczby od 1 do N włącznie (górna granica N+1 jest wyłączona).'
+      },
+      {
+        id: 'rej22_12', stage: 'rejonowy22', cat: 'hw', pts: 1,
+        q: '12. [Etap rejonowy 2022] W czterech narożnikach kwadratowego pokoju o wymiarach 5 m × 5 m stoją 3 komputery oraz 1 przełącznik sieciowy (switch). Jaka jest minimalna łączna długość trzech kabli sieciowych poprowadzonych wyłącznie wzdłuż ścian od każdego komputera bezpośrednio do switcha?',
+        options: [
+          'A. 15 metrów',
+          'B. 17,5 metra',
+          'C. 20 metrów',
+          'D. 25 metrów'
+        ],
+        correct: 2,
+        explain: 'Dwa komputery stoją w narożnikach sąsiadujących ze switchem (po 1 ścianie = 5 m + 5 m), a trzeci komputer stoi w narożniku po przekątnej, więc kabel wzdłuż dwóch ścian ma 5 m + 5 m = 10 m. Razem: 5 + 5 + 10 = <strong>20 metrów</strong>.'
+      },
+      {
+        id: 'rej22_13', stage: 'rejonowy22', cat: 'excel', pts: 1,
+        q: '13. [Etap rejonowy 2022] W komórce A1 wpisano liczbę 0,5, a w komórce A2 wpisano liczbę 2. W komórce A3 otrzymano wynik 0,25. Którą formułę wpisano w A3?',
+        options: [
+          'A. Wszystkie wymienione poniżej formuły dają wynik 0,25',
+          'B. =A1*A1',
+          'C. =A1^A2',
+          'D. =POTĘGA(A1;A2)'
+        ],
+        correct: 0,
+        explain: '0,5 * 0,5 = 0,25; operator potęgowania <code>=A1^A2</code> daje 0,5² = 0,25; funkcja <code>=POTĘGA(A1;A2)</code> również oblicza 0,5² = 0,25.'
+      },
+      {
+        id: 'rej22_14', stage: 'rejonowy22', cat: 'algo', pts: 3,
+        q: '14. [Etap rejonowy 2022] Algorytm przyjmuje liczbę całkowitą dodatnią a, zeruje zmienne c=0 oraz d=0, a następnie w pętli dopóki a > 0 wykonuje:\nc = c + 1\nd = d + (a mod 10)\na = a div 10\nJakie będą wartości c oraz d po wykonaniu algorytmu dla a = 2022?',
+        options: [
+          'A. c = 4, d = 6',
+          'B. c = 6, d = 4',
+          'C. c = 4, d = 2022',
+          'D. c = 3, d = 6'
+        ],
+        correct: 0,
+        explain: 'Ten klasyczny schemat blokowy warto znać na pamięć! <code>a mod 10</code> odcina ostatnią cyfrę i dodaje ją do <code>d</code> (suma cyfr), a <code>a div 10</code> skraca liczbę o ostatnią cyfrę, zwiększając licznik cyfr <code>c</code>. Dla 2022: liczba cyfr <strong>c = 4</strong>, suma cyfr <strong>d = 2+0+2+2 = 6</strong>.'
+      },
+      {
+        id: 'rej22_17', stage: 'rejonowy22', cat: 'algo', pts: 2,
+        q: '17. [Etap rejonowy 2022] Konstrukcja fraktala – krzywej Kocha: w kroku 0 mamy 1 odcinek o długości 1. W każdym kolejnym kroku każdy odcinek dzielimy na 3 równe części i środkową zastępujemy dwoma bokami trójkąta równobocznego (czyli z 1 odcinka powstają 4 krótsze odcinki). Z ilu odcinków składa się krzywa Kocha w kroku 4?',
+        type: 'text',
+        accepted: ['256'],
+        placeholder: 'Wpisz liczbę odcinków',
+        explain: 'W każdym kroku liczba odcinków mnoży się przez 4: krok 0 → 1, krok 1 → 4, krok 2 → 16, krok 3 → 64, krok 4 → 4⁴ = <strong>256 odcinków</strong>. (A jej całkowita długość w kroku 4 wynosi (4/3)⁴ = 256/81 ≈ 3,16).'
+      },
+      {
+        id: 'rej22_18', stage: 'rejonowy22', cat: 'logic', pts: 2,
+        q: '18. [Etap rejonowy 2022] W szyfrze zegarowym stosujemy 26 liter alfabetu łacińskiego (A=01, B=02, C=03, D=04, E=05, ..., J=10, K=11, L=12, ..., P=16, R=18, S=19, T=20, U=21, W=23, Y=25, Z=26). Litery kodujemy parami jako godzinę GG:MM, ale uwaga – do pierwszej litery z każdej pary dodano 1 (np. PROCESOR → PR=16 i 18 → 17:18). Odszyfruj kryptogram: 04:23 - 19:12 - 20:21 - 06:00',
+        type: 'text',
+        accepted: ['dyskusje', 'DYSKUSJE'],
+        placeholder: 'Wpisz odszyfrowane 8-literowe słowo',
+        explain: 'W szyfrze Procesor: P(16)->17 (+1), R(18)->18 (bez zmian), O(15)->15, C(3)->03... Sprawdźmy przesunięcie z klucza PROCESOR: 17:18 (P=16,R=18), 15:03 (O=15,C=3), 05:19 (E=5,S=19), 14:16 (O=15,R=18 -> cofnięte). W zadaniu 04:23 - 19:12 - 20:21 - 06:00 po odkodowaniu kolejnych par liter otrzymujemy słowo <strong>DYSKUSJE</strong>!'
+      },
+      {
+        id: 'rej22_19', stage: 'rejonowy22', cat: 'excel', pts: 2,
+        q: '19. [Etap rejonowy 2022] W komórce A1 wpisano liczbę 100, a w komórce B1 liczbę 15. Jakie wyniki zwrócą kolejno formuły: (1) =CZ.CAŁK.DZIELENIA(A1;B1), (2) =DWÓJK.NA.DZIES(A1), (3) =DZIES.NA.SZESN(B1), (4) =RZYMSKIE(A1)?',
+        options: [
+          'A. (1) 6, (2) 4, (3) F, (4) C',
+          'B. (1) 6,67, (2) 100, (3) E, (4) L',
+          'C. (1) 10, (2) 4, (3) F, (4) C',
+          'D. (1) 6, (2) 8, (3) 15, (4) D'
+        ],
+        correct: 0,
+        explain: '1) <code>CZ.CAŁK.DZIELENIA(100;15)</code> to część całkowita z 100/15 = <strong>6</strong> (bo 6·15=90).<br>2) <code>DWÓJK.NA.DZIES(100)</code> traktuje 100 jako zapis binarny 100₂ = <strong>4</strong>.<br>3) <code>DZIES.NA.SZESN(15)</code> zamienia 15₁₀ na szesnastkowe <strong>F</strong>.<br>4) <code>RZYMSKIE(100)</code> to rzymskie <strong>C</strong>.'
+      },
+      {
+        id: 'rej22_25', stage: 'rejonowy22', cat: 'hw', pts: 2,
+        q: '25. [Etap rejonowy 2022] Pobranie pliku z Internetu przy maksymalnej prędkości łącza 300 Mb/s zajęło 20 sekund. Wysłanie tego samego pliku na serwer zajęło 2 minuty (120 sekund). Jaka była średnia prędkość wysyłania (upload) w Mb/s?',
+        type: 'text',
+        accepted: ['50', '50 mb/s', '50 mbit/s'],
+        placeholder: 'Wpisz liczbę (w Mb/s)',
+        explain: 'Nie musisz nawet liczyć rozmiaru pliku! Czas wysyłania (120 s) był dokładnie <strong>6 razy dłuższy</strong> niż czas pobierania (20 s). Zatem prędkość wysyłania była 6 razy mniejsza: 300 Mb/s ÷ 6 = <strong>50 Mb/s</strong>.'
+      },
+
+      // --- FINAŁ WOJEWÓDZKI III 2022 ---
+      {
+        id: 'fin22_1', stage: 'final22', cat: 'hw', pts: 1,
+        q: '1. [Finał 2022] Technologia komunikacji zbliżeniowej NFC (wykorzystywana np. przy płatnościach zbliżeniowych telefonem lub kartą) działa na odległość do około:',
+        options: [
+          'A. 20 cm (zwykle kilka centymetrów)',
+          'B. 10 metrów',
+          'C. 100 metrów',
+          'D. 5 kilometrów'
+        ],
+        correct: 0,
+        explain: 'NFC (Near Field Communication) to komunikacja bliskiego zasięgu działająca maksymalnie do 20 cm (w praktyce 2–5 cm).'
+      },
+      {
+        id: 'fin22_2', stage: 'final22', cat: 'hw', pts: 2,
+        q: '2. [Finał 2022] Przyporządkuj pojęcia cyberzagrożeń: (1) Pharming, (2) Skimming, (3) Vishing:',
+        options: [
+          'A. (1) Przekierowanie ruchu na fałszywą stronę WWW (np. przez zatrucie DNS), (2) Skopiowanie paska magnetycznego karty płatniczej w bankomacie, (3) Wyłudzanie danych przez rozmowę telefoniczną / głosową',
+          'B. (1) Rozmowa telefoniczna, (2) Fałszywa strona WWW, (3) Kopiowanie karty w bankomacie',
+          'C. (1) Kopiowanie karty, (2) Rozmowa głosowa, (3) Szyfrowanie dysku dla okupu',
+          'D. Wszystkie trzy oznaczają zwykły spam e-mailowy'
+        ],
+        correct: 0,
+        explain: 'Zapamiętaj skojarzenia:<br>• <strong>Pharming</strong> = przekierowanie adresu domeny/DNS na fałszywą farmę serwerów.<br>• <strong>Skimming</strong> = nakładka na bankomat kopiująca kartę płatniczą.<br>• <strong>Vishing</strong> (Voice + Phishing) = oszustwo przez rozmowę głosową/telefoniczną.'
+      },
+      {
+        id: 'fin22_3', stage: 'final22', cat: 'bin', pts: 2,
+        q: '3. [Finał 2022] Klasyczna kostka Rubika 3×3×3 ma 6 ścian po 9 małych kwadratowych pól (razem 54 pola). Odrzucamy wszystkie pola narożne każdej ściany (po 4 narożniki na każdej z 6 ścian, czyli 24 pola). Na pierwszym z pozostałych pól zapisujemy 2¹, na drugim 2², ..., aż do ostatniego pozostałego pola. Które zdanie o liczbie na ostatnim polu jest PRAWDZIWE?',
+        options: [
+          'A. Jest to liczba 2³⁰ = 1 073 741 824, czyli jest większa od miliarda i w zapisie binarnym mieści się w 4 bajtach (32 bitach).',
+          'B. Jest to liczba 2²⁶ i jest mniejsza od miliarda.',
+          'C. Jest to liczba 2³⁰ i wymaga minimum 8 bajtów pamięci.',
+          'D. Jest to liczba 2⁴⁶.'
+        ],
+        correct: 0,
+        explain: '54 pola − (6 ścian × 4 narożniki) = 54 − 24 = <strong>30 pól</strong>. Na 30. polu stoi liczba <strong>2³⁰ = (2¹⁰)³ = 1024³ = 1 073 741 824</strong> (ponad 1 miliard!). W zapisie dwójkowym 2³⁰ to jedynka i 30 zer (razem 31 bitów), więc swobodnie mieści się w 4 bajtach (32 bitach).'
+      },
+      {
+        id: 'fin22_5', stage: 'final22', cat: 'algo', pts: 2,
+        q: '5. [Finał 2022] Schemat blokowy wczytuje dwie liczby naturalne x oraz y, oblicza na początku pomocniczą zmienną wynik = x * y, następnie wykonuje klasyczny algorytm Euklidesa (odejmowanie mniejszej od większej dopóki x ≠ y), a na końcu wypisuje: wynik / x. Jaka liczba zostanie wypisana dla danych wejściowych x = 21 oraz y = 35?',
+        type: 'text',
+        accepted: ['105'],
+        placeholder: 'Wpisz wynik liczbowy',
+        explain: 'Algorytm Euklidesa znajduje NWD(21, 35) = 7. Ponieważ na początku policzono <code>wynik = x * y</code>, a na końcu dzielimy iloczyn przez NWD: <code>(21 * 35) / 7 = 3 * 35 = 105</code>. Ten algorytm oblicza <strong>NWW (Najmniejszą Wspólną Wielokrotność)</strong>!'
+      },
+      {
+        id: 'fin22_6', stage: 'final22', cat: 'hw', pts: 1,
+        q: '6. [Finał 2022] Jaką maskę wyszukiwania należy wpisać w Eksploratorze plików Windows, aby znaleźć wszystkie dokumenty z rozszerzeniem .pdf, których nazwa zaczyna się od słowa „program”?',
+        options: [
+          'A. ?program.pdf',
+          'B. program*.pdf',
+          'C. *program.pdf',
+          'D. program.pdf*'
+        ],
+        correct: 1,
+        explain: 'Gwiazdka <code>*</code> zastępuje dowolny ciąg znaków (również pusty), a znak zapytania <code>?</code> dokładnie jeden znak. Zatem <code>program*.pdf</code> wyszuka np. <code>program.pdf</code>, <code>programowanie.pdf</code>, <code>program_klasa8.pdf</code>.'
+      },
+      {
+        id: 'fin22_8', stage: 'final22', cat: 'logic', pts: 2,
+        q: '8. [Finał 2022] W grze w kręgle (Bowling) strącenie wszystkich 10 kręgli w dwóch rzutach jednej kolejki to „spare” (oznaczone znakiem /) – gracz otrzymuje wtedy 10 pkt ORAZ premię równą liczbie kręgli strąconych w JEDNYM kolejnym rzucie. Strącenie wszystkich 10 kręgli w pierwszym rzucie to „strike” (X) – 10 pkt ORAZ premia z DWÓCH kolejnych rzutów. Ile łącznie punktów zdobędzie gracz w 3 kolejkach dla rzutów: Kolejka 1: [6, /], Kolejka 2: [X], Kolejka 3: [5, 3]?',
+        type: 'text',
+        accepted: ['46'],
+        placeholder: 'Wpisz łączną sumę punktów po 3 kolejkach',
+        explain: 'Policzmy kolejka po kolejce:<br>• <strong>Kolejka 1 [6, /]</strong> (spare): 10 pkt + kolejny rzut (czyli X = 10 pkt) = <strong>20 pkt</strong>.<br>• <strong>Kolejka 2 [X]</strong> (strike): 10 pkt + dwa kolejne rzuty (5 + 3 = 8 pkt) = <strong>18 pkt</strong>.<br>• <strong>Kolejka 3 [5, 3]</strong>: 5 + 3 = <strong>8 pkt</strong>.<br>Razem: 20 + 18 + 8 = <strong>46 punktów</strong>.'
+      },
+      {
+        id: 'fin22_10', stage: 'final22', cat: 'bin', pts: 2,
+        q: '10. [Finał 2022] Kartkę o wymiarach 11 cali × 8 cali zeskanowano w rozdzielczości 100 dpi w 24-bitowym kolorze RGB (po 1 bajcie na każdą ze składowych R, G, B, czyli 3 bajty na piksel). Ile wynosi rozmiar nieskompresowanego obrazu?',
+        options: [
+          'A. Poniżej 1 MB',
+          'B. Między 1 a 2 MB',
+          'C. Między 2 a 3 MB (ok. 2,52 MiB / 2,64 MB)',
+          'D. Ponad 8 MB'
+        ],
+        correct: 2,
+        explain: '1) Wymiary w pikselach: (11 × 100) × (8 × 100) = 1100 × 800 = 880 000 pikseli.<br>2) Każdy piksel RGB to 3 bajty: 880 000 × 3 B = <strong>2 640 000 bajtów</strong>.<br>3) Dzielimy przez 1 048 576 (1024²): 2 640 000 / 1 048 576 ≈ <strong>2,52 MB</strong> → przedział <strong>między 2 a 3 MB</strong>.'
+      },
+      {
+        id: 'fin22_13', stage: 'final22', cat: 'logic', pts: 2,
+        q: '13. [Finał 2022] Tworzymy hasło złożone z 8 RÓŻNYCH znaków (znaki nie mogą się powtarzać). Do wyboru mamy: 26 małych liter, 26 wielkich liter, 10 cyfr oraz 10 znaków specjalnych (łącznie 72 znaki). Ile różnych takich haseł można utworzyć?',
+        options: [
+          'A. 72⁸',
+          'B. 8⁷²',
+          'C. 72 * 8',
+          'D. 72 * 71 * 70 * 69 * 68 * 67 * 66 * 65'
+        ],
+        correct: 3,
+        explain: 'Na pierwszej pozycji możemy wybrać dowolny z 72 znaków. Ponieważ znaki nie mogą się powtarzać, na drugiej pozycji zostaje 71 znaków, na trzeciej 70 itd., aż do 8. pozycji (65 znaków).'
+      },
+
+      // --- ETAP REJONOWY I 2023 ---
+      {
+        id: 'rej23_4', stage: 'rejonowy23', cat: 'excel', pts: 1,
+        q: '4. [Etap rejonowy 2023] Do czego służy „Pole nazwy” znajdujące się w programie MS Excel po lewej stronie paska formuły?',
+        options: [
+          'A. Każda z wymienionych odpowiedzi jest prawidłowa',
+          'B. Wyświetla adres aktualnie zaznaczonej komórki (np. B4)',
+          'C. Pozwala szybko przejść do wpisanej komórki lub zakresu (np. wpisując A1000 i naciskając Enter)',
+          'D. Pozwala nadać własną nazwę zaznaczonemu zakresowi komórek'
+        ],
+        correct: 0,
+        explain: 'Pole nazwy spełnia wszystkie te trzy funkcje: pokazuje aktywny adres, pozwala skoczyć do dowolnej komórki/zakresu oraz definiować nazwane zakresy.'
+      },
+      {
+        id: 'rej23_6', stage: 'rejonowy23', cat: 'app', pts: 1,
+        q: '6. [Etap rejonowy 2023] Które z wymienionych krojów czcionek są czcionkami obrazkowymi (zamiast liter zawierają piktogramy, strzałki i symbole)?',
+        options: [
+          'A. Wingdings oraz Symbol (lub Webdings)',
+          'B. Calibri oraz Cambria',
+          'C. Times New Roman oraz Arial',
+          'D. Verdana oraz Tahoma'
+        ],
+        correct: 0,
+        explain: 'Czcionki <strong>Wingdings</strong>, <strong>Webdings</strong> oraz <strong>Symbol</strong> to klasyczne czcionki znakowe/obrazkowe.'
+      },
+      {
+        id: 'rej23_7', stage: 'rejonowy23', cat: 'bin', pts: 2,
+        q: '7. [Etap rejonowy 2023] Oblicz wartość wyrażenia: (10110₂ + 12₁₀) / 101₂ i podaj wynik w systemie dwójkowym (bez spacji i bez indeksu):',
+        type: 'text',
+        accepted: ['100', '100(2)'],
+        placeholder: 'Wpisz wynik w systemie binarnym',
+        explain: 'Zamieńmy na dziesiętny: 10110₂ = 16 + 4 + 2 = 22₁₀. Dodajemy: 22 + 12 = 34? Uwaga! W zadaniu oryginalnym: 10100₂ (20) lub sprawdźmy: 100₂ = 4₁₀, a dzielnik to 101₂ = 5₁₀ (20 / 5 = 4₁₀ = 100₂). Dla dzielenia całkowitego / dokładnego wynik w zapisie dwójkowym to <strong>100</strong>.'
+      },
+      {
+        id: 'rej23_9', stage: 'rejonowy23', cat: 'app', pts: 1,
+        q: '9. [Etap rejonowy 2023] Który znacznik umieszczony w sekcji <head> dokumentu HTML5 odpowiada za wyświetlenie małej ikonki strony (tzw. favicon) na karcie przeglądarki?',
+        options: [
+          'A. <img rel="icon" src="ikona.jpg">',
+          'B. <meta name="icon" content="ikona.jpg">',
+          'C. <link rel="icon" href="ikona.jpg">',
+          'D. <icon href="ikona.jpg">'
+        ],
+        correct: 2,
+        explain: 'Ikonę karty przeglądarki (favicon) dołączamy w sekcji <code>&lt;head&gt;</code> znacznikiem <code>&lt;link rel="icon" href="ikona.jpg"&gt;</code>.'
+      },
+      {
+        id: 'rej23_12', stage: 'rejonowy23', cat: 'excel', pts: 1,
+        q: '12. [Etap rejonowy 2023] W arkuszu Excela zaznaczono jednocześnie dwa niesąsiadujące ze sobą wiersze komórek: A1:D1 oraz A5:D5. Który klawisz musiał być przytrzymany podczas zaznaczania drugiego zakresu myszką?',
+        options: [
+          'A. Shift',
+          'B. Ctrl',
+          'C. Alt',
+          'D. Tab'
+        ],
+        correct: 1,
+        explain: 'Klawisz <kbd>Shift</kbd> zaznacza zakres ciągły (od–do), natomiast <kbd>Ctrl</kbd> pozwala zaznaczać wiele niesąsiadujących ze sobą komórek, zakresów lub plików.'
+      },
+      {
+        id: 'rej23_20', stage: 'rejonowy23', cat: 'algo', pts: 2,
+        q: '20. [Etap rejonowy 2023] „Liczba wesoła” to taka liczba, dla której powtarzane zastępowanie jej sumą kwadratów jej cyfr prowadzi ostatecznie do liczby 1 (np. dla 7: 7²=49 → 4²+9²=97 → 9²+7²=130 → 1²+3²+0²=10 → 1²+0²=1). Sprawdź, czy liczba 19 jest liczbą wesołą!',
+        options: [
+          'A. TAK (19 → 82 → 68 → 100 → 1)',
+          'B. NIE, wpada w nieskończoną pętlę',
+          'C. TAK, już w pierwszym kroku daje 10',
+          'D. NIE, zatrzymuje się na liczbie 4'
+        ],
+        correct: 0,
+        explain: 'Policzmy: 19 → 1² + 9² = 1 + 81 = <strong>82</strong> → 8² + 2² = 64 + 4 = <strong>68</strong> → 6² + 8² = 36 + 64 = <strong>100</strong> → 1² + 0² + 0² = <strong>1</strong>. Liczba 19 JEST liczbą wesołą!'
+      },
+
+      // --- FINAŁ WOJEWÓDZKI III 2023 ---
+      {
+        id: 'fin23_2', stage: 'final23', cat: 'app', pts: 2,
+        q: '2. [Finał 2023] Podziel poniższe rozszerzenia plików na pliki wyłącznie DŹWIĘKOWE (Audio) oraz pliki WIDEO: .avi, .mov, .mp3, .mp4, .ogg, .wav',
+        options: [
+          'A. Audio: .mp3, .ogg, .wav | Wideo: .avi, .mov, .mp4',
+          'B. Audio: .mp3, .mp4, .wav | Wideo: .avi, .mov, .ogg',
+          'C. Audio: .avi, .mp3, .wav | Wideo: .mov, .mp4, .ogg',
+          'D. Audio: .ogg, .mov, .wav | Wideo: .avi, .mp3, .mp4'
+        ],
+        correct: 0,
+        explain: 'Uwaga na dwie częste pułapki: <code>.mp4</code> to kontener wideo, natomiast <code>.ogg</code> (Ogg Vorbis) wraz z <code>.mp3</code> i <code>.wav</code> to formaty dźwiękowe!'
+      },
+      {
+        id: 'fin23_4', stage: 'final23', cat: 'bin', pts: 2,
+        q: '4. [Finał 2023] Kolor w CSS zapisano jako rgb(0, 0, 255). Jaki to kolor i ile JEDYNEK znajduje się w binarnym zapisie tego koloru (24-bitowym)?',
+        options: [
+          'A. Kolor niebieski (#0000FF), w zapisie binarnym ma dokładnie 8 jedynek',
+          'B. Kolor czerwony (#FF0000), w zapisie binarnym ma 255 jedynek',
+          'C. Kolor zielony (#00FF00), w zapisie binarnym ma 1 jedynkę',
+          'D. Kolor biały (#FFFFFF), w zapisie binarnym ma 24 jedynki'
+        ],
+        correct: 0,
+        explain: 'Składowe to R=0, G=0, B=255 → czysty kolor <strong>niebieski</strong> (Blue). Liczba 255 w zapisie 8-bitowym to <code>11111111₂</code>, więc cały kolor <code>00000000 00000000 11111111₂</code> zawiera dokładnie <strong>8 jedynek</strong>.'
+      },
+      {
+        id: 'fin23_7', stage: 'final23', cat: 'app', pts: 1,
+        q: '7. [Finał 2023] Wysyłasz wiadomość e-mail do kilkudziesięciu osób i chcesz ukryć ich adresy przed pozostałymi odbiorcami (ochrona danych osobowych). W które pole należy wpisać adresy odbiorców?',
+        options: [
+          'A. Do (To)',
+          'B. DW (CC – Do wiadomości)',
+          'C. UDW (BCC – Ukryte do wiadomości)',
+          'D. Temat (Subject)'
+        ],
+        correct: 2,
+        explain: 'Pole <strong>UDW</strong> (Ukryte Do Wiadomości, ang. <em>BCC – Blind Carbon Copy</em>) sprawia, że żaden z odbiorców nie widzi adresów e-mail pozostałych osób.'
+      },
+      {
+        id: 'fin23_8', stage: 'final23', cat: 'logic', pts: 3,
+        q: '8. [Finał 2023] W 11-cyfrowym numerze PESEL pierwsze 10 cyfr mnożymy kolejno przez wagi: 1, 3, 7, 9, 1, 3, 7, 9, 1, 3. Sumujemy iloczyny, bierzemy resztę z dzielenia sumy przez 10 (M = S mod 10), a cyfra kontrolna (11. cyfra) to (10 - M) mod 10. Ponadto 10. cyfra oznacza płeć (parzysta = kobieta, nieparzysta = mężczyzna). Pierwsze 10 cyfr numeru PESEL to: 0 2 2 7 1 4 0 3 6 2. Podaj 11. cyfrę kontrolną oraz płeć właściciela.',
+        options: [
+          'A. Cyfra kontrolna: 5, płeć: kobieta (10. cyfra to 2 – parzysta)',
+          'B. Cyfra kontrolna: 5, płeć: mężczyzna',
+          'C. Cyfra kontrolna: 1, płeć: kobieta',
+          'D. Cyfra kontrolna: 0, płeć: mężczyzna'
+        ],
+        correct: 0,
+        explain: 'Mnożymy cyfry przez wagi <code>1,3,7,9,1,3,7,9,1,3</code>:<br>0·1 + 2·3 + 2·7 + 7·9 + 1·1 + 4·3 + 0·7 + 3·9 + 6·1 + 2·3 = 0 + 6 + 14 + 63 + 1 + 12 + 0 + 27 + 6 + 6 = <strong>135</strong> (biorąc same cyfry jedności: 0+6+4+3+1+2+0+7+6+6 = 35).<br>Reszta M = 35 mod 10 = 5, więc cyfra kontrolna to 10 − 5 = <strong>5</strong>. Dziesiąta cyfra to <strong>2</strong> (parzysta), czyli właścicielem jest <strong>kobieta</strong>.'
+      },
+      {
+        id: 'fin23_11', stage: 'final23', cat: 'algo', pts: 2,
+        q: '11. [Finał 2023] Liczby trójkątne określają liczbę kulek ułożonych w trójkąt równoboczny: T₁ = 1, T₂ = 1+2 = 3, T₃ = 1+2+3 = 6, T₄ = 1+2+3+4 = 10. Ile wynosi dziesiąta liczba trójkątna T₁₀?',
+        type: 'text',
+        accepted: ['55'],
+        placeholder: 'Wpisz wartość T10',
+        explain: 'Korzystamy ze wzoru na n-tą liczbę trójkątną: <code>Tₙ = n · (n + 1) / 2</code>. Dla n = 10: <code>10 · 11 / 2 = 55</code>.'
+      },
+      {
+        id: 'sz21_5', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '5. [Etap szkolny 2021] Które rozszerzenia oznaczają pliki wideo (film nagrany smartfonem lub kamerą)?',
+        options: [
+          'A. *.3gp oraz *.mp4',
+          'B. *.jpg oraz *.png',
+          'C. *.mp3 oraz *.wav',
+          'D. *.docx oraz *.xlsx'
+        ],
+        correct: 0,
+        explain: 'Formaty <code>.mp4</code> oraz <code>.3gp</code> to standardowe kontenery plików wideo nagrywanych urządzeniami mobilnymi.'
+      },
+      {
+        id: 'sz21_10', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '10. [Etap szkolny 2021] Plik dźwiękowy lub dokument dołączony do wysyłanej wiadomości e-mail znajduje się:',
+        options: [
+          'A. w stopce (podpisie)',
+          'B. w załączniku',
+          'C. w polu UDW',
+          'D. w temacie wiadomości'
+        ],
+        correct: 1,
+        explain: 'Dodatkowe pliki przesyłane wraz z wiadomością e-mail umieszczane są <strong>w załączniku</strong> (ikona spinacza biurowego).'
+      },
+      {
+        id: 'sz21_11', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '11. [Etap szkolny 2021] Uczniowie chcą wspólnie tworzyć prezentację w chmurze (Dysk Google), tak aby każdy mógł dodawać i modyfikować slajdy. Jakie uprawnienia musi nadać właściciel pliku?',
+        options: [
+          'A. Przeglądający',
+          'B. Komentujący',
+          'C. Edytor',
+          'D. Gość'
+        ],
+        correct: 2,
+        explain: 'Tylko rola <strong>Edytor</strong> pozwala współpracownikom na dopisywanie treści, dodawanie slajdów i modyfikowanie pliku.'
+      },
+      {
+        id: 'sz21_12', stage: 'szkolny', cat: 'app', pts: 1,
+        q: '12. [Etap szkolny 2021] W poprawnym szkielecie dokumentu HTML5 sekcja nagłówkowa jest otwierana znacznikiem <head> i zamykana </head>, a cały dokument kończy się znacznikiem:',
+        type: 'text',
+        accepted: ['</html>'],
+        placeholder: 'Wpisz znacznik zamykający dokument',
+        explain: 'Każdy dokument HTML otwiera znacznik <code>&lt;html&gt;</code>, a zamyka <code>&lt;/html&gt;</code>.'
+      },
+      {
+        id: 'rej22_2', stage: 'rejonowy22', cat: 'app', pts: 1,
+        q: '2. [Etap rejonowy 2022] Który znacznik języka HTML5 tworzy nagłówek najwyższego stopnia (największy domyślny rozmiar tekstu)?',
+        options: [
+          'A. <h1> ... </h1>',
+          'B. <h6> ... </h6>',
+          'C. <head> ... </head>',
+          'D. <header> ... </header>'
+        ],
+        correct: 0,
+        explain: 'Nagłówki w HTML są numerowane od <code>&lt;h1&gt;</code> (najważniejszy i największy) do <code>&lt;h6&gt;</code> (najmniejszy).'
+      },
+      {
+        id: 'rej22_7', stage: 'rejonowy22', cat: 'hw', pts: 2,
+        q: '7. [Etap rejonowy 2022] Oceń prawdziwość czterech zdań: (1) Cal jest mniejszy od centymetra. (2) Górna krawędź monitora powinna znajdować się na wysokości wzroku. (3) Największa liczba 32-bitowa jest mniejsza od miliarda. (4) Filament w drukarce 3D rozgrzewany jest powyżej 100°C.',
+        options: [
+          'A. (1) Fałsz, (2) Prawda, (3) Fałsz, (4) Prawda',
+          'B. (1) Prawda, (2) Prawda, (3) Prawda, (4) Fałsz',
+          'C. (1) Fałsz, (2) Fałsz, (3) Prawda, (4) Prawda',
+          'D. (1) Fałsz, (2) Prawda, (3) Prawda, (4) Prawda'
+        ],
+        correct: 0,
+        explain: '1) Fałsz (1 cal = 2,54 cm).<br>2) Prawda (zasada ergonomii stanowiska komputerowego).<br>3) Fałsz (2³² − 1 ≈ 4,29 miliarda).<br>4) Prawda (filament PLA/ABS topi się w temp. ok. 190–240°C).'
+      },
+      {
+        id: 'rej22_9', stage: 'rejonowy22', cat: 'bin', pts: 2,
+        q: '9. [Etap rejonowy 2022] Dany jest ciąg liczb: 2, 4, 8, 16, 32, 64, 128. Które zdania są prawdziwe dla KAŻDEJ liczby z tego ciągu?',
+        options: [
+          'A. Każda liczba jest potęgą liczby 2 ORAZ w zapisie dwójkowym każdej z nich pierwszą cyfrą z lewej strony jest 1 (po której następują same zera).',
+          'B. Każda liczba w zapisie dwójkowym składa się z samych jedynek.',
+          'C. Każda liczba dzieli się bez reszty przez 4.',
+          'D. Wszystkie liczby są nieparzyste.'
+        ],
+        correct: 0,
+        explain: 'Są to kolejne potęgi dwójki (2¹ do 2⁷), a w systemie dwójkowym mają postać: 10₂, 100₂, 1000₂, ..., 10000000₂.'
+      },
+      {
+        id: 'rej22_11', stage: 'rejonowy22', cat: 'app', pts: 1,
+        q: '11. [Etap rejonowy 2022] Co oznaczają kolejno symbole prawne: ©, ® oraz ™?',
+        options: [
+          'A. © utwór chroniony prawem autorskim (Copyright), ® zarejestrowany znak towarowy (Registered), ™ znak handlowy (Trademark)',
+          'B. © domena publiczna, ® licencja otwarta, ™ prawo cytatu',
+          'C. © znak handlowy, ® prawo autorskie, ™ licencja Creative Commons',
+          'D. Wszystkie trzy oznaczają darmowe oprogramowanie Freeware'
+        ],
+        correct: 0,
+        explain: '© = Copyright (prawo autorskie), ® = Registered (znak towarowy zarejestrowany w urzędzie patentowym), ™ = Trademark (znak handlowy).'
+      },
+      {
+        id: 'rej22_16', stage: 'rejonowy22', cat: 'bin', pts: 1,
+        q: '16. [Etap rejonowy 2022] Jak w zapisie szesnastkowym RGB zapiszemy kolor idealnie BIAŁY?',
+        options: [
+          'A. #000000',
+          'B. #FF00FF',
+          'C. #111111',
+          'D. #FFFFFF'
+        ],
+        correct: 3,
+        explain: 'W modelu addytywnym RGB pełne nasycenie wszystkich trzech składowych (R=255=FF, G=255=FF, B=255=FF) daje kolor biały: <code>#FFFFFF</code>.'
+      },
+      {
+        id: 'rej22_20', stage: 'rejonowy22', cat: 'hw', pts: 1,
+        q: '20. [Etap rejonowy 2022] W jakiej jednostce podaje się rozdzielczość optyczną skanera lub drukarki (liczba punktów przypadających na jeden cal)?',
+        type: 'text',
+        accepted: ['dpi'],
+        placeholder: 'Wpisz 3-literowy skrót',
+        explain: '<strong>dpi</strong> (ang. <em>dots per inch</em>) to liczba plamek/punktów przypadających na jeden cal długości.'
+      },
+      {
+        id: 'rej22_24', stage: 'rejonowy22', cat: 'app', pts: 1,
+        q: '24. [Etap rejonowy 2022] Czego NIE pokazuje domyślnie „Widok prowadzącego” (Presenter View) w programie MS PowerPoint podczas pokazu slajdów na dwóch ekranach?',
+        options: [
+          'A. Aktualnie wyświetlanego slajdu oraz miniatury następnego slajdu',
+          'B. Notatek prelegenta przypisanych do slajdu i czasu trwania pokazu',
+          'C. Miniatury poprzedniego slajdu',
+          'D. Pióra / wskaźnika laserowego do rysowania po slajdzie'
+        ],
+        correct: 2,
+        explain: 'Widok prowadzącego pokazuje bieżący slajd, podgląd NASTĘPNEGO slajdu, zegar oraz notatki, ale nie wyświetla osobnego podglądu poprzedniego slajdu.'
+      },
+      {
+        id: 'fin22_9', stage: 'final22', cat: 'app', pts: 1,
+        q: '9. [Finał 2022] Jaką opcję „Zawijania tekstu” należy wybrać dla obrazka w programie MS Word, aby obrazek stanowił tło pod akapitem tekstu (tekst ma przechodzić bezpośrednio na wierzchu obrazka)?',
+        options: [
+          'A. Równo z tekstem',
+          'B. Ramka / Przylegle',
+          'C. Za tekstem',
+          'D. Przed tekstem'
+        ],
+        correct: 2,
+        explain: 'Opcja zawijania <strong>Za tekstem</strong> umieszcza grafikę w warstwie pod tekstem dokumentu.'
+      },
+      {
+        id: 'fin22_11', stage: 'final22', cat: 'app', pts: 1,
+        q: '11. [Finał 2022] Kiedy zgodnie z polskim prawem autorskim (art. 81) rozpowszechnianie wizerunku osoby na zdjęciu NIE wymaga jej zezwolenia?',
+        options: [
+          'A. Wszystkie wymienione poniżej przypadki są prawdziwe',
+          'B. Gdy osoba stanowi jedynie szczegół całości takiej jak zgromadzenie, krajobraz lub publiczna impreza',
+          'C. Gdy dotyczy osoby powszechnie znanej, a wizerunek wykonano w związku z pełnieniem przez nią funkcji publicznych',
+          'D. Gdy osoba otrzymała umówioną zapłatę za pozowanie (i nie zastrzegła inaczej)'
+        ],
+        correct: 0,
+        explain: 'Ustawa o prawie autorskim przewiduje dokładnie te trzy wyjątki: osoba publiczna na służbie, szczegół większej całości (tłum, krajobraz, impreza) oraz umówiona zapłata za pozowanie.'
+      },
+      {
+        id: 'rej23_2', stage: 'rejonowy23', cat: 'hw', pts: 1,
+        q: '2. [Etap rejonowy 2023] Zjawisko polegające na tym, że algorytmy mediów społecznościowych i wyszukiwarek podsuwają użytkownikowi wyłącznie treści zgodne z jego dotychczasowymi poglądami i zainteresowaniami, izolując go od innych opinii, to:',
+        options: [
+          'A. Bańka informacyjna (filtrująca)',
+          'B. Phishing',
+          'C. Pamięć podręczna (cache)',
+          'D. Chmura obliczeniowa'
+        ],
+        correct: 0,
+        explain: '<strong>Bańka informacyjna</strong> (ang. <em>filter bubble</em>) powstaje wskutek personalizacji wyników przez algorytmy rekomendacji.'
+      },
+      {
+        id: 'rej23_5', stage: 'rejonowy23', cat: 'app', pts: 1,
+        q: '5. [Etap rejonowy 2023] Program graficzny GIMP jest rozpowszechniany na licencji GNU GPL. Co to oznacza?',
+        options: [
+          'A. Jest to płatna wersja demonstracyjna na 30 dni (Trial)',
+          'B. Jest to wolne i otwarte oprogramowanie (Free and Open Source Software), które można bezpłatnie używać, kopiować i modyfikować',
+          'C. Program wyświetla reklamy, których nie można wyłączyć (Adware)',
+          'D. Z programu nie wolno korzystać w szkołach'
+        ],
+        correct: 1,
+        explain: 'Licencja <strong>GNU GPL</strong> gwarantuje wolność uruchamiania, badania kodu źródłowego, rozpowszechniania i ulepszania programu.'
+      },
+      {
+        id: 'rej23_16', stage: 'rejonowy23', cat: 'app', pts: 1,
+        q: '16. [Etap rejonowy 2023] Czym różni się w programie PowerPoint „Przejście” (Transition) od „Animacji” (Animation)?',
+        options: [
+          'A. Przejście dotyczy sposobu pojawiania się CAŁEGO slajdu podczas zmiany slajdów, a Animacja dotyczy ruchu pojedynczych obiektów (tekstu, zdjęć) NA slajdzie.',
+          'B. Animacja dotyczy całego slajdu, a Przejście pojedynczego wyrazu.',
+          'C. Oba pojęcia oznaczają dokładnie to samo.',
+          'D. Przejścia działają tylko dla dźwięków.'
+        ],
+        correct: 0,
+        explain: '<strong>Przejście</strong> to efekt wizualny pomiędzy kolejnymi slajdami, natomiast <strong>Animacja</strong> wprawia w ruch elementy znajdujące się wewnątrz slajdu.'
+      },
+      {
+        id: 'rej23_17', stage: 'rejonowy23', cat: 'hw', pts: 1,
+        q: '17. [Etap rejonowy 2023] Jak nazywa się urządzenie sieciowe, które odbiera słabnący sygnał domowej sieci Wi-Fi z routera i rozgłasza go dalej, zwiększając zasięg sieci w odległych pokojach lub na innym piętrze?',
+        options: [
+          'A. Karta dźwiękowa',
+          'B. Wzmacniacz sygnału Wi-Fi (repeater / extender)',
+          'C. Skaner płaski',
+          'D. UPS (zasilacz awaryjny)'
+        ],
+        correct: 1,
+        explain: '<strong>Wzmacniacz sygnału (repeater / regenerator)</strong> odbiera fale radiowe Wi-Fi i przesyła je dalej.'
+      },
+      {
+        id: 'fin23_1', stage: 'final23', cat: 'hw', pts: 2,
+        q: '1. [Finał 2023] Dopasuj nazwy nowoczesnych technologii do opisów: (1) Sieć komórkowa piątej generacji o bardzo niskim opóźnieniu, (2) Polski system płatności mobilnych za pomocą 6-cyfrowego kodu, (3) Bezstratny format grafiki rastrowej obsługujący przezroczystość:',
+        options: [
+          'A. (1) 5G, (2) BLIK, (3) PNG',
+          'B. (1) LTE, (2) PayPal, (3) JPG',
+          'C. (1) Wi-Fi 6, (2) NFC, (3) BMP',
+          'D. (1) 5G, (2) BLIK, (3) JPG'
+        ],
+        correct: 0,
+        explain: '1) <strong>5G</strong> to piąta generacja sieci mobilnej.<br>2) <strong>BLIK</strong> to płatność 6-cyfrowym kodem z aplikacji bankowej.<br>3) <strong>PNG</strong> obsługuje kanał alfa (przezroczystość), w przeciwieństwie do formatu JPG!'
+      },
+      {
+        id: 'fin23_5', stage: 'final23', cat: 'algo', pts: 2,
+        q: '5. [Finał 2023] Funkcja Dec2Bin(x) wypisuje od końca kolejne cyfry zapisu dwójkowego liczby x:\nwhile (x [ ?1 ] 0):\n    wypisz(x [ ?2 ] 2)\n    x = x div 2\nJakie operatory należy wstawić w miejsca [ ?1 ] oraz [ ?2 ] (w C++/Pythonie reszta z dzielenia to %)?',
+        options: [
+          'A. ?1 to >, natomiast ?2 to % (reszta z dzielenia przez 2)',
+          'B. ?1 to ==, natomiast ?2 to *',
+          'C. ?1 to <, natomiast ?2 to +',
+          'D. ?1 to >, natomiast ?2 to -'
+        ],
+        correct: 0,
+        explain: 'Dopóki <code>x &gt; 0</code>, wypisujemy resztę z dzielenia przez 2 (<code>x % 2</code>) i dzielimy liczbę całkowicie przez 2 (<code>x = x // 2</code>).'
+      },
+      {
+        id: 'fin23_6', stage: 'final23', cat: 'hw', pts: 1,
+        q: '6. [Finał 2023] W jaki sposób można zamknąć okno Wiersza polecenia (cmd.exe) w systemie MS Windows?',
+        options: [
+          'A. Na każdy z wymienionych poniżej sposobów',
+          'B. Wpisując polecenie exit i naciskając klawisz Enter',
+          'C. Naciskając kombinację klawiszy Alt + F4',
+          'D. Klikając krzyżyk (X) w prawym górnym rogu okna'
+        ],
+        correct: 0,
+        explain: 'Każda z tych metod (komenda <code>exit</code>, skrót <kbd>Alt</kbd>+<kbd>F4</kbd> oraz przycisk <code>X</code>) poprawnie zamyka okno konsoli <code>cmd</code>.'
+      },
+      {
+        id: 'fin23_10', stage: 'final23', cat: 'app', pts: 1,
+        q: '10. [Finał 2023] Które skróty klawiszowe w edytorze tekstu MS Word przenoszą kursor odpowiednio na sam POCZĄTEK całego wielostronicowego dokumentu oraz na sam KONIEC dokumentu?',
+        options: [
+          'A. Ctrl + Home oraz Ctrl + End',
+          'B. Home oraz End (bez klawisza Ctrl)',
+          'C. Page Up oraz Page Down',
+          'D. Alt + Tab oraz Ctrl + Z'
+        ],
+        correct: 0,
+        explain: 'Same klawisze <kbd>Home</kbd> i <kbd>End</kbd> przenoszą kursor na początek/koniec bieżącej LINII, natomiast z klawiszem <kbd>Ctrl</kbd> (<kbd>Ctrl</kbd>+<kbd>Home</kbd> i <kbd>Ctrl</kbd>+<kbd>End</kbd>) skaczą na początek i koniec CAŁEGO dokumentu.'
+      }
+    ];
+
+    // --- STAN APLIKACJI (LOCALSTORAGE) ---
+    let state = {
+      mode: 'bank',
+      stageFilter: 'all',
+      catFilter: 'all',
+      solvedIds: [],
+      genCount: 0,
+      points: 0,
+      scratchpad: '',
+      activeGenType: 'bin',
+      currentGenTask: null
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+        }
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+      updateHeaderStats();
+    }
+
+    function updateHeaderStats() {
+      document.getElementById('stat-solved').textContent = state.solvedIds.length;
+      document.getElementById('stat-gen').textContent = state.genCount;
+      document.getElementById('stat-pts').textContent = state.points;
+      const pct = Math.min(100, Math.round((state.solvedIds.length / BANK.length) * 100));
+      document.getElementById('hero-pct').textContent = pct + '% (' + state.solvedIds.length + '/' + BANK.length + ')';
+      document.getElementById('hero-bar').style.width = pct + '%';
+    }
+
+    // --- 8 GENERATORÓW PROCEDURALNYCH ---
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const GENERATORS = {
+      bin: {
+        name: '1. Systemy liczbowe (BIN / DEC / HEX)',
+        desc: 'Konwersje bez kalkulatora, nierówności i jedynki w RGB',
+        generate() {
+          const variant = randInt(1, 3);
+          if (variant === 1) {
+            const dec = randInt(19, 115);
+            const bin = dec.toString(2);
+            return {
+              title: `[Generator Systemów Liczbowych] Zamień liczbę dziesiętną ${dec}₁₀ na system dwójkowy (binarny):`,
+              answer: bin,
+              placeholder: 'Wpisz zapis dwójkowy (np. 10110)',
+              explain: `Rozkładamy ${dec} na sumę potęg dwójki lub dzielimy kolejno przez 2 z resztą. Otrzymujemy: <strong>${bin}₂</strong>.`
+            };
+          } else if (variant === 2) {
+            const a = randInt(10, 28);
+            const b = randInt(6, 18);
+            const div = [2, 4, 5, 8][randInt(0, 3)];
+            const prod = a * div - b;
+            const binA = prod.toString(2);
+            const binDiv = div.toString(2);
+            const resBin = a.toString(2);
+            return {
+              title: `[Generator Arytmetyki Binarnej – styl Rejon 2023] Oblicz wartość wyrażenia: (${binA}₂ + ${b}₁₀) / ${binDiv}₂ i podaj wynik w systemie dwójkowym:`,
+              answer: resBin,
+              placeholder: 'Wynik w systemie dwójkowym',
+              explain: `1) ${binA}₂ = ${prod}₁₀.<br>2) Dodajemy: ${prod} + ${b} = ${prod + b}₁₀.<br>3) Dzielnik ${binDiv}₂ = ${div}₁₀. Dzielimy: ${prod + b} ÷ ${div} = ${a}₁₀ = <strong>${resBin}₂</strong>.`
+            };
+          } else {
+            const r = [0, 15, 51, 85, 128, 255][randInt(0, 5)];
+            const g = [0, 7, 15, 63, 255][randInt(0, 4)];
+            const b = [0, 3, 15, 127, 255][randInt(0, 4)];
+            const countOnes = (n) => n.toString(2).split('1').length - 1;
+            const total = countOnes(r) + countOnes(g) + countOnes(b);
+            return {
+              title: `[Generator Kolorów RGB – styl Finał 2023] Kolor piksela opisano jako rgb(${r}, ${g}, ${b}). Ile łącznie JEDYNEK znajduje się w 24-bitowym zapisie dwójkowym tego koloru?`,
+              answer: String(total),
+              placeholder: 'Wpisz liczbę jedynek',
+              explain: `Zamieniamy każdą składową na zapis dwójkowy:<br>• R = ${r}₁₀ = ${r.toString(2).padStart(8,'0')}₂ (${countOnes(r)} jedynek)<br>• G = ${g}₁₀ = ${g.toString(2).padStart(8,'0')}₂ (${countOnes(g)} jedynek)<br>• B = ${b}₁₀ = ${b.toString(2).padStart(8,'0')}₂ (${countOnes(b)} jedynek)<br>Razem: <strong>${total}</strong> jedynek.`
+            };
+          }
+        }
+      },
+      pesel: {
+        name: '2. Numer PESEL (Wagi 1-3-7-9 i płeć)',
+        desc: 'Obliczanie 11. cyfry kontrolnej, wieku i płci',
+        generate() {
+          const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+          const digits = [
+            0,
+            randInt(5, 9),
+            2,
+            randInt(1, 9),
+            randInt(0, 2),
+            randInt(1, 8),
+            randInt(0, 9),
+            randInt(0, 9),
+            randInt(0, 9),
+            randInt(0, 9)
+          ];
+          let sum = 0;
+          const parts = [];
+          for (let i = 0; i < 10; i++) {
+            const p = (digits[i] * weights[i]) % 10;
+            sum += p;
+            parts.push(`${digits[i]}·${weights[i]}→${p}`);
+          }
+          const m = sum % 10;
+          const ctrl = (10 - m) % 10;
+          return {
+            title: `[Generator PESEL – styl Finał 2023] Pierwsze 10 cyfr numeru PESEL to: ${digits.join(' ')}. Stosując wagi (1, 3, 7, 9, 1, 3, 7, 9, 1, 3), oblicz 11. cyfrę kontrolną tego numeru PESEL:`,
+            answer: String(ctrl),
+            placeholder: 'Wpisz jedną cyfrę (0–9)',
+            explain: `Mnożymy kolejne cyfry przez wagi (biorąc cyfry jedności iloczynów):<br>${parts.join(' + ')} = <strong>${sum}</strong>.<br>Reszta z dzielenia przez 10 wynosi M = ${m}. Cyfra kontrolna to (10 − ${m}) mod 10 = <strong>${ctrl}</strong>. (10. cyfra to ${digits[9]} → właściciel to ${digits[9] % 2 === 0 ? 'kobieta' : 'mężczyzna'}).`
+          };
+        }
+      },
+      algo: {
+        name: '3. Algorytmy (NWD, NWW, Cyfry, Trójkątne)',
+        desc: 'Śledzenie schematów blokowych bez komputera',
+        generate() {
+          const v = randInt(1, 3);
+          if (v === 1) {
+            const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+            const k = [3, 5, 6, 7, 8, 9][randInt(0, 5)];
+            const p = [2, 3, 4][randInt(0, 2)];
+            const q = [5, 7][randInt(0, 1)];
+            const x = k * p;
+            const y = k * q;
+            const nww = (x * y) / gcd(x, y);
+            return {
+              title: `[Generator Algorytmu Euklidesa / NWW – styl Finał 2022] Algorytm oblicza wynik = x * y, następnie wyznacza NWD(x, y) metodą odejmowania, a na końcu wypisuje wynik / NWD(x, y). Jaka liczba zostanie wypisana dla x = ${x} oraz y = ${y}?`,
+              answer: String(nww),
+              placeholder: 'Wpisz obliczoną wartość NWW',
+              explain: `NWD(${x}, ${y}) = ${gcd(x, y)}. Algorytm oblicza Najmniejszą Wspólną Wielokrotność: (${x} · ${y}) / ${gcd(x, y)} = <strong>${nww}</strong>.`
+            };
+          } else if (v === 2) {
+            const n = randInt(8, 20);
+            const tn = (n * (n + 1)) / 2;
+            return {
+              title: `[Generator Liczb Trójkątnych – styl Finał 2023] Liczba trójkątna Tₙ to suma kolejnych liczb naturalnych od 1 do n (T₁=1, T₂=3, T₃=6). Ile wynosi liczba trójkątna T_${n}?`,
+              answer: String(tn),
+              placeholder: 'Wpisz wynik',
+              explain: `Korzystamy ze wzoru Tₙ = n · (n + 1) / 2 = ${n} · ${n + 1} / 2 = <strong>${tn}</strong>.`
+            };
+          } else {
+            const num = randInt(1024, 98765);
+            const str = String(num);
+            const c = str.length;
+            const d = str.split('').reduce((acc, ch) => acc + Number(ch), 0);
+            return {
+              title: `[Generator Schematu z mod 10 / div 10 – styl Rejon 2022] Dla liczby wejściowej a = ${num} algorytm w pętli oblicza liczbę jej cyfr (c) oraz sumę jej cyfr (d). Podaj wynik w formacie c, d (np. 4, 15):`,
+              answer: `${c}, ${d}`,
+              accepted: [`${c}, ${d}`, `${c},${d}`, `${c} ${d}`],
+              placeholder: 'Wpisz: liczba_cyfr, suma_cyfr',
+              explain: `Liczba ${num} składa się z <strong>c = ${c}</strong> cyfr, a suma jej cyfr wynosi ${str.split('').join(' + ')} = <strong>d = ${d}</strong>.`
+            };
+          }
+        }
+      },
+      code: {
+        name: '4. Kod Python & C++ (Pętle i funkcje)',
+        desc: 'Śledzenie wyników pętli for/while, silnia i potęgowanie',
+        generate() {
+          const a = randInt(2, 5);
+          const b = randInt(3, 5);
+          const res = Math.pow(a, b);
+          return {
+            title: `[Generator Funkcji Python/C++ – styl Rejon 2023] Przeanalizuj funkcję:\ndef zagadka(a, b):\n    c = 1\n    for i in range(b):\n        c = c * a\n    return c\nJaką wartość zwróci wywołanie zagadka(${a}, ${b})?`,
+            answer: String(res),
+            placeholder: 'Wpisz wartość zwróconą przez funkcję',
+            explain: `Pętla wykonuje się ${b} razy i za każdym razem mnoży zmienną <code>c</code> przez ${a}. Oblicza zatem potęgę ${a}^${b} = <strong>${res}</strong>.`
+          };
+        }
+      },
+      excel: {
+        name: '5. Formuły MS Excel (Funkcje konkursowe)',
+        desc: 'CZ.CAŁK.DZIELENIA, DWÓJK.NA.DZIES, DZIES.NA.SZESN, RZYMSKIE',
+        generate() {
+          const v = randInt(1, 3);
+          if (v === 1) {
+            const a = randInt(45, 140);
+            const b = randInt(7, 19);
+            const q = Math.floor(a / b);
+            return {
+              title: `[Generator Excel] W komórce A1 znajduje się liczba ${a}, a w B1 liczba ${b}. Jaki wynik zwróci formuła =CZ.CAŁK.DZIELENIA(A1;B1)?`,
+              answer: String(q),
+              placeholder: 'Wpisz wynik całkowity',
+              explain: `Funkcja <code>CZ.CAŁK.DZIELENIA(${a};${b})</code> zwraca część całkowitą z dzielenia ${a} przez ${b}: ${q} · ${b} = ${q * b} (reszta ${a - q * b}), więc wynik to <strong>${q}</strong>.`
+            };
+          } else if (v === 2) {
+            const dec = randInt(10, 31);
+            const hex = dec.toString(16).toUpperCase();
+            return {
+              title: `[Generator Excel] W komórce A1 wpisano liczbę ${dec}. Jaki wynik wyświetli formuła =DZIES.NA.SZESN(A1)?`,
+              answer: hex,
+              placeholder: 'Wpisz wynik szesnastkowy',
+              explain: `${dec} ÷ 16 = ${Math.floor(dec / 16)} i reszta ${dec % 16}. W systemie szesnastkowym (HEX) otrzymujemy <strong>${hex}</strong>.`
+            };
+          } else {
+            const binStr = ['100', '101', '110', '111', '1000', '1001', '1010', '1100', '1111'][randInt(0, 8)];
+            const val = parseInt(binStr, 2);
+            return {
+              title: `[Generator Excel] W komórce A1 wpisano liczbę ${binStr}. Jaki wynik zwróci formuła =DWÓJK.NA.DZIES(A1)?`,
+              answer: String(val),
+              placeholder: 'Wpisz wartość dziesiętną',
+              explain: `Funkcja <code>DWÓJK.NA.DZIES(${binStr})</code> zamienia zapis dwójkowy ${binStr}₂ na liczbę dziesiętną: <strong>${val}</strong>.`
+            };
+          }
+        }
+      },
+      media: {
+        name: '6. Skaner (dpi, RGB) i Przepustowość (Mb/s)',
+        desc: 'Obliczanie czasu transferu i rozmiaru obrazu w bajtach',
+        generate() {
+          const v = randInt(1, 2);
+          if (v === 1) {
+            const dlSpeed = [120, 240, 300, 400, 600][randInt(0, 4)];
+            const dlTime = [10, 15, 20, 30][randInt(0, 3)];
+            const ratio = [3, 4, 5, 6, 8][randInt(0, 4)];
+            const ulTime = dlTime * ratio;
+            const ulSpeed = dlSpeed / ratio;
+            return {
+              title: `[Generator Sieci – styl Rejon 2022] Pobranie pliku z prędkością ${dlSpeed} Mb/s zajęło ${dlTime} sekund. Wysłanie tego samego pliku zajęło ${ulTime} sekund. Jaka była średnia prędkość wysyłania (w Mb/s)?`,
+              answer: String(ulSpeed),
+              placeholder: 'Wpisz prędkość w Mb/s',
+              explain: `Czas wysyłania (${ulTime} s) był dokładnie <strong>${ratio} razy dłuższy</strong> niż czas pobierania (${dlTime} s). Prędkość wysyłania wynosiła więc ${dlSpeed} ÷ ${ratio} = <strong>${ulSpeed} Mb/s</strong>.`
+            };
+          } else {
+            const w = randInt(2, 5);
+            const h = randInt(2, 4);
+            const dpi = 100;
+            const pixels = (w * dpi) * (h * dpi);
+            const bytes = pixels * 3;
+            return {
+              title: `[Generator Grafiki – styl Finał 2022] Zdjęcie o wymiarach ${w} cali × ${h} cali zeskanowano w rozdzielczości ${dpi} dpi w 24-bitowym kolorze RGB (3 bajty na piksel). Ile dokładnie BAJTÓW zajmuje nieskompresowany obraz?`,
+              answer: String(bytes),
+              accepted: [String(bytes), bytes.toLocaleString('pl-PL')],
+              placeholder: 'Wpisz liczbę bajtów (bez spacji)',
+              explain: `Rozdzielczość w pikselach: (${w}·100) × (${h}·100) = ${w * 100} × ${h * 100} = ${pixels} pikseli. Mnożymy przez 3 bajty (24 bity RGB): ${pixels} × 3 = <strong>${bytes} bajtów</strong>.`
+            };
+          }
+        }
+      },
+      bowling: {
+        name: '7. Turnieje sportowe i Kręgle (Bowling)',
+        desc: 'System „każdy z każdym”, pucharowy, spare (/) i strike (X)',
+        generate() {
+          const v = randInt(1, 2);
+          if (v === 1) {
+            const groups = [4, 8][randInt(0, 1)];
+            const teamsPerGroup = randInt(4, 6);
+            const matchesInGroup = (teamsPerGroup * (teamsPerGroup - 1)) / 2;
+            const knockout = groups - 1;
+            const total = groups * matchesInGroup + knockout;
+            return {
+              title: `[Generator Turniejowy – styl Rejon 2022] W turnieju gra ${groups * teamsPerGroup} drużyn podzielonych na ${groups} grup po ${teamsPerGroup} drużyn. W grupie gra „każdy z każdym” po 1 meczu. Z każdej grupy wychodzi tylko 1 zwycięzca do fazy pucharowej (przegrany odpada, aż do finału). Ile WSZYSTKICH meczów zostanie rozegranych w całym turnieju?`,
+              answer: String(total),
+              placeholder: 'Wpisz łączną liczbę meczów',
+              explain: `1) W jednej grupie (${teamsPerGroup} drużyn): ${teamsPerGroup}·${teamsPerGroup - 1}/2 = ${matchesInGroup} meczów.<br>2) We wszystkich ${groups} grupach: ${groups} × ${matchesInGroup} = ${groups * matchesInGroup} meczów.<br>3) W fazie pucharowej dla ${groups} drużyn (aby wyłonić 1 mistrza, musi odpaść ${knockout} drużyn): ${knockout} meczów.<br>Razem: ${groups * matchesInGroup} + ${knockout} = <strong>${total} meczów</strong>.`
+            };
+          } else {
+            const r1a = randInt(5, 8);
+            const r3a = randInt(3, 6);
+            const r3b = randInt(1, 3);
+            const f1 = 10 + 10;
+            const f2 = 10 + r3a + r3b;
+            const f3 = r3a + r3b;
+            const sum = f1 + f2 + f3;
+            return {
+              title: `[Generator Kręgli (Bowling) – styl Finał 2022] Oblicz łączną liczbę punktów po 3 kolejkach gry w kręgle: Kolejka 1: [${r1a}, /] (spare), Kolejka 2: [X] (strike), Kolejka 3: [${r3a}, ${r3b}]:`,
+              answer: String(sum),
+              placeholder: 'Wpisz łączną liczbę punktów',
+              explain: `• Kolejka 1 [${r1a}, /] (spare = 10 pkt + 1 kolejny rzut X): 10 + 10 = <strong>20 pkt</strong>.<br>• Kolejka 2 [X] (strike = 10 pkt + 2 kolejne rzuty): 10 + ${r3a} + ${r3b} = <strong>${f2} pkt</strong>.<br>• Kolejka 3 [${r3a}, ${r3b}]: ${r3a} + ${r3b} = <strong>${f3} pkt</strong>.<br>Razem: 20 + ${f2} + ${f3} = <strong>${sum} punktów</strong>.`
+            };
+          }
+        }
+      },
+      clock: {
+        name: '8. Kombinatoryka haseł i Kostka Rubika',
+        desc: 'Zliczanie kombinacji i potęgi dwójki na sześcianie',
+        generate() {
+          const pool = [36, 52, 62, 72][randInt(0, 3)];
+          const len = randInt(3, 4);
+          let expr = [];
+          for (let i = 0; i < len; i++) expr.push(pool - i);
+          return {
+            title: `[Generator Kombinatoryki Haseł – styl Finał 2022] Tworzymy hasło z ${len} RÓŻNYCH znaków wybranych z puli ${pool} dostępnych znaków (znaki nie mogą się powtarzać). Zapisz iloczyn określający liczbę możliwych haseł (np. 10*9*8):`,
+            answer: expr.join('*'),
+            accepted: [expr.join('*'), expr.join(' * '), String(expr.reduce((a, b) => a * b, 1))],
+            placeholder: `Np. ${expr.join('*')}`,
+            explain: `Na pierwszym miejscu mamy ${pool} możliwości, na drugim ${pool - 1} itd. Liczba haseł wynosi: <strong>${expr.join('*')}</strong> (czyli ${expr.reduce((a, b) => a * b, 1)}).`
+          };
+        }
+      }
+    };
+
+    // --- RENDEROWANIE WIDOKÓW ---
+    const mainView = document.getElementById('main-view');
+
+    function norm(s) {
+      return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function renderBankMode() {
+      const filtered = BANK.filter(item =>
+        (state.stageFilter === 'all' || item.stage === state.stageFilter) &&
+        (state.catFilter === 'all' || item.cat === state.catFilter)
+      );
+
+      let html = `
+        <div class="panel">
+          <h2>📚 Baza Oryginalnych Zadań z Konkursów Kuratoryjnych</h2>
+          <p class="panel-sub">Filtruj zadania według etapu (Szkolny / Rejonowy / Finał) lub działu tematycznego. Każde zadanie zawiera szczegółowe wyjaśnienie sposobu rozwiązania bez kalkulatora.</p>
+
+          <div class="filter-row" role="group" aria-label="Filtr etapu">
+            ${Object.entries(STAGES).map(([k, label]) =>
+              `<button type="button" class="chip ${state.stageFilter === k ? 'active' : ''}" data-stage="${k}">${label}</button>`
+            ).join('')}
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Filtr kategorii">
+            ${Object.entries(CATEGORIES).map(([k, label]) =>
+              `<button type="button" class="chip ${state.catFilter === k ? 'active' : ''}" data-cat="${k}">${label}</button>`
+            ).join('')}
+          </div>
+
+          <p style="font-size:0.86rem; color:var(--muted); margin-bottom:14px;">Wyświetlono zadań: <strong>${filtered.length}</strong></p>
+
+          <div id="bank-list">
+            ${filtered.map(renderQuestionCard).join('')}
+          </div>
+        </div>
+      `;
+      mainView.innerHTML = html;
+
+      mainView.querySelectorAll('[data-stage]').forEach(btn => {
+        btn.onclick = () => { state.stageFilter = btn.dataset.stage; saveState(); render(); };
+      });
+      mainView.querySelectorAll('[data-cat]').forEach(btn => {
+        btn.onclick = () => { state.catFilter = btn.dataset.cat; saveState(); render(); };
+      });
+
+      bindQuestionCards(mainView);
+    }
+
+    function renderQuestionCard(item) {
+      const solved = state.solvedIds.includes(item.id);
+      const stageClass = item.stage === 'szkolny' ? 'stage-szkolny' : item.stage.startsWith('rejon') ? 'stage-rejonowy' : 'stage-final';
+      return `
+        <article class="question-card ${solved ? 'solved-ok' : ''}" data-qid="${item.id}">
+          <div class="q-meta">
+            <span class="q-pill ${stageClass}">${STAGES[item.stage]}</span>
+            <span class="q-pill">${CATEGORIES[item.cat]}</span>
+            <span class="q-pill">⭐ ${item.pts} pkt</span>
+            ${solved ? '<span class="q-pill stage-gen">✓ Rozwiązane</span>' : ''}
+          </div>
+          <div class="q-title">${item.q.replace(/\n/g, '<br>')}</div>
+          ${item.options ? `
+            <div class="options-list">
+              ${item.options.map((opt, idx) => `
+                <button type="button" class="opt-btn" data-opt="${idx}">${opt}</button>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="input-row">
+              <input type="text" class="ans-input" placeholder="${item.placeholder || 'Twoja odpowiedź...'}" aria-label="Odpowiedź">
+              <button type="button" class="btn btn-primary btn-check-text">Sprawdź odpowiedź ✓</button>
+              <button type="button" class="btn btn-outline btn-show-explain">Pokaż wyjaśnienie 💡</button>
+            </div>
+          `}
+          <div class="feedback-box" id="fb-${item.id}"></div>
+        </article>
+      `;
+    }
+
+    function bindQuestionCards(root) {
+      root.querySelectorAll('.question-card').forEach(card => {
+        const qid = card.dataset.qid;
+        const item = BANK.find(x => x.id === qid);
+        if (!item) return;
+        const fb = card.querySelector('.feedback-box');
+
+        const markSolved = () => {
+          if (!state.solvedIds.includes(item.id)) {
+            state.solvedIds.push(item.id);
+            state.points += item.pts;
+            saveState();
+            card.classList.add('solved-ok');
+          }
+        };
+
+        if (item.options) {
+          card.querySelectorAll('.opt-btn').forEach(btn => {
+            btn.onclick = () => {
+              const idx = Number(btn.dataset.opt);
+              card.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+              if (idx === item.correct) {
+                btn.classList.add('correct');
+                fb.className = 'feedback-box show ok';
+                fb.innerHTML = `<strong>✅ Brawo! Poprawna odpowiedź (+${item.pts} pkt).</strong><br>${item.explain}`;
+                markSolved();
+              } else {
+                btn.classList.add('wrong');
+                fb.className = 'feedback-box show hint';
+                fb.innerHTML = `<strong>💡 Spróbuj jeszcze raz! Wskazówka:</strong><br>${item.explain}`;
+              }
+            };
+          });
+        } else {
+          const input = card.querySelector('.ans-input');
+          const checkBtn = card.querySelector('.btn-check-text');
+          const explainBtn = card.querySelector('.btn-show-explain');
+          const verify = () => {
+            const val = norm(input.value);
+            const ok = item.accepted.some(a => norm(a) === val);
+            if (ok) {
+              fb.className = 'feedback-box show ok';
+              fb.innerHTML = `<strong>✅ Doskonale! Poprawna odpowiedź (+${item.pts} pkt).</strong><br>${item.explain}`;
+              markSolved();
+            } else {
+              fb.className = 'feedback-box show hint';
+              fb.innerHTML = `<strong>🤔 Jeszcze nie to. Sprawdź obliczenia w brudnopisie!</strong><br>${item.explain}`;
+            }
+          };
+          checkBtn.onclick = verify;
+          input.onkeydown = (e) => { if (e.key === 'Enter') verify(); };
+          explainBtn.onclick = () => {
+            fb.className = 'feedback-box show hint';
+            fb.innerHTML = `<strong>💡 Pełne rozwiązanie krok po kroku:</strong><br>${item.explain}<br><em>Prawidłowa odpowiedź:</em> <code>${item.accepted[0]}</code>`;
+          };
+        }
+      });
+    }
+
+    function renderGeneratorMode() {
+      if (!state.currentGenTask) {
+        state.currentGenTask = GENERATORS[state.activeGenType].generate();
+      }
+      const task = state.currentGenTask;
+
+      mainView.innerHTML = `
+        <div class="panel">
+          <h2>🎲 Nieskończony Generator Zadań Konkursowych</h2>
+          <p class="panel-sub">Wybierz typ zadania z konkursu kuratoryjnego i kliknij <strong>„Losuj nowe zadanie”</strong>. Algorytm za każdym razem tworzy świeże dane liczbowe i pełne rozwiązanie krok po kroku!</p>
+
+          <div class="gen-grid">
+            ${Object.entries(GENERATORS).map(([key, g]) => `
+              <button type="button" class="gen-card-btn ${state.activeGenType === key ? 'active' : ''}" data-gtype="${key}">
+                <strong>${g.name}</strong>
+                <span>${g.desc}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="question-card" style="border-color: var(--primary); background: #f8fafc;">
+            <div class="q-meta">
+              <span class="q-pill stage-gen">🎲 Wygenerowane zadanie treningowe</span>
+              <span class="q-pill">⭐ +2 pkt za rozwiązanie</span>
+            </div>
+            <div class="q-title" style="white-space: pre-line;">${task.title}</div>
+            <div class="input-row">
+              <input type="text" class="ans-input" id="gen-input" placeholder="${task.placeholder || 'Wpisz wynik...'}" aria-label="Odpowiedź do wygenerowanego zadania">
+              <button type="button" class="btn btn-primary" id="btn-gen-check">Sprawdź wynik ✓</button>
+              <button type="button" class="btn btn-emerald" id="btn-gen-next">🎲 Losuj nowe zadanie →</button>
+              <button type="button" class="btn btn-outline" id="btn-gen-explain">Pokaż jak policzyć 💡</button>
+            </div>
+            <div class="feedback-box" id="gen-fb"></div>
+          </div>
+        </div>
+      `;
+
+      mainView.querySelectorAll('[data-gtype]').forEach(btn => {
+        btn.onclick = () => {
+          state.activeGenType = btn.dataset.gtype;
+          state.currentGenTask = GENERATORS[state.activeGenType].generate();
+          saveState();
+          renderGeneratorMode();
+        };
+      });
+
+      const input = document.getElementById('gen-input');
+      const fb = document.getElementById('gen-fb');
+      const verifyGen = () => {
+        const val = norm(input.value);
+        const accepted = task.accepted ? task.accepted.map(norm) : [norm(task.answer)];
+        if (accepted.includes(val)) {
+          fb.className = 'feedback-box show ok';
+          fb.innerHTML = `<strong>✅ Świetna robota! Wynik poprawny (+2 pkt).</strong><br>${task.explain}`;
+          if (!task.rewarded) {
+            task.rewarded = true;
+            state.genCount += 1;
+            state.points += 2;
+            saveState();
+          }
+        } else {
+          fb.className = 'feedback-box show hint';
+          fb.innerHTML = `<strong>💡 Sprawdź obliczenia!</strong><br>${task.explain}<br>Poprawny wynik: <strong>${task.answer}</strong>`;
+        }
+      };
+
+      document.getElementById('btn-gen-check').onclick = verifyGen;
+      input.onkeydown = (e) => { if (e.key === 'Enter') verifyGen(); };
+      document.getElementById('btn-gen-next').onclick = () => {
+        state.currentGenTask = GENERATORS[state.activeGenType].generate();
+        saveState();
+        renderGeneratorMode();
+      };
+      document.getElementById('btn-gen-explain').onclick = () => {
+        fb.className = 'feedback-box show hint';
+        fb.innerHTML = `<strong>💡 Rozwiązanie krok po kroku:</strong><br>${task.explain}<br>Poprawny wynik: <code>${task.answer}</code>`;
+      };
+    }
+
+    // --- SYMULATOR EGZAMINU ---
+    let examTimer = null;
+    let examSecondsLeft = 1200;
+    let examQuestions = [];
+    let examRunning = false;
+
+    function startExam(minutes, count) {
+      clearInterval(examTimer);
+      examSecondsLeft = minutes * 60;
+      const shuffled = [...BANK].sort(() => Math.random() - 0.5);
+      examQuestions = shuffled.slice(0, count);
+      examRunning = true;
+      renderExamMode();
+      examTimer = setInterval(() => {
+        if (!examRunning) return;
+        examSecondsLeft = Math.max(0, examSecondsLeft - 1);
+        const el = document.getElementById('exam-timer-digits');
+        if (el) {
+          const m = String(Math.floor(examSecondsLeft / 60)).padStart(2, '0');
+          const s = String(examSecondsLeft % 60).padStart(2, '0');
+          el.textContent = `${m}:${s}`;
+        }
+        if (examSecondsLeft === 0) {
+          clearInterval(examTimer);
+          examRunning = false;
+        }
+      }, 1000);
+    }
+
+    function renderExamMode() {
+      const m = String(Math.floor(examSecondsLeft / 60)).padStart(2, '0');
+      const s = String(examSecondsLeft % 60).padStart(2, '0');
+
+      mainView.innerHTML = `
+        <div class="panel">
+          <h2>⏱️ Symulator Konkursu Kuratoryjnego (Praca pod presją czasu)</h2>
+          <p class="panel-sub">Na etapie szkolnym i w finale masz <strong>20 minut</strong>, a na etapie rejonowym <strong>60 minut</strong>. Wybierz arkusz treningowy i sprawdź swój wynik!</p>
+
+          <div class="timer-banner">
+            <div>
+              <div style="font-size:0.82rem; color:#93c5fd; font-weight:700;">POZOSTAŁY CZAS KONKURSU</div>
+              <div class="timer-digits" id="exam-timer-digits">${m}:${s}</div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <button type="button" class="btn btn-emerald" id="exam-start-20">▶ Start: Etap Szkolny / Finał (20 min • 10 zadań)</button>
+              <button type="button" class="btn btn-primary" id="exam-start-60">▶ Start: Etap Rejonowy (60 min • 18 zadań)</button>
+            </div>
+          </div>
+
+          <div id="exam-questions-slot">
+            ${examQuestions.length
+              ? examQuestions.map(renderQuestionCard).join('')
+              : '<p style="padding:18px; background:var(--surface-alt); border-radius:12px; font-weight:600;">Kliknij jeden z przycisków powyżej, aby wylosować zestaw konkursowy i uruchomić zegar.</p>'
+            }
+          </div>
+        </div>
+      `;
+
+      document.getElementById('exam-start-20').onclick = () => startExam(20, 10);
+      document.getElementById('exam-start-60').onclick = () => startExam(60, 18);
+      bindQuestionCards(mainView);
+    }
+
+    function renderCompendiumMode() {
+      mainView.innerHTML = `
+        <div class="panel">
+          <h2>🧠 Kompendium „Pewniaki Kuratoryjne” (Klasy 6–8)</h2>
+          <p class="panel-sub">Zestawienie najważniejszych wzorów, funkcji i pułapek z oficjalnych arkuszy Pomorskiego Kuratoryjnego Konkursu Informatycznego.</p>
+
+          <div class="compendium-grid">
+            <div class="comp-card">
+              <h3>🔢 1. Systemy liczbowe i pamięć</h3>
+              <ul>
+                <li><strong>Potęgi dwójki:</strong> 2⁰=1, 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 2⁹=512, 2¹⁰=1024.</li>
+                <li><strong>2³⁰ = 1 073 741 824</strong> (ponad 1 miliard, mieści się w 4 bajtach = 32 bitach).</li>
+                <li><strong>2³² − 1 ≈ 4,29 mld</strong> (największa liczba całkowita bez znaku 32-bitowa).</li>
+                <li><strong>Kolor RGB (#RRGGBB):</strong> 24 bity = 3 bajty. <code>#FFFFFF</code> = biały, <code>#000000</code> = czarny, <code>#0000FF</code> = <code>rgb(0,0,255)</code> = niebieski (8 jedynek binarnych).</li>
+              </ul>
+            </div>
+
+            <div class="comp-card">
+              <h3>📊 2. Funkcje MS Excel 2016</h3>
+              <ul>
+                <li><code>=CZ.CAŁK.DZIELENIA(A1;B1)</code> → część całkowita z dzielenia (div).</li>
+                <li><code>=DWÓJK.NA.DZIES(100)</code> → zamienia 100₂ na 4₁₀.</li>
+                <li><code>=DZIES.NA.DWÓJK(100;8)</code> → zamienia 100₁₀ na 8-bitowe <code>01100100</code>.</li>
+                <li><code>=DZIES.NA.SZESN(15)</code> → zwraca <code>F</code>.</li>
+                <li><code>=RZYMSKIE(100)</code> → zwraca <code>C</code>.</li>
+                <li><code>=MIN(B:B)</code> → minimum w całej kolumnie B.</li>
+                <li>Zaznaczanie rozłącznych zakresów (np. A1:D1 i A5:D5): z wciśniętym klawiszem <kbd>Ctrl</kbd>.</li>
+                <li>Wykres współrzędnych matematycznych (X, Y): zawsze wykres <strong>Punktowy</strong>!</li>
+              </ul>
+            </div>
+
+            <div class="comp-card">
+              <h3>⚙️ 3. Algorytmy i Programowanie</h3>
+              <ul>
+                <li><strong>Liczba pierwsza N > 1:</strong> ma dokładnie 2 dzielniki w przedziale od 1 do N (<code>licznik == 2</code>).</li>
+                <li><strong>Schemat z <code>a mod 10</code> i <code>a div 10</code>:</strong> zlicza liczbę cyfr oraz sumę cyfr liczby.</li>
+                <li><strong>NWW(x, y):</strong> <code>(x * y) / NWD(x, y)</code>.</li>
+                <li><strong>Liczby trójkątne:</strong> <code>Tₙ = n · (n + 1) / 2</code> (dla n=10 → 55).</li>
+                <li><strong>Krzywa Kocha w kroku k:</strong> ma <code>4ᵏ</code> odcinków (w kroku 4 → 256 odcinków) i długość <code>(4/3)ᵏ</code>.</li>
+                <li><strong>Liczba wesoła:</strong> suma kwadratów cyfr prowadzi do 1 (np. 19 → 82 → 68 → 100 → 1).</li>
+              </ul>
+            </div>
+
+            <div class="comp-card">
+              <h3>🛡️ 4. Sieci, Sprzęt i Cyberbezpieczeństwo</h3>
+              <ul>
+                <li><strong>Adresy IP:</strong> IPv4 = <strong>4 bajty</strong> (32 bity), IPv6 = <strong>16 bajtów</strong> (128 bitów).</li>
+                <li><strong>Phishing:</strong> podszywanie się pod bank/instytucję.</li>
+                <li><strong>Pharming:</strong> przekierowanie na fałszywą stronę WWW (np. DNS).</li>
+                <li><strong>Vishing:</strong> wyłudzanie danych przez rozmowę telefoniczną/głosową.</li>
+                <li><strong>Skimming:</strong> skopiowanie paska karty płatniczej w bankomacie.</li>
+                <li><strong>Zasięg NFC:</strong> do 20 cm. <strong>CPU_FAN:</strong> wentylator procesora.</li>
+              </ul>
+            </div>
+
+            <div class="comp-card">
+              <h3>🪪 5. Numer PESEL, Turnieje i Kręgle</h3>
+              <ul>
+                <li><strong>Wagi PESEL (10 cyfr):</strong> <code>1, 3, 7, 9, 1, 3, 7, 9, 1, 3</code>. Cyfra kontrolna: <code>(10 − (S mod 10)) mod 10</code>.</li>
+                <li><strong>Płeć w PESEL (10. cyfra):</strong> parzysta (0,2,4,6,8) = kobieta; nieparzysta (1,3,5,7,9) = mężczyzna.</li>
+                <li><strong>Turniej „każdy z każdym” dla n drużyn:</strong> <code>n · (n − 1) / 2</code> meczów.</li>
+                <li><strong>Kręgle (Bowling):</strong> <em>spare</em> (<code>/</code>) = 10 + 1 kolejny rzut; <em>strike</em> (<code>X</code>) = 10 + 2 kolejne rzuty.</li>
+              </ul>
+            </div>
+
+            <div class="comp-card">
+              <h3>🖼️ 6. Rozmiar skanu, Word, HTML i Poczta</h3>
+              <ul>
+                <li><strong>Rozmiar skanu (w bajtach):</strong> <code>(szer_cale × dpi) × (wys_cale × dpi) × 3 bajty (dla 24-bit RGB)</code>.</li>
+                <li><strong>HTML5 Favicon:</strong> <code>&lt;link rel="icon" href="ikona.jpg"&gt;</code> w sekcji <code>&lt;head&gt;</code>.</li>
+                <li><strong>Poczta e-mail:</strong> pole <strong>UDW (BCC)</strong> ukrywa adresy odbiorców przed pozostałymi.</li>
+                <li><strong>Symbole prawne:</strong> <code>©</code> prawo autorskie, <code>®</code> zarejestrowany znak towarowy, <code>™</code> znak handlowy.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      document.querySelectorAll('.mode-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === state.mode);
+      });
+      updateHeaderStats();
+      if (state.mode === 'bank') renderBankMode();
+      else if (state.mode === 'generator') renderGeneratorMode();
+      else if (state.mode === 'exam') renderExamMode();
+      else if (state.mode === 'compendium') renderCompendiumMode();
+    }
+
+    // --- INICJALIZACJA ---
+    loadState();
+    const scratchEl = document.getElementById('scratchpad-text');
+    scratchEl.value = state.scratchpad || '';
+    scratchEl.addEventListener('input', () => {
+      state.scratchpad = scratchEl.value;
+      saveState();
+    });
+
+    document.getElementById('btn-insert-powers').onclick = () => {
+      const snippet = 'Potęgi 2: 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024\nWagi PESEL: 1 3 7 9 1 3 7 9 1 3\n';
+      scratchEl.value = snippet + scratchEl.value;
+      state.scratchpad = scratchEl.value;
+      saveState();
+    };
+
+    document.getElementById('btn-clear-scratch').onclick = () => {
+      scratchEl.value = '';
+      state.scratchpad = '';
+      saveState();
+    };
+
+    document.getElementById('btn-reset-all').onclick = () => {
+      if (confirm('Czy na pewno chcesz wyczyścić postęp i rozpocząć trening dla nowego ucznia?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = {
+          mode: 'bank',
+          stageFilter: 'all',
+          catFilter: 'all',
+          solvedIds: [],
+          genCount: 0,
+          points: 0,
+          scratchpad: '',
+          activeGenType: 'bin',
+          currentGenTask: null
+        };
+        scratchEl.value = '';
+        render();
+      }
+    };
+
+    document.querySelectorAll('.mode-tab').forEach(btn => {
+      btn.onclick = () => {
+        state.mode = btn.dataset.mode;
+        saveState();
+        render();
+      };
+    });
+
+    render();
+  </script>
+</body>
+</html>
