@@ -272,3 +272,49 @@ body.dark .ws-sheet [data-vat][aria-invalid=true]{border-color:#ff9999}
   .vat-sheet{padding:12px}
   .vat-sheet .ws-card{padding:12px}
 }
+
+/* Czytelne pary kolorów także wewnątrz kart z jasnym tłem ćwiczenia. */
+:root { --muted: #506375; }
+.hero .hero-copy > p { color: #415c4f; }
+.window-bar span { color: #56695e; }
+.window-code b { color: #824489; }
+.window-code span { color: #1b7055; }
+.ws-sheet [style*="background:#15803d"].btn { color: #fff; }
+#vat-sim-status strong[style] { color: #126132 !important; }
+.ws-sim-tab.active, .ws-step-pill.active { background: #17654f; color: #fff; }
+body.dark .ws-sim-tab.active, body.dark .ws-step-pill.active { background: #9ae6c8; color: #102c25; }
+.ws-sheet :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+@media screen {
+  body.dark .ws-sheet :is(.ws-fill-box,.ws-tip-box,.ws-piv-box,#piv-raw-preview),
+  body.dark .ws-sheet .ws-word-sheet [style*="background:#f8fafc"] {
+    background: var(--surface) !important; color: var(--text); border-color: var(--line) !important;
+  }
+  body.dark .ws-sheet .ws-pattern-table th { color: #eef5fa; background:#2c404e !important; }
+  body.dark #vat-sim-status strong[style], body.dark .ws-context-box p[style*="color:#14532d"],
+  body.dark #vat-raw-preview strong[style*="color:#14532d"],
+  body.dark .ws-word-sheet h4[style*="color:#14532d"] { color:#a8e9c2 !important; }
+  .ws-sheet button[data-slicer-buyer], .ws-sheet button[data-slicer-cat] { opacity:1 !important; }
+  .ws-sheet button:is([data-slicer-buyer],[data-slicer-cat])[style*="opacity:0.45"] { border-style:dashed; }
+}
+@media screen {
+  body.dark .ws-sheet .ws-piv-box strong,
+  body.dark .vat-sheet .ws-word-sheet h4[style*="color:#0f172a"] {color:var(--text) !important;}
+  body.dark .ws-sheet .ws-pattern-table th {transition:none;}
+}
+.ws-projector-toolbar,.ws-slide-controls {display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;}
+.ws-projector-toolbar {margin:0 0 1rem;scroll-margin-top:5rem;}
+.ws-projector-toolbar [hidden] {display:none;}
+.ws-projector-toolbar select {background:var(--surface);color:var(--text);font:inherit;padding:.2em .5em;}
+.ws-projector-extension {margin-block:1rem;}
+.ws-projector-extension summary {cursor:pointer;font-weight:650;}
+@media screen {
+  .ws-projecting [data-projector-hidden] {display:none!important;}
+  .ws-projecting :is(.ws-grid-2,.ws-grid-3,.ws-step-list) {display:block;}
+  .ws-projecting .ws-step {opacity:1!important;filter:none;}
+  .ws-projecting .ws-step :where(p,li,label,summary,button,input,select,td,th,span,code,strong),
+  .ws-projecting .ws-step {font-size:clamp(1.15rem,2.1vw,1.75rem)!important;line-height:1.55;}
+  .ws-projecting .ws-step :is(h2,h3,h4) {font-size:clamp(1.4rem,2.6vw,2.1rem)!important;}
+  .ws-projecting .ws-table-wrap {overflow:auto;}
+  .ws-projecting .ws-step :is(p,li) {overflow-wrap:anywhere;}
+}
+@media print { .ws-projector-toolbar{display:none;} }

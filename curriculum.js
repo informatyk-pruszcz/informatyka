@@ -564,7 +564,7 @@ export const curriculum = [
     "number": "3.3",
     "title": "Modele 3D – projektowanie i drukowanie",
     "hours": 3,
-    "optional": false
+    "optional": true
   },
   {
     "grade": 7,

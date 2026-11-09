@@ -70,7 +70,7 @@ small,.muted{color:#475569;font-size:13px}
 .live-chip.mod-altgr{background:#ea580c;border-color:#fde047}
 .live-chip.mod-ctrl{background:#7c3aed;border-color:#ddd6fe}
 .live-chip.mod-warn{background:#dc2626;border-color:#fca5a5}
-.live-empty{font-size:13px;color:#64748b;font-style:italic}
+.live-empty{font-size:13px;color:#b6c8dc;font-style:italic}
 @keyframes popIn{from{transform:scale(.88);opacity:.5}to{transform:scale(1);opacity:1}}
 
 /* KONTRASTOWA KLAWIATURA EDUKACYJNA 3D */
@@ -144,8 +144,8 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:1
 @media(max-width:760px){.hud-bar{grid-template-columns:1fr}.app{padding:10px}.card,.keyboard-card{padding:12px}.levels{grid-template-columns:repeat(2,1fr)}.row{gap:3px}.key{border-radius:5px;height:38px}.key .top{left:2px;top:1px}.key .pl{right:2px;bottom:1px}.key.need::before,.key.shift.pressed::before,.key.altgr.pressed::before,.key.flash-wrong::before{display:none}.stats{gap:12px}header h1{font-size:18px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 @media(min-width:800px) and (max-height:860px){.app{padding:10px 16px}header{margin-bottom:8px}.level{padding:8px 12px}.level small{display:none}.level .badge{float:left;margin-right:8px}.level b{margin:2px 0}.card,.keyboard-card{padding:12px 16px;margin-bottom:10px}.key{height:40px}.target{margin:6px 0;min-height:48px;font-size:29px;padding:8px 12px}.hud-bar{margin-bottom:10px}.hint{padding:9px 12px}.entry{padding:7px 10px}.feedback{margin:5px 0}.compact-note{margin-bottom:4px}.progress{margin-top:6px}.legend{margin-top:8px}}
-</style></head><body><main class="app" id="app">
-<header><div><h1>⌨ Pracownia klawiatury</h1><small>Klasy 4–5 · Polski (programisty) · Bez pośpiechu</small></div><div class="header-actions"><button id="resetStudent" type="button" class="btn-reset-student" title="Zeruje gwiazdki i cały postęp dla kolejnego ucznia bez czyszczenia historii przeglądarki">🔄 Nowy uczeń</button><a id="home" href="./#home">← Menu główne</a></div></header>
+</style><link rel="stylesheet" href="lesson-theme.css"><script defer src="theme.js"></script></head><body data-lesson-ui="keyboard"><main class="app" id="app">
+<header><div><h1>⌨ Pracownia klawiatury</h1><small>Klasy 4–5 · Polski (programisty) · Bez pośpiechu</small></div><div class="header-actions"><button type="button" class="btn btn-sm" id="theme" aria-pressed="false">Ciemny motyw</button><button id="resetStudent" type="button" class="btn-reset-student" title="Zeruje gwiazdki i cały postęp dla kolejnego ucznia bez czyszczenia historii przeglądarki">🔄 Nowy uczeń</button><a id="home" href="./#home">← Menu główne</a></div></header>
 <nav class="levels" id="levels" aria-label="Wybierz poziom"></nav>
 <section class="card work" id="work" aria-label="Ćwiczenie pisania">
 <div class="bar"><h2 id="lessonTitle"></h2><span class="muted" id="lessonCount"></span></div>
@@ -176,7 +176,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:10;width:100%;height:1
 </div>
 </section>
 <details class="card"><summary>Ż czy Ź? I inne przydatne wskazówki</summary><p><b>ż = Prawy Alt + Z</b>, a <b>ź = Prawy Alt + X</b>. Wielkie Ż i Ź wymagają dodatkowo Shifta. Nie używaj lewego Alt zamiast prawego.</p><p><b>Średnik ; i łącznik - wpisujesz bez Shifta.</b> Dwukropek : to Shift + ;, a podkreślenie _ to Shift + -. Znak - nie jest typograficzną pauzą —.</p><p>Ustaw w Windows układ <b>Polski (programisty)</b>. Znaki @, ? i " mają tutaj położenie jak w układzie US. Klawiatura ekranowa jest mapą — wpisuj na fizycznej klawiaturze. Backspace cofa jeden poprawnie wpisany znak. Wklejanie tekstu nie zalicza ćwiczenia.</p><p>W iframe kliknij raz „Zaczynam”, aby przekazać klawiaturę ćwiczeniu. Gdy przejdziesz do innej karty lub okna, trening się zatrzyma. Nie ma limitu czasu. Zrób przerwę, gdy dłonie są zmęczone.</p></details>
-<footer id="storageInfo">Postęp z bieżącej lekcji zapisuje się automatycznie (odświeżenie strony F5 nie kasuje pracy). Po 45 minutach przerwy lub po kliknięciu „🔄 Nowy uczeń” stanowisko zeruje się dla kolejnej klasy.</footer>
+<div id="typing-warning" role="status" hidden>Od ostatniej aktywności minęło 40 minut. <button type="button" id="typing-extend">Kontynuuj sesję przez kolejne 45 minut</button></div><button type="button" id="typing-report">Pobierz wynik lekcji (.txt)</button><footer id="storageInfo">Postęp z bieżącej lekcji zapisuje się automatycznie (odświeżenie strony F5 nie kasuje pracy). Po 45 minutach przerwy lub po kliknięciu „🔄 Nowy uczeń” stanowisko zeruje się dla kolejnej klasy.</footer>
 </main><canvas id="confetti" aria-hidden="true" hidden></canvas>
 <script>
 'use strict';
@@ -194,33 +194,34 @@ for(const [code,base,upper] of PAIRS){SYMBOLS[base]={code,shift:false,label:base
 function combo(char){const lower=char.toLowerCase();if(POLISH[lower])return {code:'Key'+POLISH[lower],label:POLISH[lower],alt:true,shift:char!==lower};if(/^[a-z]$/i.test(char))return {code:'Key'+char.toUpperCase(),label:char.toUpperCase(),shift:char!==lower};if(char===' ')return {code:'Space',label:'Spacja'};return SYMBOLS[char]||null;}
 // Poniżej obsługa widoku i stanu ćwiczenia. Postęp lekcji jest odporny na F5 i wygasa po 45 min nieaktywności.
 const $=id=>document.getElementById(id),LEGACY_STORE='pracownia-klawiatury-v1',STORE='pracownia-klawiatury-lekcja-v2',LESSON_TTL_MS=45*60*1000;
-let best={},sound=false,hints=true,showClock=false,lastBackup=null;
+let best={},sound=false,hints=true,showClock=false;
 let level=0,task=0,index=0,attempts=0,correct=0,earned=0,active=false,finished=false,taskDone=false,elapsed=0,started=0,audioCtx=null,confettiFrame=0;
 const pressedCodes=new Map();
 const entry=$('entry'),reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 function currentElapsed(){return elapsed+(active?performance.now()-started:0);}
-function saveLessonState(){
- const payload=JSON.stringify({v:2,updatedAt:Date.now(),best,level,task,index,attempts,correct,earned,elapsed:Math.round(currentElapsed()),finished,taskDone,hints,showClock});
- try{sessionStorage.setItem(STORE,payload);}catch{}
- try{localStorage.setItem(STORE,payload);localStorage.removeItem(LEGACY_STORE);}catch{$('storageInfo').textContent='Zapis wyników jest niedostępny. Wszystkie ćwiczenia nadal działają.';}
+const generationKey = STORE + '-uczen';
+function sharedGeneration() {
+ try { return localStorage.getItem(generationKey) || 'pierwsza'; } catch { return 'pierwsza'; }
 }
-function clearStoredState(){
- try{sessionStorage.removeItem(STORE);}catch{}
- try{localStorage.removeItem(STORE);localStorage.removeItem(LEGACY_STORE);}catch{}
+let generation = sharedGeneration(), lastActivity = Date.now(), changingStudent = false;
+function saveLessonState(touch = true){
+ if (changingStudent || generation !== sharedGeneration()) return;
+ if (Date.now() - lastActivity >= LESSON_TTL_MS) { resetForNewStudent(); return; }
+ if (touch) lastActivity = Date.now();
+ const payload=JSON.stringify({v:2,generation,updatedAt:lastActivity,best,level,task,index,attempts,correct,earned,elapsed:Math.round(currentElapsed()),finished,taskDone,hints,showClock});
+ try{sessionStorage.setItem(STORE,payload);}catch{}
+ try{localStorage.setItem(STORE,payload);localStorage.removeItem(LEGACY_STORE);}catch{$('storageInfo').textContent='Zapis wyników jest niedostępny.';}
 }
 function readStoredState(){
- try{localStorage.removeItem(LEGACY_STORE);}catch{}
- let raw=null;
- try{raw=sessionStorage.getItem(STORE)||localStorage.getItem(STORE);}catch{}
- if(!raw)return null;
- try{
-  const data=JSON.parse(raw);
-  if(!data||typeof data!=='object'||!data.updatedAt||(Date.now()-data.updatedAt)>LESSON_TTL_MS){
-   clearStoredState();
-   return null;
-  }
-  return data;
- }catch{return null;}
+ let raw;
+ try { raw=localStorage.getItem(STORE); } catch {}
+ try { raw ||= sessionStorage.getItem(STORE); } catch {}
+ try {
+  const saved=JSON.parse(raw);
+  if (!saved || (saved.generation || 'pierwsza') !== generation) return null;
+  if (Date.now()-saved.updatedAt >= LESSON_TTL_MS) { resetForNewStudent(); return null; }
+  lastActivity=saved.updatedAt; return saved;
+ } catch { return null; }
 }
 function chars(){return Array.from(LEVELS[level].tasks[task][1]);}
 function totalChars(){return LEVELS[level].tasks.reduce((s,t)=>s+Array.from(t[1]).length,0);}
@@ -323,8 +324,8 @@ function clearPressedKeys(){
  renderLiveMonitor();
  syncHeldHintBadges();
 }
-function pause(){if(active){elapsed+=performance.now()-started;active=false;saveLessonState();}clearPressedKeys();if(!finished&&!taskDone){$('start').hidden=false;$('start').textContent=(index>0||task>0||attempts>0)?'Wznów pisanie':'Zaczynam';}}
-function begin(){if(finished||taskDone)return;lastBackup=null;active=true;started=performance.now();$('start').hidden=true;entry.disabled=false;entry.focus({preventScroll:true});$('feedback').textContent='Piszesz! Patrz na podświetlone klawisze na ekranie.';if(sound)prepareAudio();saveLessonState();}
+function pause(){if(active){elapsed+=performance.now()-started;active=false;saveLessonState(false);}clearPressedKeys();if(!finished&&!taskDone){$('start').hidden=false;$('start').textContent=(index>0||task>0||attempts>0)?'Wznów pisanie':'Zaczynam';}}
+function begin(){if(finished||taskDone)return;active=true;started=performance.now();$('start').hidden=true;entry.disabled=false;entry.focus({preventScroll:true});$('feedback').textContent='Piszesz! Patrz na podświetlone klawisze na ekranie.';if(sound)prepareAudio();saveLessonState();}
 function loadLevel(n,skipSave){pause();stopConfetti();level=n;task=0;index=0;attempts=0;correct=0;earned=0;elapsed=0;finished=false;taskDone=false;$('summary').hidden=true;$('work').hidden=false;$('keyboardPanel').hidden=false;$('next').hidden=true;$('start').hidden=false;$('start').textContent='Zaczynam';entry.value='';entry.disabled=false;$('caps').hidden=true;$('feedback').textContent='Nie ścigamy się. Najpierw poprawność, potem płynność.';levelButtons();render();if(!skipSave)saveLessonState();}
 function flashKeyFeedback(code,ok){
  const el=keyEls.get(code);
@@ -401,26 +402,50 @@ function applySavedState(saved){
   $('feedback').textContent=hasProgress?'✓ Przywrócono Twój postęp z tej lekcji. Kliknij „'+$('start').textContent+'”, aby pisać dalej.':'Nie ścigamy się. Najpierw poprawność, potem płynność.';
  }
 }
-function resetForNewStudent(){
- pause();
- const hadAnyProgress=index>0||task>0||level>0||attempts>0||Object.keys(best).length>0;
- if(hadAnyProgress){
-  lastBackup={best:{...best},level,task,index,attempts,correct,earned,elapsed:Math.round(currentElapsed()),finished,taskDone,hints,showClock};
+function resetForNewStudent(external = false){
+ changingStudent = true;
+ active = false; best = {};
+ if (external !== true) {
+   try { localStorage.setItem(generationKey, crypto.randomUUID()); localStorage.removeItem(STORE); } catch {}
  }
- best={};
- clearStoredState();
+ generation = sharedGeneration();
+ try { sessionStorage.removeItem(STORE); } catch {}
+ lastActivity=Date.now();
  loadLevel(0,true);
- const fb=$('feedback');
- fb.replaceChildren(document.createTextNode('✓ Wyczyszczono gwiazdki i postęp — stanowisko gotowe dla nowego ucznia! '));
- if(lastBackup){
-  const undoBtn=document.createElement('button');
-  undoBtn.type='button';
-  undoBtn.style.cssText='padding:3px 8px;font-size:12px;margin-left:6px;border-radius:6px';
-  undoBtn.textContent='↩ Cofnij (przywróć poprzedni postęp)';
-  undoBtn.onclick=()=>{if(lastBackup){applySavedState(lastBackup);saveLessonState();lastBackup=null;}};
-  fb.append(undoBtn);
- }
+ $('typing-warning').hidden=true;
+ $('feedback').textContent='Stanowisko gotowe dla nowego ucznia.';
+ changingStudent = false;
 }
+window.addEventListener('storage', e => {
+ if(e.key === generationKey && generation !== sharedGeneration()) resetForNewStudent(true);
+ if(e.key === STORE && e.newValue) {
+   try { const other=JSON.parse(e.newValue); if(other.generation===generation) lastActivity=Math.max(lastActivity,other.updatedAt); } catch {}
+ }
+});
+function checkIdle(){
+ if(generation!==sharedGeneration()) { resetForNewStudent(true); return; }
+ const idle=Date.now()-lastActivity;
+ if(idle>=LESSON_TTL_MS) resetForNewStudent();
+ else $('typing-warning').hidden=idle<40*60000;
+}
+setInterval(checkIdle,1000);
+window.addEventListener('pageshow',checkIdle);
+$('typing-report').onclick=()=>{
+ const rows = [
+   'Trening klawiatury — wynik lekcji',
+   'Poziom: '+LEVELS[level].name,
+   'Ćwiczenie: '+(task+1)+' z '+LEVELS[level].tasks.length,
+   'Poprawne znaki: '+correct+' z '+attempts+' prób',
+   'Celność: '+(attempts?accuracy()+'%':'brak prób'),
+   'Zdobyte gwiazdki na ukończonych poziomach: '+Object.values(best).reduce((sum,n)=>sum+n,0)
+ ];
+ const url=URL.createObjectURL(new Blob([rows.join('\r\n')],{type:'text/plain;charset=utf-8'}));
+ const link=document.createElement('a');
+ link.href=url; link.download='wynik-klawiatury.txt'; link.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+$('typing-extend').onclick=()=>{saveLessonState();checkIdle();};
+for(const event of ['click','keydown','beforeinput']) document.addEventListener(event,checkIdle,true);
 // event.key sprawdza rzeczywisty znak; event.code podświetla fizyczny klawisz i pokazuje go w monitorze na żywo.
 window.addEventListener('keydown',e=>{
  const altgr=e.getModifierState('AltGraph')||e.code==='AltRight'||(e.ctrlKey&&e.altKey);
@@ -466,7 +491,7 @@ window.addEventListener('keyup',e=>{
  syncHeldHintBadges();
 });
 window.addEventListener('blur',pause);document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
-window.addEventListener('pagehide',()=>{if(active||index>0||task>0||level>0||Object.keys(best).length>0)saveLessonState();});
+window.addEventListener('pagehide',()=>{if(active||index>0||task>0||level>0||Object.keys(best).length>0)saveLessonState(false);});
 // Dodatkowa obsługa klawiatur ekranowych i metod wprowadzania; wklejanie nie zalicza zadania.
 entry.addEventListener('beforeinput',e=>{if(e.isComposing)return;if(e.inputType==='insertText'&&e.data){e.preventDefault();if(Array.from(e.data).length===1)accept(e.data);entry.value='';}else if(e.inputType.startsWith('insert'))e.preventDefault();});
 entry.addEventListener('compositionend',e=>{if(Array.from(e.data||'').length===1)accept(e.data);entry.value='';});entry.addEventListener('input',()=>{entry.value='';});

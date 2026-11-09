@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /school/content {
+      allow get: if true;
+      function teacherUpdate() {
+        let d = request.resource.data;
+        return request.auth != null && request.auth.uid == 'AGOOU43jEYaHaB5BCqw4wpWiqax1'
+          && d.keys().hasOnly(['version','items','revision','updatedAt'])
+          && d.version == 1 && d.items is list && d.items.size() <= 500
+          && d.revision is int && d.updatedAt == request.time;
+      }
+      allow create: if teacherUpdate() && request.resource.data.revision == 1;
+      allow update: if teacherUpdate() && request.resource.data.revision == resource.data.get('revision', 0) + 1;
+    }
+  }
+}

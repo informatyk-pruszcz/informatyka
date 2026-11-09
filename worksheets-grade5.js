@@ -1,150 +1,9 @@
+import { bindWorksheetProjector } from './worksheet-projector.js';
 // Interaktywne karty pracy dla klasy 5 — Dział 1: Klawiatura zamiast pióra. Piszemy w edytorze tekstu.
 // Treść zadań, kroków, wskazówek i autotestów zachowana wiernie 1:1 z oryginalnych kart pracy.
 
-export const grade5Worksheets = [
-  {
-    id: 'karta-5-1-2-zupa',
-    type: 'task',
-    grades: [5],
-    title: 'KARTA PRACY: Tradycyjna zupa ogórkowa mistrza kuchni',
-    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
-    tags: ['EdytorTekstu', 'Style', 'Listy', 'Lekcja 1.2', 'KartaPracy'],
-    summary: 'Lekcja 1.2 / 2: Kolejno odlicz! Style i numerowanie • Wykorzystaj style tekstu, zmodyfikuj je i właściwie dobierz rodzaj listy (wypunktowanie vs numeracja).',
-    body: `<h2>KARTA PRACY: Tradycyjna zupa ogórkowa mistrza kuchni</h2>
-<p><strong>Lekcja 1.2 / 2: Kolejno odlicz! Style i numerowanie • Nowa Era „Lubię to!” • Czas: 20 min • Klasa 5</strong></p>
-<blockquote><strong>Twoja misja:</strong> Poniższy przepis na zupę ogórkową jest w zupełnym chaosie. Wykorzystaj <strong>style tekstu</strong>, zmodyfikuj je i właściwie dobierz <strong>rodzaj listy</strong> (wypunktowanie vs numeracja), aby przepis był czytelny dla każdego kucharza.</blockquote>
-<h3>1. Przepisz lub skopiuj poniższy tekst do edytora (bez formatowania)</h3>
-<pre>Przepis na domową zupę ogórkową
-Wymagane składniki
-Włoszczyzna (marchewka, pietruszka, por, kawałek selera)
-Skrzydełko z kurczaka lub żeberko na wywar
-Liść laurowy i 3 ziarna ziela angielskiego
-500 g kiszonych ogórków (oraz woda z ogórków!)
-4 średnie ziemniaki pokrojone w kostkę
-2 łyżki kwaśnej śmietany 18% i świeży koperek
-Sposób przygotowania krok po kroku
-Umyj i obierz warzywa, a ziemniaki pokrój w kostkę
-Włóż mięso i włoszczyznę do garnka, zalej wodą i gotuj wywar przez 30 minut
-Dodaj pokrojone ziemniaki i gotuj do miękkości
-Zdejmij garnek z ognia, zabiel zupę śmietaną i posyp świeżym koperkiem</pre>
-<h3>2. Zastosuj style tekstu</h3>
-<ul>
-<li>Zaznacz tytuł: <em>„Przepis na domową zupę...”</em> → kliknij styl <strong>Tytuł</strong> (lub <strong>Nagłówek 1</strong>).</li>
-<li>Zaznacz napis <em>„Wymagane składniki”</em> → wybierz styl <strong>Nagłówek 2</strong>.</li>
-<li>Zaznacz napis <em>„Sposób przygotowania krok po kroku”</em> → wybierz styl <strong>Nagłówek 2</strong>.</li>
-</ul>
-<h3>3. Dobierz rodzaj listy</h3>
-<ul>
-<li><strong>Składniki (kolejność dowolna):</strong> zaznacz 6 składników i włącz <strong>Punktory</strong> (kropki).</li>
-<li><strong>Kroki przygotowania (kolejność ma znaczenie):</strong> zaznacz 4 linijki sposobu przygotowania i włącz <strong>Numerowanie</strong> (ikona <code>1. 2. 3.</code>).</li>
-</ul>
-<h3>4. Magia edytora tekstu: Ratujemy zupę ogórkową!</h3>
-<p><strong>Uwaga:</strong> W przepisie brakuje najważniejszego – samych ogórków! Ustaw kursor na końcu <strong>punktu 3.</strong> (za słowami „do miękkości”), naciśnij klawisz <strong>Enter</strong> i dopisz:</p>
-<pre>Zetrzyj ogórki na tarce, podduś na maśle i dodaj do zupy wraz z kwasem ogórkowym</pre>
-<p><strong>Zwróć uwagę:</strong> Program sam utworzył punkt <code>4.</code>, a ostatni krok automatycznie przeskoczył na numer <code>5.</code> bez ręcznego zmieniania cyfr!</p>
-<h3>5. Modyfikacja stylu (Efekt domina!)</h3>
-<p><em>Wymaganie z podręcznika: modyfikuje istniejący styl.</em></p>
-<p>Kliknij <strong>prawym przyciskiem myszy</strong> na kafelek <strong>Nagłówek 2</strong> w galerii stylów i wybierz <strong>Modyfikuj</strong>. Zmień kolor czcionki na <strong>ciemnozielony</strong> (jak ogórek!) i włącz <strong>pogrubienie</strong>. <em>Zobacz: Obydwa nagłówki w całym dokumencie zmieniły swój wygląd w jednej sekundzie!</em></p>
-<h3>✔ Szybki autotest ucznia:</h3>
-<ul>
-<li>Czy użyto stylu Tytuł i Nagłówek 2?</li>
-<li>Czy składniki mają kropki (punktory)?</li>
-<li>Czy przepis ma 5 numerowanych kroków?</li>
-<li>Czy styl Nagłówek 2 jest zielony?</li>
-<li>Plik zapisany: <code>Zupa_Imie_Nazwisko</code></li>
-</ul>`,
-    source: 'Karta pracy ucznia • Informatyka Klasa 5 • „Lubię to!” (Nowa Era) • Dział 1: Edytor tekstu • Strona 1 z 1'
-  },
-  {
-    id: 'karta-5-1-2-tosty',
-    type: 'task',
-    grades: [5],
-    title: 'KARTA PRACY: Mistrzowski przepis na tosty',
-    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
-    tags: ['EdytorTekstu', 'Style', 'Listy', 'Lekcja 1.2', 'KartaPracy'],
-    summary: 'Lekcja 1.2 • Edytor tekstu: Style nagłówków i listy numerowane • Przygotuj w edytorze tekstu czytelną kartę z przepisem na chrupiące tosty po lekcjach.',
-    body: `<h2>KARTA PRACY: Mistrzowski przepis na tosty</h2>
-<p><strong>Informatyka • Klasa 5 • Edytor tekstu: Style nagłówków i listy numerowane • Czas: 20 min • Nowa Era: „Lubię to!”</strong></p>
-<blockquote><strong>Twoja misja:</strong> Wracasz ze szkoły do domu i chcesz szybko zrobić idealne tosty. Zamiast szukać chaotycznych notatek, przygotuj w edytorze tekstu czytelną kartę z przepisem, którą można wydrukować i przypiąć magnesem na lodówkę!</blockquote>
-<h3>1. Przepisz lub wklej poniższy tekst (jeszcze bez formatowania)</h3>
-<pre>Przepis na chrupiące tosty po lekcjach
-
-Wymagane składniki
-4 kromki chleba tostowego
-2 plastry żółtego sera
-2 plastry ulubionej szynki
-Masło do posmarowania kromek
-Keczup lub sos czosnkowy
-
-Sposób przygotowania krok po kroku
-Posmaruj zewnętrzną stronę każdej kromki odrobiną masła
-Ułóż ser i szynkę między kromkami chleba
-Włącz opiekacz i poczekaj aż zielona lampka zasygnalizuje nagrzanie
-Włóż tosty do opiekacza i zamknij pokrywę
-Piecz około 3 minut aż pieczywo będzie złociste i chrupiące
-Ostrożnie wyjmij tosty drewnianą lub silikonową łopatką</pre>
-<h3>2. Zastosuj style tekstu</h3>
-<ul>
-<li>Zaznacz główny tytuł: <em>„Przepis na chrupiące tosty...”</em> → wybierz styl <strong>Tytuł</strong> (lub <strong>Nagłówek 1</strong>).</li>
-<li>Zaznacz napis <em>„Wymagane składniki”</em> → nadaj mu styl <strong>Nagłówek 2</strong>.</li>
-<li>Zaznacz napis <em>„Sposób przygotowania krok po kroku”</em> → nadaj mu styl <strong>Nagłówek 2</strong>.</li>
-</ul>
-<h3>3. Utwórz listę numerowaną</h3>
-<ul>
-<li>W przepisie kolejność kroków ma kluczowe znaczenie.</li>
-<li>Zaznacz wszystkie 6 linijek pod nagłówkiem <em>„Sposób przygotowania...”</em>.</li>
-<li>W pasku narzędzi kliknij ikonę <strong>Numerowanie</strong> (z cyframi <code>1. 2. 3.</code>).</li>
-</ul>
-<h3>4. Sprawdź automatyzację: Dodaj sekretny składnik!</h3>
-<p>Przypomniało Ci się, że tosty bez ziół są nudne! Ustaw kursor na końcu <strong>punktu 2.</strong> (za słowami <em>„między kromkami chleba”</em>), wciśnij klawisz <strong>Enter</strong> i wpisz:</p>
-<p><strong>„Posyp wnętrze tosta szczyptą oregano lub ziół prowansalskich”.</strong></p>
-<p><em>Obserwacja: Edytor sam zmienił numerację kolejnych kroków z 6 na 7 bez ręcznego poprawiania cyfr!</em></p>
-<p><strong>Zadanie na szóstkę (dla szybkich):</strong> Zaznacz wszystkie produkty pod nagłówkiem <em>Wymagane składniki</em> i zmień je w listę punktowaną za pomocą ikony <strong>Punktory</strong> (kropki). Na koniec zapisz plik pod nazwą: <code>Tosty_Imie_Nazwisko</code>.</p>`,
-    source: 'Karta pracy ucznia • Informatyka Klasa 5 • Edytory tekstu • Strona 1 z 1'
-  },
-  {
-    id: 'karta-5-1-3-planer',
-    type: 'task',
-    grades: [5],
-    title: 'KARTA PRACY: Mój popołudniowy planer aktywności',
-    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
-    tags: ['EdytorTekstu', 'Tabele', 'Word2016', 'Lekcja 1.3', 'KartaPracy'],
-    summary: 'Lekcja 1.3: Komórki, do szeregu! Świat tabel • Wstawianie tabeli 4×5, formatowanie, dodawanie i usuwanie wierszy/kolumn, cieniowanie oraz scalanie komórek.',
-    body: `<h2>KARTA PRACY: Mój popołudniowy planer aktywności</h2>
-<p><strong>Lekcja 1.3: Komórki, do szeregu! Świat tabel • Nowa Era „Lubię to!” (Klasa 5) • MS Word 2016 • Czas: 20 min</strong></p>
-<blockquote><strong>Wskazówka Word 2016:</strong> Gdy klikniesz wewnątrz tabeli, na samej górze wstążki pojawi się fioletowy panel <strong>NARZĘDZIA TABEL</strong> z dwiema kartami: <strong>Projektowanie</strong> (wygląd, kolory, obramowanie) oraz <strong>Układ</strong> (wiersze, kolumny, scalanie i wyrównanie).</blockquote>
-<h3>1. Wstawianie szkieletu tabeli</h3>
-<p>Pamiętaj: <strong>Kolumny</strong> biegną pionowo, <strong>Wiersze</strong> poziomo, a ich przecięcie to <strong>Komórka</strong>.</p>
-<ul>
-<li>Wybierz na wstążce kartę: <strong>Wstawianie → Tabela</strong>.</li>
-<li>Zaznacz na siatce tabelę o rozmiarze: <strong>4 kolumny i 5 wierszy (4 × 5)</strong>.</li>
-</ul>
-<h3>2. Dane i formatowanie komórek</h3>
-<p>Wpisz wiersz nagłówkowy oraz poniższe dane z wzorca. Formatowanie: Zaznacz pierwszy wiersz, włącz <strong>Pogrubienie (B)</strong> i na karcie <strong>Układ</strong> kliknij kafelek <strong>Wyrównaj do środka</strong>.</p>
-<h3>3. Dodawanie wiersza i kolumny</h3>
-<ul>
-<li><strong>Nowy dzień:</strong> Kliknij prawym przyciskiem myszy (PPM) w wierszu <em>Wtorek</em> → <strong>Wstaw → Wstaw wiersze poniżej</strong>. Wpisz: <em>Środa | 15:00 | Koło informatyczne | Pendrive</em>.</li>
-<li><strong>Nowa kolumna:</strong> Kliknij w ostatniej kolumnie → PPM → <strong>Wstaw → Wstaw kolumny z prawej</strong>. W nagłówku wpisz: <em>Nastrój (1–5)</em>.</li>
-</ul>
-<h3>4. Usuwanie zbędnego wiersza</h3>
-<p>Piątkowe wyjście zostało odwołane – musisz całkowicie usunąć ten wiersz! Zaznacz cały wiersz <em>Piątek</em>. Kliknij PPM i wybierz <strong>Usuń wiersze</strong> (lub na karcie <strong>Narzędzia tabel: Układ → Usuń → Usuń wiersze</strong>). <em>Wskazówka: Klawisz Delete wyczyściłby tylko napisy, a pusta kratka by została!</em></p>
-<h3>5. Styl tabeli, cieniowanie i obramowanie</h3>
-<ul>
-<li>Kliknij w tabeli i przejdź do karty <strong>Narzędzia tabel: Projektowanie</strong>.</li>
-<li>Wybierz gotowy <strong>Styl tabeli</strong> z kolorowym nagłówkiem.</li>
-<li><strong>Własne cieniowanie:</strong> Zaznacz wiersz z ulubioną aktywnością i narzędziem <strong>Cieniowanie</strong> (wiaderko) nadaj mu pastelowy kolor.</li>
-<li>Wybierz <strong>Obramowanie → Krawędzie zewnętrzne</strong> (grubość 1,5 pkt).</li>
-</ul>
-<h3>6. Nowy krok: Scalanie komórek (Tytuł tabeli)</h3>
-<p>Stwórz elegancki baner nad całym planerem za pomocą narzędzia <strong>Scal komórki</strong>: Kliknij w pierwszym wierszu nagłówkowym tabeli. Wybierz: <strong>Narzędzia tabel: Układ → Wstaw powyżej</strong>. Zaznacz wszystkie komórki w tym nowym pustym wierszu. Na karcie <strong>Układ</strong> kliknij przycisk <strong>Scal komórki</strong>. Wpisz drukowanymi literami: <strong>MÓJ TYGODNIOWY PLANER ZAJĘĆ</strong>, powiększ czcionkę do 12 pkt i wyśrodkuj tekst.</p>`,
-    source: 'Karta pracy ucznia • Informatyka Klasa 5 • „Lubię to!” (Nowa Era) • Dział 1: Edytor tekstu (MS Word 2016) • Strona 1 z 1'
-  }
-];
-
-const WORKSHEET_IDS = new Set(grade5Worksheets.map(w => w.id));
-export function isWorksheet(id) {
-  return WORKSHEET_IDS.has(id);
-}
+import {grade5Worksheets, isWorksheet} from './worksheet-catalog.js';
+export {grade5Worksheets, isWorksheet};
 
 const ZUPA_RAW_TEXT = `Przepis na domową zupę ogórkową
 Wymagane składniki
@@ -961,6 +820,7 @@ async function copyText(text, toast) {
 export function bindWorksheet(id, toast) {
   const sheet = document.getElementById('ws-sheet');
   if (!sheet) return;
+  bindWorksheetProjector(sheet, id);
 
   const STORAGE_KEY = 'informatyka-ws-progress-v1';
   let state = {};

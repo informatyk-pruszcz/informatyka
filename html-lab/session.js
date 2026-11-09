@@ -31,6 +31,7 @@ const labSession = (() => {
   }
   function check() {
     const shared = read();
+    if (session && shared?.id === session.id) session = shared;
     if (!shared || !session || shared.id !== session.id || shared.end !== session.end || Date.now() >= session.end) {
       if (!inactive) { inactive = true; erase(session); }
       if (shared && valid(shared) && shared.id !== session?.id) { location.reload(); return false; }
@@ -45,6 +46,9 @@ const labSession = (() => {
     }
     const mins = Math.ceil((session.end - Date.now()) / 60000);
     document.querySelector('#session-time').textContent = 'Sesja: ' + mins + ' min';
+    const warning = mins <= 5 ? 'Zostało do 5 minut. Zapisz postęp lub dodaj czas.' : '';
+    const notice = document.querySelector('#expiry-notice');
+    if (notice.textContent !== warning) notice.textContent = warning;
     return true;
   }
   // Sprawdzaj również po uśpieniu komputera i przed obsługą wejścia.
@@ -54,6 +58,12 @@ const labSession = (() => {
   }, true);
   document.querySelector('#session-end').oncancel = e => e.preventDefault();
   document.querySelector('#begin-session').onclick = restart;
+  document.querySelector('#extend-session').onclick = () => {
+    if (!check()) return;
+    session = {...session,end:session.end + 15 * 60000};
+    persist(session);
+    check();
+  };
   setInterval(check, 1000);
   return {key:prefix + (session?.id ?? 'inactive'), check, restart};
 })();

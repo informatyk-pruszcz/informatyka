@@ -30,3 +30,8 @@ main{margin:0 auto;align-self:start}#sidebar{position:sticky;top:0;max-height:10
 .lab-tab #preview-title{min-width:0;color:var(--ink)}
 .lab-tabbar #refresh{margin-left:auto;min-width:30px;min-height:30px;color:var(--ink)}
 .lab-address{display:flex;align-items:center;justify-content:space-between;gap:4px 10px;flex-wrap:wrap;padding:5px 9px;font-size:12px;background:var(--surface);color:var(--ink);border-bottom:1px solid var(--line)}
+:root { --muted: #4d626d; }
+#line-numbers { color:#a9bec7; }
+.slash { color:var(--muted); }
+.requirements li.bad > span { color:#9c493b; }
+.dark .requirements li.bad > span { color:#f0a89b; }

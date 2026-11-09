@@ -12,6 +12,8 @@ export function validateDatabase(db){
  if(!i||typeof i.id!=='string'||!/^[\w-]{1,80}$/.test(i.id)||ids.has(i.id))throw Error('Nieprawidłowe lub powtórzone ID materiału.');ids.add(i.id);
  if(!Object.hasOwn(TYPES,i.type)||typeof i.title!=='string'||!i.title.trim()||i.title.length>160||typeof i.body!=='string'||i.body.length>60000||!Array.isArray(i.grades)||!i.grades.length||i.grades.some(g=>![4,5,6,7,8].includes(g))||!Array.isArray(i.tags)||i.tags.some(t=>typeof t!=='string'||t.length>60))throw Error('Niepoprawna treść, klasa lub tag materiału.');
  for(const field of ['section','summary','embed','image','source','code','hint','start','end','rules','prep','language'])if(i[field]!=null&&typeof i[field]!=='string')throw Error('Niepoprawny format pola '+field);
+ if (i.draft != null && typeof i.draft !== 'boolean') throw Error('Niepoprawny status szkicu.');
+ if (i.study != null && (!i.study || typeof i.study !== 'object' || Array.isArray(i.study) || Object.entries(i.study).some(([k,v])=>!['basis','point','year','tool','product','assessment'].includes(k)|| typeof v !== 'string'||v.length>2000))) throw Error('Sprawdź pola planu lekcji (do 2000 znaków).');
  if(i.embed&&!embedURL(i.embed))throw Error('Niedozwolony adres osadzenia.');
  for(const k of ['image','rules','prep'])if(i[k]&&!validURL(i[k]))throw Error('Linki muszą zaczynać się od https://.');
  if(i.type==='code'){if(!['HTML','Python','Algorytmy'].includes(i.language)||!i.code||!gaps(i.code).length||!i.answers||typeof i.ignoreCase!=='boolean')throw Error('Ćwiczenie wymaga języka, kodu i luk {{LUKA_1}}.');for(const k of gaps(i.code))if(!Array.isArray(i.answers[k])||!i.answers[k].length||i.answers[k].some(a=>typeof a!=='string'||!a.trim()))throw Error('Brak odpowiedzi dla '+k);}

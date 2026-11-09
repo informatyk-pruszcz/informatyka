@@ -1,110 +1,11 @@
+import { bindWorksheetProjector } from './worksheet-projector.js';
 // Interaktywne karty pracy dla klas 4, 7 i 8.
 // Treść wszystkich zadań, kroków, tabel, wskazówek, kryteriów oceniania i notatki dla nauczyciela zachowana wiernie 1:1 z oryginałów.
-import { downloadPrawoJazdyXlsx, PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
+import { PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 import './zakupy-vat-xlsx-data.js';
 
-export const extraWorksheets = [
-  {
-    id: 'karta-4-1-urzadzenia-pliki',
-    type: 'task',
-    grades: [4],
-    title: 'KARTA PRACY: W świecie urządzeń cyfrowych • Programy, pliki i foldery',
-    section: '1. Komputer i Ty',
-    tags: ['Komputer', 'Urządzenia', 'Pliki', 'Foldery', 'KartaPracy'],
-    summary: 'Rozdział 1: W świecie urządzeń cyfrowych oraz Rozdział 2 & 3: Programy, pliki i foldery • 9 interaktywnych zadań z automatycznym liczeniem punktów (25 pkt).',
-    body: `<h2>KARTA PRACY: INFORMATYKA — Rozdział 1: W świecie urządzeń cyfrowych • Klasa 4</h2>
-<p>Część 1: Urządzenia cyfrowe (Zadania 1–4) oraz Część 2: Programy, pliki i foldery (Zadania 5–9). Łącznie 25 punktów.</p>`,
-    source: 'Karta pracy dla klasy 4 • Część 1: Urządzenia cyfrowe • Część 2: Programy, pliki i foldery • Strona 1–2 z 2'
-  },
-  {
-    id: 'karta-6-2-1-plan-lekcji',
-    type: 'task',
-    grades: [6],
-    title: 'KARTA PRACY: Mój tygodniowy plan lekcji w MS Excel 2016 (Temat 2.1: Kartka w kratkę)',
-    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
-    tags: ['Excel2016', 'PlanLekcji', 'SkrótyKlawiszowe', 'Lekcja 2.1', 'KartaPracy'],
-    summary: 'Temat 2.1: Kartka w kratkę. Tworzymy tygodniowy plan lekcji w MS Excel 2016 • Licznik 25 min, Shortcut HUD, 7 kroków + zadanie na 6 ⭐, interaktywny Mini-Arkusz i zapis postępu.',
-    body: `<h2>KARTA PRACY: MÓJ TYGODNIOWY PLAN LEKCJI — Temat 2.1: Kartka w kratkę (Klasa VI)</h2>
-<p>Odwzorujesz swój szkolny plan lekcji w arkuszu kalkulacyjnym MS Excel 2016, łącząc skróty klawiszowe (Tab, Enter, Shift+Strzałki, Ctrl+C/V, Ctrl+S) z trikiem dwukliku myszy.</p>`,
-    source: 'Informatyka – Klasa VI • Temat 2.1: Kartka w kratkę. Wprowadzenie do programu MS Excel 2016'
-  },
-  {
-    id: 'karta-6-2-2-porzadki',
-    type: 'task',
-    grades: [6],
-    title: '2.2. Porządki w komórce — ranking kanałów naukowych',
-    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
-    tags: ['Excel 2016', 'Sortowanie', 'Formatowanie warunkowe'],
-    summary: 'Uporządkuj ranking sześciu kanałów i sprawdź, jak zmiana liczby subskrypcji wpływa na kolor komórki.',
-    body: '',
-    source: 'Karta pracy nauczyciela do tematu 2.2.'
-  },
-  {
-    id: 'karta-7-2-1-pierwsza-strona',
-    type: 'task',
-    grades: [7],
-    title: 'KARTA PRACY: MOJA PIERWSZA STRONA WWW — Zostań twórcą internetu!',
-    section: '2. Strony WWW',
-    tags: ['HTML', 'VS Code', 'Strony WWW', 'Lekcja 2.1', 'KartaPracy'],
-    summary: 'Zostań twórcą internetu! • Karta pracy • 20 minut • Pierwszy kontakt z HTML w VS Code, analiza znaczników, eksperymenty na żywo oraz Notatka dla nauczyciela.',
-    body: `<h2>MOJA PIERWSZA STRONA WWW — Zostań twórcą internetu! • Karta pracy • 20 minut</h2>
-<p>Zbuduj stronę o swoim hobby: grach, sporcie, muzyce lub zwierzętach w Visual Studio Code (VS Code) i otwórz ją w przeglądarce.</p>`,
-    source: 'HTML / KLASA VII • Moja pierwsza strona WWW • Pierwszy kontakt z HTML (Strony 1–3)'
-  },
-  {
-    id: 'karta-8-1-kosztorys-balu',
-    type: 'task',
-    grades: [8],
-    title: 'KARTA PRACY: MS EXCEL — Kosztorys Balu Ósmoklasisty',
-    section: '1. Arkusz kalkulacyjny',
-    tags: ['ArkuszKalkulacyjny', 'Excel', 'JEŻELI', 'SUMA', 'KartaPracy'],
-    summary: 'Temat: Kosztorys Balu Ósmoklasisty – obliczenia i analiza danych • Formuły mnożenia, SUMA, funkcja logiczna JEŻELI, formatowanie warunkowe oraz ŚREDNIA i MAX.',
-    body: `<h2>KARTA PRACY: MS EXCEL — Temat: Kosztorys Balu Ósmoklasisty – obliczenia i analiza danych</h2>
-<p>Kontekst: Komitet organizacyjny Balu Ósmoklasisty planuje budżet na dekoracje, poczęstunek oraz sprzęt. Twoim zadaniem jest przygotowanie arkusza kalkulacyjnego, który zsumuje wydatki i wyłoni pozycje o wysokim koszcie.</p>`,
-    source: 'Informatyka – Klasa VIII | Arkusz kalkulacyjny MS Excel • Strona 1 z 1'
-  },
-  {
-    id: 'karta-8-1-rentownosc-excel',
-    type: 'task',
-    grades: [8],
-    title: 'KARTA PRACY: RENTOWNOŚĆ W MS EXCEL — Warsztat „Auto-Centrum”',
-    section: '1. Arkusz kalkulacyjny',
-    tags: ['ArkuszKalkulacyjny', 'Excel', 'Adresowanie', 'LICZ.JEŻELI', 'SUMA.JEŻELI', 'KartaPracy'],
-    summary: 'Klasa VIII • Warsztat Samochodowy „Auto-Centrum” • Analiza finansowa i formuły: adresowanie względne i bezwzględne ($), JEŻELI, ŚREDNIA, LICZ.JEŻELI oraz SUMA.JEŻELI.',
-    body: `<h2>KARTA PRACY: RENTOWNOŚĆ W MS EXCEL</h2>
-<p>Klasa VIII • Warsztat Samochodowy „Auto-Centrum” • Analiza finansowa i formuły. Scenariusz biznesowy (25 minut): Kierujesz serwisem pojazdów w Pruszczu Gdańskim.</p>`,
-    source: 'MS Excel • Analiza rentowności warsztatu mechanicznego • Klasa VIII • Strona 1–2 z 2'
-  },
-  {
-    id: 'karta-8-1-tabele-przestawne',
-    type: 'task',
-    grades: [8],
-    title: 'KARTA PRACY: 3 Misje Detektywistyczne – Tabele Przestawne w Excelu 2016',
-    section: '1. Arkusz kalkulacyjny',
-    tags: ['ArkuszKalkulacyjny', 'Excel2016', 'TabelePrzestawne', 'AnalizaDanych', 'KartaPracy'],
-    summary: 'Plik: prawo-jazdy.xlsx • 3 Misje Detektywistyczne w tabelach przestawnych (sumowanie, zliczanie wpisów Liczba z Miasto, filtrowanie województw) + interaktywna Karta odpowiedzi.',
-    body: `<h2>3 Misje Detektywistyczne – Tabele Przestawne w Excelu 2016</h2>
-<p>KARTA PRACY UCZNIA – ZADANIE PRAKTYCZNE • INFORMATYKA – KLASA 8 • Plik: prawo-jazdy.xlsx.</p>`,
-    source: 'Zadanie Praktyczne: Tabele Przestawne w Excelu 2016 (prawo-jazdy.xlsx) • Strona 1–2 z 2'
-  },
-  {
-    id: 'karta-8-1-misja-vat',
-    type: 'task',
-    grades: [8],
-    title: 'Misja VAT — ile podatku kryje się w zakupach?',
-    section: '1. Arkusz kalkulacyjny',
-    tags: ['ArkuszKalkulacyjny', 'Excel', 'TabelePrzestawne', 'Fragmentatory', 'WykresPrzestawny', 'MisjaVAT', 'KartaPracy'],
-    summary: 'MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • Plik do pobrania: Zakupy_nastolatkow_2000_rekordow.xlsx • Dwie tabele przestawne, wykres kolumnowy, dwa fragmentatory i analiza podatku VAT w zakupach nastolatków.',
-    body: `<h2>NIE PRACUJĘ, WIĘC NIE PŁACĘ PODATKÓW? EXCEL SPRAWDZA! • MISJA VAT</h2>
-<p>Masz 14 lat. Nie pracujesz. Nie rozliczasz PIT-u. Myślisz, że nie płacisz żadnych podatków? Sprawdź, ile podatku kryje się w zakupach podobnych do Twoich! Plik: Zakupy_nastolatkow_2000_rekordow.xlsx (2000 rekordów).</p>`,
-    source: 'MISJA VAT | 2000 rekordów | dane fikcyjne: 2025 • Klasa VIII • Strona 1–2 z 2'
-  }
-];
-
-const EXTRA_IDS = new Set(extraWorksheets.map(w => w.id));
-export function isExtraWorksheet(id) {
-  return EXTRA_IDS.has(id);
-}
+import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js';
+export {extraWorksheets, isExtraWorksheet};
 
 const STARTER_HTML_CODE = `<!DOCTYPE html>
 <html lang="pl">
@@ -1261,7 +1162,7 @@ function renderGrade8PivotWorksheet() {
       </div>
       <p style="margin:0 0 12px;color:#14532d">Pobierz oryginalny plik <code>prawo-jazdy.xlsx</code> na swój komputer i otwórz go w programie <strong>MS Excel</strong> (lub skopiuj wszystkie 500 wierszy jednym kliknięciem prosto do schowka):</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <button type="button" class="btn primary" id="piv-download-xlsx" style="background:#15803d;border-color:#15803d;font-weight:700">📥 Pobierz załącznik: prawo-jazdy.xlsx (MS Excel)</button>
+        <a class="btn primary" id="piv-download-xlsx" href="./prawo-jazdy.xlsx" download style="background:#15803d;border-color:#15803d;font-weight:700">📥 Pobierz załącznik: prawo-jazdy.xlsx (MS Excel)</a>
         <a class="btn" href="./prawo-jazdy.csv" download="prawo-jazdy.csv">📥 Pobierz plik CSV (prawo-jazdy.csv)</a>
         <button type="button" class="btn" id="piv-copy-csv-tsv">📋 Skopiuj wszystkie 500 wierszy do Excela</button>
         <button type="button" class="btn" id="piv-toggle-raw">👁️ Podgląd bazy danych Arkusz1 na stronie (500 wierszy)</button>
@@ -1759,7 +1660,7 @@ function renderGrade8MisjaVatWorksheet() {
             <p style="margin:6px 0 10px">
               Skopiuj tabelę i ustaw w <strong>Wierszach</strong> <code>Miesiąc</code> lub <code>Stawka VAT</code>, a w <strong>Wartościach</strong> sumę brutto i sumę VAT. Wyczyść filtry. Sformułuj wniosek poparty dwiema liczbami:
             </p>
-            <textarea rows="2" class="ws-textarea" data-vat-ans="bonus-text" placeholder="................................................................................................................................................................" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-family:inherit"></textarea>
+            <p><strong>Bonus i finał:</strong> omów uzasadnienie z nauczycielem. Te wypowiedzi nie wchodzą do wyniku automatycznego.</p><textarea rows="2" class="ws-textarea" data-vat-ans="bonus-text" placeholder="................................................................................................................................................................" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-family:inherit"></textarea>
           </div>
         </article>
 
@@ -1927,9 +1828,33 @@ async function copyText(text, toast) {
   }
 }
 
+const previewPageSize = 25;
+function previewPagination(host, offset, count, changePage) {
+  const nav = document.createElement('nav');
+  nav.setAttribute('aria-label','Strony podglądu danych');
+  const start = count ? offset + 1 : 0;
+  const end = Math.min(count, offset + previewPageSize);
+  const label = document.createElement('span');
+  label.textContent = ` Rekordy ${start}–${end} z ${count} `;
+  for (const [name, next] of [['Poprzednie rekordy',offset-previewPageSize],['Następne rekordy',offset+previewPageSize]]) {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'btn'; button.textContent = name;
+    button.disabled = next < 0 || next >= count;
+    button.onclick = () => {
+      changePage(next);
+      const buttons = [...host.querySelectorAll('nav button')].filter(b=>!b.disabled);
+      (buttons.find(b=>b.textContent===name)||buttons[0])?.focus();
+    };
+    nav.append(button);
+    if (next < offset) nav.append(label);
+  }
+  host.prepend(nav);
+}
+
 export function bindExtraWorksheet(id, toast) {
   const sheet = document.getElementById('ws-sheet');
   if (!sheet) return;
+  bindWorksheetProjector(sheet, id);
 
   const STORAGE_KEY = 'informatyka-ws-extra-v1';
   let state = {};
@@ -2419,11 +2344,6 @@ export function bindExtraWorksheet(id, toast) {
   // Logic for Grade 8 Pivot Tables Worksheet
   // ==========================================================================
   if (id === 'karta-8-1-tabele-przestawne') {
-    const dlXlsxBtn = document.getElementById('piv-download-xlsx');
-    if (dlXlsxBtn) {
-      dlXlsxBtn.onclick = () => downloadPrawoJazdyXlsx(toast);
-    }
-
     let cachedCsvRows = null;
     async function loadCsvRows() {
       if (cachedCsvRows) return cachedCsvRows;
@@ -2455,7 +2375,7 @@ export function bindExtraWorksheet(id, toast) {
     const rawTableWrap = document.getElementById('piv-raw-table-wrap');
     const rawSearch = document.getElementById('piv-raw-search');
 
-    function renderRawTable(rows, query = '') {
+    function renderRawTable(rows, query = '', offset = 0) {
       if (!rawTableWrap || !rows || !rows.length) return;
       const q = query.trim().toLowerCase();
       const bodyRows = rows.slice(1).filter(r => !q || r.some(c => c.toLowerCase().includes(q)));
@@ -2472,9 +2392,9 @@ export function bindExtraWorksheet(id, toast) {
             </tr>
           </thead>
           <tbody>
-            ${bodyRows.slice(0, 150).map((r, idx) => `
+            ${bodyRows.slice(offset, offset + previewPageSize).map((r, idx) => `
               <tr>
-                <td class="ws-excel-rownum">${idx + 2}</td>
+                <td class="ws-excel-rownum">${rows.indexOf(r) + 1}</td>
                 <td>${r[0] || ''}</td>
                 <td><strong>${r[1] || ''}</strong></td>
                 <td class="ws-center-cell">${r[2] || ''}</td>
@@ -2484,8 +2404,8 @@ export function bindExtraWorksheet(id, toast) {
             `).join('')}
           </tbody>
         </table>
-        <p class="ws-subnote" style="margin:6px 0 0">Wyświetlono ${Math.min(bodyRows.length, 150)} z ${bodyRows.length} pasujących rekordów (w całym pliku <code>prawo-jazdy.xlsx</code> jest 500 wierszy danych).</p>
-      `;
+        `;
+      previewPagination(rawTableWrap,offset,bodyRows.length,next=>renderRawTable(rows,query,next));
     }
 
     if (toggleRawBtn && rawPreview) {
@@ -2779,7 +2699,7 @@ export function bindExtraWorksheet(id, toast) {
     const rawWrap = document.getElementById('vat-raw-table-wrap');
     const rawSearch = document.getElementById('vat-raw-search');
 
-    function renderVatRawTable(query = '') {
+    function renderVatRawTable(query = '', offset = 0) {
       if (!rawWrap) return;
       const q = query.trim().toLowerCase();
       const filtered = allRows.filter(r =>
@@ -2811,7 +2731,7 @@ export function bindExtraWorksheet(id, toast) {
             </tr>
           </thead>
           <tbody>
-            ${filtered.slice(0, 150).map(r => `
+            ${filtered.slice(offset, offset + previewPageSize).map(r => `
               <tr>
                 <td class="ws-excel-rownum">${Number(r.id.slice(1)) + 1}</td>
                 <td class="ws-center-cell"><code>${r.id}</code></td>
@@ -2830,9 +2750,8 @@ export function bindExtraWorksheet(id, toast) {
             `).join('')}
           </tbody>
         </table>
-        <p class="ws-subnote" style="margin:6px 0 0">
-          Wyświetlono ${Math.min(filtered.length, 150)} z <strong>${filtered.length}</strong> pasujących rekordów (pełna tabela <code>Zakupy</code> zawiera 2000 wierszy).
-        </p>`;
+        `;
+      previewPagination(rawWrap,offset,filtered.length,next=>renderVatRawTable(query,next));
     }
 
     if (toggleRawBtn && rawPreview) {
@@ -3176,11 +3095,7 @@ export function bindExtraWorksheet(id, toast) {
           'm5-vat': () => !!expectedBuyerVat && Math.abs(vVal - expectedBuyerVat) < 0.1,
           'm5-hp': () => !isNaN(hpVal) && hpVal >= 22.34 && hpVal <= 91.54,
           'm5-ratio': () => !isNaN(vVal) && !isNaN(hpVal) && hpVal > 0 && !isNaN(ratioVal) && Math.abs(ratioVal - (vVal / hpVal)) < 0.25,
-          'm5-enough': v => /(tak|wystarczy)/i.test(normStr(v)),
-          'bonus-text': v => (v.match(/\d+/g) || []).length >= 2 && normStr(v).length >= 12,
-          'final-1': v => /(tak|może|moze|płaci|placi|vat)/i.test(normStr(v)),
-          'final-2': v => normStr(v).length >= 8,
-          'final-3': v => normStr(v).length >= 4
+          'm5-enough': v => ['tak','wystarczy'].includes(normStr(v))
         };
 
         let good = 0;
@@ -3197,7 +3112,7 @@ export function bindExtraWorksheet(id, toast) {
         if (fb) {
           fb.innerHTML = `<div class="feedback ${good === keys.length ? '' : 'error'}">${
             good === keys.length
-              ? '🎉 Brawo! Wszystkie obliczenia z Misji 1–5, Bonusu i Finału zgadzają się z bazą Zakupy_nastolatkow_2000_rekordow.xlsx!'
+              ? '🎉 Brawo! Wszystkie sprawdzane odpowiedzi z misji 1–5 zgadzają się z bazą Zakupy_nastolatkow_2000_rekordow.xlsx!'
               : `Poprawnie uzupełnione pola: <strong>${good} z ${keys.length}</strong>. Sprawdź pola podświetlone na czerwono lub skorzystaj z symulatora tabel przestawnych poniżej.`
           }</div>`;
         }
@@ -3222,7 +3137,7 @@ export function bindExtraWorksheet(id, toast) {
           'm5-vat': '723,53',
           'm5-hp': '79,24',
           'm5-ratio': '9,13',
-          'm5-enough': 'TAK (wystarczyłoby na ponad 9 sztuk)',
+          'm5-enough': 'TAK',
           'bonus-text': 'Największa kwota VAT pochodzi ze stawki 23% (8 707,75 zł VAT przy 46 568,46 zł brutto), a wśród miesięcy najwyższy VAT odnotowano w lipcu (07): 1 005,72 zł.',
           'final-1': 'Tak — płaci podatek pośredni VAT w cenie każdego kupowanego towaru lub usługi.',
           'final-2': 'VAT to podatek od towarów i usług wliczony w cenę zakupu, a podatek dochodowy (PIT) płaci się od osiągniętych dochodów/zarobków.',
@@ -3234,7 +3149,7 @@ export function bindExtraWorksheet(id, toast) {
             inp.value = val;
             state['vat_' + k] = val;
             inp.classList.remove('ws-bad-cell');
-            inp.classList.add('ws-good-cell');
+            inp.classList.toggle('ws-good-cell', k !== 'bonus-text' && !k.startsWith('final-'));
           }
         });
         saveState();
