@@ -4,7 +4,7 @@ import { bindWorksheetProjector } from './worksheet-projector.js';
 import { PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 import './zakupy-vat-xlsx-data.js';
 
-import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js?v=wykresy24';
+import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js?v=cyber5';
 export {extraWorksheets, isExtraWorksheet};
 
 const STARTER_HTML_CODE = `<!DOCTYPE html>
@@ -1821,13 +1821,35 @@ function renderGrade4CyberDetectiveReview() {
   </div>`;
 }
 
+function renderGrade6TurniejWorksheet() {
+  return `
+  <div class="ws-sheet" id="ws-sheet" data-ws-id="karta-6-2-3-turniej">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:12px 16px;background:#ECFDF5;border:1px solid #6EE7B7;border-radius:12px">
+      <div>
+        <strong style="color:#0F172A">🏆 Temat 2.3 (Zadanie 2): Wielki Turniej Szkolny – Obliczenia na pobranym pliku bazowym <code>turniej.xlsx</code></strong>
+        <p style="margin:2px 0 0;font-size:0.9rem;color:#334155">Pobierz plik startowy <code>turniej.xlsx</code> (lub <code>turniej.csv</code>), skorzystaj ze sprawdzarki wyników i odhaczaj kroki (zapis w <code>inf_pruszcz_klasa6_lekcja2_3_turniej</code>).</p>
+      </div>
+      <a class="btn primary" href="./klasa6/excel-turniej.html" target="_blank" rel="noopener" style="background:#107C41;border-color:#064E3B;text-decoration:none;font-weight:700">
+        🚀 Otwórz na pełnym ekranie (klasa6/excel-turniej.html) ↗
+      </a>
+    </div>
+    <iframe
+      src="./klasa6/excel-turniej.html"
+      title="Temat 2.3 (Zadanie 2): Wielki Turniej Szkolny – Obliczenia na pliku turniej.xlsx"
+      style="width:100%;min-height:1550px;border:1px solid #CBD5E1;border-radius:16px;background:#F8FAFC"
+      loading="lazy"
+    ></iframe>
+  </div>`;
+}
+
 export function renderExtraWorksheet(id) {
   if (id === 'karta-6-2-4-wykresy') {
     return '<p><a class="btn primary" href="./lekcja2-4.html">Otwórz kartę pracy — Demokratyczne wybory →</a></p>';
   }
   if (id === 'karta-6-2-3-budzet') {
-    return '<p><a class="btn primary" href="./lekcja2-3.html">Otwórz laboratorium Excel — Budżet kieszonkowy →</a></p>';
+    return '<div style="display:flex;gap:12px;flex-wrap:wrap;"><a class="btn primary" href="./lekcja2-3.html">Otwórz Zadanie 1 — Budżet kieszonkowy →</a><a class="btn" href="./klasa6/excel-turniej.html">🏆 Otwórz Zadanie 2 — Wielki Turniej Szkolny (plik turniej.xlsx) →</a></div>';
   }
+  if (id === 'karta-6-2-3-turniej') return renderGrade6TurniejWorksheet();
   if (id === 'karta-6-2-2-porzadki') {
     return '<p><a class="btn primary" href="./lekcja2-2.html">Otwórz laboratorium Excel — Porządki w komórce →</a></p>';
   }

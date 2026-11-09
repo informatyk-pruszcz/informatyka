@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10B981">
+  <meta name="description" content="Interaktywna karta pracy dla klasy VI: Temat 2.3 (Zadanie 2) – Wielki Turniej Szkolny. Obliczenia na pobranym pliku bazowym turniej.xlsx w MS Excel 2016.">
+  <title>Temat 2.3 (Zadanie 2): Wielki Turniej Szkolny – Plik turniej.xlsx | Klasa 6</title>
+  <!-- SheetJS CDN do generowania natywnego pliku binarnego turniej.xlsx w locie -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --bg-muted: #F1F5F9;
+      --text-main: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --accent-blue: #2563EB;
+      --accent-blue-hover: #1D4ED8;
+      --accent-blue-light: #EFF6FF;
+      --accent-blue-border: #BFDBFE;
+      --accent-mint: #10B981;
+      --accent-mint-dark: #059669;
+      --accent-mint-light: #ECFDF5;
+      --accent-mint-border: #6EE7B7;
+      --accent-amber: #F59E0B;
+      --accent-amber-light: #FFFBEB;
+      --accent-amber-border: #FCD34D;
+      --excel-green: #107C41;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding: 0 0 64px;
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.58;
+      text-align: left;
+      font-size: 16px;
+    }
+    body.large-font { font-size: 18px; }
+
+    kbd {
+      display: inline-block;
+      padding: 2px 8px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.88em;
+      font-weight: 700;
+      color: var(--text-main);
+      background-color: #F8FAFC;
+      border: 1px solid #94A3B8;
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.08);
+      white-space: nowrap;
+    }
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #F1F5F9;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    /* Górny pasek nawigacji */
+    .top-nav {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .top-nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-blue-light);
+      border: 1px solid var(--accent-blue-border);
+    }
+    .back-link:hover { background: #DBEAFE; }
+
+    .nav-tools {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .timer-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .timer-display {
+      font-family: 'Consolas', monospace;
+      font-size: 1.1rem;
+      color: #34D399;
+      min-width: 52px;
+    }
+    .btn-sm {
+      padding: 6px 11px;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn-sm:hover { background: var(--bg-muted); border-color: var(--accent-blue); }
+
+    .container {
+      max-width: 1140px;
+      margin: 22px auto 0;
+      padding: 0 20px;
+    }
+
+    /* Nagłówek Hero + Pasek postępu */
+    .hero-banner {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+      color: #FFFFFF;
+      padding: 26px 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 22px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(16, 185, 129, 0.2);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+    .hero-banner h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      line-height: 1.25;
+    }
+    .hero-banner p {
+      margin: 0 0 18px;
+      color: #E2E8F0;
+      max-width: 840px;
+    }
+    .progress-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(255,255,255,0.16);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10B981, #38BDF8);
+      transition: width 0.3s ease;
+    }
+
+    /* Sekcja Pobierania Pliku + Widok Chroniony */
+    .download-hub {
+      background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%);
+      border: 2px solid var(--accent-mint);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .download-hub h2 {
+      margin: 0 0 6px;
+      font-size: 1.28rem;
+      color: #064E3B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .download-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 14px 0;
+    }
+    .btn-download-xlsx {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border-radius: var(--radius-md);
+      background: var(--excel-green);
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 1rem;
+      border: 2px solid #064E3B;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 124, 65, 0.28);
+      transition: transform 0.15s, background 0.15s;
+    }
+    .btn-download-xlsx:hover {
+      background: #0B5E31;
+      transform: translateY(-2px);
+    }
+    .btn-download-csv {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.94rem;
+      border: 2px solid var(--border-strong);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn-download-csv:hover {
+      border-color: var(--accent-blue);
+      background: var(--accent-blue-light);
+    }
+
+    /* Wizualna makieta żółtego paska Widok Chroniony z Excela 2016 */
+    .protected-view-bar {
+      background: #FEF3C7;
+      border: 2px solid #F59E0B;
+      border-radius: 10px;
+      padding: 11px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      color: #78350F;
+      font-size: 0.92rem;
+    }
+    .protected-view-btn {
+      background: #FFFFFF;
+      border: 2px solid #D97706;
+      color: #0F172A;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .protected-view-btn:hover { background: #FFFBEB; }
+
+    /* Shortcut HUD */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .section-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+      color: var(--text-main);
+    }
+    .section-sub {
+      margin: 0 0 16px;
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+    }
+    .hud-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .hud-item {
+      background: var(--bg-muted);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 13px 15px;
+    }
+    .hud-item-top {
+      margin-bottom: 6px;
+      font-weight: 800;
+      color: var(--accent-blue);
+    }
+    .hud-item p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    /* Symulator Tabeli Turniejowej */
+    .sim-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .sim-tab {
+      padding: 9px 15px;
+      border-radius: 10px;
+      border: 2px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .sim-tab:hover { border-color: var(--accent-blue); }
+    .sim-tab.active {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      border-color: var(--accent-blue);
+    }
+    .excel-wrap {
+      overflow-x: auto;
+      border: 2px solid #94A3B8;
+      border-radius: 10px;
+      background: #FFFFFF;
+    }
+    .excel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 880px;
+    }
+    .excel-table th, .excel-table td {
+      border: 1px solid #CBD5E1;
+      padding: 7px 10px;
+      text-align: left;
+    }
+    .excel-col-letters th {
+      background: #E2E8F0;
+      color: #334155;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 6px;
+    }
+    .excel-row-num {
+      background: #E2E8F0;
+      color: #334155;
+      text-align: center !important;
+      font-weight: 800;
+      width: 36px;
+    }
+    .excel-header-row th {
+      background: #1E293B;
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+    .cell-num { text-align: right !important; font-variant-numeric: tabular-nums; }
+    .cell-center { text-align: center !important; }
+    .cell-formula {
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      color: #1D4ED8;
+      background: #EFF6FF;
+    }
+    .cell-result {
+      font-weight: 800;
+      color: #065F46;
+      background: #ECFDF5;
+    }
+    .cell-final {
+      font-weight: 800;
+      color: #1E3A8A;
+      background: #DBEAFE;
+    }
+    .cell-top3 {
+      background: #A7F3D0 !important;
+      color: #064E3B !important;
+      font-weight: 800;
+    }
+    .row-summary td {
+      background: #FEF3C7;
+      font-weight: 800;
+      border-top: 2px solid #F59E0B;
+    }
+
+    /* Karty Zadań Krok po Kroku */
+    .steps-list {
+      display: grid;
+      gap: 14px;
+    }
+    .step-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      transition: all 0.2s ease;
+    }
+    .step-card.completed {
+      background: var(--accent-mint-light);
+      border-color: var(--accent-mint);
+    }
+    .step-card.master-card {
+      border-color: var(--accent-amber);
+      background: var(--accent-amber-light);
+    }
+    .step-card.master-card.completed {
+      background: var(--accent-mint-light);
+      border-color: var(--accent-mint);
+    }
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .step-checkbox {
+      width: 22px;
+      height: 22px;
+      margin-top: 3px;
+      accent-color: var(--accent-mint-dark);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0 0 6px;
+    }
+    .step-body {
+      padding-left: 34px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .step-body ol, .step-body ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .step-body li { margin-bottom: 6px; }
+    .pro-tip {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #EFF6FF;
+      border-left: 4px solid var(--accent-blue);
+      font-size: 0.9rem;
+      color: #1E3A8A;
+    }
+
+    /* Moduł Samooceny */
+    .grade-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      border-radius: var(--radius-md);
+      background: #0F172A;
+      color: #FFFFFF;
+      margin-top: 14px;
+    }
+    .grade-badge {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.16);
+      border: 2px solid #10B981;
+      padding: 8px 18px;
+      border-radius: 12px;
+    }
+
+    @media print {
+      .top-nav, .sim-controls { display: none !important; }
+      body { background: #FFFFFF; }
+      .section-card, .step-card, .download-hub { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Pasek nawigacji i narzędzi -->
+  <nav class="top-nav" aria-label="Nawigacja lekcji">
+    <div class="top-nav-inner">
+      <a class="back-link" href="../index.html#class/6">← Powrót do informatyk-pruszcz.github.io/informatyka | Klasa 6</a>
+      <div class="nav-tools">
+        <div class="timer-box" role="timer" aria-label="Czas pracy nad zadaniem">
+          <span>⏱️ Czas:</span>
+          <span class="timer-display" id="timer-display">25:00</span>
+          <button type="button" class="btn-sm" id="timer-start">Start</button>
+          <button type="button" class="btn-sm" id="timer-pause">Pauza</button>
+          <button type="button" class="btn-sm" id="timer-reset">Reset</button>
+        </div>
+        <button type="button" class="btn-sm" id="btn-font">🔍 Powiększ tekst</button>
+        <button type="button" class="btn-sm" id="btn-print">🖨️ Drukuj kartę</button>
+        <button type="button" class="btn-sm" id="btn-clear-storage">🔄 Wyczyść / Zacznij od nowa</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Nagłówek i Pasek Postępu -->
+    <header class="hero-banner">
+      <div class="hero-badges">
+        <span class="badge-pill">Klasa VI • Dział 2: Arkusz kalkulacyjny</span>
+        <span class="badge-pill">MS Excel 2016 • Plik bazowy: turniej.xlsx</span>
+        <span class="badge-pill">Podstawa programowa: II.3c</span>
+      </div>
+      <h1>🏆 Temat 2.3 (Zadanie 2): Wielki Turniej Szkolny – Obliczenia na pobranym pliku bazowym <code>turniej.xlsx</code></h1>
+      <p>Zostajesz głównym sędzią technicznym Szkolnego Turnieju Gier Logicznych! Pobierz gotowy arkusz z wynikami 10 zawodników z czterech rund, odblokuj edycję i zaprogramuj formuły (<code>SUMA</code>, <code>ŚREDNIA</code>, odejmowanie punktów karnych), które wyłonią mistrza szkoły.</p>
+      <div class="progress-row">
+        <span id="progress-text">Ukończone kroki misji: 0 z 7 (0%)</span>
+        <span id="ergonomy-text">⚡ Odznaki Sędziego Technicznego: 0 / 7</span>
+      </div>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </header>
+
+    <!-- Centrum pobierania pliku turniej.xlsx i turniej.csv -->
+    <section class="download-hub" aria-labelledby="dl-title">
+      <h2 id="dl-title">📥 CENTRUM POBIERANIA DANYCH BAZOWYCH</h2>
+      <p style="margin:0; color:#1E293B;">Pobierz na komputer plik startowy z tabelą 10 zawodników i otwórz go w programie <strong>Microsoft Excel 2016</strong>:</p>
+      <div class="download-actions">
+        <button type="button" class="btn-download-xlsx" id="btn-dl-xlsx">
+          📥 Pobierz plik startowy: turniej.xlsx (MS Excel 2016)
+        </button>
+        <button type="button" class="btn-download-csv" id="btn-dl-csv">
+          📄 Pobierz jako turniej.csv (Wersja awaryjna UTF-8)
+        </button>
+      </div>
+      <div id="dl-status" role="status" aria-live="polite" style="font-size:0.88rem; font-weight:700; color:#047857;"></div>
+
+      <!-- Wizualna symulacja paska Widok Chroniony z MS Excel 2016 -->
+      <div class="protected-view-bar">
+        <div>
+          <strong>⚠️ WIDOK CHRONIONY (MS Excel 2016):</strong> Po otwarciu pliku pobranego z internetu na górze okna Excela zobaczysz żółty pasek bezpieczeństwa. Dopóki nie klikniesz przycisku <strong>„Włącz edytowanie”</strong>, Excel nie pozwoli wpisać żadnej formuły!
+        </div>
+        <button type="button" class="protected-view-btn" id="btn-sim-unlock">🔓 Włącz edytowanie (Przetestuj!)</button>
+      </div>
+    </section>
+
+    <!-- Shortcut HUD (Ściągawka Sędziego Technicznego) -->
+    <section class="section-card" aria-labelledby="hud-title">
+      <h2 id="hud-title">⚡ Ściągawka Sędziego Technicznego (Ergonomia i Skróty)</h2>
+      <p class="section-sub">Jedno krótkie polecenie = ułamek sekundy pracy. Poznaj 6 nawyków profesjonalnego analityka danych:</p>
+      <div class="hud-grid">
+        <div class="hud-item">
+          <div class="hud-item-top"><kbd>Włącz edytowanie</kbd></div>
+          <p>Kliknij przycisk na <strong>żółtym pasku u góry Excela</strong> zaraz po otwarciu pobranego pliku, aby odblokować komórki.</p>
+        </div>
+        <div class="hud-item">
+          <div class="hud-item-top"><kbd>Alt</kbd> + <kbd>=</kbd></div>
+          <p>Błyskawicznie wstawia funkcję <strong><code>=SUMA(D2:G2)</code></strong> i sam zaznacza punkty z czterech rund pierwszego gracza.</p>
+        </div>
+        <div class="hud-item">
+          <div class="hud-item-top">Dwuklik na kwadraciku <kbd>+</kbd></div>
+          <p><strong>Trik Mistrza:</strong> Kliknij 2 razy w prawy dolny róg komórki z formułą – skopiuje się sama aż do 10. zawodnika!</p>
+        </div>
+        <div class="hud-item">
+          <div class="hud-item-top">Klawisz <kbd>F2</kbd></div>
+          <p>Podświetla kolorami komórki użyte w formule. Sprawdzisz, czy do <strong><code>ŚREDNIA(D2:G2)</code></strong> nie weszła przypadkiem kolumna Suma!</p>
+        </div>
+        <div class="hud-item">
+          <div class="hud-item-top">Klikanie komórek myszką</div>
+          <p>Wpisz <strong><code>=</code></strong>, kliknij <strong><code>H2</code></strong>, wpisz <strong><code>-</code></strong>, kliknij <strong><code>J2</code></strong> i naciśnij <kbd>Enter</kbd> – zero literówek w adresach!</p>
+        </div>
+        <div class="hud-item">
+          <div class="hud-item-top"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↓</kbd></div>
+          <p>Błyskawicznie zaznacza całą kolumnę wyników od pierwszego do ostatniego zawodnika.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interaktywny Symulator Tabeli Turniejowej (Sprawdzarka Wyników) -->
+    <section class="section-card" aria-labelledby="sim-title">
+      <h2 id="sim-title">📊 Interaktywny Symulator Tabeli <code>turniej.xlsx</code> (Sprawdzarka Wyników)</h2>
+      <p class="section-sub">Przełączaj widok poniżej, aby zobaczyć plik startowy, dokładne wzory formuł w wierszach 2–12 oraz gotowe liczby do porównania ze swoim Excelem:</p>
+
+      <div class="sim-controls" role="group" aria-label="Tryb podglądu tabeli">
+        <button type="button" class="sim-tab active" data-sim-mode="raw">1. Widok startowy (Pusty plik turniej.xlsx)</button>
+        <button type="button" class="sim-tab" data-sim-mode="formulas">2. Pokaż wzory formuł (=SUMA, =ŚREDNIA, =H2-J2)</button>
+        <button type="button" class="sim-tab" data-sim-mode="values">3. Pokaż obliczone wyniki końcowe</button>
+        <button type="button" class="sim-tab" data-sim-mode="master">4. Widok Mistrza ⭐ (Posortowany + TOP 3 + Rekord 100 pkt)</button>
+      </div>
+
+      <div class="excel-wrap">
+        <table class="excel-table" id="sim-table" aria-label="Podgląd arkusza turniej.xlsx"></table>
+      </div>
+    </section>
+    <!-- Instrukcja Laboratoryjna Krok po Kroku (6 Kroków + Zadanie z Gwiazdką) -->
+    <section class="section-card" aria-labelledby="steps-title">
+      <h2 id="steps-title">🛠️ Instrukcja Laboratoryjna Krok po Kroku</h2>
+      <p class="section-sub">Odhaczaj kolejne kroki w miarę wykonywania ćwiczenia w programie MS Excel 2016. Twój postęp zapisuje się automatycznie!</p>
+
+      <div class="steps-list">
+        <!-- Krok 1 -->
+        <article class="step-card" data-step-id="step1">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step1">
+            <div>
+              <h3 class="step-title">Krok 1: Pobranie pliku <code>turniej.xlsx</code> i odblokowanie edycji</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <ol>
+              <li>Kliknij zielony przycisk <strong>„📥 Pobierz plik startowy: turniej.xlsx”</strong> na górze strony i otwórz plik w programie <strong>Microsoft Excel 2016</strong>.</li>
+              <li>Spójrz pod wstążkę narzędzi – na żółtym pasku <strong>WIDOK CHRONIONY</strong> kliknij przycisk <strong>Włącz edytowanie</strong>.</li>
+              <li>Przyjrzyj się tabeli: w wierszach <strong>2–11</strong> znajduje się <strong>10 zawodników</strong>, ich punkty z <strong>4 rund</strong> (kolumny <code>D, E, F, G</code>) oraz <strong>Punkty karne</strong> (kolumna <code>J</code>).</li>
+              <li>Użyj <strong>dwukliku na pionowych kreskach między literami kolumn</strong> u góry arkusza, aby wszystkie nagłówki były w pełni widoczne.</li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- Krok 2 -->
+        <article class="step-card" data-step-id="step2">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step2">
+            <div>
+              <h3 class="step-title">Krok 2: Suma punktów z 4 rund (Funkcja <code>SUMA</code> + Dwuklik)</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <ol>
+              <li>Kliknij komórkę <strong><code>H2</code></strong> (kolumna <em>Suma Runda 1–4</em> dla pierwszego zawodnika – Jana Kowalskiego).</li>
+              <li>Wciśnij skrót klawiszowy <kbd>Alt</kbd> + <kbd>=</kbd> — w komórce pojawi się formuła <strong><code>=SUMA(D2:G2)</code></strong>.</li>
+              <li>Naciśnij <kbd>Enter</kbd> — zobaczysz wynik pierwszego gracza (<strong>75</strong>).</li>
+              <li>Kliknij ponownie komórkę <strong><code>H2</code></strong>, najedź kursorem na <strong>mały zielony kwadracik</strong> w jej prawym dolnym rogu (kursor zmieni się w czarny plusik <strong><code>+</code></strong>) i <strong>kliknij dwukrotnie lewym przyciskiem myszy!</strong></li>
+              <li>Excel sam skopiuje formułę dla wszystkich 10 zawodników aż do komórki <strong><code>H11</code></strong>.</li>
+            </ol>
+            <div class="pro-tip">
+              🖱️ <strong>Mysz w wersji Pro:</strong> Dwuklik na zielonym kwadraciku działa zawsze wtedy, gdy w sąsiedniej kolumnie znajdują się dane. Nawet gdyby w turnieju brało udział 500 uczniów, dwuklik policzyłby ich wyniki w ułamku sekundy!
+            </div>
+          </div>
+        </article>
+
+        <!-- Krok 3 -->
+        <article class="step-card" data-step-id="step3">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step3">
+            <div>
+              <h3 class="step-title">Krok 3: Średnia liczba punktów na rundę (Funkcja <code>ŚREDNIA</code>)</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <ol>
+              <li>Kliknij komórkę <strong><code>I2</code></strong> (kolumna <em>Średnia na rundę</em>).</li>
+              <li>Wpisz początek funkcji: <strong><code>=ŚREDNIA(</code></strong></li>
+              <li>Zaznacz myszką punkty pierwszego zawodnika z czterech rund, czyli zakres <strong><code>D2:G2</code></strong> <em>(Uwaga! Nie zaznaczaj komórki <code>H2</code> z sumą!)</em>.</li>
+              <li>Zamknij nawias <strong><code>)</code></strong> i naciśnij <kbd>Enter</kbd> — gotowa formuła to <strong><code>=ŚREDNIA(D2:G2)</code></strong> (wynik dla Jana Kowalskiego: <strong>18,75</strong>).</li>
+              <li>Kliknij komórkę <strong><code>I2</code></strong> i użyj <strong>dwukliku na zielonym kwadraciku</strong>, aby skopiować średnią dla pozostałych zawodników (<code>I2:I11</code>).</li>
+            </ol>
+            <div class="pro-tip">
+              🔍 <strong>Kontrola jakości (<kbd>F2</kbd>):</strong> Kliknij dowolną średnią i naciśnij klawisz <kbd>F2</kbd>. Kolorowa ramka pokaże Ci, czy zakres obejmuje wyłącznie kolumny <code>D:G</code> (bez kolumny <code>H</code>!).
+            </div>
+          </div>
+        </article>
+
+        <!-- Krok 4 -->
+        <article class="step-card" data-step-id="step4">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step4">
+            <div>
+              <h3 class="step-title">Krok 4: Wynik końcowy po odjęciu punktów karnych (Własna formuła <code>=H2-J2</code>)</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <p style="margin:0 0 8px;">Każdy zawodnik mógł otrzymać punkty karne (kolumna <code>J</code>), które należy odjąć od jego sumy punktów z rund (kolumna <code>H</code>): <strong>Wynik końcowy = Suma Runda 1–4 − Punkty karne</strong>.</p>
+            <ol>
+              <li>Kliknij komórkę <strong><code>K2</code></strong> (kolumna <em>Wynik końcowy</em>).</li>
+              <li>Wpisz znak <strong><code>=</code></strong>, następnie <strong>kliknij myszką komórkę <code>H2</code></strong> (Suma punktów), wpisz znak <strong><code>-</code></strong> (minus), <strong>kliknij komórkę <code>J2</code></strong> (Punkty karne) i wciśnij <kbd>Enter</kbd>.</li>
+              <li>W komórce <strong><code>K2</code></strong> powstała formuła: <strong><code>=H2-J2</code></strong> (dla Jana Kowalskiego: <code>75 - 2 = 73</code>).</li>
+              <li>Skopiuj formułę w dół dla wszystkich graczy za pomocą <strong>dwukliku na zielonym kwadraciku</strong>.</li>
+              <li>Zaznacz wyniki końcowe (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↓</kbd>), pogrub je (<kbd>Ctrl</kbd> + <kbd>B</kbd>) i nadaj im delikatne błękitne tło.</li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- Krok 5 -->
+        <article class="step-card" data-step-id="step5">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step5">
+            <div>
+              <h3 class="step-title">Krok 5: Statystyki całych rund w wierszu 12 (Która runda była najtrudniejsza?)</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <ol>
+              <li>Na dole tabeli (w wierszu <strong>12</strong>) znajduje się podsumowanie <strong>Średnia rundy</strong>. Kliknij komórkę <strong><code>D12</code></strong> (pod wynikami z <em>Rundy 1</em>).</li>
+              <li>Wpisz funkcję obliczającą średnią wszystkich 10 zawodników w pierwszej rundzie: <strong><code>=ŚREDNIA(D2:D11)</code></strong> i naciśnij <kbd>Enter</kbd> (wynik: <strong>19,4</strong>).</li>
+              <li>Złap za <strong>zielony kwadracik</strong> komórki <strong><code>D12</code></strong> i przeciągnij go w prawo aż do komórki <strong><code>K12</code></strong> — od razu poznasz średni wynik każdej rundy (najtrudniejsza była <em>Runda 3</em> ze średnią <strong>19,3</strong>!) oraz średni wynik końcowy całego turnieju (<strong>76,6</strong>).</li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- Krok 6 -->
+        <article class="step-card" data-step-id="step6">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step6">
+            <div>
+              <h3 class="step-title">Krok 6: Wyłonienie zwycięzcy (Sortowanie) i zapis pliku</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <ol>
+              <li>Aby nie pomieszać wiersza 12 ze średnią rundy, zaznacz myszką zakres samych zawodników wraz z nagłówkami: <strong><code>A1:K11</code></strong>.</li>
+              <li>Na karcie <strong>Narzędzia główne</strong> kliknij <strong>Sortuj i filtruj</strong> ➔ <strong>Sortowanie niestandardowe...</strong></li>
+              <li>Upewnij się, że zaznaczono pole <em>„Moje dane mają nagłówki”</em>, wybierz <strong>Sortuj według: Wynik końcowy</strong>, <strong>Kolejność: Od największych do najmniejszych</strong> i kliknij <strong>OK</strong> (1. miejsce: <strong>Hanna Lewandowska – 93 pkt</strong>!).</li>
+              <li>Wciśnij <kbd>Ctrl</kbd> + <kbd>S</kbd> (lub <em>Plik ➔ Zapisz jako</em>) i zapisz plik w swojej <em>Teczce ucznia</em> pod nazwą: <strong><code>turniej_wyniki_Nazwisko_Imie.xlsx</code></strong>.</li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- Zadanie dla Mistrza (Na ocenę celującą) -->
+        <article class="step-card master-card" data-step-id="step7">
+          <label class="step-header">
+            <input type="checkbox" class="step-checkbox" data-step="step7">
+            <div>
+              <h3 class="step-title">⭐ Zadanie dla Mistrza (Na ocenę celującą – 6!): Dystans do rekordu 100 pkt i Podium TOP 3</h3>
+            </div>
+          </label>
+          <div class="step-body">
+            <p style="margin:0 0 8px;">Rekord szkoły w tym turnieju wynosi <strong>100 punktów</strong>. Sprawdźmy, ilu punktów zabrakło każdemu zawodnikowi do rekordu oraz podświetlmy medalistów:</p>
+            <ol>
+              <li>W komórce <strong><code>L1</code></strong> dopisz nagłówek: <strong><code>Brakuje do rekordu (100 pkt)</code></strong>.</li>
+              <li>W komórce <strong><code>L2</code></strong> wpisz formułę odejmującą wynik końcowy zawodnika (<code>K2</code>) od liczby <code>100</code>: <strong><code>=100-K2</code></strong> i skopiuj ją dwuklikiem dla wszystkich graczy (<code>L2:L11</code>).</li>
+              <li>Zaznacz wyniki końcowe zawodników (<strong><code>K2:K11</code></strong>), wybierz <strong>Formatowanie warunkowe</strong> ➔ <strong>Reguły pierwszych/ostatnich</strong> ➔ <strong>Pierwsze 10 elementów...</strong>, zmień liczbę <code>10</code> na <strong><code>3</code></strong> i wybierz <strong>Jasnozielone wypełnienie</strong>, aby automatycznie wyróżnić TOP 3 graczy na podium!</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Checklista Sukcesu i Moduł Samooceny (2-6) -->
+    <section class="section-card" aria-labelledby="eval-title">
+      <h2 id="eval-title">📋 Checklista Sukcesu i Kalkulator Oceny (2–6)</h2>
+      <p class="section-sub">Sprawdź kryteria oceniania i zobacz, jaką ocenę zdobywasz za odhaczone etapy zadania:</p>
+
+      <div class="excel-wrap" style="margin-bottom:16px;">
+        <table class="excel-table" style="min-width:600px;">
+          <thead>
+            <tr class="excel-header-row">
+              <th style="width:170px;">Poziom / Ocena</th>
+              <th>Kryteria – Sprawdź, co udało Ci się osiągnąć:</th>
+              <th style="width:120px; text-align:center;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="criteria-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="grade-box">
+        <div>
+          <div style="font-size:0.85rem; color:#93C5FD; font-weight:700; text-transform:uppercase;">Twoja aktualna samoocena z zadania laboratoryjnego</div>
+          <div id="grade-desc" style="font-size:1.05rem; font-weight:700; margin-top:4px;">Odhacz wykonane kroki powyżej, aby obliczyć proponowaną ocenę.</div>
+        </div>
+        <div class="grade-badge" id="grade-badge">Ocena: —</div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <label for="student-notes" style="display:block; font-weight:700; margin-bottom:6px;">📝 Twoje notatki z lekcji (np. kto wygrał turniej i która runda miała najniższą średnią):</label>
+        <textarea id="student-notes" rows="3" style="width:100%; padding:12px; border-radius:10px; border:2px solid var(--border-strong); font-family:inherit; font-size:0.95rem;" placeholder="Np. Mistrzynią turnieju została Hanna Lewandowska (93 pkt), a najtrudniejsza była Runda 3 (średnia 19,3 pkt)..."></textarea>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'inf_pruszcz_klasa6_lekcja2_3_turniej';
+
+    // Dane 10 zawodników turnieju
+    const PLAYERS = [
+      { lp: 1, name: 'Jan Kowalski', cls: '6A', r1: 18, r2: 22, r3: 15, r4: 20, pen: 2 },
+      { lp: 2, name: 'Zuzanna Nowak', cls: '6B', r1: 24, r2: 25, r3: 21, r4: 22, pen: 0 },
+      { lp: 3, name: 'Szymon Wiśniewski', cls: '6A', r1: 14, r2: 16, r3: 19, r4: 15, pen: 5 },
+      { lp: 4, name: 'Maja Wójcik', cls: '6C', r1: 22, r2: 20, r3: 23, r4: 24, pen: 3 },
+      { lp: 5, name: 'Aleksander Kamiński', cls: '6B', r1: 19, r2: 18, r3: 17, r4: 20, pen: 1 },
+      { lp: 6, name: 'Hanna Lewandowska', cls: '6C', r1: 25, r2: 23, r3: 24, r4: 25, pen: 4 },
+      { lp: 7, name: 'Filip Zieliński', cls: '6A', r1: 12, r2: 15, r3: 14, r4: 17, pen: 0 },
+      { lp: 8, name: 'Alicja Szymańska', cls: '6B', r1: 21, r2: 19, r3: 22, r4: 18, pen: 2 },
+      { lp: 9, name: 'Mikołaj Woźniak', cls: '6C', r1: 16, r2: 20, r3: 18, r4: 16, pen: 3 },
+      { lp: 10, name: 'Oliwia Dąbrowska', cls: '6A', r1: 23, r2: 21, r3: 20, r4: 24, pen: 1 }
+    ].map(p => {
+      const sum = p.r1 + p.r2 + p.r3 + p.r4;
+      const avg = sum / 4;
+      const finalScore = sum - p.pen;
+      const toRecord = 100 - finalScore;
+      return { ...p, sum, avg, finalScore, toRecord };
+    });
+
+    const fmtPl = (n) => String(n).replace('.', ',');
+
+    // Stan zapisywany w localStorage
+    let state = {
+      steps: {},
+      notes: '',
+      timerSec: 1500,
+      simMode: 'raw',
+      largeFont: false
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed, steps: { ...(parsed.steps || {}) } };
+        }
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    // --- 1. GENERATOR PLIKU TURNIEJ.XLSX (SheetJS) ORAZ TURNIEJ.CSV ---
+    function getRawSheetData() {
+      const aoa = [
+        ['Lp.', 'Zawodnik', 'Klasa', 'Runda 1', 'Runda 2', 'Runda 3', 'Runda 4', 'Suma Runda 1-4', 'Średnia na rundę', 'Punkty karne', 'Wynik końcowy']
+      ];
+      PLAYERS.forEach(p => {
+        aoa.push([p.lp, p.name, p.cls, p.r1, p.r2, p.r3, p.r4, '', '', p.pen, '']);
+      });
+      aoa.push(['', 'Średnia rundy', '', '', '', '', '', '', '', '', '']);
+      return aoa;
+    }
+
+    function downloadTurniejCsv() {
+      const aoa = getRawSheetData();
+      const csvContent = '\uFEFF' + aoa.map(row => row.join(';')).join('\r\n') + '\r\n';
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'turniej.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      document.getElementById('dl-status').textContent = '✓ Pobrano plik turniej.csv (kodowanie UTF-8 dla MS Excel 2016)!';
+    }
+
+    function downloadTurniejXlsx() {
+      const aoa = getRawSheetData();
+      if (window.XLSX) {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(aoa);
+        ws['!cols'] = [
+          { wch: 6 },
+          { wch: 22 },
+          { wch: 8 },
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 16 },
+          { wch: 18 },
+          { wch: 14 },
+          { wch: 16 }
+        ];
+        XLSX.utils.book_append_sheet(wb, ws, 'Turniej');
+        XLSX.writeFile(wb, 'turniej.xlsx');
+        document.getElementById('dl-status').textContent = '✓ Wygenerowano i pobrano plik startowy turniej.xlsx! Otwórz go w MS Excel 2016 i kliknij „Włącz edytowanie”.';
+      } else {
+        downloadTurniejCsv();
+      }
+    }
+
+    document.getElementById('btn-dl-xlsx').onclick = downloadTurniejXlsx;
+    document.getElementById('btn-dl-csv').onclick = downloadTurniejCsv;
+    document.getElementById('btn-sim-unlock').onclick = () => {
+      document.getElementById('dl-status').textContent = '🔓 Brawo! Tak właśnie odblokowujesz plik w MS Excel 2016 po pobraniu z internetu.';
+      state.steps.step1 = true;
+      saveState();
+      syncUI();
+    };
+
+    // --- 2. SYMULATOR TABELI TURNIEJOWEJ ---
+    function renderSimulatorTable() {
+      const mode = state.simMode;
+      const isMaster = mode === 'master';
+      const rows = isMaster
+        ? [...PLAYERS].sort((a, b) => b.finalScore - a.finalScore)
+        : PLAYERS;
+
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+      if (isMaster) letters.push('L');
+
+      let html = `
+        <thead>
+          <tr class="excel-col-letters">
+            <th></th>
+            ${letters.map(l => `<th>${l}</th>`).join('')}
+          </tr>
+          <tr class="excel-header-row">
+            <th class="excel-row-num">1</th>
+            <th>Lp.</th>
+            <th>Zawodnik</th>
+            <th>Klasa</th>
+            <th>Runda 1</th>
+            <th>Runda 2</th>
+            <th>Runda 3</th>
+            <th>Runda 4</th>
+            <th>Suma Runda 1-4</th>
+            <th>Średnia na rundę</th>
+            <th>Punkty karne</th>
+            <th>Wynik końcowy</th>
+            ${isMaster ? '<th>Brakuje do rekordu (100 pkt)</th>' : ''}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      rows.forEach((p, idx) => {
+        const rowNum = idx + 2;
+        const isTop3 = isMaster && idx < 3;
+        let colH = '';
+        let colI = '';
+        let colK = '';
+        let colL = '';
+        let classH = 'cell-num';
+        let classI = 'cell-num';
+        let classK = 'cell-num';
+        let classL = 'cell-num';
+
+        if (mode === 'formulas') {
+          colH = `=SUMA(D${rowNum}:G${rowNum})`;
+          colI = `=ŚREDNIA(D${rowNum}:G${rowNum})`;
+          colK = `=H${rowNum}-J${rowNum}`;
+          classH = classI = classK = 'cell-formula';
+        } else if (mode === 'values' || mode === 'master') {
+          colH = p.sum;
+          colI = fmtPl(p.avg);
+          colK = p.finalScore + (isTop3 ? ' 🏆' : '');
+          colL = `=100-K${rowNum} ➔ ${p.toRecord}`;
+          classH = classI = 'cell-num cell-result';
+          classK = 'cell-num ' + (isTop3 ? 'cell-top3' : 'cell-final');
+          classL = 'cell-num cell-result';
+        }
+
+        html += `
+          <tr>
+            <td class="excel-row-num">${rowNum}</td>
+            <td class="cell-center">${p.lp}</td>
+            <td><strong>${p.name}</strong></td>
+            <td class="cell-center">${p.cls}</td>
+            <td class="cell-num">${p.r1}</td>
+            <td class="cell-num">${p.r2}</td>
+            <td class="cell-num">${p.r3}</td>
+            <td class="cell-num">${p.r4}</td>
+            <td class="${classH}">${colH}</td>
+            <td class="${classI}">${colI}</td>
+            <td class="cell-num">${p.pen}</td>
+            <td class="${classK}">${colK}</td>
+            ${isMaster ? `<td class="${classL}">${colL}</td>` : ''}
+          </tr>
+        `;
+      });
+
+      // Wiersz 12 - Średnia rundy
+      if (mode === 'raw') {
+        html += `
+          <tr class="row-summary">
+            <td class="excel-row-num">12</td>
+            <td></td>
+            <td>Średnia rundy</td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        `;
+      } else if (mode === 'formulas') {
+        html += `
+          <tr class="row-summary">
+            <td class="excel-row-num">12</td>
+            <td></td>
+            <td>Średnia rundy</td>
+            <td></td>
+            <td class="cell-formula">=ŚREDNIA(D2:D11)</td>
+            <td class="cell-formula">=ŚREDNIA(E2:E11)</td>
+            <td class="cell-formula">=ŚREDNIA(F2:F11)</td>
+            <td class="cell-formula">=ŚREDNIA(G2:G11)</td>
+            <td class="cell-formula">=ŚREDNIA(H2:H11)</td>
+            <td class="cell-formula">=ŚREDNIA(I2:I11)</td>
+            <td class="cell-formula">=ŚREDNIA(J2:J11)</td>
+            <td class="cell-formula">=ŚREDNIA(K2:K11)</td>
+          </tr>
+        `;
+      } else {
+        html += `
+          <tr class="row-summary">
+            <td class="excel-row-num">12</td>
+            <td></td>
+            <td>Średnia rundy</td>
+            <td></td>
+            <td class="cell-num">19,4</td>
+            <td class="cell-num">19,9</td>
+            <td class="cell-num" title="Najtrudniejsza runda!">19,3 ⚠️</td>
+            <td class="cell-num">20,1</td>
+            <td class="cell-num">78,7</td>
+            <td class="cell-num">19,68</td>
+            <td class="cell-num">2,1</td>
+            <td class="cell-num">76,6</td>
+            ${isMaster ? '<td class="cell-num">23,4</td>' : ''}
+          </tr>
+        `;
+      }
+
+      html += '</tbody>';
+      document.getElementById('sim-table').innerHTML = html;
+
+      document.querySelectorAll('[data-sim-mode]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.simMode === mode);
+      });
+    }
+
+    document.querySelectorAll('[data-sim-mode]').forEach(btn => {
+      btn.onclick = () => {
+        state.simMode = btn.dataset.simMode;
+        saveState();
+        renderSimulatorTable();
+      };
+    });
+
+    // --- 3. SYNCHRONIZACJA CHECKLISTY I SAMOOCENY ---
+    const CRITERIA = [
+      { grade: 'Dopuszczający (2)', reqSteps: ['step1'], text: 'Pobrano i otwarto plik turniej, włączono edytowanie, dopasowano szerokości kolumn i wpisano prostą formułę ze znakiem =.' },
+      { grade: 'Dostateczny (3)', reqSteps: ['step1', 'step4'], text: 'Obliczono Wynik końcowy zawodników za pomocą formuły z adresami komórek (=H2-J2) i skopiowano ją w dół tabeli.' },
+      { grade: 'Dobry (4)', reqSteps: ['step1', 'step2', 'step3', 'step4'], text: 'Poprawnie zastosowano funkcję SUMA (=SUMA(D2:G2)) oraz funkcję ŚREDNIA (=ŚREDNIA(D2:G2)) dla wszystkich uczestników.' },
+      { grade: 'Bardzo dobry (5)', reqSteps: ['step1', 'step2', 'step3', 'step4', 'step5', 'step6'], text: 'Obliczono średnie statystyki poszczególnych rund w wierszu podsumowania, posortowano tabelę i zapisano plik w Teczce ucznia.' },
+      { grade: 'Celujący (6) ⭐', reqSteps: ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'], text: 'Wykonano zadanie z gwiazdką: obliczono brakujące punkty do rekordu (=100-K2), posortowano ranking i wyróżniono TOP 3 graczy formatowaniem warunkowym.' }
+    ];
+
+    function syncUI() {
+      const allSteps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
+      let doneCount = 0;
+
+      allSteps.forEach(sid => {
+        const checked = !!state.steps[sid];
+        if (checked) doneCount++;
+        const cb = document.querySelector(`.step-checkbox[data-step="${sid}"]`);
+        const card = document.querySelector(`.step-card[data-step-id="${sid}"]`);
+        if (cb) cb.checked = checked;
+        if (card) card.classList.toggle('completed', checked);
+      });
+
+      const pct = Math.round((doneCount / allSteps.length) * 100);
+      document.getElementById('progress-text').textContent = `Ukończone kroki misji: ${doneCount} z ${allSteps.length} (${pct}%)`;
+      document.getElementById('ergonomy-text').textContent = `⚡ Odznaki Sędziego Technicznego: ${doneCount} / ${allSteps.length}`;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+
+      // Tabela kryteriów oceny
+      const tbody = document.getElementById('criteria-tbody');
+      tbody.innerHTML = CRITERIA.map(c => {
+        const ok = c.reqSteps.every(s => !!state.steps[s]);
+        return `
+          <tr style="${ok ? 'background:#ECFDF5;' : ''}">
+            <td><strong>${c.grade}</strong></td>
+            <td>${c.text}</td>
+            <td class="cell-center"><strong>${ok ? '✅ Zaliczone!' : '⏳ W toku'}</strong></td>
+          </tr>
+        `;
+      }).join('');
+
+      // Wyliczenie proponowanej oceny
+      let currentGrade = '—';
+      let desc = 'Zacznij od Kroku 1 (pobranie pliku turniej.xlsx i kliknięcie „Włącz edytowanie”).';
+      if (doneCount === 7) {
+        currentGrade = '6 (Celujący) 🏆';
+        desc = 'Perfekcyjnie! Wykonałeś wszystkie 6 kroków oraz Zadanie dla Mistrza z rekordem 100 pkt i TOP 3!';
+      } else if (doneCount >= 6 && !state.steps.step7) {
+        currentGrade = '5 (Bardzo dobry) 🌟';
+        desc = 'Świetna robota! Cały arkusz turniejowy jest policzony i posortowany. Zrób jeszcze Zadanie z Gwiazdką na 6!';
+      } else if (doneCount >= 4) {
+        currentGrade = '4 (Dobry) 👍';
+        desc = 'Bardzo dobrze! Masz już sumy, średnie i wyniki końcowe. Dokończ statystyki rund w wierszu 12 i sortowanie!';
+      } else if (doneCount >= 2) {
+        currentGrade = '3 (Dostateczny)';
+        desc = 'Dobry początek! Kontynuuj kolejne kroki instrukcji, aby zdobyć wyższą ocenę.';
+      } else if (doneCount === 1) {
+        currentGrade = '2 (Dopuszczający)';
+        desc = 'Plik odblokowany! Teraz użyj skrótu Alt + = oraz dwukliku na zielonym kwadraciku w Kroku 2.';
+      }
+
+      document.getElementById('grade-badge').textContent = `Ocena: ${currentGrade}`;
+      document.getElementById('grade-desc').textContent = desc;
+
+      document.body.classList.toggle('large-font', !!state.largeFont);
+      document.getElementById('btn-font').textContent = state.largeFont ? '🔍 Zwykły tekst' : '🔍 Powiększ tekst';
+    }
+
+    document.querySelectorAll('.step-checkbox').forEach(cb => {
+      cb.addEventListener('change', () => {
+        state.steps[cb.dataset.step] = cb.checked;
+        saveState();
+        syncUI();
+      });
+    });
+
+    // Notatki ucznia
+    const notesEl = document.getElementById('student-notes');
+    notesEl.addEventListener('input', () => {
+      state.notes = notesEl.value;
+      saveState();
+    });
+
+    // --- 4. LICZNIK 25 MINUT ---
+    let timerInterval = null;
+    function renderTimer() {
+      const m = String(Math.floor(state.timerSec / 60)).padStart(2, '0');
+      const s = String(state.timerSec % 60).padStart(2, '0');
+      document.getElementById('timer-display').textContent = `${m}:${s}`;
+    }
+    document.getElementById('timer-start').onclick = () => {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (state.timerSec > 0) {
+          state.timerSec--;
+          renderTimer();
+          if (state.timerSec % 5 === 0) saveState();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+      }, 1000);
+    };
+    document.getElementById('timer-pause').onclick = () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      saveState();
+    };
+    document.getElementById('timer-reset').onclick = () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      state.timerSec = 1500;
+      saveState();
+      renderTimer();
+    };
+
+    // Przyciski narzędziowe
+    document.getElementById('btn-font').onclick = () => {
+      state.largeFont = !state.largeFont;
+      saveState();
+      syncUI();
+    };
+    document.getElementById('btn-print').onclick = () => window.print();
+    document.getElementById('btn-clear-storage').onclick = () => {
+      if (confirm('Czy na pewno chcesz wyczyścić postęp tego zadania i zacząć od nowa?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        clearInterval(timerInterval);
+        timerInterval = null;
+        state = { steps: {}, notes: '', timerSec: 1500, simMode: 'raw', largeFont: false };
+        notesEl.value = '';
+        renderTimer();
+        renderSimulatorTable();
+        syncUI();
+      }
+    };
+
+    // Inicjalizacja
+    loadState();
+    notesEl.value = state.notes || '';
+    renderTimer();
+    renderSimulatorTable();
+    syncUI();
+  </script>
+</body>
+</html>

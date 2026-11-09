@@ -203,6 +203,18 @@ export const extraWorksheets = [
     source: 'Karta pracy nauczyciela do tematu 2.3.'
   },
   {
+    id: 'karta-6-2-3-turniej',
+    type: 'task',
+    grades: [6],
+    title: 'KARTA PRACY: Wielki Turniej Szkolny — obliczenia na pliku bazowym turniej.xlsx (Temat 2.3 · Zadanie 2)',
+    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
+    tags: ['Excel2016', 'Formuły', 'SUMA', 'ŚREDNIA', 'turniej.xlsx', 'Lekcja 2.3', 'KartaPracy'],
+    summary: 'Temat 2.3 (Część 2): Pobierz plik bazowy turniej.xlsx (lub turniej.csv), odblokuj Widok chroniony, oblicz sumy rund (Alt + = i dwuklik), średnie, wyniki po odjęciu punktów karnych oraz wyłoń TOP 3!',
+    body: `<h2>KARTA PRACY: WIELKI TURNIEJ SZKOLNY — Obliczenia na pobranym pliku bazowym turniej.xlsx (Klasa VI)</h2>
+<p>Zostajesz głównym sędzią technicznym Szkolnego Turnieju Gier Logicznych! Pobierz gotowy plik startowy <code>turniej.xlsx</code> i zaprogramuj formuły oraz funkcje (<code>SUMA</code>, <code>ŚREDNIA</code>, <code>=H2-J2</code>), które wyłonią mistrza turnieju.</p>`,
+    source: 'Informatyka – Klasa VI • Temat 2.3 (Część 2): Budżet kieszonkowy. Proste obliczenia w programie MS Excel – praca z plikiem źródłowym turniej.xlsx'
+  },
+  {
     id: 'karta-6-2-4-wykresy',
     type: 'task', grades: [6],
     title: '2.4. Demokratyczne wybory — tworzenie wykresów (zadanie 1)',
