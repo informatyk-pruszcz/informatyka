@@ -1798,6 +1798,9 @@ function renderGrade6ScheduleWorksheet() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === 'karta-6-2-3-budzet') {
+    return '<p><a class="btn primary" href="./lekcja2-3.html">Otwórz laboratorium Excel — Budżet kieszonkowy →</a></p>';
+  }
   if (id === 'karta-6-2-2-porzadki') {
     return '<p><a class="btn primary" href="./lekcja2-2.html">Otwórz laboratorium Excel — Porządki w komórce →</a></p>';
   }

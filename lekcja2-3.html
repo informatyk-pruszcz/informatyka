@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Budżet kieszonkowy · Excel 2016 · Klasa VI</title>
+<script defer src="https://cdn.tailwindcss.com"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#0f172a;font:16px/1.55 "Segoe UI",system-ui,sans-serif;text-align:left}
+main{max-width:1050px;margin:auto;padding:18px}nav{display:flex;gap:8px;flex-wrap:wrap;color:#475569;font-size:.9rem}a{color:#174cae;text-decoration:underline}
+header,section,dialog{border:1px solid #cbd5e1;border-radius:16px;background:white;padding:clamp(16px,3vw,30px);margin:18px 0}
+header{background:#0f172a;color:white}h1,h2,h3{font-weight:700;line-height:1.23}h1{font-size:clamp(1.55rem,4vw,2.3rem);max-width:32em}h2{font-size:1.4rem}h3{font-size:1.05rem}
+h1,h2,h3,p{margin:0 0 .7em}p:last-child{margin-bottom:0}.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+button,summary,input{font:inherit}button,summary{cursor:pointer}button,summary,kbd{border:1px solid #94a3b8;border-radius:8px;background:#fff;color:#0f172a;padding:7px 12px}
+button:hover,summary:hover{background:#eff6ff}button:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
+button:disabled{opacity:.55;cursor:default}.primary{background:#2563eb;color:white;border-color:#2563eb}.primary:hover{background:#174cae}
+kbd{display:inline-block;padding:1px 5px;border-bottom:3px solid #94a3b8;font:600 .9em monospace}
+time{font:700 1.7rem monospace;margin-right:12px}progress{width:min(100%,430px);height:14px;accent-color:#10b981;display:block}
+.shortcuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px}details p{padding:8px}summary{height:auto;min-height:45px}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:12px 0}td,th{border:1px solid #cbd5e1;padding:9px;text-align:left}th{background:#0f172a;color:white}.hit{background:#d1fae5;color:#064e3b}.bar{display:block;height:5px;background:#10b981;margin-top:3px}.value{width:6em;border:1px solid #64748b;border-radius:5px;background:white;color:#0f172a;padding:3px}
+@keyframes fillNumber{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}.number-flash{animation:fillNumber .24s backwards}
+@media(prefers-reduced-motion:reduce){.number-flash{animation:none}}
+.step{padding:16px 0;border-top:1px solid #dbe3ec}.step label{display:flex;align-items:baseline;gap:10px;font-weight:700}.step input{width:18px;height:18px;accent-color:#2563eb}.step p{margin:.4em 0 0 28px}.step:has(input:checked){border-left:4px solid #10b981;padding-left:8px}
+dialog{position:fixed;inset:0;margin:auto;max-width:min(90vw,580px);max-height:90vh;overflow:auto}dialog::backdrop{background:#0f172ab3}#reportList{list-style:disc;padding-left:1.3em}.note{color:#475569;font-size:.92rem}
+</style><style>/* Wspólne kolory podstron. Preferencję zapisuje theme.js. */
+@media screen {
+  body.dark {
+    color-scheme:dark;
+    --night:#102129; --panel:#192e37; --soft-panel:#243e45;
+    --light-ink:#e9f1f2; --light-muted:#c3d4d8; --night-line:#68838a;
+    --link:#98e6cb;
+  }
+  body.dark:not(.focus) {
+    --ink:var(--light-ink); --muted:var(--light-muted); --paper:var(--panel);
+    --wash:var(--night); --accent:var(--link); --line:var(--night-line);
+    background:var(--night); color:var(--light-ink);
+  }
+  body.dark figure svg text:not([fill]) {fill:currentColor;}
+  body.dark #theme,body.dark #theme:hover {
+    color:var(--light-ink);background:var(--panel);border:1px solid var(--night-line);
+  }
+  body.dark #theme[aria-pressed=true]{box-shadow:inset 0 -3px var(--link);}
+  body.dark #theme:focus-visible {outline:3px solid var(--link);outline-offset:2px;}
+
+  body.dark[data-lesson-ui="channels"] :is(section,dialog,button:not(.primary),summary,kbd,input),
+  body.dark[data-lesson-ui="pilots"] :is(article,fieldset,input,select,textarea,button:not(.primary)),
+  body.dark[data-lesson-ui="keyboard"] :is(.card,.level,button:not(.primary),.entry,.target){
+    background:var(--panel);color:var(--light-ink);border-color:var(--night-line);
+  }
+  body.dark[data-lesson-ui="keyboard"] .level.current,body.dark[data-lesson-ui="pilots"] :is(pre,.data) {background:var(--soft-panel);}
+  body.dark[data-lesson-ui="keyboard"] :is(.stats b,a),body.dark[data-lesson-ui="pilots"] a,body.dark[data-lesson-ui="channels"] a {color:var(--link);}
+  body.dark[data-lesson-ui="keyboard"] :is(small,.muted,.feedback),
+  body.dark[data-lesson-ui="pilots"] #position,body.dark[data-lesson-ui="channels"] :is(nav,.note) {color:var(--light-muted);}
+  body.dark[data-lesson-ui="keyboard"] .hint {color:#173b31;}
+  body.dark[data-lesson-ui="keyboard"] .level.current {outline:2px solid var(--link);outline-offset:-2px;}
+  body.dark[data-lesson-ui="keyboard"] .stars {color:#ffe093;}
+
+  body.dark[data-lesson-ui="plan"] {
+    --bg-page:var(--night);--bg-card:var(--panel);--bg-muted:var(--soft-panel);
+    --text-main:var(--light-ink);--text-secondary:var(--light-muted);--text-muted:var(--light-muted);
+    --border-color:#526d77;--border-strong:var(--night-line);
+  }
+  body.dark[data-lesson-ui="plan"] :is(.ergo-badge:not(.unlocked),.btn:not(.btn-primary,.btn-mint,.btn-soft-reset),.hud-tile:hover,.step-status-pill) {
+    background:var(--soft-panel);color:var(--light-ink);
+  }
+  body.dark[data-lesson-ui="plan"] :is(.back-link,.timer-display){color:var(--link);}
+  body.dark[data-lesson-ui="plan"] .back-link:hover {background:var(--soft-panel);}
+  body.dark[data-lesson-ui="plan"] .excel-window {
+    color-scheme:light; color:#142331;--text-main:#172737;--text-muted:#475569;--bg-muted:#edf2f6;--bg-card:white;
+  }
+  body.dark[data-lesson-ui="plan"] kbd {color:#102129;}
+  body.dark[data-lesson-ui="plan"] .cert-stat {background:var(--panel);}
+}
+@media print { #theme{display:none;} }
+@media screen {
+  body.dark[data-lesson-ui="plan"] :is(.step-card.star-step,.step-card.completed,.criteria-row.achieved) {background:#244339;}
+  body.dark[data-lesson-ui="plan"] .back-link {background:#203c46;}
+  body.dark[data-lesson-ui="keyboard"] #storageInfo {color:var(--light-muted);}
+}</style>
+<style>
+code{font-family:Consolas,monospace;border:1px solid #94a3b8;border-radius:5px;padding:1px 4px;overflow-wrap:anywhere}
+.income,.expense,.balance{font-weight:700}.income{background:#d1fae5;color:#064e3b}.expense{background:#fef3c7;color:#713f12}.balance{background:#dbeafe;color:#173d79}
+body.dark .income{background:#123f34;color:#defff3}body.dark .expense{background:#4a3314;color:#fff2ca}body.dark .balance{background:#193654;color:#deefff}
+table caption{text-align:left;font-weight:600}.tools+table{margin-top:0}.criteria{list-style:disc;padding-left:1.4em}details{margin-bottom:6px}dialog{width:34rem}
+@media print{nav,button,.tools,dialog{display:none!important} header,section{border:none;padding:0;margin:12pt 0;color:black;background:white}body{font-size:10pt}main{padding:0}.step,table,details{break-inside:avoid}.scroll{overflow:visible}th,td{padding:3pt}}
+</style></head><body data-lesson-ui="channels"><main>
+<nav aria-label="Ścieżka lekcji"><a href="./#home">← Powrót do informatyk-pruszcz.github.io/informatyka</a> | <a href="./#class/6">Klasa 6</a> | <a href="./#item/topic-6-2-3">Dział 2: Arkusz kalkulacyjny</a><button id="theme">Ciemny motyw</button></nav>
+<header><p>Klasa VI · „Lubię to!” · II.3c · 2 × 45 minut</p><h1>Temat 2.3: Budżet kieszonkowy. Proste obliczenia w programie MS Excel 2016</h1><p>Ile zostanie w portfelu po zakupie gry? Zbuduj budżet, który sam przeliczy wynik po zmianie jednej kwoty.</p>
+<div class="tools"><time id="clock" aria-label="Czas pracy">00:00</time><button id="timer">Start</button></div><label id="progressText" for="progress"></label><progress id="progress" max="7" value="0"></progress></header>
+<section><h2>Ściągawka do Excela</h2><div class="shortcuts"><details><summary><kbd>=</kbd></summary><p>Zacznij od znaku =. W tym ćwiczeniu pisz formuły bez spacji. Zatwierdzaj klawiszem Enter.</p></details><details><summary><kbd>Alt + =</kbd></summary><p>Autosuma proponuje zakres powyżej lub po lewej. Sprawdź go przed zatwierdzeniem. Przykład: =SUMA(B2:B4).</p></details><details><summary><kbd>+ − * /</kbd></summary><p>Dodaj =8+2, odejmij =8-2, pomnóż =8*2 lub podziel =8/2. Do odejmowania użyj klawisza z minusem.</p></details><details><summary><kbd>Kliknięcie komórki</kbd></summary><p>Po wpisaniu = wskaż komórkę myszką albo strzałkami. Excel wstawi jej adres. Wpisz operator i wskaż drugą komórkę.</p></details><details><summary><kbd>F2</kbd></summary><p>Kliknij komórkę z wynikiem i naciśnij F2. Porównaj kolory adresów z obramowaniami komórek.</p></details><details><summary><kbd>Uchwyt wypełniania</kbd></summary><p>Złap zielony kwadracik w prawym dolnym rogu zaznaczenia. Przeciągnij w prawo, aby skopiować formułę na następne miesiące.</p></details></div></section>
+<section><h2>Symulator · Mój budżet kieszonkowy</h2><p>W styczniu podnieś kieszonkowe z 50 do 60 zł. Przewidź zmianę bilansu, a potem sprawdź wynik.</p><div class="tools"><label>Styczniowe kieszonkowe (zł) <input id="amount" class="value" type="number" min="0" max="1000000" step="0.01" value="50"></label><button id="mode" aria-pressed="false"></button></div>
+<div class="scroll"><table><caption>Podgląd trzech miesięcy · średnia w kolumnie E</caption><thead><tr><th scope="col">Kategoria (A)</th><th scope="col">Styczeń (B)</th><th scope="col">Luty (C)</th><th scope="col">Marzec (D)</th><th scope="col">Średnia (E)</th></tr></thead><tbody id="preview"></tbody></table></div></section>
+<section><h2>Dane do wpisania w Excelu</h2><p>W swoim arkuszu użyj sześciu miesięcy. Wpisuj same liczby. Numer po lewej wskazuje wiersz w Excelu.</p><div class="scroll"><table><thead><tr><th>Wiersz</th><th>A · Kategoria</th><th>B · Sty</th><th>C · Lut</th><th>D · Mar</th><th>E · Kwi</th><th>F · Maj</th><th>G · Cze</th></tr></thead><tbody><tr><td>2</td><td>Kieszonkowe</td><td>50</td><td>50</td><td>50</td><td>50</td><td>50</td><td>50</td></tr><tr><td>3</td><td>Prezenty</td><td>0</td><td>20</td><td>0</td><td>0</td><td>100</td><td>0</td></tr><tr><td>4</td><td>Pomoc w drobnych pracach</td><td>20</td><td>10</td><td>20</td><td>10</td><td>20</td><td>10</td></tr><tr><td>7</td><td>Słodycze i przekąski</td><td>10</td><td>12</td><td>8</td><td>10</td><td>12</td><td>8</td></tr><tr><td>8</td><td>Gry i rozrywka</td><td>20</td><td>0</td><td>40</td><td>0</td><td>30</td><td>0</td></tr><tr><td>9</td><td>Kino i wyjścia</td><td>15</td><td>15</td><td>0</td><td>15</td><td>15</td><td>0</td></tr><tr><td>10</td><td>Oszczędności do skarbonki</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr></tbody></table></div></section>
+<section><h2>Lekcja 1 · Przychody i wydatki</h2><div class="step"><label><input type="checkbox" data-step="0">Krok 1. Sprawdź, co przelicza się samo</label><p>W nowym skoroszycie wpisz <b>20</b> do A1 i <b>5</b> do A2. W A3 wpisz <code>=A1+A2</code>, a w A4 <code>=20+5</code>. Zmień A1 na 100. Który wynik zmienił się z 25 na 105? Po sprawdzeniu wyczyść A1:A4.</p></div><div class="step"><label><input type="checkbox" data-step="1">Krok 2. Rozpisz przychody na sześć miesięcy</label><p>Nazwij arkusz <b>Budżet</b>. Zostaw A1 pustą. W B1 wpisz <b>Styczeń</b>. Przeciągnij uchwyt do G1, aż zobaczysz <b>Czerwiec</b>. Wpisz nazwy kategorii do A2:A4 i kwoty do B2:G4 według tabeli danych poniżej. W A5 wpisz <b>Razem przychody</b>.</p></div><div class="step"><label><input type="checkbox" data-step="2">Krok 3. Zsumuj przychody jednym skrótem</label><p>Kliknij B5 i naciśnij <kbd>Alt</kbd> + <kbd>=</kbd>. Sprawdź, czy Excel zaznaczył B2:B4. Zatwierdź <kbd>Enter</kbd>. Przeciągnij uchwyt B5 do G5. W C5 naciśnij <kbd>F2</kbd>. Która litera zastąpiła B? Wyjdź klawiszem <kbd>Esc</kbd>.</p></div><div class="step"><label><input type="checkbox" data-step="3">Krok 4. Policz, ile pieniędzy opuszcza portfel</label><p>Zostaw wiersz 6 pusty. Przepisz cztery kategorie wydatków do A7:A10 oraz kwoty do B7:G10. Skarbonkę liczymy jako pieniądze odłożone z portfela. W A11 wpisz <b>Razem wydatki</b>. W B11 zsumuj B7:B10. Skopiuj formułę do G11. Zapisz pracę przed przerwą.</p></div></section>
+<section><h2>Lekcja 2 · Bilans i średnia</h2><div class="step"><label><input type="checkbox" data-step="4">Krok 5. Oblicz bilans miesiąca</label><p>W A13 wpisz <b>Bilans miesiąca</b>. Od przychodów odejmij wydatki. W B13 wpisz <code>=</code>, kliknij B5, wpisz <code>-</code>, kliknij B11 i zatwierdź. Skopiuj wynik do G13. Co oznacza ujemny bilans?</p></div><div class="step"><label><input type="checkbox" data-step="5">Krok 6. Znajdź przeciętny wydatek</label><p>W H1 wpisz <b>Średnia miesięczna</b>. W H7 wpisz <code>=ŚREDNIA(B7:G7)</code>. Skopiuj ją w dół do H11. Odczytaj H8. Ile średnio miesięcznie przeznaczasz na gry?</p></div><div class="step"><label><input type="checkbox" data-step="6">Krok 7. Nadaj tabeli czytelny wygląd i zapisz plik</label><p>Pogrub nagłówki oraz wiersze 5, 11 i 13. Kwotom nadaj format <b>Walutowe</b> przez <kbd>Ctrl</kbd> + <kbd>1</kbd>. Dopasuj szerokości kolumn. Naciśnij <kbd>Ctrl</kbd> + <kbd>S</kbd>. Wybierz <b>Teczkę ucznia</b> i zapisz skoroszyt jako <code>budzet.xlsx</code>.</p></div><div class="step"><label><input type="checkbox" data-step="7">Zadanie dla Mistrza ⭐ Kalkulator BMI</label><p>Kliknij <b>+</b> obok karty arkusza. Nazwij nowy arkusz <b>Kalkulator BMI</b>. W A1:A3 wpisz kolejno <b>Masa (kg)</b>, <b>Wzrost (m)</b>, <b>BMI</b>. Użyj fikcyjnych danych: B1 = 50, B2 = 1,60. W B3 wpisz <code>=B1/(B2*B2)</code>. Ustaw dwa miejsca po przecinku. Otrzymasz 19,53. Zmień masę na 64 kg. Czy wynik wynosi teraz 25,00? Zapisz plik ponownie.</p></div><details><summary>Sprawdź wyniki dla danych z tabeli</summary><p>Styczeń: 70 zł przychodów − 55 zł wydatków = 15 zł w portfelu. Gry: 90 zł przez sześć miesięcy, czyli średnio 15 zł miesięcznie. Gdy wynik się różni, naciśnij F2 i sprawdź zakres.</p></details></section>
+<section><h2>Checklista sukcesu</h2><p>Zaznacz wykonane kroki powyżej. Propozycja oceny uwzględnia kolejne zdobyte umiejętności.</p><ul class="criteria"><li><b>2</b> · Tworzę prostą formułę ze znakiem =.</li><li><b>3</b> · Używam adresów komórek do obliczenia bilansu.</li><li><b>4</b> · Obliczam sumy i średnie za pomocą funkcji.</li><li><b>5</b> · Tworzę i zapisuję sformatowany budżet. Kopiuję formuły na kolejne miesiące.</li><li><b>6</b> · Tworzę i sprawdzam kalkulator BMI w osobnym arkuszu.</li></ul><p id="grade" role="status"></p><div class="tools"><button class="primary" id="report">Podsumowanie dla nauczyciela</button><button onclick="window.print()">Drukuj kartę</button><button id="reset">Resetuj postęp lekcji</button></div></section>
+<dialog id="summary" aria-labelledby="reportTitle"><h2 id="reportTitle">Podsumowanie dla nauczyciela</h2><p id="totals"></p><ul id="reportList"></ul><form method="dialog"><button>Zamknij</button></form></dialog></main>
+<script>
+const key = 'inf_pruszcz_klasa6_lekcja2_3';
+const $ = id => document.getElementById(id);
+const checks = [...document.querySelectorAll('[data-step]')];
+const fresh = () => ({steps: [], elapsed: 0, started: 0, amount: 50, formulas: false});
+let state = fresh();
+try { Object.assign(state, JSON.parse(localStorage.getItem(key))); } catch {}
+function save() { try { localStorage.setItem(key, JSON.stringify(state)); } catch {} }
+function timeText() {
+  const ms = state.elapsed + (state.started ? Date.now() - state.started : 0);
+  const seconds = Math.max(0, Math.floor(ms / 1000));
+  return Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2,'0');
+}
+function clock() {
+  $('clock').textContent = timeText();
+  $('timer').textContent = state.started ? 'Pauza' : 'Start';
+}
+$('timer').onclick = () => {
+  if (state.started) { state.elapsed += Date.now() - state.started; state.started = 0; }
+  else state.started = Date.now();
+  save(); clock();
+};
+const records = [[2,"Kieszonkowe",50,50,50,50,50,50],[3,"Prezenty",0,20,0,0,100,0],[4,"Pomoc w drobnych pracach",20,10,20,10,20,10],[7,"Słodycze i przekąski",10,12,8,10,12,8],[8,"Gry i rozrywka",20,0,40,0,30,0],[9,"Kino i wyjścia",15,15,0,15,15,0],[10,"Oszczędności do skarbonki",10,10,10,10,10,10]];
+const currency = new Intl.NumberFormat('pl-PL', {style:'currency', currency:'PLN', maximumFractionDigits:2});
+function renderPreview() {
+  const rows = new Map(records.map(([row,label,...values]) => [row,{label, values:values.slice(0,3)}]));
+  rows.get(2).values[0] = state.amount;
+  function total(row,label,first,last) {
+    const values = [0,1,2].map(i => {
+      let sum = 0;
+      for (let n = first; n <= last; n++) sum += rows.get(n).values[i];
+      return sum;
+    });
+    rows.set(row,{label,values,formula:c => '=SUMA('+c+first+':'+c+last+')'});
+  }
+  total(5,'Razem przychody',2,4);
+  total(11,'Razem wydatki',7,10);
+  rows.set(13,{label:'Bilans miesiąca',values:rows.get(5).values.map((v,i)=>v-rows.get(11).values[i]),formula:c=>'='+c+'5-'+c+'11'});
+  const table = $('preview');
+  table.replaceChildren();
+  for (const [row, entry] of [...rows].sort((a,b)=>a[0]-b[0])) {
+    const tr = table.insertRow();
+    tr.className = ({5:'income',11:'expense',13:'balance'})[row] || '';
+    const title = document.createElement('th');
+    title.scope = 'row'; title.textContent = row + ' · ' + entry.label; tr.append(title);
+    const mean = entry.values.reduce((a,b)=>a+b,0)/3;
+    [...entry.values,mean].forEach((v,i)=>{
+      const cell = tr.insertCell();
+      const formula = i === 3 ? '=ŚREDNIA(B'+row+':D'+row+')' : entry.formula?.('BCD'[i]);
+      if (state.formulas && formula) {
+        const code = document.createElement('code');
+        code.textContent = formula;
+        cell.className = row <= 5 ? 'income' : row <= 11 ? 'expense' : 'balance';
+        cell.append(code);
+      } else cell.textContent = currency.format(v);
+    });
+  }
+  $('mode').textContent = state.formulas ? 'Pokaż wyniki obliczeń' : 'Pokaż ukryte formuły';
+  $('mode').setAttribute('aria-pressed',String(state.formulas));
+}
+$('amount').oninput = event => {
+  const field = event.target;
+  if (!field.validity.valid || !Number.isFinite(field.valueAsNumber)) return;
+  state.amount = field.valueAsNumber; save(); renderPreview();
+};
+$('amount').onblur = () => { $('amount').value = state.amount; };
+$('mode').onclick = () => { state.formulas = !state.formulas; save(); renderPreview(); };
+function progress() {
+  const done = i => Boolean(state.steps[i]);
+  checks.forEach((cb,i)=>{cb.checked = done(i);});
+  const count = checks.slice(0,7).filter(cb=>cb.checked).length;
+  const levels = [[0],[4],[2,3,5],[1,6],[7]];
+  let grade = 1;
+  for (const requirements of levels) {
+    if (!requirements.every(done)) break;
+    grade++;
+  }
+  $('grade').textContent = grade === 1 ? 'Wykonaj rozgrzewkę, aby rozpocząć samoocenę.' : 'Proponowana ocena według samooceny: ' + grade;
+  $('progress').value = count;
+  $('progressText').textContent = 'Misja podstawowa: '+count+' z 7 kroków · '+Math.round(100*count/7)+'%';
+}
+checks.forEach((cb,i)=>cb.onchange = () => { state.steps[i] = cb.checked; save(); progress(); });
+$('report').onclick = () => {
+  $('totals').textContent = $('progressText').textContent+' · Czas pracy: '+timeText()+'. '+$('grade').textContent;
+  $('reportList').replaceChildren(...checks.map(cb=>{
+    const li = document.createElement('li');
+    li.textContent = (cb.checked ? 'Wykonano — ' : 'Do wykonania — ') + cb.parentElement.textContent;
+    return li;
+  }));
+  $('summary').showModal();
+};
+function refresh() { $('amount').value = state.amount; clock(); progress(); renderPreview(); }
+$('reset').onclick = () => {
+  if (!confirm('Usunąć zapis tej lekcji i rozpocząć pracę od początku?')) return;
+  state = fresh();
+  try { localStorage.removeItem(key); } catch {}
+  refresh();
+};
+refresh(); setInterval(clock,1000);
+</script><script>// Wszystkie podstrony korzystają z ustawienia portalu, także w drugiej karcie.
+(() => {
+  const key = 'informatyka-theme';
+  const button = document.getElementById('theme');
+  if (!button) return;
+
+  function apply(value) {
+    const dark = value === 'dark';
+    document.body.classList.toggle('dark',dark);
+    button.setAttribute('aria-pressed', String(dark));
+    button.setAttribute('aria-label','Ciemny motyw');
+    button.title = dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
+    button.textContent = button.dataset.compact !== undefined ? (dark ? '☀' : '☾') : 'Ciemny motyw';
+  }
+  let initial;
+  try {
+    initial = localStorage.getItem(key);
+    if (!initial) {
+      initial = localStorage.getItem('html-theme');
+      if (initial) localStorage.setItem(key,initial);
+    }
+  } catch {}
+  apply(initial);
+  button.addEventListener('click', () => {
+    const value = document.body.classList.contains('dark') ? 'light' : 'dark';
+    apply(value);
+    try { localStorage.setItem(key,value); } catch {}
+  });
+  window.addEventListener('storage', e => { if (e.key === key || e.key === null) apply(e.newValue); });
+})();</script></body></html>

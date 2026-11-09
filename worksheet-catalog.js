@@ -180,6 +180,17 @@ export const extraWorksheets = [
     source: 'Karta pracy nauczyciela do tematu 2.2.'
   },
   {
+    id: 'karta-6-2-3-budzet',
+    type: 'task',
+    grades: [6],
+    title: '2.3. Budżet kieszonkowy — proste obliczenia w Excelu',
+    section: '2. Nie tylko kalkulator. Tabele i wykresy w arkuszu kalkulacyjnym',
+    tags: ['Excel 2016', 'Formuły', 'Budżet'],
+    summary: 'Zbuduj półroczny budżet i sprawdź, ile zostaje w portfelu po wydatkach.',
+    body: '',
+    source: 'Karta pracy nauczyciela do tematu 2.3.'
+  },
+  {
     id: 'karta-7-2-1-pierwsza-strona',
     type: 'task',
     grades: [7],
