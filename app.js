@@ -1,14 +1,20 @@
 import {lessonMetadata} from './curriculum-metadata.js';
 import {fastQuestions, mountFastCheck} from './fast-check.js';
 import {aiWriting} from './ai-writing.js';
-import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js';
+import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=cyber5';
 let lessonRenderId = 0;
 async function mountWorksheet(id, host, renderId) {
   try {
     const grade5 = isWorksheet(id);
-    const mod = await (grade5 ? import('./worksheets-grade5.js?v=audit1') : import('./worksheets-478.js?v=audit1'));
+    let mod = await (grade5 ? import('./worksheets-grade5.js?v=cyber5') : import('./worksheets-478.js?v=cyber5'));
     if (!host.isConnected || renderId !== lessonRenderId) return;
-    host.innerHTML = grade5 ? mod.renderWorksheet(id) : mod.renderExtraWorksheet(id);
+    let html = grade5 ? mod.renderWorksheet(id) : mod.renderExtraWorksheet(id);
+    if (!html && !grade5) {
+      mod = await import('./worksheets-478.js?v=' + Date.now());
+      if (!host.isConnected || renderId !== lessonRenderId) return;
+      html = mod.renderExtraWorksheet(id);
+    }
+    host.innerHTML = html;
     if (grade5) mod.bindWorksheet(id,toast);
     else mod.bindExtraWorksheet(id,toast);
   } catch (err) {

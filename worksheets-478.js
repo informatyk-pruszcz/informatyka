@@ -4,7 +4,7 @@ import { bindWorksheetProjector } from './worksheet-projector.js';
 import { PRAWO_JAZDY_STATS } from './prawo-jazdy-xlsx-data.js';
 import './zakupy-vat-xlsx-data.js';
 
-import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js';
+import {extraWorksheets, isExtraWorksheet} from './worksheet-catalog.js?v=cyber5';
 export {extraWorksheets, isExtraWorksheet};
 
 const STARTER_HTML_CODE = `<!DOCTYPE html>
@@ -1814,10 +1814,9 @@ function renderGrade4CyberDetectiveReview() {
     </div>
     <iframe
       id="cyber-detektywi-iframe"
-      src="./klasa4/cyber-detektywi.html?embed=1"
+      src="./klasa4/cyber-detektywi.html?embed=1&v=cyber5"
       title="Akademia Cyber-Detektywów: Misja Bezpieczna Sieć"
       style="width:100%;min-height:1220px;border:2px solid #1E293B;border-radius:18px;background:#0B1120"
-      loading="lazy"
     ></iframe>
   </div>`;
 }
