@@ -607,6 +607,7 @@ function renderPlanerWorksheet() {
 }
 
 export function renderWorksheet(id) {
+  if (id === 'karta-5-atlas-odkrywcy') return '<p><a class="btn primary" href="./klasa5/atlas-odkrywcy.html">Otwórz projekt — Karta Atlasu Odkrywcy →</a></p>';
   if (id === 'karta-5-misja-grafika') return '<p><a class="btn primary" href="./klasa5/misja-grafika.html">Otwórz kartę ucznia i symulator Worda →</a></p>';
   if (id === 'karta-5-1-2-zupa') return renderZupaWorksheet();
   if (id === 'karta-5-1-2-tosty') return renderTostyWorksheet();

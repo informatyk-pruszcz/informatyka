@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt: Karta Atlasu Odkrywcy • Klasa V • Word 2016</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        .wordart-text {
+            background: linear-gradient(180deg, #1d4ed8 0%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 0px #93c5fd);
+            letter-spacing: 0.04em;
+        }
+        .format-mark {
+            color: #0284c7;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            user-select: none;
+        }
+        @media print {
+            header, #symulator, #starter-section, footer, .no-print { display: none !important; }
+            body { background: white !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Toast / Notification banner -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm font-medium border border-slate-700">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Akcja wykonana pomyślnie!</span>
+    </div>
+
+    <!-- Top Navigation / Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-compass text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-tight">Karta Atlasu Odkrywcy</h1>
+                    <p class="text-xs text-slate-400">Projekt podsumowujący Dział 1 • Klasa V • Word 2016</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="scrollToSection('starter-section')" class="hidden lg:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-paste text-emerald-400"></i>
+                    <span>Tekst startowy</span>
+                </button>
+                <button onclick="scrollToSection('symulator')" class="hidden md:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-desktop text-blue-400"></i>
+                    <span>Symulator Word</span>
+                </button>
+                <button onclick="scrollToSection('kroki')" class="hidden sm:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-list-ol text-amber-400"></i>
+                    <span>Kroki (30 min)</span>
+                </button>
+                <button onclick="scrollToSection('wymagania')" class="hidden xl:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-graduation-cap text-purple-400"></i>
+                    <span>Oceny</span>
+                </button>
+                <button onclick="copyStarterText()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-md shadow-blue-600/20 transition">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Kopiuj bazę tekstu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <nav aria-label="Powrót do portalu" class="max-w-7xl w-full mx-auto px-4 pt-4"><a class="text-blue-700 underline" href="../#item/karta-5-atlas-odkrywcy">← Klasa V · Zadania praktyczne</a></nav>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Hero Card Info Banner -->
+        <section class="bg-gradient-to-r from-blue-950 via-indigo-900 to-slate-900 rounded-3xl text-white p-6 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 opacity-30 transform skew-x-12 pointer-events-none"></div>
+            <div class="relative z-10 max-w-4xl space-y-4">
+                <div class="flex flex-wrap gap-2">
+                    <div class="inline-flex items-center space-x-2 bg-blue-500/20 border border-blue-400/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-blue-200">
+                        <i class="fa-solid fa-clock text-amber-400"></i>
+                        <span>Czas pracy: 30 minut (1 lekcja)</span>
+                    </div>
+                    <div class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-emerald-200">
+                        <i class="fa-solid fa-layer-group text-emerald-400"></i>
+                        <span>Podsumowanie lekcji 1.1 – 1.5 („Lubię to!”)</span>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Wielki Projekt: Karta Atlasu Odkrywcy</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Stwórz w programie <strong class="text-white">MS Word 2016</strong> jedną kompletną, bogato ilustrowaną stronę do szkolnego albumu przyrodniczo-podróżniczego! W jednym dokumencie połączysz oprawę strony, szyld <span class="text-blue-300 font-semibold">WordArt</span>, sformatowany opis z <span class="text-blue-300 font-semibold">twardymi spacjami</span> i ilustracją w trybie <span class="text-blue-300 font-semibold">Kwadrat</span>, hierarchię <span class="text-blue-300 font-semibold">stylów i list</span> oraz <span class="text-blue-300 font-semibold">tabelę obserwacji</span> ze scalonym tytułem.
+                </p>
+                
+                <!-- Quick Student Data Input -->
+                <div class="pt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Imię i nazwisko (lub para):</label>
+                        <input type="text" id="student-name" placeholder="np. Jan Kowalski" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Wybierz temat karty:</label>
+                        <select id="student-topic" onchange="changeTopicPreset()" class="w-full bg-slate-900/80 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                            <option value="tatry">🏔️ Wyprawa w Tatry Wysokie</option>
+                            <option value="wilk">🐺 Wilk szary w polskich lasach</option>
+                            <option value="baltyk">🌊 Tajemnice Morza Bałtyckiego</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Klasa i stanowisko:</label>
+                        <input type="text" id="student-class" placeholder="np. V a • Stanowisko 7" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Data projektu:</label>
+                        <input type="date" id="student-date" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fast Starter Text Generator (Saves typing time in 30-min lesson) -->
+        <section id="starter-section" class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-8 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base sm:text-lg">Pakiet Startowy – Surowy tekst do skopiowania (Oszczędność czasu!)</h3>
+                        <p class="text-xs text-slate-500">Masz tylko 30 minut! Zamiast pisać wszystko ręcznie, skopiuj poniższy nieuporządkowany tekst do Worda i skup się na formatowaniu, stylach, listach i tabeli.</p>
+                    </div>
+                </div>
+                <button onclick="copyStarterText()" class="shrink-0 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center space-x-2">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Kopiuj surowy tekst do Worda</span>
+                </button>
+            </div>
+
+            <div class="bg-slate-900 text-slate-200 p-4 rounded-2xl font-mono text-xs leading-relaxed overflow-x-auto border border-slate-800" id="raw-starter-box">
+1. Charakterystyka i opis
+Tatrzański Park Narodowy zajmuje powierzchnię ponad 211 km kwadratowych i chroni unikalną przyrodę wysokogórską. Najwyższym szczytem w Polsce są Rysy o wysokości 2499 m n.p.m., a na szlaku można spotkać kozicę oraz świstaka. Każda wyprawa wymaga dobrego przygotowania i trwa minimum 180 min.
+2. Niezbędnik i zasady terenowe
+Wyposażenie badacza
+Sprzęt obserwacyjny
+lornetka
+aparat fotograficzny
+Prowiant i bezpieczeństwo
+woda w bidonie
+apteczka i mapa
+Kolejność działań na szlaku
+Sprawdź prognozę pogody i mapę.
+Przygotuj sprzęt pomiarowy.
+Zanotuj wyniki obserwacji w tabeli.
+3. Karta obserwacji terenowej
+            </div>
+        </section>
+
+        <!-- Interactive Word 2016 Monolith Simulator Section -->
+        <section id="symulator" class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span class="text-xs font-bold text-slate-600 uppercase tracking-wider ml-2">Symulator Word 2016 • Podgląd Docelowej Karty Atlasu</span>
+                </div>
+                <!-- Interactive Ribbon Toggles -->
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                    <button onclick="toggleSimFeature('page')" id="btn-sim-page" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm">
+                        <i class="fa-solid fa-border-all mr-1"></i>1. Tło i Ramka
+                    </button>
+                    <button onclick="toggleSimFeature('marks')" id="btn-sim-marks" class="px-3 py-1.5 rounded-lg font-bold bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 transition" title="Przełącz znaczniki formatowania (Ctrl+Shift+8)">
+                        ¶ Pokaż wszystko
+                    </button>
+                    <button onclick="toggleSimFeature('wrap')" id="btn-sim-wrap" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm">
+                        <i class="fa-solid fa-image mr-1"></i>2. Obraz (Kwadrat)
+                    </button>
+                    <button onclick="toggleSimFeature('table')" id="btn-sim-table" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm">
+                        <i class="fa-solid fa-table mr-1"></i>4. Scalona Tabela
+                    </button>
+                    <button onclick="toggleSimFeature('shape')" id="btn-sim-shape" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm">
+                        <i class="fa-solid fa-award mr-1"></i>5. Odznaka + Bonus
+                    </button>
+                </div>
+            </div>
+
+            <!-- Virtual A4 Page Preview Area -->
+            <div class="p-4 sm:p-10 bg-slate-200 flex justify-center items-center overflow-x-auto">
+                <div id="virtual-page" class="bg-[#fefce8] border-4 border-double border-blue-900 w-[680px] min-h-[920px] p-8 sm:p-10 shadow-2xl relative rounded-sm text-slate-800 transition-all duration-300">
+                    
+                    <!-- Top Watermark Info -->
+                    <div class="text-[10px] text-slate-400 border-b border-slate-300/80 pb-1.5 mb-4 flex justify-between items-center font-mono">
+                        <span id="page-student-header">Autor: Niepodpisano</span>
+                        <span>Plik: Atlas_Odkrywcy_Imie_Nazwisko.docx</span>
+                    </div>
+
+                    <!-- 1. WordArt Main Title -->
+                    <div class="text-center mb-5">
+                        <div id="sim-wordart" class="wordart-text font-extrabold text-2xl sm:text-3xl uppercase tracking-wide inline-block">
+                            ATLAS ODKRYWCY: TATRZAŃSKI SZLAK
+                        </div>
+                        <span class="format-mark hidden">¶</span>
+                    </div>
+
+                    <!-- 2. Section 1: Heading 1 + Formatted Paragraph + Wrapped Image -->
+                    <div class="mb-4">
+                        <h4 id="sim-h1-1" class="text-blue-900 font-bold text-base border-b border-blue-200 pb-0.5 mb-2">
+                            1. Charakterystyka i opis <span class="format-mark hidden">¶</span>
+                        </h4>
+
+                        <div class="relative clearfix text-xs sm:text-[13px] leading-relaxed text-justify">
+                            <!-- Wrapped Image (Kwadrat) -->
+                            <div id="sim-img-box" class="float-right ml-4 mb-2 w-44 bg-white p-1.5 rounded-lg shadow-md border-2 border-slate-200 transition-all">
+                                <img id="sim-img" src="https://placehold.co/320x220/1e40af/ffffff?text=Tatry+Wysokie" alt="Ilustracja" class="w-full h-auto rounded">
+                                <div class="text-[9px] text-center text-slate-500 mt-1 font-mono">Zawijanie: Kwadrat (Shift+Róg)</div>
+                            </div>
+
+                            <!-- Paragraph with first-line indent, B/I/U, and Hard Spaces -->
+                            <p class="indent-6">
+                                <span class="format-mark hidden">→</span><strong class="text-blue-950">Tatrzański Park Narodowy</strong> zajmuje powierzchnię ponad <strong>211<span class="format-mark hidden">°</span>km</strong> kwadratowych i<span class="format-mark hidden">°</span>chroni unikalną przyrodę wysokogórską. Najwyższym szczytem w<span class="format-mark hidden">°</span>Polsce są <span class="underline decoration-blue-600 font-semibold">Rysy</span> o<span class="format-mark hidden">°</span>wysokości <strong>2499<span class="format-mark hidden">°</span>m</strong> n.p.m., a<span class="format-mark hidden">°</span>na szlaku można spotkać <em>kozicę</em> oraz <em>świstaka</em>. Każda wyprawa wymaga dobrego przygotowania i<span class="format-mark hidden">°</span>trwa minimum <strong>180<span class="format-mark hidden">°</span>min</strong>.<span class="format-mark hidden">¶</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Section 2: Styles & Lists (Multilevel + Numbered) -->
+                    <div class="mb-5">
+                        <h4 class="text-blue-900 font-bold text-base border-b border-blue-200 pb-0.5 mb-2">
+                            2. Niezbędnik i zasady terenowe <span class="format-mark hidden">¶</span>
+                        </h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <!-- Left: Heading 2 + Multilevel List -->
+                            <div class="bg-white/70 p-3 rounded-xl border border-slate-200/80">
+                                <h5 class="font-bold text-indigo-800 text-xs mb-1.5">Wyposażenie badacza (Nagłówek 2)<span class="format-mark hidden">¶</span></h5>
+                                <ul class="list-disc list-inside space-y-1 text-slate-700 font-medium">
+                                    <li>Sprzęt obserwacyjny<span class="format-mark hidden">¶</span>
+                                        <ul class="list-[circle] list-inside pl-5 font-normal text-slate-600 space-y-0.5 mt-0.5">
+                                            <li><span class="format-mark hidden">→</span>lornetka terenowa<span class="format-mark hidden">¶</span></li>
+                                            <li><span class="format-mark hidden">→</span>aparat fotograficzny<span class="format-mark hidden">¶</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>Prowiant i bezpieczeństwo<span class="format-mark hidden">¶</span>
+                                        <ul class="list-[circle] list-inside pl-5 font-normal text-slate-600 space-y-0.5 mt-0.5">
+                                            <li><span class="format-mark hidden">→</span>woda w<span class="format-mark hidden">°</span>bidonie<span class="format-mark hidden">¶</span></li>
+                                            <li><span class="format-mark hidden">→</span>apteczka i<span class="format-mark hidden">°</span>mapa<span class="format-mark hidden">¶</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Right: Heading 2 + Numbered List with inserted step 2 -->
+                            <div class="bg-white/70 p-3 rounded-xl border border-slate-200/80">
+                                <h5 class="font-bold text-indigo-800 text-xs mb-1.5">Kolejność działań na szlaku (Nagłówek 2)<span class="format-mark hidden">¶</span></h5>
+                                <ol class="list-decimal list-inside space-y-1 text-slate-700">
+                                    <li>Sprawdź prognozę pogody i<span class="format-mark hidden">°</span>mapę.<span class="format-mark hidden">¶</span></li>
+                                    <li class="bg-emerald-50 text-emerald-900 font-medium px-1 rounded border border-emerald-200" title="Automatycznie dopisany punkt!">Poinformuj opiekuna o<span class="format-mark hidden">°</span>trasie wyjścia.<span class="format-mark hidden">¶</span></li>
+                                    <li>Przygotuj sprzęt pomiarowy.<span class="format-mark hidden">¶</span></li>
+                                    <li>Zanotuj wyniki obserwacji w<span class="format-mark hidden">°</span>tabeli.<span class="format-mark hidden">¶</span></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Section 3: Table (Merged Header, Added Col/Row, Shading, 1.5pt Border) -->
+                    <div class="mb-5">
+                        <h4 class="text-blue-900 font-bold text-base border-b border-blue-200 pb-0.5 mb-2">
+                            3. Karta obserwacji terenowej <span class="format-mark hidden">¶</span>
+                        </h4>
+
+                        <table id="sim-table" class="w-full text-xs border-2 border-slate-800 bg-white border-collapse shadow-sm">
+                            <thead>
+                                <!-- Merged Banner Row -->
+                                <tr id="sim-merged-row" class="bg-blue-900 text-white">
+                                    <th colspan="4" class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-xs border border-slate-700">
+                                        DZIENNIK POMIARÓW I OBSERWACJI (Scalone komórki)
+                                    </th>
+                                </tr>
+                                <tr class="bg-blue-100 text-blue-950 font-bold text-center">
+                                    <th class="py-1.5 px-2 border border-slate-400">Obiekt / Miejsce</th>
+                                    <th class="py-1.5 px-2 border border-slate-400">Godzina</th>
+                                    <th class="py-1.5 px-2 border border-slate-400">Wynik pomiaru</th>
+                                    <th class="py-1.5 px-2 border border-slate-400 bg-indigo-100">+ Pogoda</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr>
+                                    <td class="py-1.5 px-2 border border-slate-300 font-medium">Punkt widokowy</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">09:00</td>
+                                    <td class="py-1.5 px-2 border border-slate-300">Widoczność 15<span class="format-mark hidden">°</span>km</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">Słonecznie</td>
+                                </tr>
+                                <!-- Highlighted / Shaded Row -->
+                                <tr id="sim-shaded-row" class="bg-amber-100/90 font-semibold text-amber-950">
+                                    <td class="py-1.5 px-2 border border-slate-300">Dolina leśna (Ulubione)</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">11:30</td>
+                                    <td class="py-1.5 px-2 border border-slate-300">Temperatura 14<span class="format-mark hidden">°</span>st. C</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">Lekki wiatr</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-emerald-800 font-medium">+ Staw górski (Nowy wiersz)</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">13:15</td>
+                                    <td class="py-1.5 px-2 border border-slate-300">Głębokość 30<span class="format-mark hidden">°</span>m</td>
+                                    <td class="py-1.5 px-2 border border-slate-300 text-center">Chmury</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-[10px] text-slate-500 mt-1 italic">* Wiersz „Wpis błędny” został całkowicie usunięty poleceniem PPM → Usuń wiersze.</p>
+                    </div>
+
+                    <!-- 5. Shapes (Badge + Master Callout) & Soft-Enter Copyright Footer -->
+                    <div id="sim-shape-box" class="flex flex-wrap items-center justify-between gap-3 pt-2 mb-6">
+                        <div class="inline-flex items-center space-x-2 bg-amber-400 border-2 border-amber-700 text-slate-950 px-3.5 py-1.5 rounded-full shadow font-bold text-xs">
+                            <span>⭐</span>
+                            <span>Kształt z tekstem: Chronimy przyrodę!</span>
+                        </div>
+                        <div class="inline-flex items-center space-x-2 bg-indigo-100 border-2 border-indigo-500 text-indigo-950 px-3.5 py-1.5 rounded-2xl rounded-bl-none shadow-sm text-xs font-medium">
+                            <span>💬</span>
+                            <span><strong>Bonus Mistrza (Dymek):</strong> Czy wiesz, że świstak śpi aż 6<span class="format-mark hidden">°</span>miesięcy?</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer with Soft Enter (Shift + Enter) -->
+                    <div class="border-t border-slate-300 pt-2 text-[11px] text-slate-600 font-mono leading-snug">
+                        Opracowanie karty: <span id="sim-footer-author" class="font-bold text-slate-800">Jan Kowalski, Klasa V</span> <span class="format-mark hidden" title="Miękki enter (Shift + Enter)">↵</span><br>
+                        Źródło fotografii: Archiwum Pracowni Informatycznej (Licencja edukacyjna CC0)<span class="format-mark hidden">¶</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Simulator Bottom Bar -->
+            <div class="bg-slate-50 border-t border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-eye text-blue-600"></i>
+                    <span>Kliknij przycisk <strong>„¶ Pokaż wszystko”</strong> nad stroną, aby zobaczyć, gdzie nauczyciel sprawdzi twarde spacje (<code>°</code>), wcięcia (<code>→</code>) i miękki enter (<code>↵</code>)!</span>
+                </div>
+                <button onclick="triggerSimulateSave()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-4 py-2 rounded-lg transition shadow">
+                    <i class="fa-solid fa-floppy-disk mr-1.5"></i> Symuluj Zapis (Ctrl + S)
+                </button>
+            </div>
+        </section>
+
+        <!-- 5 Monolithic Project Steps (30 Minutes Total) -->
+        <section id="kroki" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center space-x-3">
+                    <i class="fa-solid fa-route text-blue-600"></i>
+                    <span>Instrukcja wykonania projektu krok po kroku</span>
+                </h3>
+                <span class="text-xs font-bold text-blue-700 bg-blue-100 px-3.5 py-1.5 rounded-full">Łączny czas: 30 minut przy komputerze</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- KROK 1 (4 min) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Krok 1 • Lekcja 1.4 & 1.5</span>
+                            <span class="text-xs text-slate-500 font-mono font-semibold"><i class="fa-regular fa-clock mr-1"></i>4 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Oprawa strony i szyld WordArt</h4>
+                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc list-inside">
+                            <li>Zapisz nowy plik jako <code>Atlas_Odkrywcy_Imie.docx</code>.</li>
+                            <li>Ustaw jasne tło: <strong>Projektowanie → Kolor strony</strong> oraz ramkę: <strong>Projektowanie → Obramowania stron</strong>.</li>
+                            <li>Na górze wstaw tytuł główny: <strong>Wstawianie → WordArt</strong> (np. <em>ATLAS ODKRYWCY: TATRY</em>) i wyśrodkuj go.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-mono">
+                        <i class="fa-solid fa-palette mr-1"></i> Projektowanie → Kolor / Obramowanie
+                    </div>
+                </div>
+
+                <!-- KROK 2 (9 min) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Krok 2 • Lekcja 1.1 & 1.4</span>
+                            <span class="text-xs text-slate-500 font-mono font-semibold"><i class="fa-regular fa-clock mr-1"></i>9 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Opis, twarde spacje i ilustracja</h4>
+                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc list-inside">
+                            <li>Wklej tekst bazowy. Wierszowi <code>1. Charakterystyka i opis</code> nadaj styl <strong>Nagłówek 1</strong>.</li>
+                            <li>W akapicie opisu ustaw <strong>wcięcie pierwszego wiersza</strong>, wyjustuj tekst (<kbd class="bg-slate-100 border px-1 rounded">Ctrl+J</kbd>) i użyj <strong>B</strong>, <em>I</em>, <u>U</u>.</li>
+                            <li>Wstaw <strong>twarde spacje</strong> (<kbd class="bg-amber-100 border border-amber-300 px-1 rounded font-mono">Ctrl+Shift+Spacja</kbd>) przy jednostkach (<code>211 km</code>, <code>2499 m</code>, <code>180 min</code>) i spójnikach (<code>w</code>, <code>i</code>, <code>o</code>).</li>
+                            <li>Wstaw zdjęcie (<strong>Wstawianie → Obrazy</strong>), zmniejsz narożnikiem z <kbd class="bg-slate-100 border px-1 rounded">Shift</kbd> i ustaw <strong>Zawijaj tekst → Kwadrat</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-mono">
+                        <i class="fa-solid fa-keyboard mr-1"></i> Twarda spacja: Ctrl + Shift + Spacja
+                    </div>
+                </div>
+
+                <!-- KROK 3 (6 min) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Krok 3 • Lekcja 1.2</span>
+                            <span class="text-xs text-slate-500 font-mono font-semibold"><i class="fa-regular fa-clock mr-1"></i>6 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Style nagłówków i dwie listy</h4>
+                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc list-inside">
+                            <li>Nadaj tytułowi <code>2. Niezbędnik...</code> styl <strong>Nagłówek 1</strong>, a podtytułom styl <strong>Nagłówek 2</strong>.</li>
+                            <li>Z ekwipunku utwórz <strong>listę wielopoziomową</strong> (wcięcia niższego poziomu zrób klawiszem <kbd class="bg-slate-100 border px-1 rounded">Tab</kbd>).</li>
+                            <li>Z zasad szlaku zrób <strong>listę numerowaną</strong>. Na końcu punktu 1. wciśnij <kbd class="bg-slate-100 border px-1 rounded">Enter</kbd> i dopisz nowy krok – sprawdź automatyczną zmianę numeracji!</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-mono">
+                        <i class="fa-solid fa-list-check mr-1"></i> Poziom niżej w liście: klawisz Tab
+                    </div>
+                </div>
+
+                <!-- KROK 4 (7 min) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Krok 4 • Lekcja 1.3</span>
+                            <span class="text-xs text-slate-500 font-mono font-semibold"><i class="fa-regular fa-clock mr-1"></i>7 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Tabela obserwacji i scalanie</h4>
+                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc list-inside">
+                            <li>Pod <code>3. Karta obserwacji...</code> (<strong>Nagłówek 1</strong>) wstaw tabelę <strong>3 kolumny × 4 wiersze</strong> (Obiekt | Godzina | Pomiar).</li>
+                            <li><strong>Usuń</strong> ostatni błędny wiersz (<strong>PPM → Usuń wiersze</strong>), <strong>dodaj</strong> 1 nowy wiersz oraz kolumnę <code>Pogoda</code> z prawej.</li>
+                            <li>Wstaw nowy wiersz na samej górze (<strong>Układ → Wstaw powyżej</strong>), zaznacz go, kliknij <strong>Scal komórki</strong> i wpisz tytuł: <code>DZIENNIK POMIARÓW</code>.</li>
+                            <li>Nadaj <strong>Styl tabeli</strong>, wyróżnij ulubiony wiersz <strong>Cieniowaniem</strong> i ustaw obramowanie <code>1,5 pkt</code>.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-mono">
+                        <i class="fa-solid fa-table-cells mr-1"></i> Narzędzia tabel: Układ → Scal komórki
+                    </div>
+                </div>
+
+                <!-- KROK 5 (4 min) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">Krok 5 • Lekcja 1.1, 1.4 & Prawo</span>
+                            <span class="text-xs text-slate-500 font-mono font-semibold"><i class="fa-regular fa-clock mr-1"></i>4 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Kształt, Stopka i inspekcja „¶”</h4>
+                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc list-inside">
+                            <li>Narysuj odznakę (<strong>Wstawianie → Kształty</strong>), zmień jej wypełnienie i kontur oraz dodaj tekst (<strong>PPM → Dodaj tekst</strong>).</li>
+                            <li>Na dole wpisz autora oraz <strong>źródło zdjęcia</strong>, rozdzielając te dwie linie <strong>miękkim enterem</strong> (<kbd class="bg-amber-100 border border-amber-300 px-1 rounded font-mono">Shift+Enter</kbd>).</li>
+                            <li>Włącz <strong>Pokaż wszystko (<code>¶</code>)</strong>, sprawdź pisownię i zapisz plik (<kbd class="bg-slate-100 border px-1 rounded">Ctrl+S</kbd>).</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-mono">
+                        <i class="fa-solid fa-paragraph mr-1"></i> Inspekcja znaków: ikona ¶ (Ctrl+Shift+8)
+                    </div>
+                </div>
+
+                <!-- WYZWANIE DLA MISTRZA (Ocena celująca) -->
+                <div class="bg-gradient-to-br from-indigo-50 to-amber-50 rounded-2xl border-2 border-indigo-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-md"><i class="fa-solid fa-crown mr-1 text-amber-300"></i>Na ocenę celującą</span>
+                            <span class="text-xs text-indigo-700 font-mono font-bold">+ Bonus</span>
+                        </div>
+                        <h4 class="font-bold text-indigo-950 text-base">Wyzwanie dla Mistrza DTP</h4>
+                        <p class="text-xs text-indigo-900/90 leading-relaxed">
+                            Dodaj obok odznaki drugi kształt – <strong>dymek komiksowy</strong> (<strong>Wstawianie → Kształty → Objaśnienia</strong>) z zagadką przyrodniczą, zmodyfikuj krój i kolor stylu <strong>Nagłówek 1</strong> (PPM na stylu → <strong>Modyfikuj</strong>) i dopracuj układ tak, by cała karta mieściła się idealnie na <strong>1 stronie A4</strong>!
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-indigo-200/60 text-[11px] text-indigo-800 font-semibold">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Spójna estetyka wydawnicza = 6!
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Checklist Section -->
+        <section id="karta" class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <span class="bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Kontrola Jakości przed oddaniem</span>
+                    <h3 class="text-xl sm:text-2xl font-extrabold mt-2">Check-lista Sukcesu Odkrywcy</h3>
+                    <p class="text-xs text-slate-400 mt-1">Włącz w Wordzie podgląd znaczników (¶) i odhacz wykonane elementy projektu.</p>
+                </div>
+                <div class="bg-white/10 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-xs text-slate-300 font-medium">Ukończone etapy</div>
+                        <div class="text-lg font-bold text-emerald-400"><span id="completed-count">0</span> / 5 gotowe</div>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-300 font-bold text-sm" id="progress-percent">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <label class="flex items-start space-x-3.5 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-white">1. Oprawa i WordArt</span>
+                        <p class="text-xs text-slate-400">Mam kolorowe tło strony, ramkę strony oraz ozdobny tytuł główny WordArt.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-3.5 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-white">2. Tekst i twarde spacje (¶)</span>
+                        <p class="text-xs text-slate-400">Akapit ma wcięcie, wyróżnienia B/I/U oraz twarde spacje (Ctrl+Shift+Spacja) przy jednostkach.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-3.5 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-white">3. Obraz w trybie Kwadrat</span>
+                        <p class="text-xs text-slate-400">Zdjęcie zostało zmniejszone z klawiszem Shift, ma ramkę i opływanie tekstu „Kwadrat”.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-3.5 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-white">4. Style i dwie listy</span>
+                        <p class="text-xs text-slate-400">Użyłem/am stylów Nagłówek 1 i 2, listy wielopoziomowej (Tab) oraz listy numerowanej.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-3.5 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none md:col-span-2 lg:col-span-2">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-white">5. Tabela ze scalonym tytułem, kształt oraz stopka z miękkim enterem</span>
+                        <p class="text-xs text-slate-400">Tabela ma scalony górny baner, dodaną kolumnę/wiersz, usunięty błędny wiersz i cieniowanie, a na dole strony jest kształt oraz źródło zdjęcia wpisane po miękkim enterze (Shift+Enter).</p>
+                    </div>
+                </label>
+            </div>
+
+            <div id="mission-success-banner" class="hidden bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-trophy text-amber-400 text-2xl"></i>
+                    <div>
+                        <h4 class="font-bold text-sm">Brawo! Twoja Karta Atlasu Odkrywcy spełnia 100% wymagań!</h4>
+                        <p class="text-xs text-emerald-300">Zapisz plik (Ctrl + S) i zgłoś gotowość nauczycielowi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cheat Sheet & Grading Criteria Section -->
+        <section id="wymagania" class="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 space-y-8">
+            
+            <!-- Mini-Cheat Sheet -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">KOŁO RATUNKOWE WORD 2016</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2">Miniściąga wszystkich narzędzi Działu 1</h3>
+                    </div>
+                    <input type="text" id="cheat-search" oninput="filterCheatSheet()" placeholder="Szukaj (np. twarda spacja, scal)..." class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-800 w-full sm:w-72 focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse" id="cheat-table">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                                <th class="py-3 px-4">Zadanie w projekcie</th>
+                                <th class="py-3 px-4">Gdzie kliknąć / Skrót klawiszowy</th>
+                                <th class="py-3 px-4">Lekcja</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-xs sm:text-sm text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Twarda spacja (nierozdzielająca)</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Ctrl + Shift + Spacja (w podglądzie ¶ widoczna jako kółeczko °)</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.1</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Miękki enter (nowa linia w akapicie)</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Shift + Enter (w podglądzie ¶ widoczny jako strzałka ↵)</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.1</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Pokaż ukryte znaczniki formatowania</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Narzędzia główne → ikona ¶ (Pokaż wszystko) lub Ctrl + Shift + 8</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.1</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Lista wielopoziomowa (podpunkty)</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Narzędzia główne → Lista wielopoziomowa (niższy poziom: klawisz Tab)</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.2</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Usunięcie całego wiersza tabeli</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Zaznacz wiersz → Prawy Przycisk Myszy (PPM) → Usuń wiersze (nie Delete!)</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.3</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Scalenie komórek na tytuł tabeli</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Zaznacz komórki wiersza → Narzędzia tabel: Układ → Scal komórki</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.3</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Ułożenie tekstu obok zdjęcia</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Kliknij zdjęcie → Narzędzia obrazów: Formatowanie → Zawijaj tekst → Kwadrat</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.4</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-900">Kolor i ramka całej strony</td>
+                                <td class="py-3 px-4 font-mono text-blue-700">Projektowanie → Kolor strony oraz Projektowanie → Obramowania stron</td>
+                                <td class="py-3 px-4 text-xs text-slate-500">1.4 / 1.5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Grading Rubric / Wymagania edukacyjne -->
+            <div class="pt-6 border-t border-slate-200 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h4 class="font-bold text-slate-900 text-base sm:text-lg flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-indigo-600"></i>
+                        <span>Tabela wymagań edukacyjnych („Lubię to!” Klasa 5 – Dział 1) i Podstawa Programowa</span>
+                    </h4>
+                    <span class="text-xs font-mono bg-slate-100 text-slate-600 px-3 py-1 rounded-lg">Punkty PP: I.1a, II.3b, III.2a, IV.1, IV.2, V.2</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1.5">
+                        <span class="font-bold text-slate-700 uppercase">Ocena dopuszczająca (2)</span>
+                        <p class="text-slate-600 leading-relaxed">Zapisany plik, zmienione tło strony, zmieniona czcionka opisu, lista numerowana, wstawiona i wypełniona tabela, dodany obraz oraz kształt.</p>
+                    </div>
+                    <div class="bg-blue-50/60 border border-blue-200 p-4 rounded-2xl space-y-1.5">
+                        <span class="font-bold text-blue-900 uppercase">Ocena dostateczna (3)</span>
+                        <p class="text-slate-600 leading-relaxed">Obramowanie strony, tytuł WordArt, wyróżnienia B/I/U, style Nagłówek 1 i 2, lista wielopoziomowa, dodana kolumna/wiersz i usunięty wiersz tabeli, opływanie obrazu Kwadrat.</p>
+                    </div>
+                    <div class="bg-emerald-50/60 border border-emerald-200 p-4 rounded-2xl space-y-1.5">
+                        <span class="font-bold text-emerald-900 uppercase">Ocena dobra (4)</span>
+                        <p class="text-slate-600 leading-relaxed">Wcięcie akapitu, twarde spacje przy jednostkach, miękki enter w stopce, brak błędów pisowni, cieniowanie i obramowanie tabeli 1,5 pkt, tekst i kolory w kształcie.</p>
+                    </div>
+                    <div class="bg-purple-50/60 border border-purple-200 p-4 rounded-2xl space-y-1.5">
+                        <span class="font-bold text-purple-900 uppercase">Ocena bardzo dobra (5)</span>
+                        <p class="text-slate-600 leading-relaxed">Weryfikacja opcją „Pokaż wszystko (¶)” (brak podwójnych spacji), scalony wiersz tytułowy tabeli, styl graficzny obrazu oraz podane źródło zdjęcia (prawo autorskie).</p>
+                    </div>
+                    <div class="bg-amber-50/80 border border-amber-300 p-4 rounded-2xl space-y-1.5">
+                        <span class="font-bold text-amber-950 uppercase">Ocena celująca (6)</span>
+                        <p class="text-slate-700 leading-relaxed">Zmodyfikowany styl nagłówka, dymek komiksowy z zagadką (Wyzwanie Mistrza) oraz wzorowy skład DTP mieszczący całość na 1 stronie A4.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div>
+                <span class="text-white font-bold">Projekt: Karta Atlasu Odkrywcy</span> &bull; Podsumowanie Działu 1 &bull; Klasa V (MS Word 2016)
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="scrollToSection('starter-section')" class="hover:text-white transition">Tekst startowy</button>
+                <button onclick="scrollToSection('symulator')" class="hover:text-white transition">Symulator</button>
+                <button onclick="scrollToSection('karta')" class="hover:text-white transition">Checklista</button>
+                <button onclick="window.print()" class="hover:text-white transition"><i class="fa-solid fa-print mr-1"></i>Drukuj kartę</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        // Presets for the 3 selectable adventure topics
+        const topicPresets = {
+            tatry: {
+                wordart: "ATLAS ODKRYWCY: TATRZAŃSKI SZLAK",
+                imgText: "Tatry+Wysokie",
+                raw: `1. Charakterystyka i opis\nTatrzański Park Narodowy zajmuje powierzchnię ponad 211 km kwadratowych i chroni unikalną przyrodę wysokogórską. Najwyższym szczytem w Polsce są Rysy o wysokości 2499 m n.p.m., a na szlaku można spotkać kozicę oraz świstaka. Każda wyprawa wymaga dobrego przygotowania i trwa minimum 180 min.\n2. Niezbędnik i zasady terenowe\nWyposażenie badacza\nSprzęt obserwacyjny\nlornetka\naparat fotograficzny\nProwiant i bezpieczeństwo\nwoda w bidonie\napteczka i mapa\nKolejność działań na szlaku\nSprawdź prognozę pogody i mapę.\nPrzygotuj sprzęt pomiarowy.\nZanotuj wyniki obserwacji w tabeli.\n3. Karta obserwacji terenowej`
+            },
+            wilk: {
+                wordart: "ATLAS ODKRYWCY: TROPEM WILKA",
+                imgText: "Wilk+Szary",
+                raw: `1. Charakterystyka i opis\nWilk szary to drapieżny ssak, który przemierza w polskich lasach dystans ponad 25 km w ciągu jednej doby. Dorosły osobnik waży około 45 kg i żyje w rodzinnej grupie zwanej watahą. Obserwacja tropów w lesie wymaga ciszy i trwa minimum 120 min.\n2. Niezbędnik i zasady terenowe\nWyposażenie badacza\nSprzęt obserwacyjny\nlornetka leśna\nmiarka do tropów\nProwiant i bezpieczeństwo\nciepła herbata w termosie\nkompas i latarka\nKolejność działań na szlaku\nSprawdź mapę leśnictwa i pogodę.\nZnajdź ślady łap na ścieżce.\nZanotuj wyniki pomiaru w tabeli.\n3. Karta obserwacji terenowej`
+            },
+            baltyk: {
+                wordart: "ATLAS ODKRYWCY: TAJEMNICE BAŁTYKU",
+                imgText: "Morze+Baltyckie",
+                raw: `1. Charakterystyka i opis\nMorze Bałtyckie ma polską linię brzegową o długości aż 500 km i kryje niezwykłe skarby przyrody. Średnia głębokość tego morza wynosi 52 m, a na piaszczystych plażach można zaobserwować fokę szarą oraz znaleźć bursztyn. Pieszy patrol wybrzeża trwa minimum 90 min.\n2. Niezbędnik i zasady terenowe\nWyposażenie badacza\nSprzęt obserwacyjny\nlornetka morska\nsiatka i lupa do bursztynu\nProwiant i bezpieczeństwo\nwoda w bidonie\nkurtka przeciwwiatrowa\nKolejność działań na szlaku\nSprawdź siłę wiatru i mapę wybrzeża.\nPrzygotuj dziennik obserwacji.\nZanotuj wyniki pomiarów w tabeli.\n3. Karta obserwacji terenowej`
+            }
+        };
+
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+            toastMsg.textContent = message;
+            toastIcon.className = isSuccess
+                ? "fa-solid fa-circle-check text-emerald-400 text-lg"
+                : "fa-solid fa-circle-info text-amber-400 text-lg";
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update student name live on the simulated A4 page
+        document.getElementById('student-name').addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            document.getElementById('page-student-header').textContent = val ? `Autor: ${val}` : 'Autor: Niepodpisano';
+            document.getElementById('sim-footer-author').textContent = val ? `${val}, Klasa V` : 'Jan Kowalski, Klasa V';
+        });
+
+        // Switch topic preset
+        function changeTopicPreset() {
+            const topic = document.getElementById('student-topic').value;
+            const preset = topicPresets[topic];
+            document.getElementById('raw-starter-box').textContent = preset.raw;
+            document.getElementById('sim-wordart').textContent = preset.wordart;
+            document.getElementById('sim-img').src = `https://placehold.co/320x220/1e40af/ffffff?text=${preset.imgText}`;
+            showToast(`Zmieniono temat projektu: ${preset.wordart}`);
+        }
+
+        // Copy raw starter text to clipboard
+        function copyStarterText() {
+            const text = document.getElementById('raw-starter-box').textContent.trim();
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Skopiowano tekst startowy! Wklej go w Wordzie skrótem Ctrl + V.");
+            } catch (err) {
+                showToast("Nie udało się skopiować tekstu", false);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Simulator interactive feature toggles
+        const simState = { page: true, marks: false, wrap: true, table: true, shape: true };
+
+        function toggleSimFeature(feature) {
+            simState[feature] = !simState[feature];
+            const btn = document.getElementById(`btn-sim-${feature}`);
+
+            if (feature === 'page') {
+                const page = document.getElementById('virtual-page');
+                if (simState.page) {
+                    page.classList.add('bg-[#fefce8]', 'border-4', 'border-double', 'border-blue-900');
+                    page.classList.remove('bg-white', 'border', 'border-slate-300');
+                    showToast("Włączono: Kolor strony + Obramowanie strony");
+                } else {
+                    page.classList.remove('bg-[#fefce8]', 'border-4', 'border-double', 'border-blue-900');
+                    page.classList.add('bg-white', 'border', 'border-slate-300');
+                    showToast("Wyłączono tło i obramowanie strony", false);
+                }
+            } else if (feature === 'marks') {
+                const marks = document.querySelectorAll('.format-mark');
+                marks.forEach(m => m.classList.toggle('hidden', !simState.marks));
+                btn.className = simState.marks
+                    ? "px-3 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 border border-amber-600 transition shadow"
+                    : "px-3 py-1.5 rounded-lg font-bold bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 transition";
+                showToast(simState.marks
+                    ? "Włączono podgląd znaczników ¶ (widać twarde spacje ° i miękki enter ↵)"
+                    : "Ukryto znaczniki formatowania ¶", simState.marks);
+                return;
+            } else if (feature === 'wrap') {
+                const imgBox = document.getElementById('sim-img-box');
+                if (simState.wrap) {
+                    imgBox.className = "float-right ml-4 mb-2 w-44 bg-white p-1.5 rounded-lg shadow-md border-2 border-slate-200 transition-all";
+                    showToast("Zawijanie obrazu: Kwadrat (tekst opływa zdjęcie)");
+                } else {
+                    imgBox.className = "float-none mx-auto my-3 w-44 bg-white p-1.5 rounded-lg shadow-md border-2 border-slate-200 transition-all";
+                    showToast("Zawijanie obrazu: Równo z tekstem", false);
+                }
+            } else if (feature === 'table') {
+                const mergedRow = document.getElementById('sim-merged-row');
+                const shadedRow = document.getElementById('sim-shaded-row');
+                mergedRow.classList.toggle('hidden', !simState.table);
+                shadedRow.classList.toggle('bg-amber-100/90', simState.table);
+                showToast(simState.table
+                    ? "Tabela: Włączono scalony baner tytułowy i cieniowanie wiersza"
+                    : "Tabela: Widok surowy bez scalonego tytułu", simState.table);
+            } else if (feature === 'shape') {
+                const shapeBox = document.getElementById('sim-shape-box');
+                shapeBox.classList.toggle('hidden', !simState.shape);
+                showToast(simState.shape
+                    ? "Widoczne kształty: Odznaka oraz Dymek Mistrza"
+                    : "Ukryto kształty", simState.shape);
+            }
+
+            if (btn && feature !== 'marks') {
+                btn.className = simState[feature]
+                    ? "px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm"
+                    : "px-3 py-1.5 rounded-lg font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition";
+            }
+        }
+
+        function triggerSimulateSave() {
+            const name = document.getElementById('student-name').value.trim() || 'Imie_Nazwisko';
+            showToast(`Symulacja zapisu. W Wordzie zapisz plik jako Atlas_Odkrywcy_${name.replace(/\s+/g, '_')}.docx (Ctrl + S)`);
+        }
+
+        function updateChecklist() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0;
+            items.forEach(i => { if (i.checked) checked++; });
+            document.getElementById('completed-count').textContent = checked;
+            const pct = Math.round((checked / items.length) * 100);
+            document.getElementById('progress-percent').textContent = pct + '%';
+            const banner = document.getElementById('mission-success-banner');
+            if (checked === items.length) {
+                banner.classList.remove('hidden');
+                showToast("Gratulacje! Wszystkie 5 etapów Karty Atlasu ukończone!");
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        function filterCheatSheet() {
+            const q = document.getElementById('cheat-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#cheat-table tbody tr');
+            rows.forEach(r => {
+                r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

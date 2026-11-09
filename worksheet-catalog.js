@@ -1,5 +1,13 @@
 export const grade5Worksheets = [
   {
+    id: 'karta-5-atlas-odkrywcy', type: 'task', grades: [5],
+    title: 'Karta Atlasu Odkrywcy — projekt podsumowujący dział I',
+    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
+    tags: ['EdytorTekstu', 'Word 2016', 'Projekt', 'KartaPracy'],
+    summary: 'Wybierz temat i przygotuj stronę atlasu w Wordzie. Połącz tekst, listę ekwipunku, tabelę obserwacji i ilustrację.',
+    body: '', source: 'Karta Atlasu Odkrywcy · Projekt dla klasy V'
+  },
+  {
     id: 'karta-5-misja-grafika', type: 'task', grades: [5],
     title: 'Misja Grafika — Nie tylko tekst. O wstawianiu ilustracji',
     section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
