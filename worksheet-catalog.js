@@ -1,5 +1,13 @@
 export const grade5Worksheets = [
   {
+    id: 'karta-5-misja-grafika', type: 'task', grades: [5],
+    title: 'Misja Grafika — Nie tylko tekst. O wstawianiu ilustracji',
+    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
+    tags: ['EdytorTekstu', 'Word 2016', 'Ilustracje', 'KartaPracy'],
+    summary: 'Przygotuj w Wordzie dokument o swojej pasji. Wstaw ilustrację, ułóż obok niej tekst i dodaj kształt.',
+    body: '', source: 'Misja Grafika · Karta ucznia · Word 2016'
+  },
+  {
     id: 'karta-5-1-2-zupa',
     type: 'task',
     grades: [5],

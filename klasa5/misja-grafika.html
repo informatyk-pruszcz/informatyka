@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misja Grafika • Karta Ucznia • Word 2016</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .win97-shadow { box-shadow: 2px 2px 0px #000, inset 1px 1px 0px #fff, inset -1px -1px #dfdfdf; }
+        .word-ribbon-btn:hover { background-color: rgba(0, 120, 212, 0.1); border-color: #0078d4; }
+        /* Custom smooth scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Toast / Notification banner -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm font-medium border border-slate-700">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Akcja wykonana pomyślnie!</span>
+    </div>
+
+    <!-- Top Navigation / Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-file-word text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-tight">Misja Grafika</h1>
+                    <p class="text-xs text-slate-400">Karta Ucznia • Klasa V • Word 2016</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="scrollToSection('symulator')" class="hidden md:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-desktop text-blue-400"></i>
+                    <span>Symulator Word</span>
+                </button>
+                <button onclick="scrollToSection('karta')" class="hidden sm:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-book-open text-amber-400"></i>
+                    <span>Treść karty</span>
+                </button>
+                <button onclick="copyCardContent()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-md shadow-blue-600/20 transition">
+                    <i class="fa-solid fa-copy"></i>
+                    <span class="hidden xs:inline">Kopiuj kartę</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <nav aria-label="Powrót do materiałów" class="max-w-7xl w-full mx-auto px-4 pt-4"><a href="../#item/karta-5-misja-grafika" class="text-blue-700 underline">← Klasa V · Zadania praktyczne</a></nav>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Hero Card Info Banner -->
+        <section class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-3xl text-white p-6 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 opacity-30 transform skew-x-12 pointer-events-none"></div>
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-blue-500/20 border border-blue-400/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-blue-200">
+                    <i class="fa-solid fa-clock text-amber-400"></i>
+                    <span>Czas wykonania: 20 minut</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Nie tylko tekst. O wstawianiu ilustracji</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Stwórz jednostronicową kartę swojej pasji: sportu, zwierzęcia, gry lub książki! Nauczysz się dodawać obraz, układać go obok tekstu w trybie <span class="font-semibold text-blue-300">Kwadrat</span> oraz wstawiać własne kształty.
+                </p>
+                
+                <!-- Quick Student Data Input -->
+                <div class="pt-4 flex flex-wrap gap-4 items-center bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10">
+                    <div class="flex-1 min-w-[200px]">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Imię i nazwisko ucznia:</label>
+                        <input type="text" id="student-name" placeholder="np. Jan Kowalski" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="w-28">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Klasa:</label>
+                        <input type="text" id="student-class" placeholder="np. V a" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="w-36">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Data:</label>
+                        <input type="date" id="student-date" class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Word 2016 Simulator Section -->
+        <section id="symulator" class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span class="text-xs font-bold text-slate-600 uppercase tracking-wider ml-2">Symulator Word 2016 • Interaktywna Strona</span>
+                </div>
+                <!-- Action Tabs / Ribbon Sim Tools -->
+                <div class="flex items-center space-x-2 text-xs">
+                    <button onclick="setSimMode('tytul')" id="btn-mode-tytul" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm">1. Tytuł</button>
+                    <button onclick="setSimMode('obraz')" id="btn-mode-obraz" class="px-3 py-1.5 rounded-lg font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition">2. Obrazek (Kwadrat)</button>
+                    <button onclick="setSimMode('ksztalt')" id="btn-mode-ksztalt" class="px-3 py-1.5 rounded-lg font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition">3. Kształt</button>
+                    <button onclick="resetSimulator()" class="px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition" title="Resetuj podgląd"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Simulated Word Ribbon Toolbar -->
+            <div class="bg-slate-50 border-b border-slate-200 p-3 flex flex-wrap gap-4 text-xs text-slate-700">
+                <div class="flex items-center space-x-2 border-r border-slate-300 pr-4">
+                    <span class="font-semibold text-slate-500">Czcionka:</span>
+                    <select id="sim-font-size" onchange="updateSimStyles()" class="bg-white border border-slate-300 rounded px-2 py-1 text-xs">
+                        <option value="16">16 pt</option>
+                        <option value="20" selected>20 pt (Pogrubiona)</option>
+                        <option value="24">24 pt</option>
+                    </select>
+                    <button onclick="toggleBold()" id="btn-bold" class="w-7 h-7 rounded border border-slate-300 bg-slate-200 font-bold hover:bg-slate-300 flex items-center justify-center">B</button>
+                </div>
+                <div class="flex items-center space-x-2 border-r border-slate-300 pr-4">
+                    <span class="font-semibold text-slate-500">Zawijaj tekst:</span>
+                    <select id="sim-wrap-style" onchange="updateSimWrap()" class="bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium text-blue-700">
+                        <option value="kwadrat" selected>Kwadrat</option>
+                        <option value="rowniez">Równo z tekstem</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="font-semibold text-slate-500">Dodaj kształt:</span>
+                    <button onclick="addSimShape('star')" class="px-2.5 py-1 bg-white border border-slate-300 rounded hover:bg-blue-50 transition">⭐ Gwiazda</button>
+                    <button onclick="addSimShape('heart')" class="px-2.5 py-1 bg-white border border-slate-300 rounded hover:bg-blue-50 transition">❤️ Serce</button>
+                    <button onclick="addSimShape('arrow')" class="px-2.5 py-1 bg-white border border-slate-300 rounded hover:bg-blue-50 transition">➡️ Strzałka</button>
+                </div>
+            </div>
+
+            <!-- Virtual A4 Page Preview Area -->
+            <div class="p-6 sm:p-12 bg-slate-200 flex justify-center items-center min-h-[500px] overflow-x-auto">
+                <div id="virtual-page" class="bg-white w-[595px] min-h-[842px] p-12 shadow-2xl relative rounded-sm text-slate-800 font-sans transition-all duration-300 select-none border border-slate-300">
+                    
+                    <!-- Page Header info watermark -->
+                    <div class="text-[10px] text-slate-400 border-b pb-2 mb-6 flex justify-between items-center font-mono">
+                        <span id="page-student-header">Uczeń: Niepodpisano</span>
+                        <span>Misja Grafika • Word 2016</span>
+                    </div>
+
+                    <!-- Editable Title -->
+                    <div class="mb-4">
+                        <input type="text" id="sim-title" value="Świat rowerów" oninput="liveUpdate()" class="w-full font-bold text-slate-900 border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none transition py-1 text-2xl">
+                    </div>
+
+                    <!-- Content container with image and text -->
+                    <div class="relative min-h-[220px] text-sm leading-relaxed text-slate-700" id="sim-content-box">
+                        
+                        <!-- Image Element (Draggable / Resizable feel) -->
+                        <div id="sim-image-container" class="float-right ml-4 mb-4 w-1/3 transition-all duration-200 cursor-move group relative" style="shape-outside: margin-box;">
+                            <div class="bg-blue-50 border-2 border-dashed border-blue-400 rounded-xl p-2 shadow-md relative overflow-hidden">
+                                <img src="https://placehold.co/300x200/0078d4/ffffff?text=Moja+Pasja" alt="Ilustracja pasji" id="sim-img-el" class="w-full h-auto rounded object-cover shadow">
+                                <div class="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                    <span class="bg-slate-900/80 text-white text-[10px] px-2 py-1 rounded font-mono shadow">Zmniejsz (Shift + Narożnik)</span>
+                                </div>
+                                <!-- Resize handles decoration -->
+                                <div class="absolute -top-1 -left-1 w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <div class="absolute -top-1 -right-1 w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <div class="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <div class="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-600 rounded-full"></div>
+                            </div>
+                            <p class="text-[10px] text-center text-slate-500 mt-1 font-medium">Narzędzia obrazów → Kwadrat</p>
+                        </div>
+
+                        <!-- Editable Description Text -->
+                        <div contenteditable="true" id="sim-desc" class="outline-none focus:bg-amber-50/50 p-1 rounded transition min-h-[100px]">
+                            Lubię jeździć na rowerze. Każda wycieczka to nowa przygoda. Odkrywanie nieznanych ścieżek w lesie i wiatr we włosach dają mi mnóstwo radości oraz energii na cały dzień.
+                        </div>
+                    </div>
+
+                    <!-- Shape element slot -->
+                    <div id="sim-shape-container" class="mt-8 relative hidden">
+                        <div class="inline-flex items-center space-x-2 bg-amber-100 border border-amber-300 text-amber-800 px-4 py-2 rounded-xl shadow-sm text-xs font-semibold cursor-pointer hover:bg-amber-200 transition">
+                            <span id="sim-shape-icon" class="text-base">⭐</span>
+                            <span id="sim-shape-text">Gwiazda ozdobna (Wstawianie → Kształty)</span>
+                        </div>
+                    </div>
+
+                    <!-- Page Footer watermark -->
+                    <div class="absolute bottom-8 left-12 right-12 text-center text-[10px] text-slate-400 border-t pt-4 font-mono">
+                        Strona 1 z 1 • Gotowe do zapisu jako <span class="font-bold text-slate-600">Moja_Pasja_Imie.docx</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 border-t border-slate-200 px-6 py-4 flex items-center justify-between text-xs text-slate-600">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                    <span>Wskazówka: W symulatorze możesz klikać, edytować tekst i zmieniać tryb zawijania, aby przećwiczyć lekcję przed pracą w Word 2016!</span>
+                </div>
+                <button onclick="triggerSimulateSave()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-lg transition shadow">
+                    <i class="fa-solid fa-floppy-disk mr-1.5"></i> Symuluj Zapisz (Ctrl + S)
+                </button>
+            </div>
+        </section>
+
+        <!-- Mission Steps Grid (Steps 1 to 6) -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center space-x-3">
+                    <i class="fa-solid fa-list-check text-blue-600"></i>
+                    <span>Kroki misji krok po kroku</span>
+                </h3>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-200 px-3 py-1 rounded-full">6 Zadań praktycznych</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Step 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 1</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>1 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Twoja misja</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Stwórz jednostronicową kartę swojej pasji: sportu, zwierzęcia, gry lub książki. Ty wybierasz temat i ilustrację!
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-bullseye mr-1"></i> Wybierz swój ulubiony temat.
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 2</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>3 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Przygotuj bazę</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Otwórz Word 2016 (Pusty dokument). Wpisz tytuł, naciśnij Enter i dodaj dwa zdania opisu. Zaznacz tytuł i ustaw rozmiar 20 oraz pogrubienie (B).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-font mr-1"></i> Narzędzia główne → Rozmiar 20 + B
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 3</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>4 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Dodaj ilustrację</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Wstawianie → Obrazy z folderu <code>Misja_Grafika</code>. Przytrzymaj <kbd class="bg-slate-100 border border-slate-300 px-1.5 py-0.5 rounded text-[10px] font-mono">Shift</kbd> i przeciągnij narożny uchwyt do środka (około 1/3 szerokości strony).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-image mr-1"></i> Proporcje zostaną zachowane!
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 4</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>4 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Ułóż tekst i obraz</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Narzędzia obrazów → Formatowanie → Zawijaj tekst → <strong class="text-slate-800">Kwadrat</strong>. Przeciągnij obraz obok opisu, po prawej stronie.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-align-left mr-1"></i> Tekst opływa prostokąt ilustracji.
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 5</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>4 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Dodaj coś od siebie</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Wstawianie → Kształty (gwiazda, serce lub strzałka). Narysuj ozdobę pod opisem w wolnym miejscu, zmieniając jej rozmiar.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-shapes mr-1"></i> Kształt rysujesz w Wordzie.
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md">Krok 6</span>
+                            <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-clock mr-1"></i>2 min</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Zapisz i sprawdź</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Plik → Zapisz jako → Pulpit → folder <code>Misja_Grafika</code>. Nazwa: <code>Moja_Pasja_Imie.docx</code>. Używaj regularnie <kbd class="bg-slate-100 border border-slate-300 px-1 py-0.5 rounded text-[10px] font-mono">Ctrl + S</kbd>.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-blue-600 font-medium">
+                        <i class="fa-solid fa-floppy-disk mr-1"></i> Dokument DOCX gotowy.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Checklist Section (Step 7) -->
+        <section id="karta" class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <span class="bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Krok 7 • Podsumowanie misji</span>
+                    <h3 class="text-xl sm:text-2xl font-extrabold mt-2">Checklist Ucznia – Misja Zakończona</h3>
+                    <p class="text-xs text-slate-400 mt-1">Zaznacz wykonane zadania po sprawdzeniu dokumentu w Word 2016.</p>
+                </div>
+                <!-- Progress counter widget -->
+                <div class="bg-white/10 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-xs text-slate-300 font-medium">Postęp misji</div>
+                        <div class="text-lg font-bold text-emerald-400"><span id="completed-count">0</span> / 4 ukończone</div>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-300 font-bold text-sm" id="progress-percent">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist Items -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <label class="flex items-start space-x-4 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none group">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-400 focus:ring-offset-slate-900">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-slate-100 group-hover:text-white transition">Wstawianie obrazu</span>
+                        <p class="text-xs text-slate-400 leading-relaxed">Potrafię wstawić obraz z pliku i zmniejszyć go bez rozciągania (używając Shift i narożnika).</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-4 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none group">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-400 focus:ring-offset-slate-900">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-slate-100 group-hover:text-white transition">Układ i opływanie</span>
+                        <p class="text-xs text-slate-400 leading-relaxed">Umiem ustawić obraz obok tekstu i wyjaśnić działanie opcji Kwadrat.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-4 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none group">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-400 focus:ring-offset-slate-900">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-slate-100 group-hover:text-white transition">Kształty i format</span>
+                        <p class="text-xs text-slate-400 leading-relaxed">Potrafię dodać kształt, a cały projekt mieści się na jednej stronie.</p>
+                    </div>
+                </label>
+
+                <label class="flex items-start space-x-4 bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl cursor-pointer transition select-none group">
+                    <input type="checkbox" onchange="updateChecklist()" class="checklist-item mt-1 w-5 h-5 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-400 focus:ring-offset-slate-900">
+                    <div class="space-y-1">
+                        <span class="font-semibold text-sm text-slate-100 group-hover:text-white transition">Zapis pliku DOCX</span>
+                        <p class="text-xs text-slate-400 leading-relaxed">Wiem, jak zapisać plik DOCX we właściwym folderze i go znaleźć.</p>
+                    </div>
+                </label>
+
+            </div>
+
+            <div id="mission-success-banner" class="hidden bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 p-4 rounded-2xl flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-award text-emerald-400 text-2xl"></i>
+                    <div>
+                        <h4 class="font-bold text-sm">Gratulacje! Misja ukończona w 100%!</h4>
+                        <p class="text-xs text-emerald-300">Jesteś prawdziwym mistrzem grafiki w Word 2016.</p>
+                    </div>
+                </div>
+                <button onclick="downloadCertificate()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow">
+                    Pobierz podsumowanie
+                </button>
+            </div>
+        </section>
+
+        <!-- Mini-Cheat Sheet Section (Miniściąga Word 2016) -->
+        <section class="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full">
+                        <i class="fa-solid fa-bookmark text-amber-600"></i>
+                        <span>ZACHOWAJ!</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2">Miniściąga Word 2016</h3>
+                    <p class="text-xs text-slate-500 mt-1">Najważniejsze ścieżki i polecenia w programie Word.</p>
+                </div>
+                <div class="relative">
+                    <input type="text" id="cheat-search" oninput="filterCheatSheet()" placeholder="Szukasz polecenia..." class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 w-full sm:w-64">
+                </div>
+            </div>
+
+            <!-- Cheat Sheet Table / Cards -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="cheat-table">
+                    <thead>
+                        <tr class="border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            <th class="py-3 px-4">Chcę...</th>
+                            <th class="py-3 px-4">Gdzie kliknąć? (Ścieżka Word 2016)</th>
+                            <th class="py-3 px-4 text-right">Akcja</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-xs sm:text-sm text-slate-700">
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Wstawić zdjęcie</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Wstawianie → Obrazy</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Wstawić zdjęcie', 'Wstawianie → Obrazy')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Dodać ozdobny napis</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Wstawianie → WordArt → wybierz styl → wpisz tekst</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Dodać ozdobny napis', 'Wstawianie → WordArt')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Narysować kształt</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Wstawianie → Kształty → wybierz → przeciągnij myszą</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Narysować kształt', 'Wstawianie → Kształty')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Ustawić tekst obok zdjęcia</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Zaznacz obraz → Narzędzia obrazów → Formatowanie → Zawijaj tekst → Kwadrat</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Ustawić tekst obok zdjęcia', 'Narzędzia obrazów → Formatowanie → Zawijaj tekst → Kwadrat')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Zmienić tło strony</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Projektowanie → Kolor strony</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Zmienić tło strony', 'Projektowanie → Kolor strony')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3.5 px-4 font-medium text-slate-900">Dodać ramkę strony</td>
+                            <td class="py-3.5 px-4 font-mono text-blue-600">Projektowanie → Obramowania stron → wybierz ramkę → OK</td>
+                            <td class="py-3.5 px-4 text-right">
+                                <button onclick="copyCheatRow('Dodać ramkę strony', 'Projektowanie → Obramowania stron')" class="text-slate-400 hover:text-blue-600 p-1" title="Kopiuj"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Ratunek / Tips Box -->
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-2 text-xs sm:text-sm text-amber-900">
+                <div class="font-bold flex items-center space-x-2 text-amber-950">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                    <span>Ratunek – Najczęstsze problemy:</span>
+                </div>
+                <ul class="list-disc list-inside space-y-1 text-amber-900/90">
+                    <li><strong>Obraz nie daje się przesunąć?</strong> Sprawdź zawijanie tekstu (musi być ustawione na Kwadrat).</li>
+                    <li><strong>Obraz jest rozciągnięty i zniekształcony?</strong> Cofnij zmianę (<kbd class="bg-amber-100 px-1 rounded font-mono">Ctrl + Z</kbd>) i użyj narożnika z przytrzymanym klawiszem <kbd class="bg-amber-100 px-1 rounded font-mono">Shift</kbd>.</li>
+                    <li><strong>Nie widzisz zakładki Formatowanie?</strong> Kliknij najpierw obraz lub narysowany kształt, aby aktywować narzędzia kontekstowe.</li>
+                </ul>
+            </div>
+
+            <!-- Bonus dla mistrza -->
+            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 space-y-2 text-xs sm:text-sm text-indigo-900">
+                <div class="font-bold flex items-center space-x-2 text-indigo-950">
+                    <i class="fa-solid fa-star text-indigo-600"></i>
+                    <span>Bonus dla mistrza (tylko jeśli masz czas):</span>
+                </div>
+                <p class="leading-relaxed">
+                    Zaznacz kształt. Wybierz <strong>Narzędzia do rysowania → Formatowanie → Wypełnienie kształtu</strong>, a potem <strong>Kontur kształtu</strong>. Dobierz dwa ulubione kolory i zapisz zmiany w pliku!
+                </p>
+            </div>
+
+            <!-- Ethics & Privacy footer note -->
+            <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-4 leading-relaxed">
+                <strong>Szanuj twórców i prywatność:</strong> Używaj przygotowanych ilustracji zgodnie z zasadami podanymi przez nauczyciela. Sam link do obrazka nie zastępuje zgody lub licencji. Nie dodawaj cudzych prywatnych zdjęć.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div>
+                <span class="text-white font-bold">Misja Grafika • Karta Ucznia</span> &bull; Microsoft Word 2016 &bull; Klasa V
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="scrollToSection('symulator')" class="hover:text-white transition">Symulator</button>
+                <button onclick="scrollToSection('karta')" class="hover:text-white transition">Checklista</button>
+                <button onclick="copyCardContent()" class="hover:text-white transition">Kopiuj instrukcję</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Toast notification helper
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.textContent = message;
+            if(isSuccess) {
+                toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+            } else {
+                toastIcon.className = "fa-solid fa-circle-exclamation text-amber-400 text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Live student name update in simulator header
+        document.getElementById('student-name').addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            const header = document.getElementById('page-student-header');
+            header.textContent = val ? `Uczeń: ${val}` : 'Uczeń: Niepodpisano';
+        });
+
+        // Simulator Modes & Interactions
+        function setSimMode(mode) {
+            // Reset active states
+            ['tytul', 'obraz', 'ksztalt'].forEach(m => {
+                const btn = document.getElementById(`btn-mode-${m}`);
+                if(btn) {
+                    btn.className = m === mode ? "px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition shadow-sm" : "px-3 py-1.5 rounded-lg font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition";
+                }
+            });
+
+            if(mode === 'tytul') {
+                document.getElementById('sim-title').focus();
+                showToast("Edytujesz tytuł karty (Zadanie 2)");
+            } else if(mode === 'obraz') {
+                document.getElementById('sim-image-container').classList.add('ring-4', 'ring-blue-400');
+                setTimeout(() => document.getElementById('sim-image-container').classList.remove('ring-4', 'ring-blue-400'), 1500);
+                showToast("Obraz wstawiony i ustawiony na 'Kwadrat' (Zadania 3 & 4)");
+            } else if(mode === 'ksztalt') {
+                document.getElementById('sim-shape-container').classList.remove('hidden');
+                showToast("Kształt dodany na stronie (Zadanie 5)");
+            }
+        }
+
+        // Toggle bold formatting in simulator title
+        let isTitleBold = true;
+        function toggleBold() {
+            isTitleBold = !isTitleBold;
+            const titleEl = document.getElementById('sim-title');
+            const btnBold = document.getElementById('btn-bold');
+            if(isTitleBold) {
+                titleEl.style.fontWeight = '700';
+                btnBold.classList.add('bg-slate-300');
+                showToast("Włączono pogrubienie (B)");
+            } else {
+                titleEl.style.fontWeight = '400';
+                btnBold.classList.remove('bg-slate-300');
+                showToast("Wyłączono pogrubienie");
+            }
+        }
+
+        // Update simulator styles based on font size selector
+        function updateSimStyles() {
+            const size = document.getElementById('sim-font-size').value;
+            document.getElementById('sim-title').style.fontSize = size + 'pt';
+            showToast(`Zmieniono rozmiar tytułu na ${size} pt`);
+        }
+
+        // Update text wrapping style
+        function updateSimWrap() {
+            const wrap = document.getElementById('sim-wrap-style').value;
+            const imgContainer = document.getElementById('sim-image-container');
+            if(wrap === 'kwadrat') {
+                imgContainer.style.float = 'right';
+                showToast("Zawijanie tekstu: Kwadrat (tekst opływa obraz)");
+            } else {
+                imgContainer.style.float = 'none';
+                imgContainer.style.display = 'block';
+                imgContainer.style.margin = '10px auto';
+                showToast("Zawijanie tekstu: Równo z tekstem (obraz jako duża litera)");
+            }
+        }
+
+        // Add shape in simulator
+        function addSimShape(type) {
+            const container = document.getElementById('sim-shape-container');
+            container.classList.remove('hidden');
+            const icon = document.getElementById('sim-shape-icon');
+            const text = document.getElementById('sim-shape-text');
+            
+            if(type === 'star') {
+                icon.textContent = '⭐';
+                text.textContent = 'Gwiazda ozdobna (Wstawianie → Kształty)';
+            } else if(type === 'heart') {
+                icon.textContent = '❤️';
+                text.textContent = 'Serce pasji (Wstawianie → Kształty)';
+            } else if(type === 'arrow') {
+                icon.textContent = '➡️';
+                text.textContent = 'Strzałka kierunkowa (Wstawianie → Kształty)';
+            }
+            showToast("Dodano kształt ozdobny!");
+        }
+
+        // Reset simulator
+        function resetSimulator() {
+            document.getElementById('sim-title').value = "Świat rowerów";
+            document.getElementById('sim-desc').innerHTML = "Lubię jeździć na rowerze. Każda wycieczka to nowa przygoda. Odkrywanie nieznanych ścieżek w lesie i wiatr we włosach dają mi mnóstwo radości oraz energii na cały dzień.";
+            document.getElementById('sim-image-container').style.float = 'right';
+            document.getElementById('sim-shape-container').classList.add('hidden');
+            document.getElementById('student-name').value = '';
+            document.getElementById('page-student-header').textContent = 'Uczeń: Niepodpisano';
+            showToast("Zresetowano symulator do stanu początkowego");
+        }
+
+        // Trigger simulate save (Ctrl + S simulation)
+        function triggerSimulateSave() {
+            const name = document.getElementById('student-name').value.trim() || 'Imie';
+            showToast(`Zapisano pomyślnie plik: Moja_Pasja_${name}.docx (Ctrl + S)`);
+        }
+
+        // Checklist State & Counter Management
+        function updateChecklist() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checkedCount = 0;
+            items.forEach(item => {
+                if(item.checked) checkedCount++;
+            });
+
+            document.getElementById('completed-count').textContent = checkedCount;
+            const percent = Math.round((checkedCount / items.length) * 100);
+            document.getElementById('progress-percent').textContent = percent + '%';
+
+            const banner = document.getElementById('mission-success-banner');
+            if(checkedCount === items.length) {
+                banner.classList.remove('hidden');
+                showToast("Gratulacje! Ukończyłeś wszystkie punkty misji!");
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        // Download Certificate / Summary action
+        function downloadCertificate() {
+            const name = document.getElementById('student-name').value.trim() || 'Uczeń';
+            showToast(`Wygenerowano certyfikat ukończenia misji dla: ${name}!`);
+        }
+
+        // Cheat Sheet Live Filter
+        function filterCheatSheet() {
+            const query = document.getElementById('cheat-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#cheat-table tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if(text.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Copy individual cheat row or entire card content using document.execCommand
+        function copyCheatRow(actionName, path) {
+            const textToCopy = `Chcę: ${actionName} -> Gdzie kliknąć: ${path}`;
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`Skopiowano do schowka: ${actionName}`);
+            } catch(err) {
+                showToast("Nie udało się skopiować", false);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function copyCardContent() {
+            const cardText = `KARTA UCZNIA • 20 MINUT • CZĘŚĆ I: Misja Grafika (Word 2016). Temat: Nie tylko tekst. O wstawianiu ilustracji. Krok 1: Twoja misja. Krok 2: Przygotuj bazę (Tytuł w rozmiarze 20 + B). Krok 3: Dodaj ilustrację (Shift + narożnik). Krok 4: Ułóż tekst i obraz (Zawijaj tekst -> Kwadrat). Krok 5: Dodaj kształt. Krok 6: Zapisz jako Moja_Pasja_Imie.docx.`;
+            const textarea = document.createElement('textarea');
+            textarea.value = cardText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Treść karty została skopiowana do schowka!");
+            } catch(err) {
+                showToast("Nie udało się skopiować treści", false);
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
