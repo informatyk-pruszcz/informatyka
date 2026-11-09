@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akademia Cyber-Detektywów: Misja Bezpieczna Sieć · Klasa 4</title>
+  <style>
+    :root {
+      --bg-deep: #0b1120;
+      --bg-panel: #131c31;
+      --bg-card: #ffffff;
+      --bg-soft: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --cyan: #06b6d4;
+      --mint: #10b981;
+      --mint-soft: #d1fae5;
+      --mint-dark: #065f46;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --amber-dark: #78350f;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --danger-soft: #ffe4e6;
+      --danger-text: #9f1239;
+      --border: #cbd5e1;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+      font-family: 'Segoe UI', Inter, system-ui, -apple-system, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 45%, #090d16 100%);
+      color: var(--text-main);
+      line-height: 1.55;
+      text-align: left;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    button:focus-visible, input:focus-visible, a:focus-visible {
+      outline: 3px solid #38bdf8;
+      outline-offset: 2px;
+    }
+
+    .app-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* TOP PORTAL BAR */
+    .portal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding: 10px 16px;
+      background: rgba(19, 28, 49, 0.9);
+      border: 1px solid #334155;
+      border-radius: 14px;
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+    .portal-nav a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .portal-nav a:hover { text-decoration: underline; }
+    .portal-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-new-student {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-new-student:hover {
+      background: #334155;
+      border-color: #94a3b8;
+    }
+
+    /* STICKY CYBER-DETECTIVE HUD */
+    .cyber-hud {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #0f172a 100%);
+      color: #f8fafc;
+      border: 2px solid #38bdf8;
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.25);
+    }
+    .hud-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .agent-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .agent-avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      border: 2px solid #7dd3fc;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+    }
+    .agent-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+    }
+    .agent-sub {
+      font-size: 13px;
+      color: #93c5fd;
+      margin: 0;
+    }
+    .hud-Counters {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hud-pill {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #475569;
+      padding: 7px 13px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hud-pill b {
+      color: #fde047;
+      font-size: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    .badges-mini {
+      display: inline-flex;
+      gap: 4px;
+    }
+    .badge-slot {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #1e293b;
+      border: 1px dashed #475569;
+      display: inline-grid;
+      place-items: center;
+      font-size: 15px;
+      opacity: 0.35;
+      transition: transform 0.25s, opacity 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .badge-slot.earned {
+      opacity: 1;
+      background: linear-gradient(135deg, #fef08a, #f59e0b);
+      border: 1px solid #ffffff;
+      transform: scale(1.08);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+    }
+
+    /* PROGRESS BAR */
+    .hud-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hud-progress-track {
+      flex: 1;
+      height: 12px;
+      background: #1e293b;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .hud-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #06b6d4 0%, #10b981 50%, #fde047 100%);
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .hud-progress-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #6ee7b7;
+      min-width: 115px;
+      text-align: right;
+    }
+
+    /* MISSION TABS NAVIGATION */
+    .mission-nav {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .mission-tab {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      padding: 10px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .mission-tab:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+    .mission-tab.active {
+      background: linear-gradient(180deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border-color: #93c5fd;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+    }
+    .mission-tab.completed {
+      border-color: #10b981;
+      background: #064e3b;
+      color: #ecfdf5;
+    }
+    .mission-tab.completed.active {
+      background: linear-gradient(180deg, #059669, #047857);
+      border-color: #6ee7b7;
+    }
+    .mission-tab .tab-icon { font-size: 20px; }
+
+    /* MAIN CARDS & SCREENS */
+    .screen { display: none; animation: fadeIn 0.25s ease-out; }
+    .screen.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 18px;
+      border: 2px solid #e2e8f0;
+      box-shadow: var(--shadow);
+    }
+    .mission-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .mission-kicker {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin-bottom: 6px;
+    }
+    .mission-title {
+      font-size: clamp(21px, 2.8vw, 27px);
+      margin: 0;
+      color: #0f172a;
+    }
+    .mission-status-pill {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .mission-status-pill.done {
+      background: var(--mint-soft);
+      color: var(--mint-dark);
+      border-color: #34d399;
+    }
+
+    /* KNOWLEDGE PILL (PIGUŁKA WIEDZY) */
+    .knowledge-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #f0fdfa 100%);
+      border: 2px solid #93c5fd;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .knowledge-box h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .knowledge-item {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    .knowledge-item strong {
+      display: block;
+      color: #0f172a;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    /* START SCREEN AVATARS */
+    .avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 12px;
+      margin: 14px 0 20px;
+    }
+    .avatar-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar-card:hover {
+      background: #eff6ff;
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+    }
+    .avatar-card.selected {
+      background: #dbeafe;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+    }
+    .avatar-emoji {
+      font-size: 36px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      border: 1px solid #cbd5e1;
+      flex-shrink: 0;
+    }
+    .avatar-card b { display: block; font-size: 16px; color: #0f172a; }
+    .avatar-card small { color: #475569; font-size: 12.5px; line-height: 1.35; display: block; margin-top: 2px; }
+
+    .name-input-wrap {
+      max-width: 440px;
+      margin-bottom: 20px;
+    }
+    .name-input-wrap label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .name-input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 2px solid #94a3b8;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 2px solid #1e40af;
+      border-bottom-width: 4px;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.1s, filter 0.15s;
+    }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-primary:active { transform: translateY(2px); border-bottom-width: 2px; }
+
+    .btn-mint {
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: 2px solid #047857;
+      border-bottom-width: 4px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 2px solid #cbd5e1;
+      border-bottom-width: 4px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* FEEDBACK BANNERS */
+    .feedback-box {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14.5px;
+      display: none;
+    }
+    .feedback-box.show { display: block; animation: fadeIn 0.2s ease-out; }
+    .feedback-box.ok {
+      background: var(--mint-soft);
+      color: var(--mint-dark);
+      border: 2px solid #34d399;
+    }
+    .feedback-box.hint {
+      background: var(--amber-soft);
+      color: var(--amber-dark);
+      border: 2px solid #fbbf24;
+    }
+
+    /* MISSION 1: SIGNAL CHAIN + CONCEPT MATCHING */
+    .signal-chain {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .signal-node {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-bottom-width: 4px;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: left;
+      font-weight: 700;
+      transition: all 0.15s;
+    }
+    .signal-node:hover { border-color: #38bdf8; background: #f0f9ff; }
+    .signal-node.connected {
+      background: var(--mint-soft);
+      border-color: #10b981;
+      color: var(--mint-dark);
+    }
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .match-row {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: minmax(190px, 240px) 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .match-row.correct {
+      background: #ecfdf5;
+      border-color: #10b981;
+    }
+    .match-term {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .match-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px;
+    }
+    .match-btn {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: left;
+      transition: all 0.12s;
+    }
+    .match-btn:hover { border-color: #2563eb; background: #eff6ff; }
+    .match-btn.chosen-ok {
+      background: #10b981;
+      color: #ffffff;
+      border-color: #047857;
+      font-weight: 700;
+    }
+    .match-btn.chosen-hint {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #f59e0b;
+    }
+
+    /* MISSION 2: PASSWORD FORGE & CARDS */
+    .pw-forge-box {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: 2px solid #334155;
+    }
+    .pw-blocks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+    .pw-brick {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #475569;
+      border-bottom-width: 3px;
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .pw-brick:hover { background: #334155; color: #ffffff; }
+    .pw-brick.weak-preset { color: #fca5a5; border-color: #7f1d1d; }
+    .pw-input-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .pw-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 14px;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 12px;
+      border: 2px solid #64748b;
+      background: #ffffff;
+      color: #0f172a;
+      letter-spacing: 0.03em;
+    }
+    .pw-meter-track {
+      height: 14px;
+      background: #1e293b;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid #475569;
+      margin-bottom: 10px;
+    }
+    .pw-meter-fill {
+      height: 100%;
+      width: 10%;
+      background: #ef4444;
+      transition: width 0.25s, background 0.25s;
+    }
+    .pw-checks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      font-size: 13px;
+    }
+    .pw-check-item {
+      background: #1e293b;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .pw-check-item.met {
+      background: #064e3b;
+      color: #6ee7b7;
+      border-color: #10b981;
+      font-weight: 700;
+    }
+
+    .situation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 14px;
+    }
+    .situation-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .situation-card.solved {
+      background: #ecfdf5;
+      border-color: #10b981;
+    }
+    .situation-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-safe, .btn-trap {
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 13.5px;
+      border: 2px solid #cbd5e1;
+      background: #ffffff;
+    }
+    .btn-safe:hover { background: #ecfdf5; border-color: #10b981; color: #065f46; }
+    .btn-trap:hover { background: #fff1f2; border-color: #f43f5e; color: #9f1239; }
+    .btn-safe.active-choice { background: #10b981; color: #ffffff; border-color: #047857; }
+    .btn-trap.active-choice { background: #e11d48; color: #ffffff; border-color: #9f1239; }
+
+    /* MISSION 3: BROWSER VS SEARCH ENGINE */
+    .sort-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .sort-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .sort-card.done {
+      background: #ecfdf5;
+      border-color: #10b981;
+    }
+    .sort-card-title {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .quiz-opt {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.12s;
+    }
+    .quiz-opt:hover { background: #eff6ff; border-color: #2563eb; }
+    .quiz-opt.correct {
+      background: var(--mint-soft);
+      border-color: #10b981;
+      color: var(--mint-dark);
+      font-weight: 800;
+    }
+    .quiz-opt.wrong {
+      background: var(--amber-soft);
+      border-color: #f59e0b;
+      color: var(--amber-dark);
+    }
+
+    /* MISSION 4: CHAT SIMULATOR */
+    .chat-window {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 2px solid #334155;
+    }
+    .chat-bubble {
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 14px 14px 14px 4px;
+      padding: 12px 16px;
+      max-width: 540px;
+      margin-bottom: 10px;
+    }
+    .chat-sender {
+      font-size: 12px;
+      color: #38bdf8;
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .chat-bubble.shout {
+      border-color: #f59e0b;
+      background: #27171a;
+      color: #fde68a;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    /* CERTIFICATE & CHEAT SHEET */
+    .certificate-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 50%, #ecfdf5 100%);
+      border: 4px double #f59e0b;
+      border-radius: 22px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 22px;
+      box-shadow: 0 14px 30px rgba(245, 158, 11, 0.15);
+    }
+    .cert-badges-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .cert-badge-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 12px;
+      font-weight: 700;
+    }
+    .cert-badge-card.unlocked {
+      border-color: #10b981;
+      background: #ecfdf5;
+      color: #065f46;
+    }
+    .cheatsheet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .cheat-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-top: 5px solid #2563eb;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .cheat-card h4 { margin: 0 0 8px; color: #0f172a; font-size: 16px; }
+    .cheat-card ul { margin: 0; padding-left: 18px; font-size: 14px; color: #334155; }
+    .cheat-card li { margin-bottom: 5px; }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (max-width: 780px) {
+      .mission-nav { grid-template-columns: repeat(3, 1fr); }
+      .match-row { grid-template-columns: 1fr; }
+      .panel-card { padding: 16px; }
+    }
+    @media print {
+      body { background: #ffffff; color: #000000; }
+      .portal-nav, .mission-nav, #confettiCanvas { display: none !important; }
+      .screen { display: none !important; }
+      #screen-final { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas" hidden></canvas>
+
+  <div class="app-shell" id="appRoot">
+    <!-- Pasek powrotu portalu -->
+    <nav class="portal-nav" id="portalNav">
+      <a href="../#class/4">← Powrót do informatyk-pruszcz.github.io/informatyka | Klasa 4 (Powtórzenie wiadomości)</a>
+      <div class="portal-nav-right">
+        <span>🕵️ Dział II: <b>Korzystanie z internetu</b></span>
+        <button type="button" class="btn-new-student" id="btnResetAll" title="Zeruje postęp dla nowego ucznia na tym komputerze">🔄 Nowy uczeń / Od nowa</button>
+      </div>
+    </nav>
+
+    <!-- Górny HUD Detektywa -->
+    <header class="cyber-hud" aria-label="Panel dowodzenia Cyber-Detektywa">
+      <div class="hud-top">
+        <div class="agent-identity">
+          <div class="agent-avatar-box" id="hudAvatar">🐱‍💻</div>
+          <div>
+            <h1 class="agent-title" id="hudTitle">Akademia Cyber-Detektywów: Misja Bezpieczna Sieć</h1>
+            <p class="agent-sub" id="hudAgentName">Agent: Młody Detektyw (Klasa 4)</p>
+          </div>
+        </div>
+        <div class="hud-Counters">
+          <div class="hud-pill" title="Zdobyte Cyber-Punkty">⚡ Cyber-Punkty: <b id="hudPoints">0</b></div>
+          <div class="hud-pill" title="Zdobyte Odznaki Mistrza Internetu">
+            🏅 Odznaki (<span id="hudBadgeCount">0/4</span>):
+            <span class="badges-mini">
+              <span class="badge-slot" id="badgeSlot1" title="Misja 1: Architekt Sieci">🌐</span>
+              <span class="badge-slot" id="badgeSlot2" title="Misja 2: Strażnik Tarczy">🛡️</span>
+              <span class="badge-slot" id="badgeSlot3" title="Misja 3: Mistrz Wyszukiwania">🔍</span>
+              <span class="badge-slot" id="badgeSlot4" title="Misja 4: Ambasador Netykiety">💬</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="hud-progress-row">
+        <div class="hud-progress-track" aria-label="Pasek ukończenia misji">
+          <div class="hud-progress-fill" id="hudProgressFill"></div>
+        </div>
+        <div class="hud-progress-label" id="hudProgressText">Postęp: 0%</div>
+      </div>
+    </header>
+
+    <!-- Nawigacja po ekranach i 4 misjach -->
+    <nav class="mission-nav" aria-label="Wybór misji">
+      <button type="button" class="mission-tab active" data-goto="start" id="tab-start">
+        <span class="tab-icon">🚀</span>
+        <span>Baza Startowa</span>
+      </button>
+      <button type="button" class="mission-tab" data-goto="m1" id="tab-m1">
+        <span class="tab-icon">🌐</span>
+        <span>Misja 1: Sieć</span>
+      </button>
+      <button type="button" class="mission-tab" data-goto="m2" id="tab-m2">
+        <span class="tab-icon">🛡️</span>
+        <span>Misja 2: Tarcza</span>
+      </button>
+      <button type="button" class="mission-tab" data-goto="m3" id="tab-m3">
+        <span class="tab-icon">🔍</span>
+        <span>Misja 3: Szukanie</span>
+      </button>
+      <button type="button" class="mission-tab" data-goto="m4" id="tab-m4">
+        <span class="tab-icon">💬</span>
+        <span>Misja 4: Netykieta</span>
+      </button>
+      <button type="button" class="mission-tab" data-goto="final" id="tab-final">
+        <span class="tab-icon">🏆</span>
+        <span>Finał i Ściąga</span>
+      </button>
+    </nav>
+
+    <!-- ==========================================
+         EKRAN 1: EKRAN STARTOWY
+         ========================================== -->
+    <section class="screen active" id="screen-start">
+      <div class="panel-card">
+        <div class="mission-header">
+          <div>
+            <span class="mission-kicker">Klasa 4 · Podsumowanie Działu II: Korzystanie z internetu</span>
+            <h2 class="mission-title">👋 Witaj w Akademii Cyber-Detektywów!</h2>
+          </div>
+          <span class="mission-status-pill">4 Misje do odznaki „Mistrza Internetu”</span>
+        </div>
+
+        <p style="font-size:16px;margin-top:0">
+          Szkolna sieć komputerowa potrzebuje Twojego wsparcia! Jako młody <strong>Cyber-Detektyw</strong> wykonasz <strong>4 interaktywne misje</strong> odpowiadające czterem tematom z naszego działu. Po drodze zdobędziesz <strong>Cyber-Punkty</strong>, 4 odznaki i odbierzesz imienny <strong>Certyfikat Mistrza Internetu</strong>!
+        </p>
+
+        <div class="name-input-wrap">
+          <label for="agentNameInput">1. Wpisz swoje imię lub pseudonim Agenta:</label>
+          <input type="text" id="agentNameInput" class="name-input" maxlength="28" placeholder="np. Agent Maja, Detektyw Kubuś..." autocomplete="off">
+        </div>
+
+        <p style="font-weight:700;font-size:15px;margin-bottom:8px">2. Wybierz swojego cyfrowego pomocnika (Awatara):</p>
+        <div class="avatar-grid" id="avatarGrid">
+          <button type="button" class="avatar-card selected" data-avatar="🐱‍💻" data-avname="Cyber-Kot">
+            <span class="avatar-emoji">🐱‍💻</span>
+            <div>
+              <b>Cyber-Kot</b>
+              <small>Czujny tropiciel podejrzanych linków i wirusów.</small>
+            </div>
+          </button>
+          <button type="button" class="avatar-card" data-avatar="🤖" data-avname="Robo-Pies">
+            <span class="avatar-emoji">🤖</span>
+            <div>
+              <b>Robo-Pies</b>
+              <small>Niezawodny strażnik domowego routera i super-haseł.</small>
+            </div>
+          </button>
+          <button type="button" class="avatar-card" data-avatar="🥷" data-avname="Ninja Sieci">
+            <span class="avatar-emoji">🥷</span>
+            <div>
+              <b>Ninja Sieci</b>
+              <small>Błyskawiczny mistrz wyszukiwarek i praw autorskich.</small>
+            </div>
+          </button>
+          <button type="button" class="avatar-card" data-avatar="🦉" data-avname="Kosmiczna Sowa">
+            <span class="avatar-emoji">🦉</span>
+            <div>
+              <b>Kosmiczna Sowa</b>
+              <small>Ekspertka od Netykiety, faktów i kulturalnego czatu.</small>
+            </div>
+          </button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <button type="button" class="btn-primary" id="btnStartMission">🚀 Rozpocznij Misję! →</button>
+          <span style="color:#475569;font-size:14px">Nie ma ujemnych punktów — każda zagadka uczy i daje wskazówki!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EKRAN 2: MISJA 1 - JAK DZIAŁA INTERNET?
+         ========================================== -->
+    <section class="screen" id="screen-m1">
+      <div class="panel-card">
+        <div class="mission-header">
+          <div>
+            <span class="mission-kicker">Misja 1 z 4 · Temat 2.1: Co warto wiedzieć o internecie?</span>
+            <h2 class="mission-title">🌐 Misja 1: Jak działa Internet?</h2>
+          </div>
+          <span class="mission-status-pill" id="status-m1">Odznaka: Architekt Sieci 🌐</span>
+        </div>
+
+        <!-- Pigułka wiedzy -->
+        <div class="knowledge-box">
+          <h3>💡 Pigułka wiedzy Agenta (przeczytaj przed zadaniem):</h3>
+          <div class="knowledge-grid">
+            <div class="knowledge-item">
+              <strong>🖥️ Sieć komputerowa</strong>
+              Grupa połączonych ze sobą komputerów i innych urządzeń (np. w sali lekcyjnej lub domu), które mogą przesyłać sobie dane.
+            </div>
+            <div class="knowledge-item">
+              <strong>🌍 Internet</strong>
+              Ogólnoświatowa „sieć sieci”, która łączy miliony komputerów i mniejszych sieci na całej kuli ziemskiej.
+            </div>
+            <div class="knowledge-item">
+              <strong>📡 Router i 📶 Wi-Fi</strong>
+              <strong>Router</strong> kieruje ruchem danych i łączy nasz dom lub szkołę z internetem, a <strong>Wi-Fi</strong> pozwala łączyć się z routerem bezprzewodowo (falami radiowymi, bez kabla!).
+            </div>
+          </div>
+        </div>
+
+        <!-- Zadanie 1A: Uruchom przepływ sygnału -->
+        <h3 style="margin:0 0 6px">Krok 1A. Uruchom połączenie ze światem!</h3>
+        <p style="margin:0 0 10px;color:#475569;font-size:14.5px">
+          Kliknij po kolei <strong>4 elementy drogi sygnału</strong> (od 1 do 4), aby Twój tablet w pokoju połączył się ze stroną internetową na świecie:
+        </p>
+        <div class="signal-chain" id="m1Chain">
+          <button type="button" class="signal-node" data-step="1">1️⃣ 💻 Twój tablet lub laptop w domu</button>
+          <button type="button" class="signal-node" data-step="2">2️⃣ 📶 Fale radiowe Wi-Fi (bez kabla)</button>
+          <button type="button" class="signal-node" data-step="3">3️⃣ 📡 Domowy Router (kieruje ruchem)</button>
+          <button type="button" class="signal-node" data-step="4">4️⃣ 🌍 Globalna sieć Internet na Ziemi</button>
+        </div>
+        <div class="feedback-box" id="fb-m1-chain"></div>
+
+        <!-- Zadanie 1B: Połącz pojęcia z definicjami -->
+        <h3 style="margin:22px 0 6px">Krok 1B. Mini-gra „Połącz sieć” – dopasuj definicję do każdego pojęcia:</h3>
+        <p style="margin:0 0 10px;color:#475569;font-size:14.5px">
+          Przy każdym z 4 pojęć kliknij kafelek z jego prawidłowym wyjaśnieniem:
+        </p>
+
+        <div class="match-grid" id="m1MatchGrid"></div>
+        <div class="feedback-box" id="fb-m1-match"></div>
+
+        <div style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn-secondary" data-goto="start">← Wróć do Bazy</button>
+          <button type="button" class="btn-primary" data-goto="m2">Przejdź do Misji 2: Tarcza Cyberbezpieczeństwa →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EKRAN 3: MISJA 2 - TARCZA CYBERBEZPIECZEŃSTWA
+         ========================================== -->
+    <section class="screen" id="screen-m2">
+      <div class="panel-card">
+        <div class="mission-header">
+          <div>
+            <span class="mission-kicker">Misja 2 z 4 · Temat 2.2: Bezpieczni w cyfrowym świecie</span>
+            <h2 class="mission-title">🛡️ Misja 2: Tarcza Cyberbezpieczeństwa</h2>
+          </div>
+          <span class="mission-status-pill" id="status-m2">Odznaka: Strażnik Tarczy 🛡️</span>
+        </div>
+
+        <!-- Część A: Kuźnia Haseł -->
+        <h3 style="margin:0 0 6px">Część A: 🔐 Kuźnia Haseł (Symulator mocy hasła)</h3>
+        <p style="margin:0 0 12px;color:#475569;font-size:14.5px">
+          Najpierw przetestuj słabe hasło (np. <code>piesek123</code>), a potem zbuduj <strong>Super Tarczę (100% mocy)</strong> — klikając kolorowe klocki lub wpisując własne hasło z klawiatury!
+        </p>
+
+        <div class="pw-forge-box">
+          <div style="font-size:13.5px;color:#cbd5e1;font-weight:700">Kliknij klocki, aby dodać je do hasła, lub pisz w polu poniżej:</div>
+          <div class="pw-blocks">
+            <button type="button" class="pw-brick weak-preset" data-pw-set="piesek123">⚠️ Testuj słabe: piesek123</button>
+            <button type="button" class="pw-brick" data-pw-add="Niebieski">➕ Niebieski</button>
+            <button type="button" class="pw-brick" data-pw-add="_Smok">➕ _Smok</button>
+            <button type="button" class="pw-brick" data-pw-add="#2026!">➕ #2026!</button>
+            <button type="button" class="pw-brick" data-pw-add="Kosmiczny">➕ Kosmiczny</button>
+            <button type="button" class="pw-brick" data-pw-add="$Kot99?">➕ $Kot99?</button>
+            <button type="button" class="pw-brick" data-pw-set="">🧹 Wyczyść pole</button>
+          </div>
+
+          <div class="pw-input-row">
+            <input type="text" id="pwInput" class="pw-input" placeholder="Wpisz lub zbuduj z klocków super-hasło..." autocomplete="off" spellcheck="false">
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:6px">
+            <span id="pwStrengthLabel">Siła hasła: Wpisz hasło do testu</span>
+            <span id="pwCrackTime">Czas złamania przez hakera: —</span>
+          </div>
+          <div class="pw-meter-track">
+            <div class="pw-meter-fill" id="pwMeterFill"></div>
+          </div>
+
+          <div class="pw-checks">
+            <div class="pw-check-item" id="pwReqLen">⬜ Co najmniej 10 znaków</div>
+            <div class="pw-check-item" id="pwReqCase">⬜ Małe i WIELKIE litery</div>
+            <div class="pw-check-item" id="pwReqNum">⬜ Co najmniej jedna cyfra (0–9)</div>
+            <div class="pw-check-item" id="pwReqSpec">⬜ Znak specjalny (np. ! # $ _ ?)</div>
+          </div>
+        </div>
+        <div class="feedback-box" id="fb-m2-pw"></div>
+
+        <!-- Część B: Prawda czy Pułapka? -->
+        <h3 style="margin:22px 0 6px">Część B: 🚨 Prawda czy Pułapka? (Oceń 4 sytuacje w sieci)</h3>
+        <p style="margin:0 0 12px;color:#475569;font-size:14.5px">
+          Przeczytaj każdą kartę sytuacyjną i zdecyduj: czy to <strong>✅ Bezpieczne zachowanie</strong>, czy <strong>🚨 Zagrożenie!</strong>
+        </p>
+
+        <div class="situation-grid" id="m2SituationGrid"></div>
+        <div class="feedback-box" id="fb-m2-cards"></div>
+
+        <div style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn-secondary" data-goto="m1">← Wróć do Misji 1</button>
+          <button type="button" class="btn-primary" data-goto="m3">Przejdź do Misji 3: Mistrz Wyszukiwania →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EKRAN 4: MISJA 3 - MISTRZ WYSZUKIWANIA
+         ========================================== -->
+    <section class="screen" id="screen-m3">
+      <div class="panel-card">
+        <div class="mission-header">
+          <div>
+            <span class="mission-kicker">Misja 3 z 4 · Temat 2.3: Jak szukać informacji?</span>
+            <h2 class="mission-title">🔍 Misja 3: Mistrz Wyszukiwania</h2>
+          </div>
+          <span class="mission-status-pill" id="status-m3">Odznaka: Mistrz Wyszukiwania 🔍</span>
+        </div>
+
+        <!-- Wizualne porównanie: Samochód vs Mapa GPS -->
+        <div class="knowledge-box">
+          <h3>🚗 Przeglądarka a 🗺️ Wyszukiwarka – nie pomyl ich!</h3>
+          <div class="knowledge-grid">
+            <div class="knowledge-item">
+              <strong>🚗 Przeglądarka = Nasz „Samochód”</strong>
+              To <strong>program</strong> zainstalowany na komputerze lub telefonie, który służy do otwierania i oglądania stron WWW.<br>
+              <em>Przykłady: Google Chrome, Microsoft Edge, Mozilla Firefox, Opera, Safari.</em>
+            </div>
+            <div class="knowledge-item">
+              <strong>🗺️ Wyszukiwarka = Nasza „Mapa GPS”</strong>
+              To specjalna <strong>strona internetowa</strong> z polem i lupką, która pomaga znaleźć informacje w internecie po wpisaniu słów kluczowych.<br>
+              <em>Przykłady: Google (google.pl), Bing, DuckDuckGo.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Krok 1: Oddziel przeglądarki od wyszukiwarek -->
+        <h3 style="margin:0 0 6px">Krok 1. Oddziel przeglądarki (🚗 programy) od wyszukiwarek (🗺️ stron z lupką):</h3>
+        <div class="sort-items-grid" id="m3SortGrid"></div>
+        <div class="feedback-box" id="fb-m3-step1"></div>
+
+        <!-- Krok 2: Słowa kluczowe o wilkach -->
+        <h3 style="margin:22px 0 6px">Krok 2. Wybierz najlepsze hasło do wyszukiwarki:</h3>
+        <p style="margin:0 0 8px;color:#475569;font-size:14.5px">
+          Musisz przygotować na przyrodę krótki referat o <strong>zwyczajach wilków żyjących w Polsce</strong>. Które hasło wpisane w wyszukiwarkę da najlepsze wyniki?
+        </p>
+        <div class="quiz-options" id="m3WolfOptions"></div>
+        <div class="feedback-box" id="fb-m3-step2"></div>
+
+        <!-- Krok 3: Hiperłącze i Prawa Autorskie -->
+        <h3 style="margin:22px 0 6px">Krok 3. Zagadki Detektywa: Hiperłącze i Prawa Autorskie</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:14px">
+            <p style="margin:0 0 8px;font-weight:800">3A. 🔗 Czym jest hiperłącze (link), na którym kursor myszy zamienia się w „rączkę” 👆?</p>
+            <div class="quiz-options" id="m3LinkOptions"></div>
+          </div>
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:14px">
+            <p style="margin:0 0 8px;font-weight:800">3B. ©️ Co musisz zrobić, wykorzystując zdjęcie lub tekst z internetu w swojej pracy szkolnej?</p>
+            <div class="quiz-options" id="m3CopyOptions"></div>
+          </div>
+        </div>
+        <div class="feedback-box" id="fb-m3-step3"></div>
+
+        <div style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn-secondary" data-goto="m2">← Wróć do Misji 2</button>
+          <button type="button" class="btn-primary" data-goto="m4">Przejdź do Misji 4: Kodeks Netykiety →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EKRAN 5: MISJA 4 - KODEKS NETYKIETY
+         ========================================== -->
+    <section class="screen" id="screen-m4">
+      <div class="panel-card">
+        <div class="mission-header">
+          <div>
+            <span class="mission-kicker">Misja 4 z 4 · Temat 2.4: Komunikacja w internecie</span>
+            <h2 class="mission-title">💬 Misja 4: Kodeks Netykiety</h2>
+          </div>
+          <span class="mission-status-pill" id="status-m4">Odznaka: Ambasador Netykiety 💬</span>
+        </div>
+
+        <!-- Scenka 1: WIELKIE LITERY na czacie -->
+        <h3 style="margin:0 0 8px">Scenka 1. Symulator czatu klasowego – Wielkie litery i kultura</h3>
+        <div class="chat-window">
+          <div class="chat-bubble shout">
+            <span class="chat-sender">🎮 Kacper_Pro (16:14)</span>
+            ODDAJ MI MOJEGO SKINA JUŻ TERAZ!!! SZYBKO!!!
+          </div>
+          <div id="m4ChatReplyPreview" class="chat-bubble" style="margin-left:auto;background:#065f46;border-color:#34d399;display:none"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:14px">
+            <p style="margin:0 0 8px;font-weight:800">1A. Jaki błąd wobec Netykiety popełnił Kacper?</p>
+            <div class="quiz-options" id="m4Scene1A"></div>
+          </div>
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:14px">
+            <p style="margin:0 0 8px;font-weight:800">1B. Wybierz kulturalną odpowiedź zgodną z Netykietą:</p>
+            <div class="quiz-options" id="m4Scene1B"></div>
+          </div>
+        </div>
+        <div class="feedback-box" id="fb-m4-s1"></div>
+
+        <!-- Scenka 2: Fakt czy Opinia? -->
+        <h3 style="margin:22px 0 8px">Scenka 2. 📌 Fakt (Informacja) czy 💭 Opinia?</h3>
+        <p style="margin:0 0 10px;color:#475569;font-size:14.5px">
+          Na czacie klasowym pojawiły się dwa komentarze. Oznacz, który z nich jest <strong>faktem (informacją, którą można sprawdzić)</strong>, a który <strong>opinią (własnym zdaniem)</strong>:
+        </p>
+        <div class="sort-items-grid" id="m4FactGrid"></div>
+        <div class="feedback-box" id="fb-m4-s2"></div>
+
+        <!-- Scenka 3: Reakcja na hejt -->
+        <h3 style="margin:22px 0 8px">Scenka 3. 🛑 Jak reagować na hejt (agresję słowną w sieci)?</h3>
+        <p style="margin:0 0 8px;color:#475569;font-size:14.5px">
+          Ktoś w internecie pisze złośliwe i obraźliwe komentarze pod adresem kolegi z klasy. Co powinien zrobić prawdziwy Cyber-Detektyw?
+        </p>
+        <div class="quiz-options" id="m4Scene3"></div>
+        <div class="feedback-box" id="fb-m4-s3"></div>
+
+        <div style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn-secondary" data-goto="m3">← Wróć do Misji 3</button>
+          <button type="button" class="btn-mint" data-goto="final">🏆 Odbierz Certyfikat i zobacz Ściągawkę na 6! →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EKRAN 6: FINAŁ - CERTYFIKAT I ŚCIĄGAWKA NA 6!
+         ========================================== -->
+    <section class="screen" id="screen-final">
+      <div class="panel-card">
+        <div class="certificate-box">
+          <div style="font-size:48px;line-height:1" id="certAvatar">🐱‍💻</div>
+          <span class="mission-kicker" style="margin-top:8px">AKADEMIA CYBER-DETEKTYWÓW · KLASA 4</span>
+          <h2 style="font-size:clamp(22px,3vw,30px);margin:6px 0;color:#0f172a" id="certMainTitle">Certyfikat Mistrza Internetu</h2>
+          <p style="font-size:17px;margin:4px 0">Niniejszy dyplom potwierdza, że Agent:</p>
+          <div style="font-size:26px;font-weight:900;color:#1d4ed8;margin:6px 0" id="certAgentName">Młody Detektyw (Cyber-Kot)</div>
+          <p style="margin:4px 0;color:#334155;font-weight:700" id="certScoreLine">Zdobyte Cyber-Punkty: 0 pkt · Odznaki: 0 / 4</p>
+
+          <div class="cert-badges-row">
+            <div class="cert-badge-card" id="certBadge1">🌐 Misja 1: Architekt Sieci</div>
+            <div class="cert-badge-card" id="certBadge2">🛡️ Misja 2: Strażnik Tarczy</div>
+            <div class="cert-badge-card" id="certBadge3">🔍 Misja 3: Mistrz Wyszukiwania</div>
+            <div class="cert-badge-card" id="certBadge4">💬 Misja 4: Ambasador Netykiety</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px">
+            <button type="button" class="btn-primary" onclick="window.print()">🖨️ Wydrukuj Certyfikat i Ściągawkę</button>
+            <button type="button" class="btn-secondary" id="btnPlayAgain">🔄 Zagraj ponownie (Nowy uczeń)</button>
+          </div>
+        </div>
+
+        <!-- ŚCIĄGAWKA ZAPAMIĘTAJ NA 6! -->
+        <h3 style="font-size:21px;margin:0 0 6px;color:#0f172a">📚 Zapamiętaj na 6! – Szybka ściągawka przed sprawdzianem (Dział II)</h3>
+        <p style="margin:0 0 12px;color:#475569;font-size:14.5px">
+          Powtórz najważniejsze pojęcia z wszystkich 4 lekcji w jednej minucie:
+        </p>
+
+        <div class="cheatsheet-grid">
+          <div class="cheat-card">
+            <h4>🌐 2.1. Jak działa Internet?</h4>
+            <ul>
+              <li><strong>Sieć komputerowa:</strong> połączone ze sobą komputery przesyłające dane.</li>
+              <li><strong>Internet:</strong> ogólnoświatowa sieć łącząca miliony sieci i komputerów na Ziemi.</li>
+              <li><strong>Router:</strong> urządzenie kierujące ruchem danych i łączące dom/szkołę z internetem.</li>
+              <li><strong>Wi-Fi:</strong> bezprzewodowe łączenie urządzeń z siecią za pomocą fal radiowych.</li>
+            </ul>
+          </div>
+          <div class="cheat-card" style="border-top-color:#10b981">
+            <h4>🛡️ 2.2. Bezpieczni w sieci</h4>
+            <ul>
+              <li><strong>Silne hasło:</strong> długie, zawiera małe i WIELKIE litery, cyfry oraz znaki specjalne (np. <code># ! ? _</code>).</li>
+              <li><strong>Dane osobowe:</strong> nigdy nie podawaj obcym w grach swojego nazwiska, adresu ani telefonu.</li>
+              <li><strong>Złośliwe oprogramowanie (wirusy):</strong> nie klikaj podejrzanych linków „Wygrałeś telefon!”.</li>
+              <li><strong>Deepfake / Fake news:</strong> fałszywe wiadomości lub przerobione komputerowo filmy. Zawsze zgłaszaj zagrożenia dorosłym!</li>
+            </ul>
+          </div>
+          <div class="cheat-card" style="border-top-color:#f59e0b">
+            <h4>🔍 2.3. Jak szukać informacji?</h4>
+            <ul>
+              <li><strong>Przeglądarka (samochód):</strong> program do oglądania stron WWW (np. Chrome, Edge, Firefox).</li>
+              <li><strong>Wyszukiwarka (mapa GPS):</strong> strona pomagająca znaleźć informacje (np. Google, Bing).</li>
+              <li><strong>Hiperłącze (link):</strong> odnośnik przenoszący po kliknięciu w inne miejsce w sieci (kursor zamienia się w rączkę 👆).</li>
+              <li><strong>Prawa autorskie:</strong> korzystając z cudzego zdjęcia lub tekstu, zawsze podaj <strong>autora i źródło</strong>!</li>
+            </ul>
+          </div>
+          <div class="cheat-card" style="border-top-color:#7c3aed">
+            <h4>💬 2.4. Komunikacja i Netykieta</h4>
+            <ul>
+              <li><strong>Netykieta:</strong> zbiór zasad kulturalnego i życzliwego zachowania w internecie.</li>
+              <li><strong>WIELKIE LITERY:</strong> pisanie całych słów drukowanymi literami oznacza w sieci <strong>KRZYK</strong>.</li>
+              <li><strong>Fakt a opinia:</strong> fakt można sprawdzić i udowodnić (np. data sprawdzianu), a opinia to czyjeś własne zdanie.</li>
+              <li><strong>Stop hejtowi:</strong> na agresję w sieci nie odpowiadaj agresją — zachowaj dowód i zgłoś sprawę dorosłemu!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    'use strict';
+    (function() {
+      const STORAGE_KEY = 'inf_pruszcz_klasa4_cyber_detektywi_v1';
+      const LESSON_TTL_MS = 45 * 60 * 1000; // 45 minut (jedna lekcja szkolna)
+
+      const defaultState = () => ({
+        screen: 'start',
+        agentName: '',
+        avatarEmoji: '🐱‍💻',
+        avatarTitle: 'Cyber-Kot',
+        m1ChainStep: 0,
+        m1Matches: {},
+        m2PasswordStrong: false,
+        m2PasswordText: '',
+        m2Cards: {},
+        m3Sorts: {},
+        m3WolfOk: false,
+        m3LinkOk: false,
+        m3CopyOk: false,
+        m4Scene1AOk: false,
+        m4Scene1BOk: false,
+        m4Facts: {},
+        m4Scene3Ok: false,
+        updatedAt: Date.now()
+      });
+
+      let state = loadState();
+
+      function loadState() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaultState();
+          const parsed = JSON.parse(raw);
+          if (!parsed || !parsed.updatedAt || (Date.now() - parsed.updatedAt) > LESSON_TTL_MS) {
+            sessionStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(STORAGE_KEY);
+            return defaultState();
+          }
+          return { ...defaultState(), ...parsed };
+        } catch {
+          return defaultState();
+        }
+      }
+
+      function saveState() {
+        state.updatedAt = Date.now();
+        const json = JSON.stringify(state);
+        try { sessionStorage.setItem(STORAGE_KEY, json); } catch {}
+        try { localStorage.setItem(STORAGE_KEY, json); } catch {}
+      }
+
+      // Dane zadań
+      const M1_CONCEPTS = [
+        {
+          id: 'siec',
+          icon: '🖥️',
+          term: 'Sieć komputerowa',
+          correct: 'A',
+          options: [
+            ['A', 'Połączone ze sobą komputery i urządzenia przesyłające między sobą dane.'],
+            ['B', 'Program do rysowania obrazków z pikseli.']
+          ]
+        },
+        {
+          id: 'internet',
+          icon: '🌍',
+          term: 'Internet',
+          correct: 'B',
+          options: [
+            ['A', 'Kabel łączący myszkę z klawiaturą w pracowni.'],
+            ['B', 'Ogólnoświatowa sieć łącząca miliony komputerów i mniejszych sieci na całej Ziemi.']
+          ]
+        },
+        {
+          id: 'router',
+          icon: '📡',
+          term: 'Router',
+          correct: 'A',
+          options: [
+            ['A', 'Urządzenie kierujące ruchem danych i łączące dom lub szkołę z internetem.'],
+            ['B', 'Głośnik odtwarzający muzykę z komputera.']
+          ]
+        },
+        {
+          id: 'wifi',
+          icon: '📶',
+          term: 'Wi-Fi',
+          correct: 'B',
+          options: [
+            ['A', 'Tajne hasło do szkolnego dziennika elektronicznego.'],
+            ['B', 'Bezprzewodowe połączenie urządzeń z siecią za pomocą fal radiowych (bez kabla).']
+          ]
+        }
+      ];
+
+      const M2_SITUATIONS = [
+        {
+          id: 's1',
+          icon: '🕵️‍♂️',
+          text: 'Nieznajomy poznany w grze sieciowej pisze: „Podaj mi swoje prawdziwe nazwisko, adres domowy i numer telefonu, to wyślę Ci niespodziankę!”.',
+          correct: 'trap',
+          explain: 'Brawo! Obowiązuje zasada ograniczonego zaufania — chroń swoje dane osobowe i nigdy nie podawaj ich obcym w sieci.'
+        },
+        {
+          id: 's2',
+          icon: '🎁',
+          text: 'Wyskakuje migające okienko: „GRATULACJE! Wygrałeś najnowszy telefon! Kliknij szybko w ten link i pobierz załącznik .exe!”.',
+          correct: 'trap',
+          explain: 'Świetna czujność! To klasyczna pułapka (phishing / wyłudzanie danych) oraz ryzyko pobrania złośliwego oprogramowania (wirusa).'
+        },
+        {
+          id: 's3',
+          icon: '⚽',
+          text: 'Widzisz filmik w sieci, na którym sławny piłkarz mówi dziwnym, sztucznym głosem i namawia dzieci do oddania haseł do kont w grze.',
+          correct: 'trap',
+          explain: 'Dokładnie tak! To deepfake lub fake news — fałszywe nagranie przerobione komputerowo dla oszustwa.'
+        },
+        {
+          id: 's4',
+          icon: '👨‍👩‍👧',
+          text: 'Gdy coś w internecie Cię zaniepokoi, wystraszy albo ktoś komuś dokucza, od razu mówisz o tym rodzicom lub nauczycielowi.',
+          correct: 'safe',
+          explain: 'Wzorowo, Agencie! Zgłoszenie problemu zaufanemu dorosłemu to najbezpieczniejsza i najmądrzejsza reakcja.'
+        }
+      ];
+
+      const M3_SORT_ITEMS = [
+        { id: 'chrome', name: '🌐 Google Chrome', correct: 'browser', hint: 'Chrome to zainstalowany program („samochód”), którym otwieramy strony.' },
+        { id: 'google', name: '🔎 Google (google.pl)', correct: 'search', hint: 'Google to strona wyszukiwarki („mapa GPS”), w której wpisujemy hasła.' },
+        { id: 'edge', name: '🧭 Microsoft Edge', correct: 'browser', hint: 'Edge to przeglądarka internetowa wbudowana w system Windows.' },
+        { id: 'firefox', name: '🦊 Mozilla Firefox', correct: 'browser', hint: 'Firefox z rudym liskiem to program — przeglądarka stron WWW.' },
+        { id: 'bing', name: '🗺️ Microsoft Bing', correct: 'search', hint: 'Bing to wyszukiwarka internetowa pomagająca znaleźć strony.' },
+        { id: 'duck', name: '🦆 DuckDuckGo', correct: 'search', hint: 'DuckDuckGo to wyszukiwarka internetowa (nasza mapa GPS).' }
+      ];
+
+      const M4_FACTS = [
+        {
+          id: 'f1',
+          text: '„W tym tygodniu w czwartek jest zapowiedziany sprawdzian z matematyki.”',
+          correct: 'fact',
+          explain: 'Zgadza się! To FAKT (informacja), ponieważ można to sprawdzić w terminarzu dziennika.'
+        },
+        {
+          id: 'f2',
+          text: '„Matematyka to najtrudniejszy przedmiot na całym świecie!”',
+          correct: 'opinion',
+          explain: 'Tak jest! To OPINIA — każdy uczeń może mieć inne zdanie o tym, który przedmiot jest najtrudniejszy.'
+        }
+      ];
+
+      const $ = id => document.getElementById(id);
+
+      // Budowa interaktywnych elementów DOM
+      function initDOM() {
+        // Misja 1: Krok 1A (łańcuch sygnału)
+        document.querySelectorAll('#m1Chain .signal-node').forEach(btn => {
+          btn.onclick = () => {
+            const step = Number(btn.dataset.step);
+            const fb = $('fb-m1-chain');
+            if (step === state.m1ChainStep + 1) {
+              state.m1ChainStep = step;
+              saveState();
+              renderAll();
+              if (state.m1ChainStep === 4) {
+                showFeedback(fb, 'ok', '🎉 Świetna robota, Agencie! Sygnał popłynął z tabletu przez fale Wi-Fi i Router prosto do globalnej sieci Internet!');
+                triggerConfetti();
+              } else {
+                showFeedback(fb, 'ok', `✓ Krok ${step} podłączony! Kliknij teraz element nr ${step + 1}.`);
+              }
+            } else if (step <= state.m1ChainStep) {
+              showFeedback(fb, 'ok', `Ten element jest już aktywny! Teraz kliknij krok nr ${Math.min(4, state.m1ChainStep + 1)}.`);
+            } else {
+              showFeedback(fb, 'hint', `🕵️ Uważaj na kolejność! Najpierw kliknij element nr ${state.m1ChainStep + 1}.`);
+            }
+          };
+        });
+
+        // Misja 1: Krok 1B (dopasowanie pojęć)
+        const m1Grid = $('m1MatchGrid');
+        m1Grid.innerHTML = M1_CONCEPTS.map(c => `
+          <div class="match-row" id="m1row-${c.id}">
+            <div class="match-term"><span>${c.icon}</span> <span>${c.term}</span></div>
+            <div class="match-options">
+              ${c.options.map(([key, label]) => `
+                <button type="button" class="match-btn" data-m1-id="${c.id}" data-m1-opt="${key}">${label}</button>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+
+        m1Grid.querySelectorAll('.match-btn').forEach(btn => {
+          btn.onclick = () => {
+            const id = btn.dataset.m1Id;
+            const opt = btn.dataset.m1Opt;
+            const concept = M1_CONCEPTS.find(x => x.id === id);
+            const fb = $('fb-m1-match');
+            if (opt === concept.correct) {
+              state.m1Matches[id] = opt;
+              saveState();
+              renderAll();
+              const allDone = M1_CONCEPTS.every(x => state.m1Matches[x.id] === x.correct);
+              showFeedback(fb, 'ok', allDone
+                ? '🏅 Brawo! Wszystkie 4 pojęcia sieciowe dopasowane bezbłędnie!'
+                : `✓ Świetnie! Pojęcie „${concept.term}” zostało prawidłowo połączone.`);
+              if (allDone && state.m1ChainStep === 4) triggerConfetti();
+            } else {
+              btn.classList.add('chosen-hint');
+              showFeedback(fb, 'hint', `💡 Podpowiedź dla pojęcia „${concept.term}”: przeczytaj uważnie drugi kafelek obok tego hasła!`);
+            }
+          };
+        });
+
+        // Misja 2A: Kuźnia Haseł
+        const pwInput = $('pwInput');
+        document.querySelectorAll('[data-pw-add]').forEach(btn => {
+          btn.onclick = () => {
+            pwInput.value += btn.dataset.pwAdd;
+            evaluatePassword(pwInput.value);
+          };
+        });
+        document.querySelectorAll('[data-pw-set]').forEach(btn => {
+          btn.onclick = () => {
+            pwInput.value = btn.dataset.pwSet;
+            evaluatePassword(pwInput.value);
+          };
+        });
+        pwInput.addEventListener('input', () => evaluatePassword(pwInput.value));
+
+        // Misja 2B: 4 karty sytuacyjne
+        const m2Grid = $('m2SituationGrid');
+        m2Grid.innerHTML = M2_SITUATIONS.map((s, idx) => `
+          <div class="situation-card" id="m2card-${s.id}">
+            <div>
+              <div style="font-size:26px;margin-bottom:6px">${s.icon} <small style="font-size:12px;color:#64748b;font-weight:800">SYTUACJA ${idx + 1}</small></div>
+              <p style="margin:0;font-size:14.5px;font-weight:600">${s.text}</p>
+            </div>
+            <div class="situation-btns">
+              <button type="button" class="btn-safe" data-m2-id="${s.id}" data-m2-val="safe">✅ Bezpieczne</button>
+              <button type="button" class="btn-trap" data-m2-id="${s.id}" data-m2-val="trap">🚨 Zagrożenie!</button>
+            </div>
+          </div>
+        `).join('');
+
+        m2Grid.querySelectorAll('button[data-m2-id]').forEach(btn => {
+          btn.onclick = () => {
+            const id = btn.dataset.m2Id;
+            const val = btn.dataset.m2Val;
+            const item = M2_SITUATIONS.find(x => x.id === id);
+            const fb = $('fb-m2-cards');
+            if (val === item.correct) {
+              state.m2Cards[id] = val;
+              saveState();
+              renderAll();
+              showFeedback(fb, 'ok', '✓ ' + item.explain);
+              if (isMission2Done()) triggerConfetti();
+            } else {
+              showFeedback(fb, 'hint', '⚠️ Uważaj, Agencie! Zastanów się jeszcze raz: czy w tej sytuacji nasze dane lub komputer są bezpieczne, czy ktoś zastawia pułapkę?');
+            }
+          };
+        });
+
+        // Misja 3: Krok 1 (Przeglądarka vs Wyszukiwarka)
+        const m3Grid = $('m3SortGrid');
+        m3Grid.innerHTML = M3_SORT_ITEMS.map(item => `
+          <div class="sort-card" id="m3sort-${item.id}">
+            <div class="sort-card-title">${item.name}</div>
+            <div class="situation-btns">
+              <button type="button" class="btn-safe" data-m3-id="${item.id}" data-m3-val="browser">🚗 Przeglądarka</button>
+              <button type="button" class="btn-safe" data-m3-id="${item.id}" data-m3-val="search">🗺️ Wyszukiwarka</button>
+            </div>
+          </div>
+        `).join('');
+
+        m3Grid.querySelectorAll('button[data-m3-id]').forEach(btn => {
+          btn.onclick = () => {
+            const id = btn.dataset.m3Id;
+            const val = btn.dataset.m3Val;
+            const item = M3_SORT_ITEMS.find(x => x.id === id);
+            const fb = $('fb-m3-step1');
+            if (val === item.correct) {
+              state.m3Sorts[id] = val;
+              saveState();
+              renderAll();
+              showFeedback(fb, 'ok', '✓ Brawo! ' + item.hint);
+              if (isMission3Done()) triggerConfetti();
+            } else {
+              showFeedback(fb, 'hint', '💡 Podpowiedź: ' + item.hint);
+            }
+          };
+        });
+
+        // Misja 3: Krok 2 (Hasło o wilkach)
+        const wolfBox = $('m3WolfOptions');
+        const wolfChoices = [
+          { ok: false, text: 'A) „wilk”', msg: 'To hasło jest zbyt ogólne! Wyskoczą tysiące stron z bajkami o Czerwonym Kapturku, grami i piosenkami.' },
+          { ok: true, text: 'B) „zwyczaje wilków w Polsce przyroda”', msg: '🎯 Strzał w dziesiątkę! Konkretne słowa kluczowe od razu zaprowadzą Cię do materiałów przyrodniczych na referat.' },
+          { ok: false, text: 'C) „Proszę napisz mi wszystko na jutro bo mam lekcję”', msg: 'Wyszukiwarka najlepiej rozumie konkretne słowa kluczowe (np. czego dokładnie szukasz), a nie długie prośby bez tematu.' }
+        ];
+        wolfBox.innerHTML = wolfChoices.map((c, i) => `
+          <button type="button" class="quiz-opt" data-wolf-idx="${i}">${c.text}</button>
+        `).join('');
+        wolfBox.querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = wolfChoices[Number(btn.dataset.wolfIdx)];
+            const fb = $('fb-m3-step2');
+            if (c.ok) {
+              state.m3WolfOk = true;
+              saveState();
+              renderAll();
+              showFeedback(fb, 'ok', c.msg);
+              if (isMission3Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback(fb, 'hint', '💡 ' + c.msg);
+            }
+          };
+        });
+
+        // Misja 3: Krok 3A (Hiperłącze) i 3B (Prawa autorskie)
+        const linkChoices = [
+          { ok: true, text: 'Odnośnik (tekst lub obrazek), który po kliknięciu przenosi nas w inne miejsce w sieci.', msg: '✓ Znakomicie! Hiperłącze (link) łączy strony internetowe ze sobą.' },
+          { ok: false, text: 'Specjalny program antywirusowy czyszczący ekran monitora.', msg: '💡 Pomyśl o napisie, na którym kursor myszy zamienia się w „rączkę” i po kliknięciu otwiera nową stronę.' }
+        ];
+        $('m3LinkOptions').innerHTML = linkChoices.map((c, i) => `<button type="button" class="quiz-opt" data-link-idx="${i}">${c.text}</button>`).join('');
+        $('m3LinkOptions').querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = linkChoices[Number(btn.dataset.linkIdx)];
+            if (c.ok) {
+              state.m3LinkOk = true;
+              saveState();
+              renderAll();
+              showFeedback($('fb-m3-step3'), 'ok', c.msg);
+              if (isMission3Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback($('fb-m3-step3'), 'hint', c.msg);
+            }
+          };
+        });
+
+        const copyChoices = [
+          { ok: false, text: 'Podpisać znalezione w sieci zdjęcie wyłącznie własnym imieniem i nazwiskiem.', msg: '⚠️ Nigdy nie podpisuj cudzej pracy jako własnej! To naruszenie praw autorskich.' },
+          { ok: true, text: 'Sprawdzić, czy można go użyć, oraz zawsze podać autora i źródło (np. adres strony).', msg: '✓ Brawo! Poszanowanie praw autorskich to obowiązek każdego Cyber-Detektywa!' }
+        ];
+        $('m3CopyOptions').innerHTML = copyChoices.map((c, i) => `<button type="button" class="quiz-opt" data-copy-idx="${i}">${c.text}</button>`).join('');
+        $('m3CopyOptions').querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = copyChoices[Number(btn.dataset.copyIdx)];
+            if (c.ok) {
+              state.m3CopyOk = true;
+              saveState();
+              renderAll();
+              showFeedback($('fb-m3-step3'), 'ok', c.msg);
+              if (isMission3Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback($('fb-m3-step3'), 'hint', c.msg);
+            }
+          };
+        });
+
+        // Misja 4: Scenka 1A i 1B
+        const s1AChoices = [
+          { ok: true, text: 'Pisał CAŁE ZDANIE WIELKIMI LITERAMI, co w internecie oznacza KRZYK i jest nieuprzejme.', msg: '✓ Dokładnie tak! Według Netykiety pisanie z włączonym Caps Lockiem oznacza krzyk.' },
+          { ok: false, text: 'Zapomniał dodać dziesięciu kolejnych wykrzykników na końcu zdania.', msg: '💡 Spójrz na wielkość liter w wiadomości Kacpra — co w Netykiecie oznacza pisanie samymi wielkimi literami?' }
+        ];
+        $('m4Scene1A').innerHTML = s1AChoices.map((c, i) => `<button type="button" class="quiz-opt" data-s1a-idx="${i}">${c.text}</button>`).join('');
+        $('m4Scene1A').querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = s1AChoices[Number(btn.dataset.s1aIdx)];
+            if (c.ok) {
+              state.m4Scene1AOk = true;
+              saveState();
+              renderAll();
+              showFeedback($('fb-m4-s1'), 'ok', c.msg);
+              if (isMission4Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback($('fb-m4-s1'), 'hint', c.msg);
+            }
+          };
+        });
+
+        const s1BChoices = [
+          { ok: false, text: '„NIE KRZYCZ NA MNIE BO NIC CI NIE ODDAM!!!”', msg: '💡 Odpowiadanie krzykiem na krzyk tylko powiększa kłótnię na czacie. Wybierz spokojną i kulturalną wiadomość!' },
+          { ok: true, text: '„Hej Kacper, nie pisz proszę wielkimi literami 🙂 Już kończę rundę i zgodnie z umową przesyłam skina!”', msg: '✓ Wzorowa odpowiedź zgodna z Netykietą! Spokój i kultura zawsze wygrywają.' }
+        ];
+        $('m4Scene1B').innerHTML = s1BChoices.map((c, i) => `<button type="button" class="quiz-opt" data-s1b-idx="${i}">${c.text}</button>`).join('');
+        $('m4Scene1B').querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = s1BChoices[Number(btn.dataset.s1bIdx)];
+            if (c.ok) {
+              state.m4Scene1BOk = true;
+              saveState();
+              renderAll();
+              showFeedback($('fb-m4-s1'), 'ok', c.msg);
+              if (isMission4Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback($('fb-m4-s1'), 'hint', c.msg);
+            }
+          };
+        });
+
+        // Misja 4: Scenka 2 (Fakt czy Opinia)
+        const m4FactGrid = $('m4FactGrid');
+        m4FactGrid.innerHTML = M4_FACTS.map((f, idx) => `
+          <div class="sort-card" id="m4fact-${f.id}">
+            <div style="font-size:12px;font-weight:800;color:#64748b;margin-bottom:4px">KOMENTARZ ${idx + 1}</div>
+            <div class="sort-card-title" style="font-size:15px">${f.text}</div>
+            <div class="situation-btns">
+              <button type="button" class="btn-safe" data-m4-id="${f.id}" data-m4-val="fact">📌 To FAKT (informacja)</button>
+              <button type="button" class="btn-safe" data-m4-id="${f.id}" data-m4-val="opinion">💭 To OPINIA (czyjeś zdanie)</button>
+            </div>
+          </div>
+        `).join('');
+
+        m4FactGrid.querySelectorAll('button[data-m4-id]').forEach(btn => {
+          btn.onclick = () => {
+            const id = btn.dataset.m4Id;
+            const val = btn.dataset.m4Val;
+            const item = M4_FACTS.find(x => x.id === id);
+            const fb = $('fb-m4-s2');
+            if (val === item.correct) {
+              state.m4Facts[id] = val;
+              saveState();
+              renderAll();
+              showFeedback(fb, 'ok', '✓ ' + item.explain);
+              if (isMission4Done()) triggerConfetti();
+            } else {
+              showFeedback(fb, 'hint', '💡 Zastanów się: czy tę wypowiedź da się jednoznacznie sprawdzić w dzienniku szkolnym (Fakt), czy to odczucie jednej osoby (Opinia)?');
+            }
+          };
+        });
+
+        // Misja 4: Scenka 3 (Reakcja na hejt)
+        const s3Choices = [
+          { ok: false, text: 'A) Odpisać jeszcze bardziej obraźliwym komentarzem, żeby się odegrać.', msg: '⚠️ Odpowiadanie agresją na agresję nakręca spiralę hejtu. Cyber-Detektyw działa mądrzej!' },
+          { ok: false, text: 'B) Udostępnić złośliwy komentarz wszystkim znajomym, żeby było śmieszniej.', msg: '⚠️ Rozsyłanie krzywdzących treści pomaga sprawcy ranić innych.' },
+          { ok: true, text: 'C) Nie odpowiadać agresją, zachować dowód (np. zrzut ekranu) i zgłosić sprawę dorosłemu (rodzicowi lub nauczycielowi).', msg: '🏅 Brawo, Ambasadorze Netykiety! To jedyna właściwa i bezpieczna reakcja na hejt w sieci!' }
+        ];
+        $('m4Scene3').innerHTML = s3Choices.map((c, i) => `<button type="button" class="quiz-opt" data-s3-idx="${i}">${c.text}</button>`).join('');
+        $('m4Scene3').querySelectorAll('button').forEach(btn => {
+          btn.onclick = () => {
+            const c = s3Choices[Number(btn.dataset.s3Idx)];
+            if (c.ok) {
+              state.m4Scene3Ok = true;
+              saveState();
+              renderAll();
+              showFeedback($('fb-m4-s3'), 'ok', c.msg);
+              if (isMission4Done()) triggerConfetti();
+            } else {
+              btn.classList.add('wrong');
+              showFeedback($('fb-m4-s3'), 'hint', c.msg);
+            }
+          };
+        });
+
+        // Ekran startowy: wybór awatara i imienia
+        document.querySelectorAll('#avatarGrid .avatar-card').forEach(card => {
+          card.onclick = () => {
+            state.avatarEmoji = card.dataset.avatar;
+            state.avatarTitle = card.dataset.avname;
+            saveState();
+            renderAll();
+          };
+        });
+        $('agentNameInput').addEventListener('input', e => {
+          state.agentName = e.target.value.trim();
+          saveState();
+          renderHUD();
+        });
+        $('btnStartMission').onclick = () => goToScreen('m1');
+
+        // Nawigacja między ekranami
+        document.querySelectorAll('[data-goto]').forEach(btn => {
+          btn.onclick = () => goToScreen(btn.dataset.goto);
+        });
+
+        // Reset dla nowego ucznia
+        const doReset = () => {
+          state = defaultState();
+          sessionStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(STORAGE_KEY);
+          $('pwInput').value = '';
+          $('agentNameInput').value = '';
+          document.querySelectorAll('.feedback-box').forEach(b => { b.className = 'feedback-box'; b.textContent = ''; });
+          document.querySelectorAll('.quiz-opt.wrong, .match-btn.chosen-hint').forEach(b => b.classList.remove('wrong', 'chosen-hint'));
+          evaluatePassword('');
+          renderAll();
+          goToScreen('start');
+        };
+        $('btnResetAll').onclick = doReset;
+        $('btnPlayAgain').onclick = doReset;
+      }
+
+      function evaluatePassword(raw) {
+        state.m2PasswordText = raw;
+        const val = raw || '';
+        const hasLen = val.length >= 10;
+        const hasCase = /[a-zà-ž]/.test(val) && /[A-ZÀ-Ž]/.test(val);
+        const hasNum = /\d/.test(val);
+        const hasSpec = /[^a-zA-Z0-9\s]/.test(val);
+        const isTrivial = /^(piesek123|123456|qwerty|haslo123|admin)$/i.test(val.trim());
+
+        $('pwReqLen').className = 'pw-check-item' + (hasLen ? ' met' : '');
+        $('pwReqLen').textContent = (hasLen ? '✅ ' : '⬜ ') + 'Co najmniej 10 znaków (' + val.length + '/10)';
+        $('pwReqCase').className = 'pw-check-item' + (hasCase ? ' met' : '');
+        $('pwReqCase').textContent = (hasCase ? '✅ ' : '⬜ ') + 'Małe i WIELKIE litery';
+        $('pwReqNum').className = 'pw-check-item' + (hasNum ? ' met' : '');
+        $('pwReqNum').textContent = (hasNum ? '✅ ' : '⬜ ') + 'Co najmniej jedna cyfra (0–9)';
+        $('pwReqSpec').className = 'pw-check-item' + (hasSpec ? ' met' : '');
+        $('pwReqSpec').textContent = (hasSpec ? '✅ ' : '⬜ ') + 'Znak specjalny (np. ! # $ _ ?)';
+
+        const count = [hasLen, hasCase, hasNum, hasSpec].filter(Boolean).length;
+        const fill = $('pwMeterFill');
+        const lbl = $('pwStrengthLabel');
+        const crack = $('pwCrackTime');
+        const fb = $('fb-m2-pw');
+
+        if (!val) {
+          fill.style.width = '8%';
+          fill.style.background = '#64748b';
+          lbl.textContent = 'Siła hasła: Wpisz lub wybierz klocki';
+          crack.textContent = 'Czas złamania: —';
+          return;
+        }
+
+        if (isTrivial || count <= 1) {
+          fill.style.width = '25%';
+          fill.style.background = '#ef4444';
+          lbl.textContent = '🚨 Czerwony / Bardzo słabe hasło!';
+          crack.textContent = 'Haker złamie je w: 1 sekundę!';
+          showFeedback(fb, 'hint', '⚠️ Hasło takie jak „' + val + '” jest w słownikach hakerów! Dodaj wielką literę, znak specjalny (np. # lub !) i wydłuż je do min. 10 znaków.');
+        } else if (count < 4) {
+          fill.style.width = (count * 25) + '%';
+          fill.style.background = '#f59e0b';
+          lbl.textContent = '🟡 Średnie hasło – prawie gotowe!';
+          crack.textContent = 'Brakuje jeszcze ' + (4 - count) + ' elementu do Super Tarczy';
+          showFeedback(fb, 'hint', '💡 Już blisko! Sprawdź pod paskiem, którego elementu (długość 10 znaków, wielka litera, cyfra lub znak specjalny) jeszcze brakuje.');
+        } else {
+          fill.style.width = '100%';
+          fill.style.background = '#10b981';
+          lbl.textContent = '🟢 Zielony / SUPER TARCZA (100% mocy)!';
+          crack.textContent = 'Czas złamania: Setki lat! 🛡️';
+          const wasStrong = state.m2PasswordStrong;
+          state.m2PasswordStrong = true;
+          saveState();
+          renderAll();
+          showFeedback(fb, 'ok', '🛡️ Brawo, Agencie! Stworzyłeś pancerne hasło! Pamiętaj, aby nikomu go nie podawać.');
+          if (!wasStrong && isMission2Done()) triggerConfetti();
+        }
+      }
+
+      function showFeedback(el, type, text) {
+        if (!el) return;
+        el.className = 'feedback-box show ' + type;
+        el.textContent = text;
+      }
+
+      function isMission1Done() {
+        return state.m1ChainStep === 4 && M1_CONCEPTS.every(c => state.m1Matches[c.id] === c.correct);
+      }
+      function isMission2Done() {
+        return state.m2PasswordStrong && M2_SITUATIONS.every(s => state.m2Cards[s.id] === s.correct);
+      }
+      function isMission3Done() {
+        return M3_SORT_ITEMS.every(s => state.m3Sorts[s.id] === s.correct) && state.m3WolfOk && state.m3LinkOk && state.m3CopyOk;
+      }
+      function isMission4Done() {
+        return state.m4Scene1AOk && state.m4Scene1BOk && M4_FACTS.every(f => state.m4Facts[f.id] === f.correct) && state.m4Scene3Ok;
+      }
+
+      function calculateStats() {
+        let completedSteps = 0;
+        const totalSteps = 21; // 1 (chain) + 4 (m1 match) + 1 (pw) + 4 (m2 cards) + 6 (m3 sort) + 3 (m3 quiz) + 2 (m4 s1) + 2 (m4 s2) + 1 (m4 s3) -> 24
+        const m1c = state.m1ChainStep === 4 ? 1 : 0;
+        const m1m = M1_CONCEPTS.filter(c => state.m1Matches[c.id] === c.correct).length;
+        const m2p = state.m2PasswordStrong ? 1 : 0;
+        const m2c = M2_SITUATIONS.filter(s => state.m2Cards[s.id] === s.correct).length;
+        const m3s = M3_SORT_ITEMS.filter(s => state.m3Sorts[s.id] === s.correct).length;
+        const m3q = (state.m3WolfOk ? 1 : 0) + (state.m3LinkOk ? 1 : 0) + (state.m3CopyOk ? 1 : 0);
+        const m4q = (state.m4Scene1AOk ? 1 : 0) + (state.m4Scene1BOk ? 1 : 0) + M4_FACTS.filter(f => state.m4Facts[f.id] === f.correct).length + (state.m4Scene3Ok ? 1 : 0);
+
+        completedSteps = m1c + m1m + m2p + m2c + m3s + m3q + m4q;
+        const maxSteps = 24;
+        const pct = Math.round((completedSteps / maxSteps) * 100);
+        const badges = [isMission1Done(), isMission2Done(), isMission3Done(), isMission4Done()];
+        const badgeCount = badges.filter(Boolean).length;
+        const points = completedSteps * 50 + badgeCount * 200;
+        return { pct, points, badges, badgeCount };
+      }
+
+      function goToScreen(scr) {
+        state.screen = scr;
+        saveState();
+        renderAll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function renderHUD() {
+        const { pct, points, badges, badgeCount } = calculateStats();
+        const displayName = state.agentName ? `${state.agentName} (${state.avatarTitle})` : `Młody Detektyw (${state.avatarTitle})`;
+        $('hudAvatar').textContent = state.avatarEmoji;
+        $('hudAgentName').textContent = `Agent: ${displayName} · Klasa 4`;
+        $('hudPoints').textContent = points;
+        $('hudBadgeCount').textContent = `${badgeCount}/4`;
+        $('hudProgressFill').style.width = `${pct}%`;
+        $('hudProgressText').textContent = `Postęp: ${pct}%`;
+
+        badges.forEach((earned, i) => {
+          $('badgeSlot' + (i + 1)).classList.toggle('earned', earned);
+          const certCard = $('certBadge' + (i + 1));
+          if (certCard) certCard.classList.toggle('unlocked', earned);
+        });
+
+        // Certyfikat na ekranie końcowym
+        $('certAvatar').textContent = state.avatarEmoji;
+        $('certAgentName').textContent = displayName;
+        $('certScoreLine').textContent = `Zdobyte Cyber-Punkty: ${points} pkt · Odznaki Mistrza Internetu: ${badgeCount} / 4 (${pct}% ukończenia)`;
+      }
+
+      function renderAll() {
+        renderHUD();
+        const { badges } = calculateStats();
+
+        // Aktywny ekran i zakładki
+        ['start', 'm1', 'm2', 'm3', 'm4', 'final'].forEach(s => {
+          $('screen-' + s).classList.toggle('active', state.screen === s);
+          const tab = $('tab-' + s);
+          if (tab) tab.classList.toggle('active', state.screen === s);
+        });
+        ['m1', 'm2', 'm3', 'm4'].forEach((m, idx) => {
+          $('tab-' + m).classList.toggle('completed', badges[idx]);
+          const st = $('status-' + m);
+          if (st) {
+            st.classList.toggle('done', badges[idx]);
+            if (badges[idx]) st.textContent = '✅ Misja ukończona! Odznaka zdobyta!';
+          }
+        });
+
+        // Start screen
+        if ($('agentNameInput').value !== state.agentName) {
+          $('agentNameInput').value = state.agentName;
+        }
+        document.querySelectorAll('#avatarGrid .avatar-card').forEach(card => {
+          card.classList.toggle('selected', card.dataset.avatar === state.avatarEmoji);
+        });
+
+        // Misja 1
+        document.querySelectorAll('#m1Chain .signal-node').forEach(btn => {
+          btn.classList.toggle('connected', Number(btn.dataset.step) <= state.m1ChainStep);
+        });
+        M1_CONCEPTS.forEach(c => {
+          const ok = state.m1Matches[c.id] === c.correct;
+          $('m1row-' + c.id)?.classList.toggle('correct', ok);
+          document.querySelectorAll(`[data-m1-id="${c.id}"]`).forEach(b => {
+            b.classList.toggle('chosen-ok', ok && b.dataset.m1Opt === c.correct);
+          });
+        });
+
+        // Misja 2
+        M2_SITUATIONS.forEach(s => {
+          const ok = state.m2Cards[s.id] === s.correct;
+          $('m2card-' + s.id)?.classList.toggle('solved', ok);
+          document.querySelectorAll(`[data-m2-id="${s.id}"]`).forEach(b => {
+            b.classList.toggle('active-choice', ok && b.dataset.m2Val === s.correct);
+          });
+        });
+
+        // Misja 3
+        M3_SORT_ITEMS.forEach(item => {
+          const ok = state.m3Sorts[item.id] === item.correct;
+          $('m3sort-' + item.id)?.classList.toggle('done', ok);
+          document.querySelectorAll(`[data-m3-id="${item.id}"]`).forEach(b => {
+            b.classList.toggle('active-choice', ok && b.dataset.m3Val === item.correct);
+          });
+        });
+        document.querySelectorAll('#m3WolfOptions button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m3WolfOk && i === 1);
+        });
+        document.querySelectorAll('#m3LinkOptions button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m3LinkOk && i === 0);
+        });
+        document.querySelectorAll('#m3CopyOptions button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m3CopyOk && i === 1);
+        });
+
+        // Misja 4
+        document.querySelectorAll('#m4Scene1A button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m4Scene1AOk && i === 0);
+        });
+        document.querySelectorAll('#m4Scene1B button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m4Scene1BOk && i === 1);
+        });
+        const replyPreview = $('m4ChatReplyPreview');
+        if (state.m4Scene1BOk) {
+          replyPreview.style.display = 'block';
+          replyPreview.innerHTML = `<span class="chat-sender" style="color:#a7f3d0">${state.avatarEmoji} Ty – Cyber-Detektyw (16:15)</span>Hej Kacper, nie pisz proszę wielkimi literami 🙂 Już kończę rundę i zgodnie z umową przesyłam skina!`;
+        } else {
+          replyPreview.style.display = 'none';
+        }
+        M4_FACTS.forEach(f => {
+          const ok = state.m4Facts[f.id] === f.correct;
+          $('m4fact-' + f.id)?.classList.toggle('done', ok);
+          document.querySelectorAll(`[data-m4-id="${f.id}"]`).forEach(b => {
+            b.classList.toggle('active-choice', ok && b.dataset.m4Val === f.correct);
+          });
+        });
+        document.querySelectorAll('#m4Scene3 button').forEach((b, i) => {
+          b.classList.toggle('correct', state.m4Scene3Ok && i === 2);
+        });
+      }
+
+      // Konfetti przy zdobyciu odznaki
+      let confettiAnim = 0;
+      function triggerConfetti() {
+        const canvas = $('confettiCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        cancelAnimationFrame(confettiAnim);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.hidden = false;
+        const particles = Array.from({ length: 70 }, () => ({
+          x: Math.random() * canvas.width,
+          y: -Math.random() * 120,
+          vy: 2.5 + Math.random() * 3.5,
+          vx: (Math.random() - 0.5) * 2.5,
+          color: ['#38bdf8', '#10b981', '#fde047', '#f43f5e', '#a78bfa'][Math.floor(Math.random() * 5)],
+          w: 6 + Math.random() * 5,
+          h: 8 + Math.random() * 6
+        }));
+        const start = performance.now();
+        function step(now) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.w, p.h);
+          });
+          if (now - start < 2000) {
+            confettiAnim = requestAnimationFrame(step);
+          } else {
+            canvas.hidden = true;
+          }
+        }
+        confettiAnim = requestAnimationFrame(step);
+      }
+
+      // Wsparcie dla trybu ?embed=1 wewnątrz portalu informatyk-pruszcz.github.io/informatyka
+      if (new URLSearchParams(window.location.search).get('embed') === '1') {
+        const nav = $('portalNav');
+        if (nav) nav.style.display = 'none';
+      }
+      if (window.parent !== window && 'ResizeObserver' in window) {
+        new ResizeObserver(() => {
+          window.parent.postMessage({
+            type: 'cyber-detektywi:resize',
+            height: Math.ceil(document.documentElement.scrollHeight)
+          }, '*');
+        }).observe($('appRoot'));
+      }
+
+      initDOM();
+      if (state.m2PasswordText) {
+        $('pwInput').value = state.m2PasswordText;
+        evaluatePassword(state.m2PasswordText);
+      }
+      renderAll();
+    })();
+  </script>
+</body>
+</html>

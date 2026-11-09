@@ -1797,6 +1797,31 @@ function renderGrade6ScheduleWorksheet() {
   </div>`;
 }
 
+// ============================================================================
+// 8. KLASA 4: Podsumowanie Działu II — Akademia Cyber-Detektywów (Gra SPA)
+// ============================================================================
+function renderGrade4CyberDetectiveReview() {
+  return `
+  <div class="ws-sheet" id="ws-sheet" data-ws-id="powtorzenie-4-2-cyber-detektywi">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:12px 16px;background:#0F172A;color:#F8FAFC;border:2px solid #38BDF8;border-radius:14px">
+      <div>
+        <strong style="color:#FFFFFF;font-size:1.05rem">🕵️ Akademia Cyber-Detektywów: Misja Bezpieczna Sieć (Klasa 4 · Dział II)</strong>
+        <p style="margin:3px 0 0;font-size:0.9rem;color:#93C5FD">Ukończ 4 interaktywne misje (Sieć i Wi-Fi, Kuźnia Haseł, Przeglądarka vs Wyszukiwarka, Kodeks Netykiety), odbierz Certyfikat Mistrza Internetu i powtórz ściągawkę „Zapamiętaj na 6!”.</p>
+      </div>
+      <a class="btn primary" href="./klasa4/cyber-detektywi.html" target="_blank" rel="noopener" style="background:#2563EB;border-color:#60A5FA;color:#FFFFFF;text-decoration:none;font-weight:700">
+        🚀 Otwórz grę na pełnym ekranie ↗
+      </a>
+    </div>
+    <iframe
+      id="cyber-detektywi-iframe"
+      src="./klasa4/cyber-detektywi.html?embed=1"
+      title="Akademia Cyber-Detektywów: Misja Bezpieczna Sieć"
+      style="width:100%;min-height:1220px;border:2px solid #1E293B;border-radius:18px;background:#0B1120"
+      loading="lazy"
+    ></iframe>
+  </div>`;
+}
+
 export function renderExtraWorksheet(id) {
   if (id === 'karta-6-2-3-budzet') {
     return '<p><a class="btn primary" href="./lekcja2-3.html">Otwórz laboratorium Excel — Budżet kieszonkowy →</a></p>';
@@ -1805,6 +1830,7 @@ export function renderExtraWorksheet(id) {
     return '<p><a class="btn primary" href="./lekcja2-2.html">Otwórz laboratorium Excel — Porządki w komórce →</a></p>';
   }
   if (id === 'karta-4-1-urzadzenia-pliki') return renderGrade4DevicesWorksheet();
+  if (id === 'powtorzenie-4-2-cyber-detektywi') return renderGrade4CyberDetectiveReview();
   if (id === 'karta-6-2-1-plan-lekcji') return renderGrade6ScheduleWorksheet();
   if (id === 'karta-7-2-1-pierwsza-strona') return renderGrade7FirstPageWorksheet();
   if (id === 'karta-8-1-kosztorys-balu') return renderGrade8BalWorksheet();
@@ -1858,6 +1884,20 @@ export function bindExtraWorksheet(id, toast) {
   const sheet = document.getElementById('ws-sheet');
   if (!sheet) return;
   bindWorksheetProjector(sheet, id);
+
+  if (id === 'powtorzenie-4-2-cyber-detektywi') {
+    const iframe = document.getElementById('cyber-detektywi-iframe');
+    if (iframe && !window.__cyberDetectiveResizeBound) {
+      window.__cyberDetectiveResizeBound = true;
+      window.addEventListener('message', e => {
+        if (e.data && e.data.type === 'cyber-detektywi:resize' && Number.isFinite(e.data.height)) {
+          const el = document.getElementById('cyber-detektywi-iframe');
+          if (el) el.style.height = Math.max(950, e.data.height + 24) + 'px';
+        }
+      });
+    }
+    return;
+  }
 
   const STORAGE_KEY = 'informatyka-ws-extra-v1';
   let state = {};

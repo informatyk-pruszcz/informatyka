@@ -157,6 +157,18 @@ export const extraWorksheets = [
     source: 'Karta pracy dla klasy 4 • Część 1: Urządzenia cyfrowe • Część 2: Programy, pliki i foldery • Strona 1–2 z 2'
   },
   {
+    id: 'powtorzenie-4-2-cyber-detektywi',
+    type: 'review',
+    grades: [4],
+    title: '🕵️ Akademia Cyber-Detektywów: Misja Bezpieczna Sieć (Podsumowanie Działu II)',
+    section: '2. Korzystanie z internetu',
+    tags: ['Internet', 'Cyberbezpieczeństwo', 'Netykieta', 'Powtórzenie', 'GraEdukacyjna'],
+    summary: 'Podsumowanie Działu II „Korzystanie z internetu” • 4 interaktywne misje (Sieć i Wi-Fi, Kuźnia Haseł, Przeglądarka vs Wyszukiwarka, Kodeks Netykiety), Certyfikat Mistrza Internetu oraz Ściągawka „Zapamiętaj na 6!”.',
+    body: `<h2>Akademia Cyber-Detektywów: Misja Bezpieczna Sieć — Podsumowanie Działu II (Klasa 4)</h2>
+<p>Wciel się w rolę młodego agenta, ukończ 4 interaktywne misje odpowiadające 4 tematom z podręcznika i zdobądź odznakę „Mistrza Internetu”!</p>`,
+    source: 'Informatyka – Klasa 4 • Podsumowanie Działu II: Korzystanie z internetu (Tematy 2.1–2.5)'
+  },
+  {
     id: 'karta-6-2-1-plan-lekcji',
     type: 'task',
     grades: [6],
