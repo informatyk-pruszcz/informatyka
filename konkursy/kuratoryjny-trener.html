@@ -278,6 +278,27 @@
       background: #ffffff;
       transition: border-color 0.2s;
     }
+    .layout-grid > *, .question-card, .options-list { min-width: 0; }
+    .q-title, .opt-btn, .feedback-box { overflow-wrap: anywhere; }
+    .opt-btn code { min-width: 0; }
+    .question-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .q-source { font-size: .8rem; color: var(--muted); margin: 0 0 12px; }
+    .q-source a { text-decoration: underline; }
+    .source-library { margin-bottom: 18px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-alt); }
+    .source-library summary { cursor: pointer; font-weight: 700; }
+    .source-library ul { margin: 12px 0 0 22px; }
+    .source-library li { margin: 6px 0; font-size: .88rem; }
+    .source-library p { margin-top: 12px; font-size: .86rem; }
+    .task-note { margin: 12px 0; padding: 12px; background: var(--primary-soft); color: #1e3a8a; border-radius: 10px; font-size: .9rem; font-weight: 500; }
+    .task-figure { margin: 14px 0; padding: 12px; background: #fff; color: #0f172a; border: 1px solid var(--border); border-radius: 12px; }
+    .task-figure svg { display: block; width: min(100%, 360px); height: auto; margin: auto; }
+    .task-figure figcaption { font-size: .83rem; font-weight: 500; }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+    @media (max-width: 500px) {
+      .question-card { padding: 14px; }
+      .ans-input { min-width: 0; width: 100%; }
+      .topbar { position: static; }
+    }
     .question-card.solved-ok {
       border-color: var(--emerald);
       background: #f0fdf4;
@@ -532,7 +553,7 @@
     <section class="hero-card">
       <span class="hero-eyebrow">Kuratoryjny Konkurs Informatyczny • Klasy 6–8</span>
       <h1>🎯 Centrum Treningowe i Generator Zadań Konkursowych</h1>
-      <p>Trenuj na autentycznych zadaniach z etapów szkolnych, rejonowych i finałów wojewódzkich lub losuj nowe warianty w <strong>Nieskończonym Generatorze Zadań</strong>. Pamiętaj: na konkursie kuratoryjnym <strong>nie wolno korzystać z kalkulatora</strong> — korzystaj z wirtualnego brudnopisu i trików szybkiego liczenia!</p>
+      <p>Ćwicz na zadaniach opracowanych na podstawie arkuszy szkolnych, rejonowych i finałowych z lat <strong>2021–2026</strong>. Czytaj wskazówki, sprawdzaj odpowiedzi i zapisuj obliczenia w brudnopisie. Na konkursie pracujesz bez kalkulatora.</p>
       <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700;">
         <span>Postęp opanowania bazy zadań konkursowych</span>
         <span id="hero-pct">0%</span>
@@ -545,7 +566,7 @@
     <nav class="mode-tabs" aria-label="Tryby nauki">
       <button class="mode-tab active" data-mode="bank" type="button">
         <span class="mode-tab-title">📚 1. Baza Zadań z Arkuszy</span>
-        <span class="mode-tab-sub">45+ oryginalnych zadań z etapów szkolnych, rejonowych i finałów z wyjaśnieniami krok po kroku</span>
+        <span class="mode-tab-sub" id="bank-description">Zadania z etapów szkolnych, rejonowych i finałów z wyjaśnieniami krok po kroku</span>
       </button>
       <button class="mode-tab" data-mode="generator" type="button">
         <span class="mode-tab-title">🎲 2. Generator Zadań ( ∞ )</span>
@@ -553,7 +574,7 @@
       </button>
       <button class="mode-tab" data-mode="exam" type="button">
         <span class="mode-tab-title">⏱️ 3. Symulator Konkursu</span>
-        <span class="mode-tab-sub">Sprawdź się na czas (20 min Etap Szkolny/Finał lub 60 min Rejon) z diagnozą mocnych stron</span>
+        <span class="mode-tab-sub">Losowane zestawy treningowe na 20 lub 60 minut, z podpowiedziami i brudnopisem</span>
       </button>
       <button class="mode-tab" data-mode="compendium" type="button">
         <span class="mode-tab-title">🧠 4. Pewniaki i Ściągawka</span>
@@ -591,8 +612,10 @@
       </aside>
     </div>
   </main>
+  <script src="kuratoryjny-zadania-2024-2026.js?v=20261112-1"></script>
   <script>
     const STORAGE_KEY = 'inf_pruszcz_konkurs_kuratoryjny_v1';
+    const EXTRA_BANK = window.KURATORYJNY_2024_2026 || { stages: {}, tasks: [] };
 
     const CATEGORIES = {
       all: 'Wszystkie działy',
@@ -610,7 +633,8 @@
       rejonowy22: 'Etap rejonowy (I 2022)',
       final22: 'Finał wojewódzki (III 2022)',
       rejonowy23: 'Etap rejonowy (I 2023)',
-      final23: 'Finał wojewódzki (III 2023)'
+      final23: 'Finał wojewódzki (III 2023)',
+      ...Object.fromEntries(Object.entries(EXTRA_BANK.stages).map(([id, source]) => [id, source.label]))
     };
 
     const BANK = [
@@ -1317,6 +1341,8 @@
       }
     ];
 
+    BANK.push(...EXTRA_BANK.tasks);
+
     // --- STAN APLIKACJI (LOCALSTORAGE) ---
     let state = {
       mode: 'bank',
@@ -1634,25 +1660,31 @@
 
       let html = `
         <div class="panel">
-          <h2>📚 Baza Oryginalnych Zadań z Konkursów Kuratoryjnych</h2>
-          <p class="panel-sub">Filtruj zadania według etapu (Szkolny / Rejonowy / Finał) lub działu tematycznego. Każde zadanie zawiera szczegółowe wyjaśnienie sposobu rozwiązania bez kalkulatora.</p>
+          <h2>📚 Baza zadań z konkursów kuratoryjnych</h2>
+          <p class="panel-sub">Wybierz etap i dział. W nowych zadaniach najpierw spróbuj samodzielnie, potem skorzystaj ze wskazówki. Pełne rozwiązanie możesz odkryć osobnym przyciskiem.</p>
+          ${!EXTRA_BANK.tasks.length ? '<p role="alert">Nie udało się wczytać zestawów 2024–2026. Odśwież stronę, aby spróbować ponownie. Starsze zadania są dostępne poniżej.</p>' : `
+          <details class="source-library">
+            <summary>Nowe: ${EXTRA_BANK.tasks.length} ćwiczeń z 8 arkuszy (2024–2026) · Źródła PDF</summary>
+            <p>To adaptacje do samodzielnej nauki. Zadania wieloczęściowe rozbito na krótsze pytania, a część ilustracji opisano słowami. Wyjaśnienia są opracowaniem dydaktycznym, nie oficjalnym kluczem organizatora. Za każdą nową część otrzymujesz 1 punkt treningowy; punktacja i czas w oryginałach mogą być inne.</p>
+            <ul>${Object.entries(EXTRA_BANK.stages).map(([id, source]) => `<li><a href="arkusze/${source.file}" target="_blank" rel="noopener">${source.label} — oryginalny PDF</a> · ${EXTRA_BANK.tasks.filter(q => q.stage === id).length} ćwiczeń</li>`).join('')}</ul>
+          </details>`}
 
           <div class="filter-row" role="group" aria-label="Filtr etapu">
             ${Object.entries(STAGES).map(([k, label]) =>
-              `<button type="button" class="chip ${state.stageFilter === k ? 'active' : ''}" data-stage="${k}">${label}</button>`
+              `<button type="button" class="chip ${state.stageFilter === k ? 'active' : ''}" aria-pressed="${state.stageFilter === k}" data-stage="${k}">${label}</button>`
             ).join('')}
           </div>
 
           <div class="filter-row" role="group" aria-label="Filtr kategorii">
             ${Object.entries(CATEGORIES).map(([k, label]) =>
-              `<button type="button" class="chip ${state.catFilter === k ? 'active' : ''}" data-cat="${k}">${label}</button>`
+              `<button type="button" class="chip ${state.catFilter === k ? 'active' : ''}" aria-pressed="${state.catFilter === k}" data-cat="${k}">${label}</button>`
             ).join('')}
           </div>
 
           <p style="font-size:0.86rem; color:var(--muted); margin-bottom:14px;">Wyświetlono zadań: <strong>${filtered.length}</strong></p>
 
           <div id="bank-list">
-            ${filtered.map(renderQuestionCard).join('')}
+            ${filtered.length ? filtered.map(renderQuestionCard).join('') : '<p>Brak zadań dla tego połączenia filtrów. Wybierz inny etap lub „Wszystkie działy”.</p>'}
           </div>
         </div>
       `;
@@ -1670,15 +1702,16 @@
 
     function renderQuestionCard(item) {
       const solved = state.solvedIds.includes(item.id);
-      const stageClass = item.stage === 'szkolny' ? 'stage-szkolny' : item.stage.startsWith('rejon') ? 'stage-rejonowy' : 'stage-final';
+      const stageClass = item.stage.startsWith('szkolny') ? 'stage-szkolny' : item.stage.startsWith('rejon') ? 'stage-rejonowy' : 'stage-final';
       return `
         <article class="question-card ${solved ? 'solved-ok' : ''}" data-qid="${item.id}">
           <div class="q-meta">
             <span class="q-pill ${stageClass}">${STAGES[item.stage]}</span>
             <span class="q-pill">${CATEGORIES[item.cat]}</span>
             <span class="q-pill">⭐ ${item.pts} pkt</span>
-            ${solved ? '<span class="q-pill stage-gen">✓ Rozwiązane</span>' : ''}
+            ${solved ? '<span class="q-pill stage-gen solved-label">✓ Rozwiązane</span>' : ''}
           </div>
+          ${item.source ? `<p class="q-source">Adaptacja · zadanie ${item.source.number} · strona ${item.source.page} · <a href="arkusze/${item.source.file}#page=${item.source.page}" target="_blank" rel="noopener">Zobacz oryginał (PDF)</a></p>` : ''}
           <div class="q-title">${item.q.replace(/\n/g, '<br>')}</div>
           ${item.options ? `
             <div class="options-list">
@@ -1690,10 +1723,13 @@
             <div class="input-row">
               <input type="text" class="ans-input" placeholder="${item.placeholder || 'Twoja odpowiedź...'}" aria-label="Odpowiedź">
               <button type="button" class="btn btn-primary btn-check-text">Sprawdź odpowiedź ✓</button>
-              <button type="button" class="btn btn-outline btn-show-explain">Pokaż wyjaśnienie 💡</button>
             </div>
           `}
-          <div class="feedback-box" id="fb-${item.id}"></div>
+          <div class="question-actions">
+            ${item.hint ? '<button type="button" class="btn btn-outline btn-hint">Pokaż wskazówkę 💡</button>' : ''}
+            <button type="button" class="btn btn-outline btn-show-explain">Pokaż rozwiązanie</button>
+          </div>
+          <div class="feedback-box" id="fb-${item.id}" role="status" aria-live="polite" aria-atomic="true"></div>
         </article>
       `;
     }
@@ -1711,7 +1747,28 @@
             state.points += item.pts;
             saveState();
             card.classList.add('solved-ok');
+            const badge = document.createElement('span');
+            badge.className = 'q-pill stage-gen solved-label';
+            badge.textContent = '✓ Rozwiązane';
+            card.querySelector('.q-meta').append(badge);
           }
+        };
+        const showHint = () => {
+          fb.className = 'feedback-box show hint';
+          fb.innerHTML = `<strong>💡 Wskazówka — spróbuj jeszcze raz:</strong><br>${item.hint || item.explain}`;
+        };
+        const showSuccess = () => {
+          const alreadySolved = state.solvedIds.includes(item.id);
+          fb.className = 'feedback-box show ok';
+          fb.innerHTML = `<strong>✅ Poprawna odpowiedź! ${alreadySolved ? 'To zadanie masz już zaliczone.' : `+${item.pts} pkt`}</strong><br>${item.explain}`;
+          markSolved();
+        };
+        const hintBtn = card.querySelector('.btn-hint');
+        if (hintBtn) hintBtn.onclick = showHint;
+        card.querySelector('.btn-show-explain').onclick = () => {
+          fb.className = 'feedback-box show hint';
+          // Odkrycie rozwiązania samo nie nalicza punktów ani zaliczenia.
+          fb.innerHTML = `<strong>💡 Rozwiązanie krok po kroku:</strong><br>${item.explain}`;
         };
 
         if (item.options) {
@@ -1721,38 +1778,33 @@
               card.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('correct', 'wrong'));
               if (idx === item.correct) {
                 btn.classList.add('correct');
-                fb.className = 'feedback-box show ok';
-                fb.innerHTML = `<strong>✅ Brawo! Poprawna odpowiedź (+${item.pts} pkt).</strong><br>${item.explain}`;
-                markSolved();
+                showSuccess();
               } else {
                 btn.classList.add('wrong');
-                fb.className = 'feedback-box show hint';
-                fb.innerHTML = `<strong>💡 Spróbuj jeszcze raz! Wskazówka:</strong><br>${item.explain}`;
+                showHint();
               }
             };
           });
         } else {
           const input = card.querySelector('.ans-input');
           const checkBtn = card.querySelector('.btn-check-text');
-          const explainBtn = card.querySelector('.btn-show-explain');
           const verify = () => {
             const val = norm(input.value);
+            if (!val) {
+              fb.className = 'feedback-box show hint';
+              fb.textContent = 'Wpisz odpowiedź albo skorzystaj ze wskazówki.';
+              input.focus();
+              return;
+            }
             const ok = item.accepted.some(a => norm(a) === val);
             if (ok) {
-              fb.className = 'feedback-box show ok';
-              fb.innerHTML = `<strong>✅ Doskonale! Poprawna odpowiedź (+${item.pts} pkt).</strong><br>${item.explain}`;
-              markSolved();
+              showSuccess();
             } else {
-              fb.className = 'feedback-box show hint';
-              fb.innerHTML = `<strong>🤔 Jeszcze nie to. Sprawdź obliczenia w brudnopisie!</strong><br>${item.explain}`;
+              showHint();
             }
           };
           checkBtn.onclick = verify;
           input.onkeydown = (e) => { if (e.key === 'Enter') verify(); };
-          explainBtn.onclick = () => {
-            fb.className = 'feedback-box show hint';
-            fb.innerHTML = `<strong>💡 Pełne rozwiązanie krok po kroku:</strong><br>${item.explain}<br><em>Prawidłowa odpowiedź:</em> <code>${item.accepted[0]}</code>`;
-          };
         }
       });
     }
@@ -1871,8 +1923,8 @@
 
       mainView.innerHTML = `
         <div class="panel">
-          <h2>⏱️ Symulator Konkursu Kuratoryjnego (Praca pod presją czasu)</h2>
-          <p class="panel-sub">Na etapie szkolnym i w finale masz <strong>20 minut</strong>, a na etapie rejonowym <strong>60 minut</strong>. Wybierz arkusz treningowy i sprawdź swój wynik!</p>
+          <h2>⏱️ Symulator konkursu — trening na czas</h2>
+          <p class="panel-sub">Wylosuj zadania z całej bazy, w tym arkuszy 2024–2026. To trening z dostępnymi podpowiedziami: wybierz <strong>20 lub 60 minut</strong>. Oficjalny czas i punktację sprawdzisz w odpowiednim PDF-ie.</p>
 
           <div class="timer-banner">
             <div>
@@ -1880,8 +1932,8 @@
               <div class="timer-digits" id="exam-timer-digits">${m}:${s}</div>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:8px;">
-              <button type="button" class="btn btn-emerald" id="exam-start-20">▶ Start: Etap Szkolny / Finał (20 min • 10 zadań)</button>
-              <button type="button" class="btn btn-primary" id="exam-start-60">▶ Start: Etap Rejonowy (60 min • 18 zadań)</button>
+              <button type="button" class="btn btn-emerald" id="exam-start-20">▶ Krótki trening (20 min • 10 zadań)</button>
+              <button type="button" class="btn btn-primary" id="exam-start-60">▶ Dłuższy trening (60 min • 18 zadań)</button>
             </div>
           </div>
 
@@ -1991,6 +2043,7 @@
 
     // --- INICJALIZACJA ---
     loadState();
+    document.getElementById('bank-description').textContent = `${BANK.length} ćwiczeń z ${Object.keys(STAGES).length - 1} arkuszy · wskazówki i rozwiązania krok po kroku`;
     const scratchEl = document.getElementById('scratchpad-text');
     scratchEl.value = state.scratchpad || '';
     scratchEl.addEventListener('input', () => {

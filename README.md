@@ -25,6 +25,12 @@ Test działa tylko na 127.0.0.1:8194 i czyści projekt demonstracyjny. Sprawdza 
 
 ## Odbiór wersji
 
+Trener w `konkursy/kuratoryjny-trener.html` zawiera 214 ćwiczeń z 13 arkuszy. Rozszerzenie `kuratoryjny-zadania-2024-2026.js` dodaje 152 części treningowe na podstawie 8 PDF-ów w `konkursy/arkusze/`. Każda część ma trwały identyfikator, źródło (plik, numer zadania i strona), wskazówkę oraz rozwiązanie. To adaptacje wybranych poleceń, a nie odwzorowanie pełnych testów ani oficjalny klucz. Oryginalne arkusze pozostają dostępne do pobrania.
+
+W adaptacji doprecyzowano m.in. dzielenie całkowite `//` w Pythonie 3, osadzone i połączone multimedia, jednostki MB/Mb, najmniejszą cyfrę w nierówności HEX oraz zapis HTML `target="_blank"`. Nowe zadania przyznają po 1 punkcie treningowym. Klucz zapisu ucznia i identyfikatory wcześniejszych ćwiczeń nie zostały zmienione.
+
+Test tego modułu: uruchom lokalny serwer na porcie 4239 i wykonaj `node tests/contest.cjs` w środowisku z Playwright. Test sprawdza obliczenia, osiem plików źródłowych, wszystkie nowe odpowiedzi, filtry, zachowanie starego postępu, brak podwójnego punktowania, odświeżenie i szerokość 390 px. Obsługuje zmienne `BASE_URL` i `BROWSER_EXE`.
+
 Na lokalnie uruchomionym serwisie wykonaj `node tests/school.cjs` w środowisku z Playwright. Opcjonalne zmienne: `BASE_URL` i `BROWSER_EXE` (pełna ścieżka do Edge). Test przechodzi przez wszystkie 82 tematy, pobiera XLSX, ocenia VAT, zmienia stronę danych i sprawdza zegary pracowni.
 
 Dodatkowo `node tests/library.cjs` sprawdza odtwarzanie kopii i szkice na izolowanej bibliotece testowej. `node --test tests/pilots.test.cjs` uruchamia próby pięciu modułów.
