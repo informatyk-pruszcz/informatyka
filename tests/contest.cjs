@@ -84,9 +84,11 @@ console.log('Dane: 152 nowe zadania, 8 PDF-ów, 214 unikalnych ID; obliczenia po
     for(const [stage, source] of Object.entries(stages)) {
       await page.locator(`[data-stage="${stage}"]`).click();
       assert.equal(await page.locator('#bank-list .question-card').count(),tasks.filter(q=>q.stage===stage).length);
-      const response=await page.request.get(base+'/konkursy/arkusze/'+source.file);
-      assert.equal(response.status(),200);
+      // Na hostingu wystarczy sygnatura i rozmiar; unikamy pobierania kilkunastu MB.
+      const response=await page.request.get(base+'/konkursy/arkusze/'+source.file,{headers:{Range:'bytes=0-4'}});
+      assert.ok([200,206].includes(response.status()));
       assert.equal((await response.body()).subarray(0,5).toString(),'%PDF-');
+      if(response.status()===206) assert.equal(Number(response.headers()['content-range'].split('/')[1]),fs.statSync(path.join(root,'konkursy/arkusze',source.file)).size);
     }
     await page.locator('[data-cat="bin"]').click();
     assert.equal(await page.locator('#bank-list .question-card').count(),tasks.filter(q=>q.stage==='final26'&&q.cat==='bin').length);
@@ -146,7 +148,7 @@ console.log('Dane: 152 nowe zadania, 8 PDF-ów, 214 unikalnych ID; obliczenia po
     await portalCard.waitFor();
     assert.match(await portalCard.textContent(),/214 ćwiczeń/);
     await portalCard.click();
-    await page.locator('#bank-description').waitFor();
+    await page.waitForFunction(()=>document.getElementById('bank-description')?.textContent.includes('214 ćwiczeń'));
     assert.match(await page.locator('#bank-description').textContent(),/214 ćwiczeń/);
     await page.locator('.back-link').click();
     await portalCard.waitFor();
