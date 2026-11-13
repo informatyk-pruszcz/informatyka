@@ -6,7 +6,7 @@
   <meta name="description" content="24 ćwiczenia Pythona dla klas 7–8. Pisz i uruchamiaj programy, poznawaj błędy i twórz własne projekty.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23167765'/%3E%3Ctext x='8' y='44' fill='white' font-size='34' font-family='monospace'%3Epy%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=1">
-  <script type="module" src="app.js?v=1"></script><script defer src="../theme.js"></script>
+  <script type="module" src="app.js?v=2"></script><script defer src="../theme.js"></script>
 </head>
 <body>
 <a class="skip" href="#code">Przejdź do edytora kodu</a>
@@ -28,19 +28,19 @@
   <main id="main">
     <div class="session-strip"><button id="menu" aria-expanded="false" aria-controls="sidebar">☰ Wybierz ćwiczenie</button><span class="class-label">KLASY 7–8 · OD PODSTAW</span><div><span id="session-time">Sesja: 45 min</span><button id="extend">+15 min</button><button id="new-student">Nowy uczeń</button></div></div>
     <p id="expiry" role="status" class="muted"></p>
-    <div class="heading"><div><span id="lesson-group" class="eyebrow"></span><h1 id="lesson-title"></h1></div><span class="step" id="step"></span></div>
+    <div class="heading"><div><span id="lesson-group" class="eyebrow"></span><h1 id="lesson-title">Ładowanie ćwiczeń…</h1></div><span class="step" id="step"></span></div>
     <section class="lesson-grid" aria-label="Poznaj, zobacz i spróbuj">
       <article class="card"><h2><span class="number">1</span> Poznaj mechanizm</h2><p id="intro"></p><div class="flow" aria-label="Kod, uruchomienie, wynik"><span>Kod</span><b>→</b><span>Uruchom</span><b>→</b><span>Wynik</span></div></article>
       <article class="card"><h2><span class="number">2</span> Podejrzyj przykład</h2><pre id="example"></pre><p class="muted small">Przykład pokazuje zasadę. Twoja misja jest obok.</p></article>
       <article class="card mission"><h2><span class="number">3</span> Twoja misja</h2><p id="task"></p><ul id="requirements"></ul></article>
     </section>
-    <div class="actions"><button id="run" class="primary">▶ Uruchom</button><button id="check" class="check-button">✓ Sprawdź zadanie</button><button id="stop" disabled>■ Stop</button><button id="hint">Podpowiedź</button><button id="download">Zapisz kod (.py)</button><button id="upload">Wczytaj kod (.py)</button><input id="upload-file" type="file" accept=".py,text/x-python" hidden></div>
+    <div class="actions"><button id="run" class="primary" disabled>▶ Uruchom</button><button id="check" class="check-button" disabled>✓ Sprawdź zadanie</button><button id="stop" disabled>■ Stop</button><button id="hint">Podpowiedź</button><button id="download">Zapisz kod (.py)</button><button id="upload">Wczytaj kod (.py)</button><input id="upload-file" type="file" accept=".py,text/x-python" hidden></div>
     <section class="workspace" aria-label="Edytor i wynik programu">
       <div class="card editor-card">
         <div class="panel-head"><label for="code"><b>Twój kod</b> <span class="muted">· program.py</span></label><button id="reset-code" class="quiet">Kod startowy</button></div>
-        <div class="editor"><div id="lines" aria-hidden="true"></div><textarea id="code" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" maxlength="30000" aria-describedby="editor-help"></textarea></div>
+        <div class="editor"><div id="lines" aria-hidden="true"></div><textarea id="code" readonly spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" maxlength="30000" aria-describedby="editor-help"></textarea></div>
         <div class="editor-foot"><span id="editor-help">Tab = 4 spacje · Ctrl + Enter = uruchom</span><span id="char-count"></span></div>
-        <div class="input-box"><label for="stdin"><b>Odpowiedzi do input()</b><span class="muted"> — po jednej w wierszu</span></label><textarea id="stdin" rows="2" maxlength="10000" placeholder="Wpisz odpowiedzi przed uruchomieniem"></textarea><small id="input-help" class="muted"></small></div>
+        <div class="input-box"><label for="stdin"><b>Odpowiedzi do input()</b><span class="muted"> — po jednej w wierszu</span></label><textarea id="stdin" readonly rows="2" maxlength="10000" placeholder="Wpisz odpowiedzi przed uruchomieniem"></textarea><small id="input-help" class="muted"></small></div>
       </div>
       <div class="card output-card">
         <div class="panel-head"><b><span class="terminal-dot" aria-hidden="true"></span> Konsola Pythona</b><span id="runtime-status" class="runtime-status" role="status">Gotowa do startu</span></div>

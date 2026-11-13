@@ -18,6 +18,11 @@ const normalize=s=>s.replace(/\r/g,'').split('\n').map(l=>l.trimEnd()).join('\n'
   });
   const page=await context.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
+  await page.route('**/python-lab/lessons.js',async r=>{await new Promise(resolve=>setTimeout(resolve,1000));await r.continue();});
+  const loading=page.goto(base+'/python-lab/index.html');
+  await page.locator('#run').waitFor();assert.equal(await page.locator('#run').isDisabled(),true);
+  await loading;await page.locator('.lesson-link').first().waitFor();assert.equal(await page.locator('#run').isEnabled(),true);
+  await page.unroute('**/python-lab/lessons.js');
   for(const hash of ['code','class/7','class/8']){
     await page.goto(base+'/#'+hash);await page.locator('a.material-card[href="./python-lab/index.html"]').waitFor();
     if(hash!=='code'){await page.locator('[data-type="task"]').click();assert.equal(await page.locator('a.material-card[href="./python-lab/index.html"]').count(),1);}
