@@ -1,12 +1,12 @@
 import {lessonMetadata} from './curriculum-metadata.js';
 import {fastQuestions, mountFastCheck} from './fast-check.js';
 import {aiWriting} from './ai-writing.js';
-import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=atlas5';
+import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=wordreview1';
 let lessonRenderId = 0;
 async function mountWorksheet(id, host, renderId) {
   try {
     const grade5 = isWorksheet(id);
-    let mod = await (grade5 ? import('./worksheets-grade5.js?v=atlas5') : import('./worksheets-478.js?v=turniej1'));
+    let mod = await (grade5 ? import('./worksheets-grade5.js?v=wordreview1') : import('./worksheets-478.js?v=turniej1'));
     if (!host.isConnected || renderId !== lessonRenderId) return;
     let html = grade5 ? mod.renderWorksheet(id) : mod.renderExtraWorksheet(id);
     if (!html && !grade5) {
@@ -137,7 +137,7 @@ function render(){lessonRenderId++;const r=route();document.body.classList.remov
  const checkHost=$('#fast-check');
  if(checkHost){const note=libraryItems().find(item=>item.id===r.slice(5));mountFastCheck(checkHost,fastQuestions(note,noteContents));}
  if(r==='admin')bindAdmin();$$('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit));$$('[data-delete]').forEach(b=>b.onclick=()=>removeItem(b.dataset.delete));}
-function navigate(){basisFilter='';readyOnly=false;grade='';tag=section='';const r=route();type=['code','contest','fact'].includes(r)?r:'';if(r.startsWith('class/')&&r.endsWith('/notes'))type='note';if(r.startsWith('class/'))grade=['4','5','6','7','8'].includes(r.split('/')[1])?r.split('/')[1]:'4';render();window.scrollTo(0,0);}
+function navigate(){basisFilter='';readyOnly=false;grade='';tag=section='';const r=route();type=['code','contest','fact'].includes(r)?r:'';if(r.startsWith('class/')&&r.endsWith('/notes'))type='note';if(r.startsWith('class/')&&r.endsWith('/reviews'))type='review';if(r.startsWith('class/'))grade=['4','5','6','7','8'].includes(r.split('/')[1])?r.split('/')[1]:'4';render();window.scrollTo(0,0);}
 function modal(title,html){$('#dialog-content').innerHTML=`<div class="dialog-head"><h2 id="dialog-title">${esc(title)}</h2><button class="close" aria-label="Zamknij okno" id="close-dialog">×</button></div>${html}`;$('#close-dialog').onclick=()=>$('#dialog').close();$('#dialog').showModal();}
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='informatyka-baza-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Wyeksportowano bazę materiałów.');}
 function bindAdmin(){

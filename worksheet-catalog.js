@@ -1,5 +1,13 @@
 export const grade5Worksheets = [
   {
+    id: 'powtorzenie-5-1-edytor-tekstu', type: 'review', grades: [5],
+    title: 'Mistrz edytora tekstu — alternatywne powtórzenie działu I',
+    section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',
+    tags: ['EdytorTekstu', 'Word 2016', 'Powtórzenie', 'Praktycznie'],
+    summary: 'Cztery krótkie zadania w Wordzie: tekst, style i listy, tabela oraz grafika. Teksty do skopiowania, zapis odhaczonych kroków i bonus dla chętnych.',
+    body: '', source: 'Powtórzenie praktyczne na podstawie materiału nauczyciela · Klasa V · Dział I'
+  },
+  {
     id: 'karta-5-atlas-odkrywcy', type: 'task', grades: [5],
     title: 'Karta Atlasu Odkrywcy — projekt podsumowujący dział I',
     section: '1. Klawiatura zamiast pióra. Piszemy w edytorze tekstu',

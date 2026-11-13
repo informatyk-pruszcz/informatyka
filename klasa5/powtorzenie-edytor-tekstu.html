@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mistrz edytora tekstu · Powtórzenie · Klasa 5</title>
+<meta name="description" content="Alternatywne powtórzenie działu 1: cztery krótkie zadania w Wordzie, teksty do kopiowania i zapisywana checklista.">
+<style>
+  .ip-kl5-sprawdzian {
+    --ip-bg: #f8fafc;
+    --ip-card: #ffffff;
+    --ip-text: #0f172a;
+    --ip-muted: #475569;
+    --ip-primary: #2563eb;
+    --ip-primary-hover: #1d4ed8;
+    --ip-primary-light: #eff6ff;
+    --ip-success: #16a34a;
+    --ip-success-light: #f0fdf4;
+    --ip-warning: #d97706;
+    --ip-warning-light: #fffbeb;
+    --ip-purple: #7c3aed;
+    --ip-purple-light: #f5f3ff;
+    --ip-border: #e2e8f0;
+    --ip-radius: 14px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ip-text);
+    background-color: var(--ip-bg);
+    line-height: 1.6;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+    box-sizing: border-box;
+  }
+
+  .ip-kl5-sprawdzian.ip-spe-mode {
+    font-size: 1.12rem;
+    line-height: 1.8;
+    letter-spacing: 0.015em;
+  }
+
+  .ip-kl5-sprawdzian * {
+    box-sizing: border-box;
+  }
+
+  .ip-header-card {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    border-radius: var(--ip-radius);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25);
+  }
+
+  .ip-header-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .ip-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ip-badge {
+    background: rgba(255, 255, 255, 0.18);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .ip-spe-toggle {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .ip-spe-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ip-header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 1.65rem;
+    line-height: 1.25;
+  }
+
+  .ip-header-card p {
+    margin: 0;
+    opacity: 0.92;
+    font-size: 0.98rem;
+  }
+
+  .ip-progress-bar-wrap {
+    position: sticky;
+    top: 8px;
+    z-index: 20;
+    background: var(--ip-card);
+    border: 1px solid var(--ip-border);
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  }
+
+  .ip-progress-info {
+    font-weight: 700;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .ip-progress-track {
+    flex: 1;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .ip-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2563eb, #16a34a);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+
+  .ip-reset-btn {
+    background: transparent;
+    border: 1px solid var(--ip-border);
+    color: var(--ip-muted);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .ip-reset-btn:hover {
+    background: #f1f5f9;
+    color: var(--ip-text);
+  }
+
+  .ip-card {
+    background: var(--ip-card);
+    border: 1px solid var(--ip-border);
+    border-radius: var(--ip-radius);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+  }
+
+  .ip-card-start {
+    border-left: 6px solid var(--ip-warning);
+    background: var(--ip-warning-light);
+  }
+
+  .ip-card-task {
+    border-left: 6px solid var(--ip-primary);
+  }
+
+  .ip-card-master {
+    border-left: 6px solid var(--ip-purple);
+    background: var(--ip-purple-light);
+  }
+
+  .ip-card-check {
+    border-left: 6px solid var(--ip-success);
+    background: var(--ip-success-light);
+  }
+
+  .ip-task-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ip-border);
+  }
+
+  .ip-task-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ip-task-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ip-pill-time {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .ip-pill-pts {
+    background: var(--ip-primary-light);
+    color: var(--ip-primary);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .ip-skill-desc {
+    margin: 0 0 14px 0;
+    font-size: 0.9rem;
+    color: var(--ip-muted);
+    font-style: italic;
+  }
+
+  .ip-copy-box {
+    background: #f8fafc;
+    border: 2px dashed #94a3b8;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 14px 0 18px 0;
+  }
+
+  .ip-copy-box-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .ip-copy-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #334155;
+  }
+
+  .ip-copy-btn {
+    background: var(--ip-primary);
+    color: #ffffff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .ip-copy-btn:hover {
+    background: var(--ip-primary-hover);
+  }
+
+  .ip-copy-btn.ip-copied {
+    background: var(--ip-success);
+  }
+
+  .ip-copy-text {
+    background: #ffffff;
+    border: 1px solid var(--ip-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 1.02rem;
+    color: #0f172a;
+    white-space: pre-line;
+    user-select: all;
+  }
+
+  .ip-steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ip-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid var(--ip-border);
+    padding: 12px 14px;
+    border-radius: 10px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .ip-step-item.ip-step-done {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+
+  .ip-step-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    accent-color: var(--ip-success);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .ip-step-content {
+    flex: 1;
+  }
+
+  .ip-sublist {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+  }
+
+  .ip-sublist li {
+    margin-bottom: 4px;
+  }
+
+  .ip-tab-tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    padding: 1px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.88em;
+  }
+
+  .ip-kbd {
+    display: inline-block;
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    font-weight: 700;
+    box-shadow: 0 2px 0 #0f172a;
+  }
+
+  .ip-sample-table {
+    width: 100%;
+    max-width: 520px;
+    border-collapse: collapse;
+    margin: 10px 0 6px 0;
+    background: #ffffff;
+    font-size: 0.95rem;
+  }
+
+  .ip-sample-table th,
+  .ip-sample-table td {
+    border: 2px solid #334155;
+    padding: 8px 12px;
+  }
+
+  .ip-sample-table th {
+    background: #fef08a;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  /* Kolory powiązane z motywem portalu, bez zewnętrznych bibliotek. */
+  body { margin: 0; background: #f8fafc; color: #0f172a; }
+  body.dark { background: #0b1220; color: #e2e8f0; color-scheme: dark; }
+  body.dark .ip-kl5-sprawdzian {
+    --ip-bg:#0b1220; --ip-card:#111d30; --ip-text:#edf2fa;
+    --ip-muted:#bccbdd; --ip-border:#3b4c65; --ip-primary:#93c5fd;
+    --ip-primary-light:#172c49; --ip-success-light:#12372d;
+    --ip-warning-light:#302918; --ip-purple-light:#29213e;
+  }
+  .ip-portal-nav, .ip-mission-nav { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:20px; }
+  .ip-portal-nav { justify-content:space-between; }
+  .ip-kl5-sprawdzian a { color:var(--ip-primary); font-weight:650; }
+  .ip-mission-nav a { padding:8px 14px; border:1px solid var(--ip-border); background:var(--ip-card); border-radius:10px; text-decoration:none; }
+  .ip-intro-note { margin-top:12px!important; }
+  .ip-save-status { color:var(--ip-muted); font-size:.85rem; min-height:1.6em; }
+  .ip-completion { font-weight:700; color:var(--ip-text); }
+  .ip-task-title { color:var(--ip-text); }
+  .ip-step-content { min-width:0; }
+  .ip-step-content label { cursor:pointer; }
+  .ip-step-content strong, .ip-copy-text { overflow-wrap:anywhere; }
+  article { scroll-margin-top:110px; }
+  .ip-table-scroll { overflow-x:auto; margin-top:10px; border-radius:8px; }
+  .ip-sample-table { min-width:460px; table-layout:auto; }
+  .ip-sample-table th { color:#0f172a; }
+  .ip-sample-table th, .ip-sample-table td { overflow-wrap:normal; padding:8px; }
+  .ip-table-hint { display:none; font-size:.85rem; color:var(--ip-muted); }
+  .ip-copy-box, .ip-step-item { background:var(--ip-bg); }
+  .ip-copy-text { background:var(--ip-card); color:var(--ip-text); }
+  .ip-copy-label { color:var(--ip-text); }
+  .ip-step-item.ip-step-done { background:var(--ip-success-light); }
+  .ip-spe-mode .ip-step-content, .ip-spe-mode .ip-copy-text { font-size:1.15rem; line-height:1.85; }
+  .ip-spe-mode .ip-skill-desc, .ip-spe-mode .ip-header-card p { font-size:1.05rem; line-height:1.8; }
+  .ip-spe-mode .ip-sample-table { font-size:1.05rem; }
+  .ip-copy-btn { background:#2563eb; color:white; }
+  .ip-copy-btn.ip-copied { background:#15803d; }
+  .ip-manual-copy { outline:3px solid var(--ip-primary); outline-offset:3px; }
+  body.dark .ip-sample-table { background:#142238; color:#edf2fa; }
+  body.dark .ip-sample-table th { background:#253d58; color:#edf2fa; }
+  body.dark .ip-sample-table th, body.dark .ip-sample-table td { border-color:#8396ad; }
+  body.dark .ip-pill-time, body.dark .ip-tab-tag { background:#223750; color:#dcecff; border-color:#496582; }
+  body.dark .ip-reset-btn:hover { background:#223750; color:#fff; }
+  button, input, a { -webkit-tap-highlight-color:transparent; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline:3px solid var(--ip-primary); outline-offset:3px; }
+  .ip-step-item input[type="checkbox"] { width:23px; height:23px; }
+  @media(max-width:600px) {
+    .ip-kl5-sprawdzian { padding:16px 12px 32px; }
+    .ip-card, .ip-header-card { padding:18px 14px; }
+    .ip-header-card h1 { font-size:1.5rem; }
+    .ip-task-title { font-size:1.12rem; }
+    .ip-progress-bar-wrap { position:static; flex-wrap:wrap; padding:12px; gap:10px; }
+    .ip-progress-track { flex-basis:100%; order:3; }
+    .ip-progress-info { white-space:normal; }
+    .ip-copy-box { padding:10px; }
+    .ip-step-item { gap:8px; padding:10px; }
+    .ip-sample-table { font-size:.85rem; }
+    .ip-table-hint { display:block; }
+    article { scroll-margin-top:16px; }
+  }
+  @media(prefers-reduced-motion:reduce) { *, *::before, *::after { transition:none!important; } }
+</style></head><body>
+<main class="ip-kl5-sprawdzian" id="word-review">
+  <nav class="ip-portal-nav" aria-label="Nawigacja">
+    <a href="../index.html#class/5/reviews">← Klasa 5 · Powtórzenie wiadomości</a>
+    <button id="theme" type="button" aria-pressed="false" class="ip-reset-btn">Ciemny motyw</button>
+  </nav>
+  
+  <header class="ip-header-card">
+    <div class="ip-header-top">
+      <div class="ip-badge-row">
+        <span class="ip-badge">Klasa 5 • Dział 1 • Powtórzenie</span>
+        <span class="ip-badge">⏱ Około 25 minut</span>
+        <span class="ip-badge">4 zadania + bonus</span>
+      </div>
+      <button type="button" class="ip-spe-toggle" id="ip-toggle-spe" aria-pressed="false">
+        🔍 Powiększ tekst
+      </button>
+    </div>
+    <h1>Mistrz edytora tekstu</h1>
+    <p>
+      <strong>Ćwicz we własnym tempie.</strong> Powtórzenie składa się z <strong>4 krótkich, osobnych zadań</strong> (oraz 1 zadania dodatkowego dla chętnych).
+      Każde zadanie wykonujesz niezależnie. Jeśli któreś polecenie sprawi Ci trudność, przejdź spokojnie do kolejnego zadania!
+    </p>
+  <p class="ip-intro-note">Pracujesz w Wordzie. Ta strona prowadzi Cię krok po kroku; odhaczenie oznacza Twoją deklarację wykonania, a nie automatyczne sprawdzenie dokumentu.</p></header>
+
+  
+  <div class="ip-progress-bar-wrap" aria-label="Postęp wykonania powtórzenia">
+    <span class="ip-progress-info" id="ip-progress-label">Twój postęp: 0 / 19 kroków (0%)</span>
+    <div class="ip-progress-track" role="progressbar" aria-label="Ukończenie części podstawowej" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="ip-progress-fill" id="ip-progress-fill"></div>
+    </div>
+    <button type="button" class="ip-reset-btn" id="ip-reset">Nowy uczeń / zacznij od nowa</button>
+  </div>
+
+  
+  <p id="ip-save-status" class="ip-save-status" role="status" aria-live="polite"></p>
+  <nav class="ip-mission-nav" aria-label="Zadania powtórzenia">
+    <a href="#mission-1">01 · Tekst</a><a href="#mission-2">02 · Listy</a>
+    <a href="#mission-3">03 · Tabela</a><a href="#mission-4">04 · Grafika</a>
+  </nav>
+  <article class="ip-card ip-card-start">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">🚀 KROK STARTOWY – Przygotuj swój plik</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 1 minuta</span>
+      </div>
+    </div>
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-s1">
+        <div class="ip-step-content">
+          <label for="ip-step-s1"><strong>1. Utwórz dokument:</strong></label> Otwórz <strong>Microsoft Word</strong> i wybierz <strong>Pusty dokument</strong>. Zapisz go na Pulpicie lub w Teczce ucznia wskazanej przez nauczyciela.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-s2">
+        <div class="ip-step-content">
+          <label for="ip-step-s2"><strong>2. Nazwij plik:</strong></label> Zapisz plik pod nazwą <strong>Powtorzenie_Imie_Nazwisko.docx</strong> (np. <em>Powtorzenie_Jan_Kowalski.docx</em>).
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-s3">
+        <div class="ip-step-content">
+          <label for="ip-step-s3"><strong>3. Pamiętaj o zapisie:</strong></label> Po każdym wykonanym zadaniu naciśnij skrót <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">S</span>.
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-task" id="mission-1">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">📝 ZADANIE 1. Tajemnice czcionki i akapitu (Temat 1.1)</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 5 minut</span>
+        
+      </div>
+    </div>
+    <p class="ip-skill-desc">
+      Ćwiczysz: formatowanie czcionki, wyrównywanie akapitu, skróty klawiszowe, znaczniki Pokaż wszystko (¶) oraz twarda spacja.
+    </p>
+
+    
+    <div class="ip-copy-box">
+      <div class="ip-copy-box-header">
+        <span class="ip-copy-label">📌 Tekst bazowy do Zadania 1 (kliknij przycisk i wklej w Wordzie skrótem <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">V</span>):</span>
+        <button type="button" class="ip-copy-btn" data-copy="ip-text-zad1">
+          📋 Kopiuj tekst do Zadania 1
+        </button>
+      </div>
+      <div class="ip-copy-text" id="ip-text-zad1">Pracownia komputerowa w naszej szkole to miejsce, w którym bezpiecznie odkrywamy świat technologii. Podczas lekcji informatyki uczymy się pisać dokumenty i tworzyć własne projekty.</div>
+    </div>
+
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-1-1">
+        <div class="ip-step-content">
+          <label for="ip-step-1-1"><strong>1. Czcionka i rozmiar:</strong></label> Zaznacz cały wklejony tekst z Zadania 1. Na karcie <span class="ip-tab-tag">Narzędzia główne</span> zmień krój czcionki na <strong>Arial</strong> oraz rozmiar na <strong>12 pt</strong>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-1-2">
+        <div class="ip-step-content">
+          <label for="ip-step-1-2"><strong>2. Wyróżnienia w tekście:</strong></label>
+          <ul class="ip-sublist">
+            <li>Pogrub (ikona <strong>B</strong> lub <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">B</span>) wyrazy: <strong>Pracownia komputerowa</strong>.</li>
+            <li>Pochyl (ikona <em>I</em> – kursywa lub <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">I</span>) wyrazy: <em>lekcji informatyki</em>.</li>
+            <li>Podkreśl (ikona <u>U</u> lub <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">U</span>) wyraz: <u>projekty</u> i zmień jego <strong>kolor czcionki na niebieski</strong>.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-1-3">
+        <div class="ip-step-content">
+          <label for="ip-step-1-3"><strong>3. Wyrównanie akapitu:</strong></label> Zaznacz tekst Zadania 1 i ustaw wyrównanie <strong>Wyjustuj</strong> (do lewej i prawej krawędzi) lub <strong>Wyśrodkuj</strong>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-1-4">
+        <div class="ip-step-content">
+          <label for="ip-step-1-4"><strong>4. Podgląd znaków i twarda spacja:</strong></label> Włącz na karcie <span class="ip-tab-tag">Narzędzia główne</span> przycisk <strong>Pokaż wszystko (¶)</strong>. Po pojedynczych literach <strong>w</strong> oraz <strong>i</strong> zastąp zwykłą spację <strong>twardą spacją</strong> (<span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">Shift</span> + <span class="ip-kbd">Spacja</span>), aby połączyć je z następnym słowem. Przy włączonym ¶ zobaczysz małe kółeczko zamiast kropki oznaczającej zwykłą spację.
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-task" id="mission-2">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">🔢 ZADANIE 2. Kolejno odlicz! Style i listy (Temat 1.2)</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 5 minut</span>
+        
+      </div>
+    </div>
+    <p class="ip-skill-desc">
+      Ćwiczysz: stosowanie gotowych stylów tekstu, tworzenie listy numerowanej i listy wielopoziomowej.
+    </p>
+
+    
+    <div class="ip-copy-box">
+      <div class="ip-copy-box-header">
+        <span class="ip-copy-label">📌 Tekst bazowy do Zadania 2 (kliknij przycisk i wklej poniżej Zadania 1 skrótem <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">V</span>):</span>
+        <button type="button" class="ip-copy-btn" data-copy="ip-text-zad2">
+          📋 Kopiuj tekst do Zadania 2
+        </button>
+      </div>
+      <div class="ip-copy-text" id="ip-text-zad2">Zasady pracy przy komputerze
+Zawsze zapisuję swój plik na dysku
+Dbam o porządek na stanowisku pracy
+Przestrzegam praw autorskich w Internecie</div>
+    </div>
+
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-2-1">
+        <div class="ip-step-content">
+          <label for="ip-step-2-1"><strong>1. Styl nagłówka:</strong></label> Zaznacz pierwszy wiersz (<em>Zasady pracy przy komputerze</em>) i na karcie <span class="ip-tab-tag">Narzędzia główne</span> w sekcji <strong>Style</strong> wybierz gotowy styl <strong>Nagłówek 1</strong>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-2-2">
+        <div class="ip-step-content">
+          <label for="ip-step-2-2"><strong>2. Lista numerowana:</strong></label> Zaznacz trzy pozostałe zdania i kliknij ikonę <strong>Numerowanie (1., 2., 3.)</strong>, aby zamienić je w listę numerowaną.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-2-3">
+        <div class="ip-step-content">
+          <label for="ip-step-2-3"><strong>3. Lista wielopoziomowa (podpunkty):</strong></label>
+          <ul class="ip-sublist">
+            <li>Zaznacz listę i wybierz <strong>Narzędzia główne → Lista wielopoziomowa</strong> (np. 1, a, i). Następnie kliknij na końcu punktu 1 (<em>Zawsze zapisuję swój plik na dysku</em>) i naciśnij klawisz <span class="ip-kbd">Enter</span>.</li>
+            <li>Naciśnij klawisz <span class="ip-kbd">Tab</span> na klawiaturze, aby utworzyć podpunkt niższego poziomu (np. <em>a)</em> lub <em>1.1.</em>).</li>
+            <li>Jeżeli Tab nie obniża poziomu, wybierz <strong>Lista wielopoziomowa → Zmień poziom listy</strong>.</li><li>Wpisz pierwszy podpunkt, naciśnij <span class="ip-kbd">Enter</span> i wpisz drugi: <strong>Używam skrótu Ctrl + S</strong> oraz <strong>Nadaję plikowi czytelną nazwę</strong>.</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-task" id="mission-3">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">📊 ZADANIE 3. Komórki, do szeregu! Tabela (Temat 1.3)</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 5 minut</span>
+        
+      </div>
+    </div>
+    <p class="ip-skill-desc">
+      Ćwiczysz: wstawianie tabeli o podanych wymiarach, uzupełnianie danych, formatowanie tekstu w komórkach i cieniowanie/styl tabeli.
+    </p>
+
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-3-1">
+        <div class="ip-step-content">
+          <label for="ip-step-3-1"><strong>1. Wstawienie tabeli:</strong></label> Kliknij poniżej Zadania 2, przejdź do karty <span class="ip-tab-tag">Wstawianie</span> → <strong>Tabela</strong> i wstaw tabelę o wymiarach <strong>3 kolumny na 3 wiersze (3 × 3)</strong>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-3-2">
+        <div class="ip-step-content">
+          <label for="ip-step-3-2"><strong>2. Uzupełnienie danych:</strong></label> Wpisz do komórek tabeli następujące dane:
+          <p class="ip-table-hint">Na małym ekranie przesuń tabelę w bok.</p>
+          <div class="ip-table-scroll" tabindex="0" role="region" aria-label="Wzór tabeli — można przewijać w poziomie">
+          <table class="ip-sample-table" aria-label="Wzór tabeli do Zadania 3">
+            <thead>
+              <tr>
+                <th>Dzień tygodnia</th>
+                <th>Przedmiot</th>
+                <th>Numer sali</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Poniedziałek</td>
+                <td>Informatyka</td>
+                <td>Sala 15</td>
+              </tr>
+              <tr>
+                <td>Środa</td>
+                <td>Przyroda</td>
+                <td>Sala 8</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-3-3">
+        <div class="ip-step-content">
+          <label for="ip-step-3-3"><strong>3. Formatowanie nagłówka tabeli:</strong></label> Zaznacz pierwszy wiersz tabeli (<em>Dzień tygodnia, Przedmiot, Numer sali</em>), ustaw tekst na <strong>Pogrubiony (B)</strong> oraz <strong>Wyśrodkuj</strong> go w komórkach.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-3-4">
+        <div class="ip-step-content">
+          <label for="ip-step-3-4"><strong>4. Wygląd tabeli:</strong></label> Zaznacz pierwszy wiersz tabeli i zmień <strong>Cieniowanie (wiaderko z farbą)</strong> na kolor <strong>jasnożółty lub jasnoniebieski</strong> (lub wybierz dowolny czytelny <strong>Styl tabeli</strong>).
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-task" id="mission-4">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">🎨 ZADANIE 4. Nie tylko tekst! Grafika, kształty i strona (Temat 1.4)</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 5 minut</span>
+        
+      </div>
+    </div>
+    <p class="ip-skill-desc">
+      Ćwiczysz: wstawianie napisu ozdobnego WordArt, wstawianie i formatowanie kształtów, zmiana tła lub obramowania strony.
+    </p>
+
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-4-1">
+        <div class="ip-step-content">
+          <label for="ip-step-4-1"><strong>1. Napis ozdobny WordArt:</strong></label> Przejdź do karty <span class="ip-tab-tag">Wstawianie</span> → <strong>WordArt</strong>, wybierz dowolny styl i wpisz hasło: <strong>Mistrz Edytora Tekstu</strong>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-4-2">
+        <div class="ip-step-content">
+          <label for="ip-step-4-2"><strong>2. Wstawienie kształtu:</strong></label> Przejdź do karty <span class="ip-tab-tag">Wstawianie</span> → <strong>Kształty</strong> i narysuj wybrany kształt (np. <strong>Gwiazdę</strong>, <strong>Uśmiechniętą buźkę</strong> lub <strong>Strzałkę</strong>).
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-4-3">
+        <div class="ip-step-content">
+          <label for="ip-step-4-3"><strong>3. Formatowanie kształtu:</strong></label> Kliknij swój kształt, wybierz kartę <span class="ip-tab-tag">Formatowanie kształtu</span> i ustaw:
+          <ul class="ip-sublist">
+            <li><strong>Wypełnienie kształtu:</strong> kolor zielony (lub złoty),</li>
+            <li><strong>Kontur kształtu (obramowanie):</strong> kolor ciemnogranatowy.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-4-4">
+        <div class="ip-step-content">
+          <label for="ip-step-4-4"><strong>4. Wygląd całej strony:</strong></label> Przejdź do karty <span class="ip-tab-tag">Projektowanie</span> (na górze ekranu) i wykonaj <strong>jedną</strong> z dwóch czynności:
+          <ul class="ip-sublist">
+            <li>Kliknij <strong>Kolor strony</strong> i wybierz jasny, pastelowy kolor tła, <strong>LUB</strong></li>
+            <li>Kliknij <strong>Obramowania stron</strong>, wybierz układ <strong>Ramka</strong> i zatwierdź przyciskiem <strong>OK</strong>.</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-master">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">🏆 BONUS – Wyzwanie dla Mistrza</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 5 minut</span>
+        <span class="ip-pill-pts">Dla chętnych</span>
+      </div>
+    </div>
+    <p class="ip-skill-desc">
+      Masz ochotę na więcej? Wykonaj dwa dodatkowe kroki. Bonus nie jest wymagany do ukończenia powtórzenia. <strong id="bonus-progress">Bonus: 0 / 2</strong>
+    </p>
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" data-bonus="true" id="ip-step-5-1">
+        <div class="ip-step-content">
+          <label for="ip-step-5-1"><strong>1. Rozbudowa tabeli:</strong></label> Dodaj na końcu tabeli z Zadania 3 <strong>czwarty wiersz</strong> (kliknij w ostatniej komórce tabeli i naciśnij klawisz <span class="ip-kbd">Tab</span>) i wpisz np.: <em>Piątek | Historia | Sala 12</em>.
+        </div>
+      </li>
+      <li class="ip-step-item">
+        <input type="checkbox" data-bonus="true" id="ip-step-5-2">
+        <div class="ip-step-content">
+          <label for="ip-step-5-2"><strong>2. Ilustracja i prawo autorskie:</strong></label> Wstaw do dokumentu (<span class="ip-tab-tag">Wstawianie</span> → <strong>Obrazy</strong>) własną ilustrację przyrodniczą lub komputerową albo obraz udostępniony do takiego użycia, zmniejsz jej rozmiar narożnym uchwytem i podpisz pod nią źródło pochodzenia obrazu.
+        </div>
+      </li>
+    </ul>
+  </article>
+
+  
+  <article class="ip-card ip-card-check">
+    <div class="ip-task-header">
+      <h2 class="ip-task-title">✅ FINAŁ – Zapisz pracę i zgłoś nauczycielowi</h2>
+      <div class="ip-task-meta">
+        <span class="ip-pill-time">⏱ 2 minuty</span>
+      </div>
+    </div>
+    <ul class="ip-steps-list">
+      <li class="ip-step-item">
+        <input type="checkbox" id="ip-step-f1">
+        <div class="ip-step-content">
+          <label for="ip-step-f1"><strong>Ostateczny zapis pliku:</strong></label> Naciśnij skrót <span class="ip-kbd">Ctrl</span> + <span class="ip-kbd">S</span>, upewnij się, że plik w wybranym folderze nazywa się <strong>Powtorzenie_Imie_Nazwisko.docx</strong> i otwórz go ponownie. Sprawdź, czy zawiera Twoje zmiany. Pokaż dokument nauczycielowi.
+        </div>
+      </li>
+    </ul>
+  </article>
+<p id="ip-completion" class="ip-completion" role="status" aria-live="polite"></p><a href="../index.html#class/5/reviews">← Wróć do powtórzeń klasy 5</a></main>
+<script>
+(() => {
+  'use strict';
+  const KEY = 'informatyka-review-5-word-v1';
+  const root = document.getElementById('word-review');
+  const boxes = [...root.querySelectorAll('input[type="checkbox"]')];
+  const base = boxes.filter(box => !box.hasAttribute('data-bonus'));
+  const bonus = boxes.filter(box => box.hasAttribute('data-bonus'));
+  const status = document.getElementById('ip-save-status');
+  const sizeButton = document.getElementById('ip-toggle-spe');
+
+  function applySize(large) {
+    root.classList.toggle('ip-spe-mode', large);
+    sizeButton.setAttribute('aria-pressed', String(large));
+    sizeButton.textContent = large ? '🔎 Standardowy rozmiar tekstu' : '🔍 Powiększ tekst';
+  }
+  function update() {
+    boxes.forEach(box => box.closest('.ip-step-item').classList.toggle('ip-step-done', box.checked));
+    const done = base.filter(box => box.checked).length;
+    const extra = bonus.filter(box => box.checked).length;
+    const percent = Math.round(100 * done / base.length);
+    document.getElementById('ip-progress-label').textContent = `Twój postęp: ${done} / ${base.length} kroków (${percent}%)`;
+    document.getElementById('ip-progress-fill').style.width = percent + '%';
+    root.querySelector('[role="progressbar"]').setAttribute('aria-valuenow', String(percent));
+    document.getElementById('bonus-progress').textContent = `Bonus: ${extra} / ${bonus.length}`;
+    document.getElementById('ip-completion').textContent = done === base.length
+      ? '✓ Część podstawowa ukończona! Otwórz zapisany dokument i pokaż, co udało Ci się zrobić.' : '';
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({version:1, done:boxes.filter(box=>box.checked).map(box=>box.id), large:root.classList.contains('ip-spe-mode')}));
+      status.textContent = '✓ Odhaczenia zapisane na tym urządzeniu. Plik Worda zapisz osobno: Ctrl + S.';
+    } catch {
+      status.textContent = 'Odhaczenia działają w tej karcie, ale przeglądarka nie pozwala ich zapisać. Zapisz dokument w Wordzie.';
+    }
+  }
+  // Odtwarzamy wyłącznie znane identyfikatory, bez zmian innych lekcji.
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved?.version === 1) {
+      const done = new Set(Array.isArray(saved.done) ? saved.done : []);
+      boxes.forEach(box => { box.checked = done.has(box.id); });
+      applySize(saved.large === true);
+      status.textContent = '✓ Przywrócono odhaczenia na tym urządzeniu. Dla kolejnej osoby wybierz „Nowy uczeń”.';
+    } else status.textContent = 'Odhaczenia zapisują się na tym urządzeniu. Dokument zapisujesz osobno w Wordzie.';
+  } catch { status.textContent = 'Nie udało się odczytać zapisu. Możesz rozpocząć powtórzenie od początku.'; }
+  update();
+  boxes.forEach(box => box.addEventListener('change', () => { update(); save(); }));
+  sizeButton.addEventListener('click', () => { applySize(!root.classList.contains('ip-spe-mode')); save(); });
+  document.getElementById('ip-reset').addEventListener('click', () => {
+    if (!confirm('Wyczyścić odhaczenia tego powtórzenia dla nowego ucznia? Plik Worda pozostanie bez zmian.')) return;
+    boxes.forEach(box => { box.checked = false; });
+    applySize(false);
+    update();
+    save();
+    status.textContent = 'Rozpoczynasz od nowa. Przygotuj własny plik w Wordzie.';
+  });
+  // Kopiujemy sam tekst. Gdy schowek jest zablokowany, uczeń może skopiować zaznaczenie ręcznie.
+  root.querySelectorAll('[data-copy]').forEach(button => {
+    const original = button.textContent.trim();
+    let timer;
+    button.addEventListener('click', async () => {
+      const text = document.getElementById(button.dataset.copy);
+      const raw = text.textContent.trim().replace(/\r\n/g, '\n');
+      let copied = false;
+      try { await navigator.clipboard.writeText(raw); copied = true; } catch {}
+      if (!copied) {
+        const buffer = document.createElement('textarea');
+        buffer.value = raw; buffer.setAttribute('aria-label', 'Tekst do skopiowania');
+        buffer.style.cssText = 'position:fixed;left:-10000px;top:0';
+        document.body.append(buffer); buffer.select();
+        try { copied = document.execCommand('copy'); } catch {}
+        buffer.remove(); button.focus();
+      }
+      clearTimeout(timer);
+      if (copied) {
+        button.classList.add('ip-copied');
+        button.textContent = '✓ Skopiowano — wklej w Wordzie';
+        text.classList.remove('ip-manual-copy');
+        status.textContent = 'Tekst skopiowany. W Wordzie naciśnij Ctrl + V.';
+        timer = setTimeout(() => { button.classList.remove('ip-copied'); button.textContent = original; }, 3000);
+      } else {
+        const range = document.createRange(); range.selectNodeContents(text);
+        const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+        text.classList.add('ip-manual-copy');
+        status.textContent = 'Schowek jest zablokowany. Tekst został zaznaczony: naciśnij Ctrl + C, a potem Ctrl + V w Wordzie.';
+      }
+    });
+  });
+})();
+</script>
+<script src="../theme.js"></script></body></html>

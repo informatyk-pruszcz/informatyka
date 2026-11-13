@@ -2,7 +2,7 @@ import { bindWorksheetProjector } from './worksheet-projector.js';
 // Interaktywne karty pracy dla klasy 5 — Dział 1: Klawiatura zamiast pióra. Piszemy w edytorze tekstu.
 // Treść zadań, kroków, wskazówek i autotestów zachowana wiernie 1:1 z oryginalnych kart pracy.
 
-import {grade5Worksheets, isWorksheet} from './worksheet-catalog.js';
+import {grade5Worksheets, isWorksheet} from './worksheet-catalog.js?v=wordreview1';
 export {grade5Worksheets, isWorksheet};
 
 const ZUPA_RAW_TEXT = `Przepis na domową zupę ogórkową
@@ -607,6 +607,14 @@ function renderPlanerWorksheet() {
 }
 
 export function renderWorksheet(id) {
+  if (id === 'powtorzenie-5-1-edytor-tekstu') return `<section aria-label="Powtórzenie praktyczne z edytora tekstu">
+    <h2>Cztery małe zadania. Jeden własny dokument.</h2>
+    <p>Otwórz Worda i przygotuj plik <strong>Powtorzenie_Imie_Nazwisko.docx</strong>. Pracuj we własnym tempie, około 25 minut. Jeśli utkniesz, przejdź do kolejnego zadania.</p>
+    <ol><li>Ustaw czcionkę, wyróżnienia i odstępy.</li><li>Zastosuj styl nagłówka i utwórz listę.</li><li>Przygotuj tabelę z planem zajęć.</li><li>Dodaj WordArt, kształt i obramowanie strony.</li></ol>
+    <p>Możesz kopiować teksty bazowe, odhaczać kroki i powiększyć tekst. Postęp zapisuje się na tym urządzeniu. Bonus jest opcjonalny.</p>
+    <p><a class="btn primary" href="./klasa5/powtorzenie-edytor-tekstu.html?v=wordreview1">Rozpocznij powtórzenie w Wordzie →</a></p>
+    <p><small>To powtórzenie praktyczne. Odhaczenia pomagają planować pracę; gotowy dokument sprawdź z nauczycielem.</small></p>
+  </section>`;
   if (id === 'karta-5-atlas-odkrywcy') return '<p><a class="btn primary" href="./klasa5/atlas-odkrywcy.html">Otwórz projekt — Karta Atlasu Odkrywcy →</a></p>';
   if (id === 'karta-5-misja-grafika') return '<p><a class="btn primary" href="./klasa5/misja-grafika.html">Otwórz kartę ucznia i symulator Worda →</a></p>';
   if (id === 'karta-5-1-2-zupa') return renderZupaWorksheet();
