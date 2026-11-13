@@ -102,3 +102,12 @@ body.focus-mode .instructions p {font-size:15px}
   .run-toolbar .actions {gap:6px}
   .run-toolbar button {font-size:11px;padding:9px 10px}
 }
+
+/* Kopia całej pracy jest widoczna od razu, niezależnie od menu. */
+.progress-tools {display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin:4px 0 12px}
+.progress-tools>div:first-child {flex:1 1 270px}
+.progress-tools strong {font-size:12px}
+.progress-tools p {font-size:11px;color:var(--muted);line-height:1.6;margin:3px 0 0;max-width:650px}
+.progress-buttons {display:flex;gap:8px;flex-wrap:wrap}
+.progress-buttons button {font-size:11px;padding:9px 11px}
+#export-now {background:var(--soft);color:var(--accent)}

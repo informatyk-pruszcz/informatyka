@@ -5,9 +5,9 @@
   <title>Pracownia Python — Informatyka w akcji</title>
   <meta name="description" content="24 ćwiczenia Pythona dla klas 7–8. Pisz i uruchamiaj programy, poznawaj błędy i twórz własne projekty.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23167765'/%3E%3Ctext x='8' y='44' fill='white' font-size='34' font-family='monospace'%3Epy%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=layout2">
+  <link rel="stylesheet" href="style.css?v=progress1">
   <script type="module" src="layout.js?v=1"></script>
-  <script type="module" src="app.js?v=layout2"></script><script defer src="../theme.js"></script>
+  <script type="module" src="app.js?v=progress1"></script><script defer src="../theme.js"></script>
 </head>
 <body>
 <a class="skip" href="#code">Przejdź do edytora kodu</a>
@@ -26,6 +26,10 @@
   </aside>
   <main id="main">
     <div class="session-strip"><span class="class-label">KLASY 7–8 · OD PODSTAW</span><div><span id="session-time">Sesja: 45 min</span><button id="extend">+15 min</button><button id="new-student">Nowy uczeń</button></div></div>
+    <section class="progress-tools" aria-label="Zapis i wczytywanie postępu">
+      <div><strong>Twoja praca na kolejną lekcję</strong><p>Zapisz wszystkie kody i ukończone zadania. Wczytaj plik, aby kontynuować po zakończeniu sesji lub na innym komputerze.</p></div>
+      <div class="progress-buttons"><button id="export-now" disabled>Zapisz postęp (.json)</button><button id="import-now" disabled>Wczytaj postęp (.json)</button></div>
+    </section>
     <p id="expiry" role="status" class="muted"></p>
     <div class="heading"><div><span id="lesson-group" class="eyebrow"></span><h1 id="lesson-title">Ładowanie ćwiczeń…</h1></div><span class="step" id="step"></span></div>
     <div class="lesson-layout">

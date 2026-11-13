@@ -26,14 +26,16 @@ Sprawdzarka porównuje rzeczywisty wynik dla 53 przypadków testowych oraz obecn
 
 ## Sesja i pliki
 
-Przycisk „Zwiń menu / Rozwiń menu” w stałym pasku górnym oddaje całą szerokość panelu roboczemu. Preferencja na komputerze jest zapisywana osobno pod kluczem `python-pracownia-sidebar-open`. Na małych ekranach lista jest domyślnie zwinięta i zamyka się po wybraniu lekcji. Tryb skupienia tymczasowo chowa menu; po wyłączeniu przywraca preferencję użytkownika. Zapis i import plików pozostają dostępne pod edytorem. Testy układu: `node tests/python-layout.cjs`.
+Przycisk „Zwiń menu / Rozwiń menu” w stałym pasku górnym oddaje całą szerokość panelu roboczemu. Preferencja na komputerze jest zapisywana osobno pod kluczem `python-pracownia-sidebar-open`. Na małych ekranach lista jest domyślnie zwinięta i zamyka się po wybraniu lekcji. Tryb skupienia tymczasowo chowa menu; po wyłączeniu przywraca preferencję użytkownika. Zapis i wczytywanie całego postępu (.json) są widoczne nad zadaniem oraz pod edytorem, także przy zwiniętym menu. Testy układu: `node tests/python-layout.cjs`.
 
 `localStorage`: `python-pracownia-session-v1`, osobny od pracowni HTML. Sesja 45 minut przetrwa F5; po jej upływie postęp jest automatycznie czyszczony. Nowy uczeń dostaje nowy identyfikator; stare karty wykrywają zmianę. Dostępne jest przedłużenie o 15 minut i ostrzeżenie przed końcem sesji. Brak dostępu do localStorage przełącza pracę do pamięci bieżącej strony.
 
-Eksport/import `.py` dotyczy bieżącego ćwiczenia. Eksport/import `.json` obejmuje szkice, odpowiedzi do input() i zaliczenia. Import wymaga poprawnego identyfikatora aplikacji, wersji i znanych kluczy; nie uruchamia kodu. Potwierdzenie poprzedza zastąpienie pracy. Plik JSON jest kopią ucznia, a nie certyfikatem wyniku. Dane nie są automatycznie wysyłane nauczycielowi.
+Eksport/import `.py` dotyczy bieżącego ćwiczenia. Eksport/import `.json` obejmuje szkice, odpowiedzi do input(), zaliczenia oraz identyfikator ostatniego ćwiczenia. Wczytanie wraca do tego ćwiczenia. Starsze pliki bez identyfikatora nadal działają. Import wymaga poprawnego identyfikatora aplikacji, wersji i znanych kluczy; nie uruchamia kodu. Potwierdzenie poprzedza zastąpienie pracy. Plik JSON jest kopią ucznia, a nie certyfikatem wyniku. Dane nie są automatycznie wysyłane nauczycielowi.
 
 ## Testy
 
 Uruchom serwer statyczny repozytorium na porcie 4182, a następnie `node tests/python-lab.cjs` (Playwright). Opcjonalnie ustaw `BROWSER_EXE`, `BASE_URL` i `PYODIDE_CACHE` — ostatni wskazuje lokalne pliki tej samej wersji Pyodide i służy tylko testom sieciowym.
 
 Sprawdzane są: wszystkie rozwiązania i wymagania, błędy wraz z numerami linii, izolacja przestrzeni nazw, limit wyjścia i nieskończona pętla, odhaczanie i unieważnienie postępu, F5, import/eksport obu formatów, automatyczny reset i druga karta, brak CDN, widoki 390/800/1366/1920 px, motyw ciemny, tryb skupienia i wpis w katalogu obu klas.
+
+Zapis i odczyt JSON oraz zwijanie menu obu pracowni: node tests/lab-progress-menu.cjs. Test obejmuje przywracanie pracy po zmianie ucznia, stare i uszkodzone pliki, zachowanie kodu i podglądu HTML, F5 oraz dostępność przycisków na różnych szerokościach.

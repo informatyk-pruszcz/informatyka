@@ -39,7 +39,7 @@ function checkSession(){
   if(shared?.id===session.id && Number.isFinite(shared.end))session.end=shared.end;
   if(Date.now()>=session.end || (storageOK&&!shared)){resetSession('Rozpoczęto nową sesję. Poprzedni postęp został wyczyszczony.');return false;}
   const mins=Math.ceil((session.end-Date.now())/60000);$('#session-time').textContent='Sesja: '+mins+' min';
-  $('#expiry').textContent=mins<=5?'Za chwilę koniec sesji. Zapisz postęp pod edytorem lub dodaj 15 minut.':'';
+  $('#expiry').textContent=mins<=5?'Za chwilę koniec sesji. Kliknij „Zapisz postęp (.json)” lub dodaj 15 minut.':'';
   return true;
 }
 persist();
@@ -74,7 +74,7 @@ function render(){
   issueLine=0;hintIndex=0;lineNumbers();renderNav();
   document.title=current.title+' · Pracownia Python';
 }
-function setBusy(value){busy=value;$('#run').disabled=$('#check').disabled=value;$('#stop').disabled=!value;$('#code').readOnly=value;$('#stdin').readOnly=value;for(const id of ['reset-code','upload','solution','restore'])$('#'+id).disabled=value;}
+function setBusy(value){busy=value;$('#run').disabled=$('#check').disabled=value;$('#stop').disabled=!value;$('#code').readOnly=value;$('#stdin').readOnly=value;for(const id of ['reset-code','upload','solution','restore','import-now'])$('#'+id).disabled=value;}
 const normalize=s=>s.replace(/\r/g,'').split('\n').map(l=>l.trimEnd()).join('\n').trim();
 function feedback(message,warn=false){$('#feedback').hidden=false;$('#feedback').classList.toggle('warn',warn);$('#feedback').innerHTML=message;}
 function showError(error){
@@ -133,7 +133,10 @@ $('#extend').onclick=()=>{if(checkSession()){session.end+=15*60000;persist();che
 $('#new-student').onclick=()=>confirmAction('Nowy uczeń na stanowisku?','To rozpocznie nową sesję i usunie bieżący postęp w tej przeglądarce. Pobierz JSON, jeśli chcesz do niego wrócić.',()=>resetSession('Nowa sesja — powodzenia!'));
 $('#close-modal').onclick=()=>$('#modal').close();
 $('#download').onclick=()=>download(current.id+'.py',$('#code').value,'text/x-python;charset=utf-8');
-$('#backup').onclick=()=>{if(!checkSession())return;session.work.drafts[current.id]=$('#code').value;session.work.inputs[current.id]=$('#stdin').value;persist();download('python-postep.json',JSON.stringify({app:'informatyka-python-lab',version:1,savedAt:new Date().toISOString(),...session.work},null,2),'application/json');};
+$('#backup').onclick=()=>{if(!checkSession())return;session.work.drafts[current.id]=$('#code').value;session.work.inputs[current.id]=$('#stdin').value;persist();download('python-postep.json',JSON.stringify({app:'informatyka-python-lab',version:1,savedAt:new Date().toISOString(),activeLesson:current.id,...session.work},null,2),'application/json');toast('Pobrano plik postępu: wszystkie kody, odpowiedzi do input() i ukończone zadania.');};
+// Główne przyciski są dostępne także po zwinięciu menu ćwiczeń.
+$('#export-now').onclick=()=>$('#backup').click();
+$('#import-now').onclick=()=>$('#restore').click();
 $('#upload').onclick=()=>$('#upload-file').click();$('#restore').onclick=()=>$('#restore-file').click();
 $('#upload-file').onchange=async e=>{
   const file=e.target.files[0];e.target.value='';if(!file)return;
@@ -145,11 +148,14 @@ $('#upload-file').onchange=async e=>{
 $('#restore-file').onchange=async e=>{
   const file=e.target.files[0];e.target.value='';if(!file)return;
   try{if(file.size>2000000)throw new Error('Plik jest zbyt duży. Limit: 2 MB.');const parsed=JSON.parse(await file.text());if(parsed.app!=='informatyka-python-lab'||parsed.version!==1)throw new Error('To nie jest plik postępu tej pracowni Python.');const work=validateWork(parsed);
-    confirmAction('Wczytać zapisany postęp?',`Kopia zawiera ${Object.keys(work.drafts).length} prac i ${Object.keys(work.passed).length} ukończonych ćwiczeń. Zastąpi obecny postęp.`,()=>{if(!checkSession())return;stop();session.work=work;persist();render();toast('Wczytano postęp z pliku JSON.');});
+    confirmAction('Wczytać zapisany postęp?',`Kopia zawiera ${Object.keys(work.drafts).length} prac i ${Object.keys(work.passed).length} ukończonych ćwiczeń. Zastąpi obecny postęp.`,()=>{if(!checkSession())return;stop();session.work=work;persist();
+      // Starsze pliki bez activeLesson nadal działają. Przywracamy tylko znane ćwiczenia.
+      if(known.has(parsed.activeLesson))history.replaceState(null,'','#'+parsed.activeLesson);
+      render();toast('Wczytano kody i ukończone zadania z pliku JSON.');});
   }catch(error){toast(error instanceof SyntaxError?'Nie udało się odczytać JSON. Wybierz poprawny plik postępu.':error.message);}
 };
 $('#cheatsheet').onclick=()=>modal('Python pod ręką',`<table><thead><tr><th>Chcesz…</th><th>Napisz</th></tr></thead><tbody>${[
   ['Pokazać tekst','print("Cześć!")'],['Zapamiętać liczbę','punkty = 5'],['Wstawić zmienną do tekstu','print(f"Masz {punkty} punktów")'],['Odczytać odpowiedź','imie = input("Imię: ")'],['Odczytać liczbę','n = int(input())'],['Podjąć decyzję','if n >= 10:\n    print("Bonus")\nelse:\n    print("Ćwicz dalej")'],['Powtórzyć 3 razy','for i in range(3):\n    print(i)'],['Zmniejszać licznik','while n > 0:\n    n = n - 1'],['Użyć listy','rzeczy = ["mapa", "woda"]\nprint(rzeczy[0])'],['Zwrócić wynik funkcji','def podwoj(n):\n    return n * 2'],['Posortować liczby','liczby.sort()']
 ].map(([a,b])=>'<tr><td>'+a+'</td><td><code>'+esc(b).replace(/\n/g,'<br>').replace(/    /g,'&nbsp;&nbsp;&nbsp;&nbsp;')+'</code></td></tr>').join('')}</tbody></table><p><strong>Pamiętaj:</strong> <code>=</code> przypisuje wartość, <code>==</code> porównuje. Wielkość liter i wcięcia mają znaczenie.</p><p><kbd>Tab</kbd> w edytorze dodaje 4 spacje. <kbd>Shift</kbd> + <kbd>Tab</kbd> pozwala opuścić edytor. <kbd>Ctrl</kbd> + <kbd>Enter</kbd> uruchamia program.</p>`);
 $('#teacher').onclick=()=>modal('Pracownia dla klas 7–8',`<p><strong>24 ćwiczenia:</strong> pierwsze programy (1–6), dane i decyzje (7–12), pętle, listy i funkcje (13–18), algorytmy i projekty (19–24). To ścieżka od podstaw, a nie pełny kurs wszystkich zagadnień programowania.</p><p><strong>Proponowany rytm:</strong> przewidź wynik → uruchom przykład we własnym kodzie → wykonaj misję → sprawdź → zmień jeden element. Ćwiczenia nie są sprawdzianem na ocenę. Testy pomagają w nauce; nie dowodzą poprawności każdego możliwego programu.</p><p><strong>Sesja trwa 45 minut</strong> i działa po F5. Po upływie czasu resetuje się automatycznie. „Nowy uczeń” usuwa postęp, „+15 min” przedłuża sesję. Uczeń może pobrać kod .py oraz pełny postęp .json i później je wczytać. Dane i wyniki nie są wysyłane nauczycielowi.</p><p><strong>Uruchamianie:</strong> prawdziwy Python przez Pyodide. Przy pierwszym starcie potrzebny jest dostęp do <code>unpkg.com</code>. Program ma limit 6 sekund i 20 000 znaków wyniku. Obsługujemy tekstową konsolę i podstawowe biblioteki Pythona; nie instalujemy pakietów, nie obsługujemy okien pulpitu ani turtle. Odpowiedzi do input() wpisuje się przed uruchomieniem.</p><h3>Inspiracje metodyczne i dokumentacja</h3><p>Ćwiczenia i polskie objaśnienia opracowano dla tej strony. Inspiracją są małe kroki, działające przykłady, informacja zwrotna i własne projekty:</p><ul><li><a href="https://code.org/en-US/tools/python-lab" target="_blank" rel="noopener noreferrer">Code.org / CodeAI — Python Lab</a></li><li><a href="https://blog.khanacademy.org/introducing-khan-academys-new-intro-to-computer-science-course-with-python/" target="_blank" rel="noopener noreferrer">Khan Academy — kurs Python i nauka przez projekty</a></li><li><a href="https://projects.raspberrypi.org/en/pathways/python-intro" target="_blank" rel="noopener noreferrer">Raspberry Pi Foundation — Introduction to Python</a></li><li><a href="https://pyodide.org/en/stable/" target="_blank" rel="noopener noreferrer">Pyodide — środowisko wykonawcze Python</a></li></ul>`);
-render();checkSession();setBusy(false);
+render();checkSession();setBusy(false);$('#export-now').disabled=false;

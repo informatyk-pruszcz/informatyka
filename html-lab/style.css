@@ -35,3 +35,39 @@ main{margin:0 auto;align-self:start}#sidebar{position:sticky;top:0;max-height:10
 .slash { color:var(--muted); }
 .requirements li.bad > span { color:#9c493b; }
 .dark .requirements li.bad > span { color:#f0a89b; }
+/* Menu oddaje całą kolumnę; jego preferencja nie zmienia postępu ucznia. */
+:root {--top-height:78px}
+[hidden] {display:none!important}
+.top {height:auto;min-height:78px;padding:14px 20px;gap:18px;flex-wrap:wrap}
+#toggle-menu {display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:123px;background:var(--bg);font-size:12px}
+.app-layout {grid-template-columns:248px minmax(0,1fr)}
+body.sidebar-collapsed .app-layout {grid-template-columns:minmax(0,1fr)}
+#sidebar {top:var(--top-height);height:calc(100dvh - var(--top-height));max-height:calc(100dvh - var(--top-height));min-height:0;overscroll-behavior:contain;scrollbar-width:thin}
+#workspace {container:html-workspace / inline-size;max-width:none;margin:0}
+.learning-grid {grid-template-columns:280px minmax(0,1fr)}
+.practice {container:html-practice / inline-size}
+.edit-preview {grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.top-actions {flex-wrap:wrap;align-items:center}
+.breadcrumb {gap:10px;flex-wrap:wrap}
+@container html-workspace (max-width:900px) {
+  .learning-grid {grid-template-columns:minmax(0,1fr)}
+}
+@container html-practice (max-width:600px) {
+  .edit-preview {grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:850px) {
+  .app-layout {grid-template-columns:minmax(0,1fr)}
+  #sidebar:not([hidden]) {display:block;position:static;height:auto;max-height:65dvh;border-right:0;border-bottom:1px solid var(--line)}
+  .top {padding:12px 16px;gap:10px}
+  .top .main-menu-link {order:0;width:auto}
+  .top-actions {width:100%;margin:0;gap:7px}
+  .breadcrumb>span:first-of-type {display:inline}
+}
+@media(max-width:480px) {
+  .top {padding:10px 12px;gap:8px}
+  #toggle-menu {min-width:112px;padding:8px;font-size:11px}
+  .main-menu-link {font-size:11px;padding:7px 9px}
+  .back-to-school {font-size:11px}
+  #workspace {padding:18px 12px}
+  .session-strip>span {min-width:0}
+}
