@@ -6,3 +6,99 @@
 @media(max-width:800px){.layout,body.focus-mode.menu-open .layout{grid-template-columns:1fr}#sidebar{display:none;position:static;height:auto;border-bottom:1px solid var(--line)}#menu{display:block}.class-label{display:none}.top{padding:13px 16px}.top-actions{width:100%;margin-left:0}.back{margin-left:auto}.logo{font-size:16px}.session-strip{gap:8px}.lesson-grid{gap:10px}main{padding:0 16px 16px}.heading{margin:20px 0}.below{flex-direction:column}.step{font-size:10px}.lesson-bottom span{display:none}}
 @media(max-width:480px){.lesson-grid{grid-template-columns:1fr}.lesson-grid .mission{grid-column:auto}.top{gap:10px}.back{padding:6px;font-size:10px}.logo>span{width:34px;height:34px}.logo small{font-size:7px}.session-strip>div{flex-wrap:wrap}.panel-head{padding:10px}.lesson-grid .card{padding:15px}.heading{align-items:start}.actions button{flex-grow:1}.editor-foot{font-size:9px}h1{font-size:25px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Pracownia: polecenie obok kodu i wyniku. Menu oddaje całą swoją kolumnę. */
+:root {--top-height:78px}
+[hidden] {display:none!important}
+.top {position:sticky;top:0;z-index:20;padding:14px 20px;gap:18px}
+#menu {display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:123px;background:var(--bg)}
+.logo {font-size:17px;gap:10px}
+.logo>span {width:40px;height:40px}
+.back {background:var(--surface);border-color:var(--line)}
+.layout,body.focus-mode .layout {grid-template-columns:236px minmax(0,1fr)}
+body.sidebar-collapsed .layout {grid-template-columns:minmax(0,1fr)}
+#sidebar {padding:24px 16px;top:var(--top-height);height:calc(100dvh - var(--top-height));overscroll-behavior:contain;scrollbar-width:thin}
+body.focus-mode #sidebar:not([hidden]) {display:block}
+#sidebar h2 {font-size:21px;margin:10px 0 18px}
+#progress-text {margin:0 0 5px}
+main,body.focus-mode main {container:lesson / inline-size;max-width:none;padding:0 24px 20px;margin:0}
+.session-strip {padding:10px 0}
+#expiry:empty {display:none}
+.heading {margin:20px 0}
+h1 {font-size:clamp(24px,2.1vw,32px);margin:5px 0 0}
+.lesson-layout {display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;align-items:start}
+.instructions {display:grid;gap:14px;min-width:0}
+.instructions .card {padding:18px}
+.instructions h2 {font-size:15px;margin:0 0 14px}
+.instructions p {font-size:13px;line-height:1.8}
+.mission #task {font-size:14px}
+#requirements li {margin:6px 0}
+#hint {width:100%;margin-top:15px;text-align:left;background:var(--soft);color:var(--accent)}
+.guide details {border-top:1px solid var(--line);padding-top:12px;margin-top:12px;font-size:12px}
+.guide details p {margin:10px 0 0}
+.guide pre {background:var(--bg);padding:12px;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-size:12px;margin-top:10px;white-space:pre;overflow-x:auto;overflow-wrap:normal}
+.guide .quiet {margin-top:14px;text-align:left}
+.practice {container:practice / inline-size;min-width:0}
+.run-toolbar {display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.run-toolbar>span {font-size:11px}
+.run-toolbar .actions {margin:0}
+.primary {padding:10px 16px}
+.workspace {grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
+.panel-head {padding:12px 14px;gap:8px}
+.panel-head>label,.panel-head>b {display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.number {display:inline-grid;flex:none}
+.runtime-status {max-width:180px}
+.editor {height:clamp(290px,43vh,460px)}
+.editor-foot {flex-wrap:wrap}
+.input-box {padding:12px 14px;border-bottom:1px solid var(--line)}
+.input-body {padding-top:10px}
+.code-files {display:flex;gap:7px;flex-wrap:wrap;padding:10px 12px}
+.code-files button {font-size:11px;padding:7px 9px}
+#output {min-height:clamp(220px,43vh,460px);max-height:500px;padding:18px}
+.feedback,.hint {padding:14px;font-size:13px}
+.output-card .feedback {margin:12px}
+.mission .hint {margin:12px 0 0}
+.work-files {display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0}
+.work-files>div {display:flex;gap:7px;flex-wrap:wrap}
+.work-files button {font-size:11px}
+.work-files .save-note {margin:0}
+.lesson-bottom {margin-top:12px;padding:16px 0}
+footer {padding:14px 0}
+body.focus-mode .instructions p {font-size:15px}
+
+/* Reagujemy na dostępną szerokość, nie tylko na rozmiar całego monitora. */
+@container lesson (max-width:980px) {
+  .lesson-layout {grid-template-columns:minmax(0,1fr)}
+  .instructions {grid-template-columns:1fr 1fr;align-items:start}
+}
+@container lesson (max-width:570px) {
+  .instructions {grid-template-columns:minmax(0,1fr)}
+}
+@container practice (max-width:660px) {
+  .workspace {grid-template-columns:minmax(0,1fr)}
+  #output {min-height:180px}
+}
+@media(max-width:1100px) {
+  .top {gap:10px;padding:12px 16px}
+  .top-actions button {padding:8px 10px}
+  main,body.focus-mode main {padding:0 18px 18px}
+}
+@media(max-width:800px) {
+  .layout,body.focus-mode .layout {grid-template-columns:minmax(0,1fr)}
+  #sidebar:not([hidden]) {display:block;position:static;height:auto;max-height:65dvh;border-right:0;border-bottom:1px solid var(--line)}
+  .top-actions {width:100%;margin:0}
+  .session-strip {justify-content:flex-end}
+  .heading {margin:16px 0}
+}
+@media(max-width:480px) {
+  .top {padding:10px 12px;gap:8px}
+  #menu {min-width:112px;padding:8px;font-size:11px}
+  .logo>span {width:32px;height:32px}
+  .back {order:3;margin:0;font-size:11px;padding:6px}
+  .top-actions {order:4;gap:5px}
+  .top-actions button {font-size:11px;padding:7px 9px}
+  main,body.focus-mode main {padding:0 12px 12px}
+  .instructions .card {padding:15px}
+  .run-toolbar .actions {gap:6px}
+  .run-toolbar button {font-size:11px;padding:9px 10px}
+}

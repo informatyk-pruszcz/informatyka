@@ -39,7 +39,7 @@ function checkSession(){
   if(shared?.id===session.id && Number.isFinite(shared.end))session.end=shared.end;
   if(Date.now()>=session.end || (storageOK&&!shared)){resetSession('Rozpoczęto nową sesję. Poprzedni postęp został wyczyszczony.');return false;}
   const mins=Math.ceil((session.end-Date.now())/60000);$('#session-time').textContent='Sesja: '+mins+' min';
-  $('#expiry').textContent=mins<=5?'Za chwilę koniec sesji. Zapisz postęp w menu ćwiczeń lub dodaj 15 minut.':'';
+  $('#expiry').textContent=mins<=5?'Za chwilę koniec sesji. Zapisz postęp pod edytorem lub dodaj 15 minut.':'';
   return true;
 }
 persist();
@@ -65,12 +65,13 @@ function render(){
   $('#code').value=session.work.drafts[current.id]??current.starter;$('#stdin').value=session.work.inputs[current.id]??current.tests[0].input.join('\n');
   $('#input-help').textContent=current.tests[0].input.length?'Przykładowe dane są już wpisane. Możesz je zmieniać.':'To ćwiczenie nie wymaga danych wejściowych.';
   if(current===free)$('#input-help').textContent='Każde input() odczyta kolejny wiersz.';
+  $('#input-box').open=current===free||current.tests[0].input.length>0;
   $('#output').textContent='Kliknij „Uruchom”, aby zobaczyć wynik. „Sprawdź zadanie” sprawdza też inne dane.';
   $('#variables').replaceChildren();$('#variables-box').open=false;
   $('#error').hidden=$('#feedback').hidden=$('#hint-text').hidden=true;
   $('#check').hidden=$('#solution').hidden=current===free;$('#experiment-box').open=false;
   $('#previous').disabled=lessons.indexOf(current)<=0;$('#next').textContent=current===lessons.at(-1)?'Swobodna pracownia →':'Następne ćwiczenie →';
-  issueLine=0;hintIndex=0;lineNumbers();renderNav();document.body.classList.remove('menu-open');$('#menu').setAttribute('aria-expanded','false');
+  issueLine=0;hintIndex=0;lineNumbers();renderNav();
   document.title=current.title+' · Pracownia Python';
 }
 function setBusy(value){busy=value;$('#run').disabled=$('#check').disabled=value;$('#stop').disabled=!value;$('#code').readOnly=value;$('#stdin').readOnly=value;for(const id of ['reset-code','upload','solution','restore'])$('#'+id).disabled=value;}
@@ -128,8 +129,6 @@ $('#solution').onclick=()=>modal('Jedno z możliwych rozwiązań','<p>Najpierw p
 $('#previous').onclick=()=>location.hash=lessons[Math.max(0,lessons.indexOf(current)-1)].id;
 $('#next').onclick=()=>location.hash=lessons[lessons.indexOf(current)+1]?.id||free.id;
 window.addEventListener('hashchange',()=>{checkSession();render();window.scrollTo({top:0,behavior:'instant'});});
-$('#menu').onclick=()=>{$('#menu').setAttribute('aria-expanded',String(document.body.classList.toggle('menu-open')));};
-$('#focus').onclick=()=>$('#focus').setAttribute('aria-pressed',String(document.body.classList.toggle('focus-mode')));
 $('#extend').onclick=()=>{if(checkSession()){session.end+=15*60000;persist();checkSession();}};
 $('#new-student').onclick=()=>confirmAction('Nowy uczeń na stanowisku?','To rozpocznie nową sesję i usunie bieżący postęp w tej przeglądarce. Pobierz JSON, jeśli chcesz do niego wrócić.',()=>resetSession('Nowa sesja — powodzenia!'));
 $('#close-modal').onclick=()=>$('#modal').close();

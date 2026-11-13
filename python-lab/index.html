@@ -5,54 +5,56 @@
   <title>Pracownia Python — Informatyka w akcji</title>
   <meta name="description" content="24 ćwiczenia Pythona dla klas 7–8. Pisz i uruchamiaj programy, poznawaj błędy i twórz własne projekty.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23167765'/%3E%3Ctext x='8' y='44' fill='white' font-size='34' font-family='monospace'%3Epy%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=1">
-  <script type="module" src="app.js?v=2"></script><script defer src="../theme.js"></script>
+  <link rel="stylesheet" href="style.css?v=layout2">
+  <script type="module" src="layout.js?v=1"></script>
+  <script type="module" src="app.js?v=layout2"></script><script defer src="../theme.js"></script>
 </head>
 <body>
 <a class="skip" href="#code">Przejdź do edytora kodu</a>
 <header class="top">
+  <button id="menu" class="menu-toggle" aria-expanded="true" aria-controls="sidebar" disabled><span aria-hidden="true">☰</span><span id="menu-label">Zwiń menu</span></button>
   <a class="logo" href="../#home"><span aria-hidden="true">py</span><div>Pracownia Python<small>INFORMATYKA W AKCJI</small></div></a>
   <a class="back" href="../#home">← Menu główne</a>
   <div class="top-actions"><button id="cheatsheet">Ściąga</button><button id="teacher">Dla nauczyciela</button><button id="focus" aria-pressed="false">Tryb skupienia</button><button id="theme" data-compact title="Ciemny motyw">☾</button></div>
 </header>
 <div class="layout">
-  <aside id="sidebar">
-    <div class="eyebrow">TWOJA ŚCIEŻKA NAUKI</div><h2>Mały krok.<br>Własny program.</h2><p class="muted">Pisz. Uruchamiaj. Odkrywaj.</p>
+  <aside id="sidebar" aria-label="Ścieżka nauki">
+    <div class="eyebrow">TWOJA ŚCIEŻKA NAUKI</div><h2>Ćwiczenia Python</h2>
     <p id="progress-text">0 / 24 ukończonych</p><progress id="progress" value="0" max="24" aria-label="Ukończone ćwiczenia"></progress>
     <nav id="lesson-nav" aria-label="Ćwiczenia Python"></nav>
     <a class="playground" href="#swobodna-pracownia">↗ Swobodna pracownia</a>
-    <p class="save-note" id="save-state" role="status">Zapis automatyczny na tym urządzeniu.</p>
-    <button id="backup">Zapisz postęp (.json)</button><button id="restore">Wczytaj postęp (.json)</button>
-    <input id="restore-file" type="file" accept=".json,application/json" hidden>
   </aside>
   <main id="main">
-    <div class="session-strip"><button id="menu" aria-expanded="false" aria-controls="sidebar">☰ Wybierz ćwiczenie</button><span class="class-label">KLASY 7–8 · OD PODSTAW</span><div><span id="session-time">Sesja: 45 min</span><button id="extend">+15 min</button><button id="new-student">Nowy uczeń</button></div></div>
+    <div class="session-strip"><span class="class-label">KLASY 7–8 · OD PODSTAW</span><div><span id="session-time">Sesja: 45 min</span><button id="extend">+15 min</button><button id="new-student">Nowy uczeń</button></div></div>
     <p id="expiry" role="status" class="muted"></p>
     <div class="heading"><div><span id="lesson-group" class="eyebrow"></span><h1 id="lesson-title">Ładowanie ćwiczeń…</h1></div><span class="step" id="step"></span></div>
-    <section class="lesson-grid" aria-label="Poznaj, zobacz i spróbuj">
-      <article class="card"><h2><span class="number">1</span> Poznaj mechanizm</h2><p id="intro"></p><div class="flow" aria-label="Kod, uruchomienie, wynik"><span>Kod</span><b>→</b><span>Uruchom</span><b>→</b><span>Wynik</span></div></article>
-      <article class="card"><h2><span class="number">2</span> Podejrzyj przykład</h2><pre id="example"></pre><p class="muted small">Przykład pokazuje zasadę. Twoja misja jest obok.</p></article>
-      <article class="card mission"><h2><span class="number">3</span> Twoja misja</h2><p id="task"></p><ul id="requirements"></ul></article>
-    </section>
-    <div class="actions"><button id="run" class="primary" disabled>▶ Uruchom</button><button id="check" class="check-button" disabled>✓ Sprawdź zadanie</button><button id="stop" disabled>■ Stop</button><button id="hint">Podpowiedź</button><button id="download">Zapisz kod (.py)</button><button id="upload">Wczytaj kod (.py)</button><input id="upload-file" type="file" accept=".py,text/x-python" hidden></div>
+    <div class="lesson-layout">
+      <section class="instructions" aria-label="Polecenie i pomoc">
+        <article class="card mission"><h2><span class="number">1</span> Twoje zadanie</h2><p id="task"></p><ul id="requirements"></ul><button id="hint">Potrzebuję podpowiedzi</button><div id="hint-text" class="hint" role="status" hidden></div></article>
+        <article class="card guide"><h2>Jak to działa?</h2><p id="intro"></p><details id="example-box" open><summary>Zobacz przykład</summary><pre id="example"></pre></details><details id="experiment-box"><summary>✦ A co, jeśli…?</summary><p id="experiment"></p></details><button id="solution" class="quiet">Przykładowe rozwiązanie</button></article>
+      </section>
+      <section class="practice" aria-label="Napisz i sprawdź program">
+        <div class="run-toolbar"><div class="actions"><button id="run" class="primary" disabled>▶ Uruchom</button><button id="check" class="check-button" disabled>✓ Sprawdź zadanie</button><button id="stop" disabled>■ Stop</button></div><span class="muted small">Uruchom → zobacz wynik → sprawdź zadanie</span></div>
     <section class="workspace" aria-label="Edytor i wynik programu">
       <div class="card editor-card">
-        <div class="panel-head"><label for="code"><b>Twój kod</b> <span class="muted">· program.py</span></label><button id="reset-code" class="quiet">Kod startowy</button></div>
+        <div class="panel-head"><label for="code"><span class="number">2</span><b>Twój kod</b> <span class="muted">· program.py</span></label><button id="reset-code" class="quiet">Kod startowy</button></div>
         <div class="editor"><div id="lines" aria-hidden="true"></div><textarea id="code" readonly spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" maxlength="30000" aria-describedby="editor-help"></textarea></div>
         <div class="editor-foot"><span id="editor-help">Tab = 4 spacje · Ctrl + Enter = uruchom</span><span id="char-count"></span></div>
-        <div class="input-box"><label for="stdin"><b>Odpowiedzi do input()</b><span class="muted"> — po jednej w wierszu</span></label><textarea id="stdin" readonly rows="2" maxlength="10000" placeholder="Wpisz odpowiedzi przed uruchomieniem"></textarea><small id="input-help" class="muted"></small></div>
+        <details id="input-box" class="input-box"><summary>Odpowiedzi do input()</summary><div class="input-body"><label for="stdin">Jedna odpowiedź w każdym wierszu</label><textarea id="stdin" readonly rows="2" maxlength="10000" placeholder="Wpisz odpowiedzi przed uruchomieniem"></textarea><small id="input-help" class="muted"></small></div></details>
+        <div class="code-files"><button id="download">↓ Zapisz kod (.py)</button><button id="upload">↑ Wczytaj kod (.py)</button><input id="upload-file" type="file" accept=".py,text/x-python" hidden></div>
       </div>
       <div class="card output-card">
-        <div class="panel-head"><b><span class="terminal-dot" aria-hidden="true"></span> Konsola Pythona</b><span id="runtime-status" class="runtime-status" role="status">Gotowa do startu</span></div>
+        <div class="panel-head"><b><span class="number">3</span> Wynik programu</b><span id="runtime-status" class="runtime-status" role="status">Gotowa do startu</span></div>
         <pre id="output" tabindex="0" aria-label="Wynik programu">Tutaj zobaczysz wynik swojego programu.
 Kliknij „Uruchom”.</pre>
         <div id="error" class="error" role="status" hidden></div>
         <details id="variables-box"><summary>Co jest w zmiennych?</summary><dl id="variables"></dl><p class="muted small">Wartości po zakończeniu programu. Każdy start liczy od nowa.</p></details>
+        <div id="feedback" class="feedback" role="status" hidden></div>
       </div>
     </section>
-    <div id="feedback" class="feedback" role="status" hidden></div>
-    <div id="hint-text" class="hint" role="status" hidden></div>
-    <div class="below"><details id="experiment-box"><summary>✦ A co, jeśli…?</summary><p id="experiment"></p></details><button id="solution" class="quiet">Zobacz przykładowe rozwiązanie</button></div>
+      <div class="work-files"><p class="save-note" id="save-state" role="status">Zapis automatyczny na tym urządzeniu.</p><div><button id="backup">Zapisz postęp (.json)</button><button id="restore">Wczytaj postęp (.json)</button><input id="restore-file" type="file" accept=".json,application/json" hidden></div></div>
+      </section>
+    </div>
     <nav class="lesson-bottom" aria-label="Przejdź do kolejnego ćwiczenia"><button id="previous">← Poprzednie</button><span>Bez ocen. W Twoim tempie.</span><button id="next">Następne ćwiczenie →</button></nav>
     <footer><span>Python w przeglądarce · pierwsze uruchomienie wymaga internetu.</span><a href="../html-lab/index.html">Pracownia HTML ↗</a></footer>
   </main>
