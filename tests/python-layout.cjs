@@ -38,6 +38,8 @@ const base=(process.env.BASE_URL||'http://127.0.0.1:4182').replace(/\/$/,'');
   await page.keyboard.press('Enter');assert.equal(await page.locator('#sidebar').isVisible(),true);
   for(const width of [390,800,1024,1366,1920]){
     await page.setViewportSize({width,height:768});
+    // CSS i zdarzenie matchMedia muszą zakończyć ten sam cykl zmiany rozmiaru.
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
     for(let i=0;i<2;i++){
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Bez poziomego przewijania: '+width);
       const visible=await page.locator('#sidebar').isVisible();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),String(visible));
@@ -45,6 +47,7 @@ const base=(process.env.BASE_URL||'http://127.0.0.1:4182').replace(/\/$/,'');
     }
   }
   await page.setViewportSize({width:390,height:844});
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   await page.locator('#menu').click();assert.ok(await page.locator('#sidebar').isVisible());
   await page.locator('.lesson-link[href="#input"]').click();
   assert.equal(await page.locator('#sidebar').isVisible(),false);assert.equal(await page.locator('#input-box').getAttribute('open'),'');
