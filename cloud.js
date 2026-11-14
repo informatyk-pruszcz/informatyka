@@ -1,3 +1,4 @@
+import {validateDatabase} from './core.js';
 let auth,db,fs,au,ref;
 export async function connectCloud(onData,onStatus,onTeacherChanged){
  if(!window.FIREBASE_CONFIG)return null;
@@ -20,6 +21,19 @@ export async function connectCloud(onData,onStatus,onTeacherChanged){
  googleLogin:async()=>requireTeacher(await a.signInWithPopup(auth,new a.GoogleAuthProvider())),
  resetPassword:email=>a.sendPasswordResetEmail(auth,email),
  logout:()=>a.signOut(auth),isTeacher:()=>!!auth.currentUser&&auth.currentUser.uid===window.TEACHER_UID,
+ changeExam:async(config,expectedRevision)=>{
+   if(!isTeacher(auth.currentUser))throw Error('Zaloguj się kontem nauczyciela.');
+   await f.runTransaction(db,async tx=>{
+     const snap=await tx.get(ref);
+     if(!snap.exists())throw Error('Najpierw opublikuj materiały w chmurze.');
+     const d=snap.data();
+     if((d.revision||0)!==expectedRevision)throw Error('Ustawienia zostały zmienione w innej karcie. Odśwież stronę i spróbuj ponownie.');
+     const item={id:'system-excel8-access',type:'task',grades:[8],title:'Ustawienia dostępu do sprawdzianu Excel',tags:[],body:JSON.stringify(config)};
+     const items=[...d.items.filter(i=>i.id!==item.id),item];
+     validateDatabase({version:1,items});
+     tx.set(ref,{version:1,items,revision:(d.revision||0)+1,updatedAt:f.serverTimestamp()});
+   });
+ },
  publish:async(data,revision)=>{if(!auth.currentUser||auth.currentUser.uid!==window.TEACHER_UID)throw Error('Zaloguj się kontem nauczyciela.');await f.runTransaction(db,async tx=>{const snap=await tx.get(ref);const current=snap.exists()?(snap.data().revision||0):0;if(current!==revision)throw Error('Konflikt wersji. Wyeksportuj swoją kopię i pobierz aktualną bazę z chmury przed ponowną edycją.');tx.set(ref,{...data,revision:current+1,updatedAt:f.serverTimestamp()});});return revision+1;}
  };
 }
