@@ -26,7 +26,7 @@ Sprawdzarka porównuje rzeczywisty wynik dla 53 przypadków testowych oraz obecn
 
 ## Sesja i pliki
 
-Przycisk „Zwiń menu / Rozwiń menu” w stałym pasku górnym oddaje całą szerokość panelu roboczemu. Preferencja na komputerze jest zapisywana osobno pod kluczem `python-pracownia-sidebar-open`. Na małych ekranach lista jest domyślnie zwinięta i zamyka się po wybraniu lekcji. Tryb skupienia tymczasowo chowa menu; po wyłączeniu przywraca preferencję użytkownika. Zapis i wczytywanie całego postępu (.json) są widoczne nad zadaniem oraz pod edytorem, także przy zwiniętym menu. Testy układu: `node tests/python-layout.cjs`.
+Przycisk „Zwiń menu / Rozwiń menu” w stałym pasku górnym oddaje całą szerokość panelu roboczemu. Preferencja na komputerze jest zapisywana osobno pod kluczem `python-pracownia-sidebar-open`. Na małych ekranach lista jest domyślnie zwinięta i zamyka się po wybraniu lekcji. Tryb skupienia tymczasowo chowa menu; po wyłączeniu przywraca preferencję użytkownika. Zapis i wczytywanie całego postępu (.json) są widoczne obok przycisków Uruchom / Sprawdź zadanie / Stop oraz pod edytorem, także przy zwiniętym menu. Testy układu: `node tests/python-layout.cjs`.
 
 `localStorage`: `python-pracownia-session-v1`, osobny od pracowni HTML. Sesja 45 minut przetrwa F5; po jej upływie postęp jest automatycznie czyszczony. Nowy uczeń dostaje nowy identyfikator; stare karty wykrywają zmianę. Dostępne jest przedłużenie o 15 minut i ostrzeżenie przed końcem sesji. Brak dostępu do localStorage przełącza pracę do pamięci bieżącej strony.
 
