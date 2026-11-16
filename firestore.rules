@@ -1,17 +1,27 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /teacherExams/{dataset}/files/{group} {
+      allow get: if request.auth != null
+        && request.auth.uid == 'AGOOU43jEYaHaB5BCqw4wpWiqax1';
+      // Publikacja plików przez właściciela projektu z użyciem IAM.
+      allow list, write: if false;
+    }
     match /school/content {
-      allow get: if true;
-      function teacherUpdate() {
-        let d = request.resource.data;
-        return request.auth != null && request.auth.uid == 'AGOOU43jEYaHaB5BCqw4wpWiqax1'
-          && d.keys().hasOnly(['version','items','revision','updatedAt'])
-          && d.version == 1 && d.items is list && d.items.size() <= 500
-          && d.revision is int && d.updatedAt == request.time;
-      }
-      allow create: if teacherUpdate() && request.resource.data.revision == 1;
-      allow update: if teacherUpdate() && request.resource.data.revision == resource.data.get('revision', 0) + 1;
+      allow read: if true;
+
+      allow create, update: if request.auth != null
+        && request.auth.uid == 'AGOOU43jEYaHaB5BCqw4wpWiqax1'
+        && request.resource.data.keys().hasOnly([
+          'version', 'items', 'revision', 'updatedAt'
+        ])
+        && request.resource.data.version == 1
+        && request.resource.data.items is list
+        && request.resource.data.items.size() <= 500
+        && request.resource.data.revision is int;
+
+      allow delete: if false;
     }
   }
 }

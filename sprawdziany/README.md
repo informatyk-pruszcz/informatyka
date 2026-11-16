@@ -26,3 +26,17 @@ Do nowego poufnego zestawu trzeba przygotować nowe arkusze i nowy klucz.
 Hasło nie jest zapisywane jawnie w konfiguracji. Nie logujemy danych uczniów.
 
 Aktualny zestaw: excel8-20261116. Nowe pliki mają osobny klucz oraz wersjonowane adresy. Ustawienia w chmurze obowiązują tylko wtedy, gdy ich dataset jest zgodny z EXAM_SET; stare ustawienia są pomijane. Każda zmiana hasła zachowuje identyfikator aktualnego zestawu.
+
+Wersje nauczyciela A/B/C znajdują się pod formularzem zmiany hasła w panelu.
+Pliki nie są publikowane w GitHub Pages ani w publicznym school/content.
+Są przechowywane w Firestore: teacherExams/excel8-20261116/files/{A,B,C}.
+Każdy dokument zawiera version=1, content (base64 XLSX), sha256 i filename.
+Reguły serwera zezwalają na pojedynczy odczyt tylko UID nauczyciela.
+Listowanie i zapis z aplikacji są zabronione; pliki publikuje właściciel przez IAM.
+Aplikacja pobiera dokument z serwera, sprawdza sesję i SHA-256 przed pobraniem.
+Aktualizacja plików nauczyciela wymaga zachowania tego schematu i limitu 1 MiB dokumentu.
+Przy wdrażaniu reguł zachowano istniejące reguły serwera dla school/content.
+
+Poprawka H23: usunięto scaloną ramkę H35:L36 w arkuszu Zadanie 3.
+Excel potrzebuje wolnego miejsca również na początkowy obszar pustej tabeli przestawnej.
+Wstawianie od H23 i sumy grup A/B/C sprawdzono w natywnym Excelu.

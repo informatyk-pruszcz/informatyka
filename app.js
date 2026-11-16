@@ -50,8 +50,8 @@ for (const [id, anchor, summary] of [
 }
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
-import {connectCloud} from './cloud.js?v=exam1';
-import {EXAM_ID,examPage,mountExam,teacherExam,configFrom,changePassword} from './exam.js?v=3';
+import {connectCloud} from './cloud.js?v=exam4';
+import {EXAM_ID,examPage,mountExam,teacherExam,mountTeacherExam,configFrom,changePassword} from './exam.js?v=4';
 const $=(s,root=document)=>root.querySelector(s),$$=(s,root=document)=>[...root.querySelectorAll(s)];
 const KEY='informatyka-db-v1',META='informatyka-sync-v1';
 let data=structuredClone(seed),grade='',type='',tag='',section='',query='',admin=false,cloud=null,remote=null,revision=0,dirty=false,toastTimer;
@@ -141,6 +141,7 @@ function render(){lessonRenderId++;const r=route();document.body.classList.remov
  if(checkHost){const note=libraryItems().find(item=>item.id===r.slice(5));mountFastCheck(checkHost,fastQuestions(note,noteContents));}
  if(r==='admin'){
  bindAdmin();
+ if(admin&&$('#teacher-exam-files'))mountTeacherExam($('#teacher-exam-files'),cloud);
  if(admin&&$('#exam-settings'))$('#exam-settings').onsubmit=async event=>{
  event.preventDefault();const form=event.currentTarget,b=form.querySelector('button'),message=$('#exam-settings-status');
  if(!remote||!cloud){message.textContent='Poczekaj na połączenie z chmurą.';return;}

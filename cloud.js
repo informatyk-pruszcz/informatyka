@@ -21,6 +21,15 @@ export async function connectCloud(onData,onStatus,onTeacherChanged){
  googleLogin:async()=>requireTeacher(await a.signInWithPopup(auth,new a.GoogleAuthProvider())),
  resetPassword:email=>a.sendPasswordResetEmail(auth,email),
  logout:()=>a.signOut(auth),isTeacher:()=>!!auth.currentUser&&auth.currentUser.uid===window.TEACHER_UID,
+ teacherExamFile:async(dataset,group)=>{
+   if(!isTeacher(auth.currentUser))throw Error('Zaloguj się kontem nauczyciela.');
+   if(dataset!=='excel8-20261116'||!['A','B','C'].includes(group))throw Error('Nieznany zestaw.');
+   // Odczyt wyłącznie z serwera. Reguły Firestore sprawdzają UID nauczyciela.
+   const snap=await f.getDocFromServer(f.doc(db,'teacherExams',dataset,'files',group));
+   if(!isTeacher(auth.currentUser))throw Error('Sesja nauczyciela zakończona. Zaloguj się ponownie.');
+   if(!snap.exists())throw Error('Wersja nauczyciela nie została jeszcze udostępniona.');
+   return snap.data();
+ },
  changeExam:async(config,expectedRevision)=>{
    if(!isTeacher(auth.currentUser))throw Error('Zaloguj się kontem nauczyciela.');
    await f.runTransaction(db,async tx=>{

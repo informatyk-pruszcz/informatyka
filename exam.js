@@ -53,4 +53,23 @@ export async function mountExam(host,items){
  };
  }catch{host.textContent='Nie udało się wczytać sprawdzianu. Odśwież stronę i sprawdź połączenie.';}
 }
-export function teacherExam(){return `<section class="cloud-box"><h3>Sprawdzian Excel — klasa 8</h3><p>Zmiana hasła rozpoczyna nową turę losowania. Zapis obowiązuje od razu na stronie uczniów.</p><form id="exam-settings"><label>Obecne hasło sprawdzianu <input name="old" type="password" required autocomplete="off"></label><label>Nowe hasło (minimum 8 znaków) <input name="next" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><label>Powtórz nowe hasło <input name="repeat" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><button class="btn primary">Zmień hasło dla wszystkich uczniów</button></form><p id="exam-settings-status" role="status"></p><p class="muted">To wspólne hasło na lekcję, bez kont uczniów. Nie gwarantuje równej liczby osób w grupach. Zmiana hasła nie odbiera pobranych plików ani kopii poprzednich ustawień. Przy poufnym kolejnym sprawdzianie przygotuj nowe pliki.</p><a class="text-link" href="#class/8/exam">Otwórz stronę ucznia →</a></section>`;}
+export function teacherExam(){return `<section class="cloud-box"><h3>Sprawdzian Excel — klasa 8</h3><p>Zmiana hasła rozpoczyna nową turę losowania. Zapis obowiązuje od razu na stronie uczniów.</p><form id="exam-settings"><label>Obecne hasło sprawdzianu <input name="old" type="password" required autocomplete="off"></label><label>Nowe hasło (minimum 8 znaków) <input name="next" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><label>Powtórz nowe hasło <input name="repeat" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><button class="btn primary">Zmień hasło dla wszystkich uczniów</button></form><p id="exam-settings-status" role="status"></p><div id="teacher-exam-files"><h4>Wersje nauczyciela — rozwiązania</h4><p>Zestaw 16.11.2026: formuły, odpowiedzi, tabela przestawna, dwa wykresy i fragmentatory. Pobieranie wymaga zalogowania na konto nauczyciela.</p><div class="actions">${['A','B','C'].map(g=>`<button class="btn" data-teacher-exam="${g}">↓ Rozwiązania — grupa ${g}</button>`).join('')}</div><p id="teacher-exam-status" role="status" aria-live="polite"></p></div><p class="muted">To wspólne hasło na lekcję, bez kont uczniów. Nie gwarantuje równej liczby osób w grupach. Zmiana hasła nie odbiera pobranych plików ani kopii poprzednich ustawień. Przy poufnym kolejnym sprawdzianie przygotuj nowe pliki.</p><a class="text-link" href="#class/8/exam">Otwórz stronę ucznia →</a></section>`;}
+
+export function mountTeacherExam(host,cloud){
+ const status=host.querySelector('#teacher-exam-status');
+ host.querySelectorAll('[data-teacher-exam]').forEach(button=>button.onclick=async()=>{
+  button.disabled=true;status.textContent='Pobieram rozwiązania…';
+  try{
+   if(!cloud?.isTeacher())throw Error('Zaloguj się kontem nauczyciela.');
+   const group=button.dataset.teacherExam,file=await cloud.teacherExamFile(EXAM_SET,group);
+   if(!host.isConnected||!cloud.isTeacher())return;
+   if(file.version!==1||typeof file.content!=='string'||file.content.length>1000000)throw Error('Nieprawidłowy plik nauczyciela.');
+   const content=bytes(file.content),digest=await crypto.subtle.digest('SHA-256',content);
+   if([...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')!==file.sha256)throw Error('Plik jest uszkodzony. Spróbuj ponownie.');
+   if(!host.isConnected||!cloud.isTeacher())return;
+   const url=URL.createObjectURL(new Blob([content],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})),a=document.createElement('a');
+   a.href=url;a.download='Sprawdzian_Excel_Klasa8_Grupa_'+group+'_Nauczyciel.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
+   status.textContent='Pobrano rozwiązania grupy '+group+'. Po pracy wyloguj się z panelu.';
+  }catch(error){status.textContent=error.code==='permission-denied'?'Brak dostępu. Zaloguj się kontem nauczyciela.':error.message||'Nie udało się pobrać rozwiązań.';}finally{button.disabled=false;}
+ });
+}
