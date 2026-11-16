@@ -24,3 +24,5 @@ Poprzednie ustawienia z historii repozytorium/kopii bazy i poprzednie hasło nad
 mogą odszyfrować te same pliki. Zmiana hasła nie unieważnia pobranych arkuszy.
 Do nowego poufnego zestawu trzeba przygotować nowe arkusze i nowy klucz.
 Hasło nie jest zapisywane jawnie w konfiguracji. Nie logujemy danych uczniów.
+
+Aktualny zestaw: excel8-20261116. Nowe pliki mają osobny klucz oraz wersjonowane adresy. Ustawienia w chmurze obowiązują tylko wtedy, gdy ich dataset jest zgodny z EXAM_SET; stare ustawienia są pomijane. Każda zmiana hasła zachowuje identyfikator aktualnego zestawu.

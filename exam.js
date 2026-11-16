@@ -1,5 +1,6 @@
 // Wspólne hasło organizuje dostęp na lekcji. To nie jest system egzaminacyjny.
 export const EXAM_ID='system-excel8-access';
+export const EXAM_SET='excel8-20261116';
 const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 const b64=a=>btoa(String.fromCharCode(...new Uint8Array(a)));
 async function passwordKey(password,salt){
@@ -10,15 +11,17 @@ export async function unlock(password,config){return crypto.subtle.decrypt({name
 export async function changePassword(oldPassword,newPassword,config){
  const raw=await unlock(oldPassword,config),salt=b64(crypto.getRandomValues(new Uint8Array(16))),iv=crypto.getRandomValues(new Uint8Array(12));
  const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},await passwordKey(newPassword,salt),raw);
- return {version:1,round:crypto.randomUUID(),salt,iv:b64(iv),data:b64(encrypted)};
+ return {version:1,dataset:config.dataset,round:crypto.randomUUID(),salt,iv:b64(iv),data:b64(encrypted)};
 }
 export async function configFrom(items){
  const saved=items?.find(i=>i.id===EXAM_ID);
- const c=saved?JSON.parse(saved.body):await fetch('./sprawdziany/default.json').then(r=>{if(!r.ok)throw Error();return r.json();});
+ const candidate=saved?JSON.parse(saved.body):null;
+ // Hasło zapisane dla poprzednich arkuszy nie może otwierać nowego zestawu.
+ const c=candidate?.dataset===EXAM_SET?candidate:await fetch('./sprawdziany/'+EXAM_SET+'/default.json').then(r=>{if(!r.ok)throw Error();return r.json();});
  if(c.version!==1||!['round','salt','iv','data'].every(k=>typeof c[k]==='string'))throw Error('Nieprawidłowa konfiguracja sprawdzianu.');
  return c;
 }
-export function examPage(){return `<a class="text-link" href="#class/8">← Klasa 8</a><section class="exam-card"><span class="eyebrow">KLASA 8 · MICROSOFT EXCEL</span><h1>Sprawdzian wiadomości</h1><p>Wpisz hasło od nauczyciela. Następnie wylosuj swoją grupę i pobierz arkusz.</p><ol class="exam-steps"><li>Wpisz hasło</li><li>Wylosuj grupę</li><li>Pobierz plik</li></ol><div id="exam-content"><p role="status">Sprawdzam aktualne ustawienia…</p><button class="btn" onclick="location.reload()">Odśwież połączenie</button></div><p class="muted">Pracuj samodzielnie. Przeczytaj polecenia w pobranym arkuszu.</p></section>`;}
+export function examPage(){return `<a class="text-link" href="#class/8">← Klasa 8</a><section class="exam-card"><span class="eyebrow">KLASA 8 · MICROSOFT EXCEL · ZESTAW 16.11.2026</span><h1>Sprawdzian wiadomości</h1><p>Wpisz hasło od nauczyciela. Następnie wylosuj swoją grupę i pobierz arkusz.</p><ol class="exam-steps"><li>Wpisz hasło</li><li>Wylosuj grupę</li><li>Pobierz plik</li></ol><div id="exam-content"><p role="status">Sprawdzam aktualne ustawienia…</p><button class="btn" onclick="location.reload()">Odśwież połączenie</button></div><p class="muted">Pracuj samodzielnie. Przeczytaj polecenia w pobranym arkuszu.</p></section>`;}
 export async function mountExam(host,items){
  try{
  const config=await configFrom(items);if(!host.isConnected)return;
@@ -36,7 +39,7 @@ export async function mountExam(host,items){
  result.querySelector('#exam-new').onclick=()=>{if(confirm('Rozpocząć pracę nowego ucznia? Zostanie usunięty przydział grupy w tej karcie.')){try{sessionStorage.removeItem(storageKey);}catch{}mountExam(host,items);}};
  result.querySelector('#exam-download').onclick=async event=>{
  const b=event.currentTarget;b.disabled=true;status.textContent='Przygotowuję plik…';
- try{const response=await fetch('./sprawdziany/grupa-'+group+'.json');if(!response.ok)throw Error();const encrypted=await response.json();
+ try{const response=await fetch('./sprawdziany/'+EXAM_SET+'/grupa-'+group+'.json');if(!response.ok)throw Error();const encrypted=await response.json();
  const content=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(encrypted.iv)},key,bytes(encrypted.data));
  const url=URL.createObjectURL(new Blob([content],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})),a=document.createElement('a');a.href=url;a.download='Sprawdzian_Excel_Klasa8_Grupa_'+group+'_Uczen.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='Plik jest gotowy. Otwórz pobrany arkusz w Excelu. Powodzenia!';
  }catch{status.textContent='Nie udało się pobrać pliku. Sprawdź połączenie i spróbuj ponownie.';}finally{b.disabled=false;}
