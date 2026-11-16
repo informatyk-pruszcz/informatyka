@@ -39,7 +39,7 @@ export async function mountExam(host,items){
  result.querySelector('#exam-new').onclick=()=>{if(confirm('Rozpocząć pracę nowego ucznia? Zostanie usunięty przydział grupy w tej karcie.')){try{sessionStorage.removeItem(storageKey);}catch{}mountExam(host,items);}};
  result.querySelector('#exam-download').onclick=async event=>{
  const b=event.currentTarget;b.disabled=true;status.textContent='Przygotowuję plik…';
- try{const response=await fetch('./sprawdziany/'+EXAM_SET+'/grupa-'+group+'.json');if(!response.ok)throw Error();const encrypted=await response.json();
+ try{const response=await fetch('./sprawdziany/'+EXAM_SET+'/grupa-'+group+'.json?v=h23fix');if(!response.ok)throw Error();const encrypted=await response.json();
  const content=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(encrypted.iv)},key,bytes(encrypted.data));
  const url=URL.createObjectURL(new Blob([content],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})),a=document.createElement('a');a.href=url;a.download='Sprawdzian_Excel_Klasa8_Grupa_'+group+'_Uczen.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='Plik jest gotowy. Otwórz pobrany arkusz w Excelu. Powodzenia!';
  }catch{status.textContent='Nie udało się pobrać pliku. Sprawdź połączenie i spróbuj ponownie.';}finally{b.disabled=false;}

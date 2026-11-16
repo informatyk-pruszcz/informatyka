@@ -51,7 +51,7 @@ for (const [id, anchor, summary] of [
 import {seed} from './seed.js';
 import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
 import {connectCloud} from './cloud.js?v=exam1';
-import {EXAM_ID,examPage,mountExam,teacherExam,configFrom,changePassword} from './exam.js?v=2';
+import {EXAM_ID,examPage,mountExam,teacherExam,configFrom,changePassword} from './exam.js?v=3';
 const $=(s,root=document)=>root.querySelector(s),$$=(s,root=document)=>[...root.querySelectorAll(s)];
 const KEY='informatyka-db-v1',META='informatyka-sync-v1';
 let data=structuredClone(seed),grade='',type='',tag='',section='',query='',admin=false,cloud=null,remote=null,revision=0,dirty=false,toastTimer;
