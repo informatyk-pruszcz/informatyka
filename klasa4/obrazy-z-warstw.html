@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obrazy z warstw — Klasa 4, dział III, temat 3</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-light: #dbeafe;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --error: #b91c1c;
+      --error-bg: #fee2e2;
+      --text: #1e293b;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Calibri, Arial, Verdana, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .worksheet-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 26px;
+      color: var(--primary);
+      margin-top: 0;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 21px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 28px;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .student-info label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .student-info input {
+      width: 100%;
+      font-size: 17px;
+      padding: 8px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .goals-box {
+      background: #f8fafc;
+      border-left: 6px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 10px;
+      height: 22px;
+      margin: 16px 0 24px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: var(--success);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instruction {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    select, input[type="text"].blank-input {
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .word-bank {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 19px;
+      text-align: center;
+    }
+
+    .word-bank span {
+      display: inline-block;
+      background: #ffffff;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--primary);
+    }
+
+    .task-list li {
+      margin-bottom: 14px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .checklist input[type="checkbox"],
+    .done-box input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .done-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .self-eval {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .eval-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .eval-card input {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-check {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-print {
+      background: #475569;
+      color: white;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .correct-field {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .wrong-field {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error) !important;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        font-size: 13pt;
+      }
+      .worksheet-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .actions-bar, .progress-bar-wrap, #feedbackBox {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, .checklist, .self-eval {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Uzupełnienia portalu: czytelność, klawiatura i małe ekrany. */
+    .topbar {max-width:850px;margin:0 auto 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .topbar a {color:var(--primary);font-weight:700}
+    .topbar button {font-size:15px;padding:10px 14px;background:var(--primary-light);color:var(--primary);min-height:44px}
+    .actions-bar {flex-wrap:wrap}
+    .table-scroll {overflow-x:auto;margin-bottom:16px}
+    .table-scroll table {margin:0;min-width:590px}
+    select,input,button {min-height:44px;max-width:100%}
+    input,select {color:var(--text)}
+    :focus-visible {outline:3px solid var(--primary);outline-offset:3px}
+    .checklist label {display:flex;align-items:center;gap:14px;width:100%;cursor:pointer}
+    .field-feedback {display:block;font-size:15px;line-height:1.4;margin-top:6px;font-weight:600}
+    .field-feedback:empty {display:none}
+    .print-answer {display:none}
+    #save-status {font-size:15px}
+    .progress-bar-wrap {margin-bottom:8px}
+    .dark {--bg:#0f172a;--card:#172238;--text:#f1f5f9;--primary:#93c5fd;--primary-light:#253957;--border:#61738c;--success:#86efac;--success-bg:#16432b;--error:#fecaca;--error-bg:#542d36;color-scheme:dark}
+    .dark .goals-box,.dark th,.dark .checklist li {background:#202e45}
+    .dark .instruction {background:#3a321c;border-color:#ad8c3c}
+    .dark input,.dark select,.dark .word-bank span {background:#0f172a;color:var(--text)}
+    .dark .btn-check {background:#2563eb;color:#fff}
+    .dark .feedback {background:#253957!important;color:#f1f5f9!important}
+    .dark .progress-bar-wrap {background:#334155}
+    @media(max-width:600px){body{padding:10px;font-size:17px}.worksheet-container{padding:16px}.student-info,.self-eval{grid-template-columns:1fr}.actions-bar button{width:100%;padding:12px}.topbar{font-size:16px}h1{font-size:23px}h2{font-size:20px}.task-list{padding-left:22px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @page {size:A4;margin:12mm}
+    @media print {
+      body,.dark {--text:#111;--primary:#153e72;--card:#fff;--border:#777;--primary-light:#eee;color:#111!important;background:#fff!important;color-scheme:light;font-size:11pt}
+      .topbar,#save-status,.field-feedback,.progress-bar-wrap,.actions-bar,#feedbackBox {display:none!important}
+      .progress-bar-wrap {height:0}.table-scroll{overflow:visible}.table-scroll table{min-width:0}
+      select{display:none}.print-answer{display:inline;font-weight:700;border-bottom:1px dotted #555;min-width:55px}
+      .dark input,.dark select,.dark .word-bank span,.dark .goals-box,.dark th,.dark .checklist li,.dark .instruction {color:#111!important;background:#fff!important}
+      .checklist,.self-eval{break-inside:auto}tr,.checklist li,.eval-card,.student-info,.instruction{break-inside:avoid}
+      th,td{padding:7px}h2{break-after:avoid;margin-top:18px}.instruction{break-after:avoid}.done-box{break-before:avoid}.worksheet-container{border-radius:0}
+      input{min-height:0}a{color:#111}input[type=checkbox]{width:18px!important;height:18px!important}
+      .word-bank{text-align:left}.done-box{background:#fff;color:#111}
+    }
+
+  
+ .eyebrow{font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--primary)}
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini-card,.question{padding:16px;border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--card)}
+ .question label{display:block;font-weight:600;margin-bottom:8px}.question select{width:100%}.question .field-feedback{margin-top:10px}
+ .visual{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--bg);margin:16px 0}.visual svg{display:block;width:100%;max-height:220px;color:var(--text)}
+ .pixel-tools{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px}.pixel-tools input{width:55px;height:44px;padding:2px}
+ #pixel-grid{display:grid;grid-template-columns:repeat(16,1fr);width:min(100%,384px);aspect-ratio:1;margin:auto;border:2px solid var(--border)}
+ .pixel{border:1px solid #8794a5;border-radius:0;padding:0;min-height:0;width:100%;aspect-ratio:1;touch-action:manipulation}.pixel:focus-visible{outline:3px solid #f59e0b;outline-offset:-3px;position:relative;z-index:1}
+ .mini-title{font-weight:700;margin:0 0 8px}.checklist{margin-top:12px}.checklist label{font-weight:400}button{color:var(--text)}.secondary{background:var(--primary-light);color:var(--primary)}
+ textarea{width:100%;min-height:110px;padding:12px;box-sizing:border-box;font:inherit;background:var(--card);color:var(--text);border:2px solid var(--border);border-radius:8px}
+ .progress-area{margin-top:20px}progress{width:100%;height:22px;accent-color:var(--success)}.print-reflection{display:none;white-space:pre-wrap;overflow-wrap:anywhere}
+ @media(max-width:600px){.cards{grid-template-columns:1fr}.pixel-tools button{font-size:15px;padding:10px}.mini-card{margin:0}}
+ @media print{.pixel-tools,#pixel-help,#pixel-status,.screen-only,.question .field-feedback{display:none!important}.question select{display:none}.print-answer{display:inline}.print-reflection{display:block;min-height:50px}textarea{display:none}.progress-area{display:none}.mini-card,.question,.visual{break-inside:avoid}.cards{grid-template-columns:1fr 1fr}.pixel{border:.4px solid #999!important;print-color-adjust:exact}#pixel-grid{width:160px}.visual svg{max-height:140px}.question{padding:8px;margin:8px 0}.checklist li{padding:8px}body{font-size:11pt}.dark .mini-card,.dark .question,.dark .visual{background:#fff;color:#111} }
+
+
+.layer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:10px;margin:8px 0}.layer-row strong{flex:1;min-width:100px}.layer-row button{padding:8px;min-height:44px}.layer-row button[aria-pressed=true]{outline:3px solid var(--primary)}
+#scene{width:100%;max-height:280px;background:repeating-conic-gradient(#e2e8f0 0% 25%,#fff 0% 50%) 0/24px 24px;border-radius:10px}.demo-actions{display:flex;gap:8px;flex-wrap:wrap}.muted{font-size:15px}kbd{border:1px solid var(--border);border-bottom-width:3px;padding:2px 6px;border-radius:5px}button:disabled{opacity:.5} .print-only{display:none}
+@media print{.layer-row button,.demo-actions,#demo-status,#save-status{display:none!important}.print-only{display:block}#scene{max-height:180px}.layer-row{padding:4px}.visual{margin:8px 0}}
+</style>
+</head>
+<body><nav class="topbar" aria-label="Nawigacja"><a href="../#class/4">← Klasa 4 — menu główne</a><div><button id="theme" aria-pressed="false">Ciemny motyw</button> <button id="new-student">Nowy uczeń</button></div></nav><main class="worksheet-container">
+<header><p class="eyebrow">KLASA 4 · DZIAŁ III · TEMAT 3 · 2 LEKCJE</p><h1>Obrazy z warstw</h1><p>Jedna plansza. Kilka warstw. Łatwe poprawki!</p><div class="student-info"><div><label for="stName">Imię:</label><input id="stName" maxlength="60"></div><div><label for="stClass">Klasa:</label><input id="stClass" value="4" maxlength="12"></div><div><label for="stDate">Data:</label><input id="stDate" maxlength="20"></div></div></header>
+<div class="goals-box"><strong>🎯 Twoja misja</strong><p>Zbuduj planszę do przyszłej gry w Scratchu. Dodaj tło, obiekt oraz napis na osobnych warstwach. Na drugiej lekcji dodasz bohatera przygotowanego z pomocą AI.</p><p><strong>Przygotuj:</strong> edytor z warstwami, narzędzie AI wskazane przez nauczyciela, swój folder i szkolną chmurę.</p></div>
+<div class="progress-area"><label for="progress">Postęp: <strong id="progress-text"></strong></label><progress id="progress" value="0"></progress><p class="muted">Liczymy poprawne odpowiedzi i kroki, które samodzielnie odhaczysz. Symulator służy do prób — nie ocenia Twojej pracy w edytorze.</p></div><p id="save-status" role="status">Postęp zostaje po odświeżeniu tej karty przeglądarki.</p>
+<section><h2>🔍 Jak działa obraz z warstw?</h2><p>Na płaskim rysunku gumka może usunąć również fragment tła. Na osobnych warstwach poprawiasz tylko wybrany element.</p><div class="cards"><div class="mini-card"><strong>Warstwa</strong><p>Przezroczysta plansza z częścią rysunku. Kilka plansz tworzy obraz.</p></div><div class="mini-card"><strong>Kolejność</strong><p>Nieprzezroczyste fragmenty górnej warstwy zasłaniają dolne. Przez puste miejsca widzisz tło.</p></div><div class="mini-card"><strong>Widoczność — oko</strong><p>Ukrywa warstwę bez kasowania. Możesz ją ponownie pokazać.</p></div><div class="mini-card"><strong>Prompt — polecenie dla AI</strong><p>Krótki opis tego, co chcesz otrzymać.</p></div></div></section>
+<section><h2>🧪 Wypróbuj warstwy</h2><p>Lista pokazuje warstwy <strong>od góry do dołu</strong>. Ukryj obiekt, pokaż go i przenieś tło na górę.</p><div class="visual"><svg id="scene" viewBox="0 0 480 260" role="img" aria-label="Podgląd planszy: tło, rakieta i napis"></svg><div id="layers"></div><div class="demo-actions"><button id="erase">Gumka: fragment rakiety</button><button id="undo">Cofnij gumkę</button><button id="demo-reset">Przywróć układ</button></div><p id="demo-status" role="status">Wybierz przycisk przy warstwie.</p></div><p class="muted">Gumka w tej próbie działa tylko na warstwie „Obiekt”. W edytorze zawsze najpierw sprawdź aktywną warstwę.</p></section>
+<section><h2>🪟 Przygotuj stanowisko</h2><ol class="checklist"><li><label><input class="step" type="checkbox" id="setup0"><span>Ustaw kartę pracy na <strong>lewej połowie ekranu</strong>.</span></label></li><li><label><input class="step" type="checkbox" id="setup1"><span>Otwórz edytor grafiki na <strong>prawej połowie</strong>.</span></label></li><li><label><input class="step" type="checkbox" id="setup2"><span>Otwórz panel <strong>Warstwy</strong>. Jeśli go nie ma, poproś nauczyciela o właściwy edytor.</span></label></li><li><label><input class="step" type="checkbox" id="setup3"><span>Wybierz folder i nazwę <strong>klasa4_warstwy_imie</strong>. Zapytaj, jaki format projektu zachowa warstwy w Twojej wersji programu.</span></label></li></ol><aside class="instruction"><strong>Projekt ≠ gotowy obrazek</strong><p>Projekt z warstwami pozwala dalej edytować każdą warstwę. Zwykły <strong>PNG lub JPG</strong> zawiera gotowy obraz, bez osobnych warstw. PNG może zachować przezroczystość. Dostępność zapisu projektu zależy od edytora i jego wersji.</p><p>Jeśli edytor nie zapisuje warstw, poproś nauczyciela o rozwiązanie przed końcem lekcji.</p></aside><p><strong>Zasada 3Z:</strong> Zatrzymaj się i przeczytaj → Zrób krok wstecz <kbd>Ctrl</kbd> + <kbd>Z</kbd> → Zapytaj sąsiada o słowną podpowiedź.</p></section>
+<section><h2>Lekcja 1 · Dopasuj działanie</h2><p>A — ukrywa/pokazuje · B — ściera na wybranej warstwie · C — dodaje przezroczystą warstwę · D — przesuwa ponad niższe warstwy.</p><div class="question"><label for="q0">1. Przycisk + (Dodaj warstwę)</label><select id="q0" data-answer="C" data-hint="Nowa warstwa jest pustą, przezroczystą planszą." aria-describedby="fb0"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option></select><span class="print-answer" id="print-q0">........................</span><span id="fb0" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q1">2. Ikona oka</label><select id="q1" data-answer="A" data-hint="Ukryta warstwa nadal istnieje." aria-describedby="fb1"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option></select><span class="print-answer" id="print-q1">........................</span><span id="fb1" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q2">3. Przesunięcie warstwy w górę</label><select id="q2" data-answer="D" data-hint="Pomyśl, która folia znajduje się na wierzchu." aria-describedby="fb2"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option></select><span class="print-answer" id="print-q2">........................</span><span id="fb2" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q3">4. Gumka na aktywnej warstwie</label><select id="q3" data-answer="B" data-hint="Zmiana dotyczy wybranej warstwy, a nie całego stosu." aria-describedby="fb3"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option></select><span class="print-answer" id="print-q3">........................</span><span id="fb3" class="field-feedback" aria-live="polite"></span></div></section><section><h2>🎨 Misja 1 · Trzywarstwowa plansza</h2><p>Pracuj w edytorze. Regularnie zapisuj projekt: <kbd>Ctrl</kbd> + <kbd>S</kbd>.</p><ol class="checklist"><li><label><input class="step" type="checkbox" id="mission10"><span>Na dolnej warstwie <strong>Tło</strong> namaluj niebo i trawę lub kosmos. Użyj wiaderka i pędzla.</span></label></li><li><label><input class="step" type="checkbox" id="mission11"><span>Przyciskiem <strong>+</strong> dodaj warstwę <strong>Obiekt</strong> nad tłem.</span></label></li><li><label><input class="step" type="checkbox" id="mission12"><span>Na warstwie Obiekt narysuj rakietę, zamek lub bramkę. Użyj prostokąta i owalu.</span></label></li><li><label><input class="step" type="checkbox" id="mission13"><span>Zetrzyj kawałek obiektu. Sprawdź, czy tło pozostało całe. Cofnij gumkę: <strong>Ctrl + Z</strong>.</span></label></li><li><label><input class="step" type="checkbox" id="mission14"><span>Dodaj górną warstwę <strong>Napis</strong>. Wpisz „POZIOM 1” i narysuj ramkę.</span></label></li><li><label><input class="step" type="checkbox" id="mission15"><span>Zapisz <strong>projekt z warstwami</strong> w wybranym formacie.</span></label></li><li><label><input class="step" type="checkbox" id="mission16"><span>Przenieś nieprzezroczyste Tło na samą górę. Wyjaśnij, dlaczego obiekt i napis zostały zasłonięte.</span></label></li><li><label><input class="step" type="checkbox" id="mission17"><span>Przywróć Tło na sam dół. Zapisz projekt.</span></label></li></ol></section><section><h2>Lekcja 2 · Uzupełnij zdania</h2><p>Bank słów: <strong>opis · tło · warstwie · chmurze</strong></p><div class="question"><label for="q4">1. Aby AI przygotowała obraz, wpisz dokładny … tekstowy.</label><select id="q4" data-answer="opis" data-hint="Powiedz narzędziu, co ma narysować." aria-describedby="fb4"><option value="">Wybierz odpowiedź…</option><option>opis</option><option>tło</option><option>warstwie</option><option>chmurze</option></select><span class="print-answer" id="print-q4">........................</span><span id="fb4" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q5">2. Aby zniknął biały prostokąt wokół obiektu, usuń jego … .</label><select id="q5" data-answer="tło" data-hint="Chcesz zachować bohatera, a usunąć otoczenie." aria-describedby="fb5"><option value="">Wybierz odpowiedź…</option><option>opis</option><option>tło</option><option>warstwie</option><option>chmurze</option></select><span class="print-answer" id="print-q5">........................</span><span id="fb5" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q6">3. Nowy element umieść na osobnej … .</label><select id="q6" data-answer="warstwie" data-hint="Oddziel elementy, aby łatwo je poprawiać." aria-describedby="fb6"><option value="">Wybierz odpowiedź…</option><option>opis</option><option>tło</option><option>warstwie</option><option>chmurze</option></select><span class="print-answer" id="print-q6">........................</span><span id="fb6" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q7">4. Kopię pracy zapisz również w szkolnej … .</label><select id="q7" data-answer="chmurze" data-hint="To miejsce na pliki dostępne przez internet." aria-describedby="fb7"><option value="">Wybierz odpowiedź…</option><option>opis</option><option>tło</option><option>warstwie</option><option>chmurze</option></select><span class="print-answer" id="print-q7">........................</span><span id="fb7" class="field-feedback" aria-live="polite"></span></div></section><section><h2>⚡ Prawda czy fałsz?</h2><div class="question"><label for="q8">Ukrycie warstwy bezpowrotnie usuwa rysunek.</label><select id="q8" data-answer="Fałsz" data-hint="Sprawdź w symulatorze przycisk Pokaż." aria-describedby="fb8"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q8">........................</span><span id="fb8" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q9">AI może wygenerować obraz na podstawie opisu.</label><select id="q9" data-answer="Prawda" data-hint="Prompt opisuje oczekiwany obraz." aria-describedby="fb9"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q9">........................</span><span id="fb9" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q10">Rysowanie na niewłaściwej warstwie utrudnia późniejsze poprawki.</label><select id="q10" data-answer="Prawda" data-hint="Sprawdź warstwę przed rozpoczęciem rysowania." aria-describedby="fb10"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q10">........................</span><span id="fb10" class="field-feedback" aria-live="polite"></span></div><div class="question"><label for="q11">Zwykły PNG lub JPG nie zachowuje osobnych warstw projektu.</label><select id="q11" data-answer="Prawda" data-hint="Gotowy obraz i edytowalny projekt to różne pliki." aria-describedby="fb11"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q11">........................</span><span id="fb11" class="field-feedback" aria-live="polite"></span></div><p id="quiz-score" role="status"></p></section><section><h2>🤖 Misja 2 · Bohater na Twojej planszy</h2><p>Korzystaj z narzędzia wskazanego przez nauczyciela. Jeśli nie jest dostępne, użyj przygotowanego przez niego obrazka.</p><label for="prompt"><strong>Zapisz swój pomysł na polecenie:</strong></label><p>Przykład: „Mały zielony robot, widok z przodu, proste kształty, jednolite białe tło”. Białe tło nie oznacza przezroczystości — usuń je później w edytorze.</p><textarea id="prompt" maxlength="1000" placeholder="Co? Jak wygląda? Z której strony? Jakie tło?"></textarea><p class="print-reflection"></p><p class="muted">To miejsce na szkic polecenia. Karta nie wysyła tekstu do AI.</p><ol class="checklist"><li><label><input class="step" type="checkbox" id="mission20"><span><strong>Otwórz projekt</strong> z lekcji 1. Sprawdź osobne warstwy.</span></label></li><li><label><input class="step" type="checkbox" id="mission21"><span>Napisz opis bohatera. Wpisz go w narzędziu AI wskazanym przez nauczyciela. Nie podawaj danych osobowych.</span></label></li><li><label><input class="step" type="checkbox" id="mission22"><span>Sprawdź obraz. Jeśli nie pasuje, popraw opis. Pobierz wybrany obrazek.</span></label></li><li><label><input class="step" type="checkbox" id="mission23"><span>Dodaj warstwę <strong>Bohater</strong> nad tłem. Wklej na nią obrazek i sprawdź, na której warstwie się znalazł.</span></label></li><li><label><input class="step" type="checkbox" id="mission24"><span>Usuń niepotrzebne tło obrazka narzędziem edytora lub gumką. Poproś nauczyciela o pokaz, jeśli potrzebujesz pomocy.</span></label></li><li><label><input class="step" type="checkbox" id="mission25"><span>Dopasuj rozmiar i miejsce bohatera. Ukryj i pokaż jego warstwę, aby sprawdzić, czy jest osobna.</span></label></li><li><label><input class="step" type="checkbox" id="mission26"><span>Zapisz <strong>projekt z warstwami</strong>. Dodatkowo wyeksportuj gotowy obraz jako <strong>klasa4_warstwy_imie.png</strong>. Otwórz PNG i sprawdź efekt.</span></label></li><li><label><input class="step" type="checkbox" id="mission27"><span>Prześlij pliki do swojego folderu w <strong>szkolnej chmurze</strong>. Sprawdź, czy są widoczne.</span></label></li></ol></section><section><h2>🏁 Sprawdź swój sukces</h2><p>Powiedz nauczycielowi: gdzie jest tło, co robi oko i jak poprawisz tylko bohatera. Pokaż projekt oraz gotowy PNG.</p><p><strong>Zapamiętaj:</strong> jedna warstwa — jeden element do łatwej poprawy!</p></section><div class="actions"><button id="print">Drukuj kartę / zapisz PDF</button></div></main>
+<script>
+// Osobna sesja karty: F5 zachowuje pracę, „Nowy uczeń” usuwa tylko tę kartę.
+const $=id=>document.getElementById(id),key='inf-pruszcz-k4-warstwy-3-3-v1';
+const fields=[...document.querySelectorAll('input,select,textarea')],quiz=[...document.querySelectorAll('select[data-answer]')],steps=[...document.querySelectorAll('.step')];
+const initial=()=>({order:['text','object','bg'],hidden:[],erased:false});let demo=initial();
+$('stDate').value=new Date().toLocaleDateString('pl-PL');
+try{const s=JSON.parse(sessionStorage.getItem(key)||'null');if(s){fields.forEach(f=>{if(f.type==='checkbox')f.checked=s.fields?.[f.id]===true;else if(typeof s.fields?.[f.id]==='string')f.value=s.fields[f.id].slice(0,1000);});if(s.demo&&Array.isArray(s.demo.order)&&s.demo.order.length===3&&new Set(s.demo.order).size===3&&s.demo.order.every(x=>['bg','object','text'].includes(x))&&Array.isArray(s.demo.hidden))demo={order:s.demo.order,hidden:s.demo.hidden.filter(x=>['bg','object','text'].includes(x)),erased:s.demo.erased===true};}}catch{}
+function save(){try{sessionStorage.setItem(key,JSON.stringify({fields:Object.fromEntries(fields.map(f=>[f.id,f.type==='checkbox'?f.checked:f.value])),demo}));$('save-status').textContent='Zapisano postęp w tej karcie przeglądarki.';}catch{$('save-status').textContent='Zapis jest niedostępny. Pozostaw kartę otwartą lub wydrukuj pracę.';}}
+function update(){let score=0;quiz.forEach((q,i)=>{const good=q.value===q.dataset.answer;if(good)score++;$('fb'+i).textContent=!q.value?'':good?'✓ Dobrze! '+q.dataset.hint:'↻ Spróbuj ponownie. '+q.dataset.hint;q.classList.toggle('correct-field',good);q.classList.toggle('wrong-field',!!q.value&&!good);q.setAttribute('aria-invalid',String(!!q.value&&!good));$('print-q'+i).textContent=q.value||'........................';});$('quiz-score').textContent=`Poprawne odpowiedzi: ${score} / ${quiz.length}`;const done=score+steps.filter(x=>x.checked).length,total=quiz.length+steps.length;$('progress').max=total;$('progress').value=done;$('progress-text').textContent=`${done} / ${total}`;document.querySelector('.print-reflection').textContent=$('prompt').value||'........................................................................';}
+const names={text:'Napis',object:'Obiekt',bg:'Tło'};
+// SVG rysuje dolne warstwy najpierw. Usunięty fragment odsłania warstwę pod spodem.
+function draw(){const pieces={bg:'<rect width="480" height="260" fill="#bfdbfe"/><path d="M0 200Q120 140 240 200T480 200V260H0Z" fill="#86efac"/>',object:`<path d="M215 185V100Q240 30 265 100V185Z" fill="#fbbf24" stroke="#172554" stroke-width="3"/><circle cx="240" cy="115" r="17" fill="#2563eb"/>${demo.erased?'':'<path d="M215 145L188 198H215Z" fill="#2563eb"/>'}<path d="M265 145L292 198H265Z" fill="#2563eb"/>`,text:'<rect x="10" y="10" width="460" height="240" rx="12" fill="none" stroke="#172554" stroke-width="4"/><rect x="130" y="15" width="220" height="42" rx="8" fill="#fff"/><text x="240" y="44" text-anchor="middle" font-size="26" font-weight="bold" fill="#172554">POZIOM 1</text>'};$('scene').innerHTML='<title>Plansza z warstw; ich kolejność i widoczność opisuje lista poniżej.</title>'+[...demo.order].reverse().map(id=>`<g data-layer="${id}" ${demo.hidden.includes(id)?'display="none"':''}>${pieces[id]}</g>`).join('');$('layers').innerHTML=demo.order.map((id,i)=>`<div class="layer-row"><strong>${i+1}. ${names[id]}</strong><button data-id="${id}" data-action="eye" aria-label="Widoczność: ${names[id]}" aria-pressed="${!demo.hidden.includes(id)}">${demo.hidden.includes(id)?'Pokaż':'Ukryj'}</button><button data-id="${id}" data-action="up" aria-label="${names[id]} w górę" ${i===0?'disabled':''}>↑</button><button data-id="${id}" data-action="down" aria-label="${names[id]} w dół" ${i===2?'disabled':''}>↓</button></div>`).join('');$('undo').disabled=!demo.erased;$('erase').disabled=demo.erased;}
+$('layers').onclick=e=>{const b=e.target.closest('button');if(!b)return;const {id,action}=b.dataset;if(action==='eye'){demo.hidden=demo.hidden.includes(id)?demo.hidden.filter(x=>x!==id):[...demo.hidden,id];$('demo-status').textContent=demo.hidden.includes(id)?names[id]+': ukryto, ale nie usunięto.':names[id]+': ponownie widoczna.';}else{const i=demo.order.indexOf(id),j=i+(action==='up'?-1:1);if(j<0||j>2)return;[demo.order[i],demo.order[j]]=[demo.order[j],demo.order[i]];$('demo-status').textContent='Zmieniono kolejność. Nieprzezroczyste fragmenty zasłaniają niższe warstwy.';}draw();save();$('layers').querySelector(`[data-id="${id}"][data-action="eye"]`).focus();};
+$('erase').onclick=()=>{demo.erased=true;draw();save();$('demo-status').textContent='Usunięto lewy statecznik rakiety. Tło pozostało całe. Jeśli obiekt jest ukryty lub zasłonięty, najpierw go pokaż.';};$('undo').onclick=()=>{demo.erased=false;draw();save();$('demo-status').textContent='Przywrócono statecznik rakiety.';};$('demo-reset').onclick=()=>{demo=initial();draw();save();$('demo-status').textContent='Przywrócono trzy widoczne warstwy.';};
+fields.forEach(f=>f.addEventListener('input',()=>{update();save();}));
+$('new-student').onclick=()=>{if(!confirm('Usunąć odpowiedzi i próby w tej karcie dla nowego ucznia?'))return;fields.forEach(f=>{if(f.type==='checkbox')f.checked=false;else f.value='';});$('stClass').value='4';$('stDate').value=new Date().toLocaleDateString('pl-PL');demo=initial();draw();update();save();$('demo-status').textContent='Wybierz przycisk przy warstwie.';$('stName').focus();};
+function theme(v){document.body.classList.toggle('dark',v==='dark');$('theme').textContent=v==='dark'?'Jasny motyw':'Ciemny motyw';$('theme').setAttribute('aria-pressed',String(v==='dark'));}try{theme(localStorage.getItem('informatyka-theme'));}catch{}$('theme').onclick=()=>{const v=document.body.classList.contains('dark')?'light':'dark';theme(v);try{localStorage.setItem('informatyka-theme',v);}catch{}};window.addEventListener('storage',e=>{if(e.key==='informatyka-theme')theme(e.newValue);});$('print').onclick=()=>window.print();window.addEventListener('beforeprint',update);draw();update();
+</script></body></html>

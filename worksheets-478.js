@@ -1843,6 +1843,7 @@ function renderGrade6TurniejWorksheet() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === 'karta-4-3-3-warstwy') return '<section class="cloud-box"><h2>Obrazy z warstw</h2><p>Zbuduj planszę do gry i dodaj bohatera z pomocą AI. Wypróbuj kolejność warstw, ukrywanie oraz gumkę. Karta obejmuje dwie lekcje, 12 pytań i instrukcje do edytora grafiki.</p><a class="btn primary" href="./klasa4/obrazy-z-warstw.html">Otwórz kartę pracy →</a><p class="muted">Postęp zostaje po odświeżeniu. Dostępne: Nowy uczeń, jasny i ciemny motyw oraz wydruk A4.</p></section>';
   if (id === 'karta-4-3-1-grafika') {
     return '<section class="cloud-box"><h2>Wstęp do grafiki komputerowej</h2><p>Zaprojektuj odznakę z pikseli i nadruk na klasową koszulkę. Karta zawiera rozgrzewkę, próbną planszę 16 × 16, instrukcje do edytora grafiki i checklistę sukcesu.</p><a class="btn primary" href="./klasa4/grafika-wstep.html">Otwórz kartę pracy →</a><p class="muted">Postęp pozostaje po odświeżeniu tej karty przeglądarki. Dostępne są przyciski „Nowy uczeń” i „Drukuj kartę / zapisz PDF”.</p></section>';
   }

@@ -168,6 +168,7 @@ export function isWorksheet(id) {
 }
 
 export const extraWorksheets = [
+  {id:'karta-4-3-3-warstwy',type:'task',grades:[4],title:'3.3. Obrazy z warstw — plansza i bohater',section:'3. Grafika komputerowa',tags:['Grafika','Warstwy','AI','KartaPracy'],summary:'Dwie lekcje: plansza z trzech warstw, symulator kolejności i widoczności, bohater z pomocą AI oraz 12 pytań z podpowiedziami.',body:'',source:'Karta pracy nauczyciela · Klasa IV · Dział III · Temat 3'},
   {
     id: 'karta-4-3-1-grafika',
     type: 'task',
