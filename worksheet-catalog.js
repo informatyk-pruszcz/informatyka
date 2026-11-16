@@ -169,6 +169,17 @@ export function isWorksheet(id) {
 
 export const extraWorksheets = [
   {
+    id: 'karta-4-3-1-grafika',
+    type: 'task',
+    grades: [4],
+    title: '3.1. Wstęp do grafiki komputerowej — odznaka i koszulka',
+    section: '3. Grafika komputerowa',
+    tags: ['Grafika', 'Piksele', 'Pixel art', 'Karta pracy'],
+    summary: 'Piksele pod lupą, odznaka 16 × 16 i projekt koszulki 600 × 500. Rozgrzewka z podpowiedziami, próbna plansza, zapis postępu i wydruk A4.',
+    body: '<p>Poznaj piksele, ustaw rozmiar obrazu, wypróbuj Ołówek, Pędzel, Linię i Prostokąt. Zapisz projekt na komputerze oraz w szkolnej chmurze.</p>',
+    source: 'Karta pracy przekazana przez nauczyciela — klasa IV, dział III, temat 1.'
+  },
+  {
     id: 'karta-4-2-korzystanie-z-internetu',
     type: 'task',
     grades: [4],

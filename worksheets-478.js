@@ -1843,6 +1843,9 @@ function renderGrade6TurniejWorksheet() {
 }
 
 export function renderExtraWorksheet(id) {
+  if (id === 'karta-4-3-1-grafika') {
+    return '<section class="cloud-box"><h2>Wstęp do grafiki komputerowej</h2><p>Zaprojektuj odznakę z pikseli i nadruk na klasową koszulkę. Karta zawiera rozgrzewkę, próbną planszę 16 × 16, instrukcje do edytora grafiki i checklistę sukcesu.</p><a class="btn primary" href="./klasa4/grafika-wstep.html">Otwórz kartę pracy →</a><p class="muted">Postęp pozostaje po odświeżeniu tej karty przeglądarki. Dostępne są przyciski „Nowy uczeń” i „Drukuj kartę / zapisz PDF”.</p></section>';
+  }
   if (id === 'karta-4-2-korzystanie-z-internetu') {
     return '<section class="cloud-box"><h2>Korzystanie z internetu — interaktywna karta pracy</h2><p>Wykonaj cztery zadania: pojęcia, netykieta, prawda czy fałsz oraz misja przy komputerze. Podpowiedzi pomogą Ci poprawić odpowiedzi.</p><p>Postęp zachowuje się po odświeżeniu tej karty przeglądarki. Przed przekazaniem komputera kolejnej osobie użyj przycisku „Nowy uczeń”.</p><a class="btn primary" href="./klasa4/karta-internet.html">Otwórz kartę pracy →</a><p class="muted">Kartę możesz też wydrukować na papierze A4.</p></section>';
   }

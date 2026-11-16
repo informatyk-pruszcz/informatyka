@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wstęp do grafiki komputerowej — Klasa 4, dział III, temat 1</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-light: #dbeafe;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --error: #b91c1c;
+      --error-bg: #fee2e2;
+      --text: #1e293b;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Calibri, Arial, Verdana, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .worksheet-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 26px;
+      color: var(--primary);
+      margin-top: 0;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 21px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 28px;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .student-info label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .student-info input {
+      width: 100%;
+      font-size: 17px;
+      padding: 8px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .goals-box {
+      background: #f8fafc;
+      border-left: 6px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 10px;
+      height: 22px;
+      margin: 16px 0 24px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: var(--success);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instruction {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    select, input[type="text"].blank-input {
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .word-bank {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 19px;
+      text-align: center;
+    }
+
+    .word-bank span {
+      display: inline-block;
+      background: #ffffff;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--primary);
+    }
+
+    .task-list li {
+      margin-bottom: 14px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .checklist input[type="checkbox"],
+    .done-box input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .done-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .self-eval {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .eval-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .eval-card input {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-check {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-print {
+      background: #475569;
+      color: white;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .correct-field {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .wrong-field {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error) !important;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        font-size: 13pt;
+      }
+      .worksheet-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .actions-bar, .progress-bar-wrap, #feedbackBox {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, .checklist, .self-eval {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Uzupełnienia portalu: czytelność, klawiatura i małe ekrany. */
+    .topbar {max-width:850px;margin:0 auto 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .topbar a {color:var(--primary);font-weight:700}
+    .topbar button {font-size:15px;padding:10px 14px;background:var(--primary-light);color:var(--primary);min-height:44px}
+    .actions-bar {flex-wrap:wrap}
+    .table-scroll {overflow-x:auto;margin-bottom:16px}
+    .table-scroll table {margin:0;min-width:590px}
+    select,input,button {min-height:44px;max-width:100%}
+    input,select {color:var(--text)}
+    :focus-visible {outline:3px solid var(--primary);outline-offset:3px}
+    .checklist label {display:flex;align-items:center;gap:14px;width:100%;cursor:pointer}
+    .field-feedback {display:block;font-size:15px;line-height:1.4;margin-top:6px;font-weight:600}
+    .field-feedback:empty {display:none}
+    .print-answer {display:none}
+    #save-status {font-size:15px}
+    .progress-bar-wrap {margin-bottom:8px}
+    .dark {--bg:#0f172a;--card:#172238;--text:#f1f5f9;--primary:#93c5fd;--primary-light:#253957;--border:#61738c;--success:#86efac;--success-bg:#16432b;--error:#fecaca;--error-bg:#542d36;color-scheme:dark}
+    .dark .goals-box,.dark th,.dark .checklist li {background:#202e45}
+    .dark .instruction {background:#3a321c;border-color:#ad8c3c}
+    .dark input,.dark select,.dark .word-bank span {background:#0f172a;color:var(--text)}
+    .dark .btn-check {background:#2563eb;color:#fff}
+    .dark .feedback {background:#253957!important;color:#f1f5f9!important}
+    .dark .progress-bar-wrap {background:#334155}
+    @media(max-width:600px){body{padding:10px;font-size:17px}.worksheet-container{padding:16px}.student-info,.self-eval{grid-template-columns:1fr}.actions-bar button{width:100%;padding:12px}.topbar{font-size:16px}h1{font-size:23px}h2{font-size:20px}.task-list{padding-left:22px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @page {size:A4;margin:12mm}
+    @media print {
+      body,.dark {--text:#111;--primary:#153e72;--card:#fff;--border:#777;--primary-light:#eee;color:#111!important;background:#fff!important;color-scheme:light;font-size:11pt}
+      .topbar,#save-status,.field-feedback,.progress-bar-wrap,.actions-bar,#feedbackBox {display:none!important}
+      .progress-bar-wrap {height:0}.table-scroll{overflow:visible}.table-scroll table{min-width:0}
+      select{display:none}.print-answer{display:inline;font-weight:700;border-bottom:1px dotted #555;min-width:55px}
+      .dark input,.dark select,.dark .word-bank span,.dark .goals-box,.dark th,.dark .checklist li,.dark .instruction {color:#111!important;background:#fff!important}
+      .checklist,.self-eval{break-inside:auto}tr,.checklist li,.eval-card,.student-info,.instruction{break-inside:avoid}
+      th,td{padding:7px}h2{break-after:avoid;margin-top:18px}.instruction{break-after:avoid}.done-box{break-before:avoid}.worksheet-container{border-radius:0}
+      input{min-height:0}a{color:#111}input[type=checkbox]{width:18px!important;height:18px!important}
+      .word-bank{text-align:left}.done-box{background:#fff;color:#111}
+    }
+
+  
+ .eyebrow{font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--primary)}
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini-card,.question{padding:16px;border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--card)}
+ .question label{display:block;font-weight:600;margin-bottom:8px}.question select{width:100%}.question .field-feedback{margin-top:10px}
+ .visual{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--bg);margin:16px 0}.visual svg{display:block;width:100%;max-height:220px;color:var(--text)}
+ .pixel-tools{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px}.pixel-tools input{width:55px;height:44px;padding:2px}
+ #pixel-grid{display:grid;grid-template-columns:repeat(16,1fr);width:min(100%,384px);aspect-ratio:1;margin:auto;border:2px solid var(--border)}
+ .pixel{border:1px solid #8794a5;border-radius:0;padding:0;min-height:0;width:100%;aspect-ratio:1;touch-action:manipulation}.pixel:focus-visible{outline:3px solid #f59e0b;outline-offset:-3px;position:relative;z-index:1}
+ .mini-title{font-weight:700;margin:0 0 8px}.checklist{margin-top:12px}.checklist label{font-weight:400}button{color:var(--text)}.secondary{background:var(--primary-light);color:var(--primary)}
+ textarea{width:100%;min-height:110px;padding:12px;box-sizing:border-box;font:inherit;background:var(--card);color:var(--text);border:2px solid var(--border);border-radius:8px}
+ .progress-area{margin-top:20px}progress{width:100%;height:22px;accent-color:var(--success)}.print-reflection{display:none;white-space:pre-wrap;overflow-wrap:anywhere}
+ @media(max-width:600px){.cards{grid-template-columns:1fr}.pixel-tools button{font-size:15px;padding:10px}.mini-card{margin:0}}
+ @media print{.pixel-tools,#pixel-help,#pixel-status,.screen-only,.question .field-feedback{display:none!important}.question select{display:none}.print-answer{display:inline}.print-reflection{display:block;min-height:50px}textarea{display:none}.progress-area{display:none}.mini-card,.question,.visual{break-inside:avoid}.cards{grid-template-columns:1fr 1fr}.pixel{border:.4px solid #999!important;print-color-adjust:exact}#pixel-grid{width:160px}.visual svg{max-height:140px}.question{padding:8px;margin:8px 0}.checklist li{padding:8px}body{font-size:11pt}.dark .mini-card,.dark .question,.dark .visual{background:#fff;color:#111} }
+
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Nawigacja"><a href="../#class/4">← Klasa 4 — menu główne</a><div><button id="theme" type="button" aria-pressed="false">Ciemny motyw</button> <button id="new-student" type="button">Nowy uczeń</button></div></nav>
+<main class="worksheet-container">
+<header><p class="eyebrow">KLASA 4 · DZIAŁ III · TEMAT 1</p><h1>Wstęp do grafiki komputerowej</h1><p>Od małego piksela do własnej koszulki drużyny.</p>
+<div class="student-info"><div><label for="stName">Imię:</label><input id="stName" maxlength="60" autocomplete="off"></div><div><label for="stClass">Klasa:</label><input id="stClass" value="4" maxlength="12"></div><div><label for="stDate">Data:</label><input id="stDate" maxlength="20"></div></div></header>
+<div class="goals-box"><strong>🎯 Twoja misja</strong><p>Klasa szykuje się na dzień sportu. Zaprojektuj odznakę i nadruk, po których każdy rozpozna Twoją drużynę.</p><p>Poznasz piksele, ustawisz rozmiar obrazu i wypróbujesz narzędzia rysowania. Zapiszesz pracę na komputerze oraz w szkolnej chmurze.</p><p><strong>Przygotuj:</strong> edytor grafiki, swój folder i dostęp do szkolnej chmury.</p></div>
+<div class="progress-area"><label for="progress"><strong>Postęp: <span id="progress-text">0 / 16</span></strong></label><progress id="progress" value="0" max="16"></progress><p class="muted">4 poprawne odpowiedzi + 12 kroków, które odhaczysz samodzielnie.</p></div><p id="save-status" role="status">Postęp zapisuje się w tej karcie przeglądarki.</p>
+<section aria-labelledby="dictionary"><h2 id="dictionary">🔍 Mały słowniczek grafika</h2><div class="cards">
+<div class="mini-card"><strong>Piksel</strong><p>Mały kolorowy element, z którego składa się nasz obraz.</p></div><div class="mini-card"><strong>Rozmiar obrazu</strong><p>Liczba pikseli wszerz i wzwyż. Zapis <strong>200 × 100 px</strong> oznacza szerokość 200 i wysokość 100 pikseli.</p></div>
+<div class="mini-card"><strong>Zapisz</strong><p>Zachowuje zmiany w tym samym pliku.</p></div><div class="mini-card"><strong>Zapisz jako</strong><p>Pozwala wybrać inną nazwę, folder lub format pliku.</p></div></div>
+<p>Przy pierwszym zapisie także „Zapisz” może poprosić o nazwę pliku.</p>
+<figure class="visual"><svg viewBox="0 0 430 190" role="img" aria-labelledby="size-title"><title id="size-title">Prostokąt 200 na 100 pikseli: szerokość jest dwukrotnie większa od wysokości</title><rect x="70" y="42" width="240" height="120" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><path d="M70 22H310M70 16V28M310 16V28M330 42V162M324 42H336M324 162H336" fill="none" stroke="currentColor" stroke-width="2"/><text x="190" y="15" text-anchor="middle" fill="currentColor" font-size="15">szerokość: 200 px</text><text x="345" y="95" fill="currentColor" font-size="15">100 px</text><text x="345" y="116" fill="currentColor" font-size="13">wysokość</text><text x="190" y="110" text-anchor="middle" fill="#17324d" font-size="20">200 × 100</text></svg><figcaption>Powiększenie widoku lupą nie zmienia liczby pikseli w pliku.</figcaption></figure></section>
+<section aria-labelledby="task1"><h2 id="task1">1. Rozgrzewka — piksele pod lupą</h2><p>Wybierz odpowiedzi. Po każdej zobaczysz krótką wskazówkę.</p><div class="question"><label for="q0">1. Co zobaczysz przy dużym powiększeniu naszego obrazka?</label><select id="q0" data-answer="piksele" data-hint="Pomyśl o kolorowych punktach tworzących rysunek." data-ok="Piksele to małe elementy obrazu." aria-describedby="fb0"><option value="">Wybierz odpowiedź…</option><option>piksele</option><option>foldery</option></select><span class="print-answer" id="print-q0">........................</span><span class="field-feedback" id="fb0" aria-live="polite"></span></div><div class="question"><label for="q1">2. Obraz ma 200 pikseli szerokości i 100 wysokości. Który bok jest dłuższy?</label><select id="q1" data-answer="szerokość" data-hint="Porównaj liczby 200 i 100." data-ok="200 jest większe niż 100. Obraz jest szerszy niż wyższy." aria-describedby="fb1"><option value="">Wybierz odpowiedź…</option><option>szerokość</option><option>wysokość</option></select><span class="print-answer" id="print-q1">........................</span><span class="field-feedback" id="fb1" aria-live="polite"></span></div><div class="question"><label for="q2">3. Chcesz wybrać nazwę i folder dla nowego rysunku. Które polecenie wybierzesz?</label><select id="q2" data-answer="Zapisz jako" data-hint="Szukasz polecenia, które pozwala wybrać nową nazwę i miejsce." data-ok="„Zapisz jako” pozwala wybrać nazwę, folder i format." aria-describedby="fb2"><option value="">Wybierz odpowiedź…</option><option>Zapisz</option><option>Zapisz jako</option></select><span class="print-answer" id="print-q2">........................</span><span class="field-feedback" id="fb2" aria-live="polite"></span></div><div class="question"><label for="q3">4. Dorysowujesz detal w zapisanym pliku. Chcesz zaktualizować ten sam plik. Co wybierzesz?</label><select id="q3" data-answer="Zapisz" data-hint="Nazwa i miejsce pliku mają pozostać bez zmian." data-ok="„Zapisz” zachowuje zmiany w tym samym pliku." aria-describedby="fb3"><option value="">Wybierz odpowiedź…</option><option>Zapisz</option><option>Zapisz jako</option></select><span class="print-answer" id="print-q3">........................</span><span class="field-feedback" id="fb3" aria-live="polite"></span></div><div id="quiz-score" role="status">Poprawne odpowiedzi: 0 / 4</div></section>
+<section aria-labelledby="task2"><h2 id="task2">2. Pixel art — odznaka z pikseli</h2><p>Stwórz mały symbol w edytorze grafiki. Odhaczaj wykonane kroki.</p><ol class="checklist"><li><label><input type="checkbox" id="p0" class="step"><span><strong>Uruchom</strong> edytor grafiki wskazany przez nauczyciela.</span></label></li><li><label><input type="checkbox" id="p1" class="step"><span><strong>Ustaw rozmiar:</strong> szerokość <strong>16 px</strong>, wysokość <strong>16 px</strong>.</span></label></li><li><label><input type="checkbox" id="p2" class="step"><span><strong>Powiększ widok</strong> lupą lub suwakiem. Zobacz pojedyncze piksele.</span></label></li><li><label><input type="checkbox" id="p3" class="step"><span><strong>Wybierz Ołówek</strong> i kreskę o grubości jednego piksela.</span></label></li><li><label><input type="checkbox" id="p4" class="step"><span><strong>Narysuj symbol:</strong> buźkę, serce lub pierwszą literę imienia.</span></label></li><li><label><input type="checkbox" id="p5" class="step"><span><strong>Zapisz</strong> obraz w swoim folderze jako <strong>piksel_imie.png</strong>. Zamiast „imie” wpisz własne imię.</span></label></li></ol>
+<aside class="instruction"><strong>Podpowiedź:</strong> na białym tle poprawisz pomyłkę białym Ołówkiem. Możesz też cofnąć ostatni ruch. Zapis PNG zachowa ostre krawędzie pikseli.</aside>
+<div class="visual"><p class="mini-title">Próbna plansza 16 × 16</p><p id="pixel-help">Możesz najpierw poćwiczyć tutaj. Wybierz kolor i klikaj kwadraciki. Klawiatura: strzałki zmieniają pole, spacja je koloruje.</p><div class="pixel-tools"><label for="pixel-color">Kolor:</label><input id="pixel-color" type="color" value="#2563eb"><button type="button" class="secondary" id="pixel-erase">Biała gumka</button><button type="button" class="secondary" id="pixel-download">Pobierz próbę PNG</button><button type="button" class="secondary" id="pixel-clear">Wyczyść planszę</button></div><div id="pixel-grid" role="group" aria-label="Plansza 16 na 16 pikseli"></div><p id="pixel-status" role="status">Pokoloruj pierwszy piksel.</p><p><strong>Plansza jest treningiem.</strong> Zadanie wykonaj również w edytorze wskazanym przez nauczyciela.</p></div></section>
+<section aria-labelledby="task3"><h2 id="task3">3. Nadruk na klasową koszulkę</h2><p>Połącz kształty i ślady pędzla w jeden czytelny projekt.</p><figure class="visual"><svg viewBox="0 0 600 320" role="img" aria-labelledby="shirt-title"><title id="shirt-title">Przykładowy kontur koszulki z prostokątnym miejscem na nadruk</title><path d="M225 35 170 50 100 120 160 170 195 140 195 285 405 285 405 140 440 170 500 120 430 50 375 35Q300 100 225 35Z" fill="#dbeafe" stroke="#2563eb" stroke-width="5"/><rect x="245" y="123" width="110" height="105" rx="4" fill="white" stroke="#137b64" stroke-width="3" stroke-dasharray="7 5"/><path d="m310 130-37 55h27l-10 37 42-57h-28Z" fill="#f59e0b"/><text x="300" y="310" text-anchor="middle" font-size="16" fill="currentColor">Płótno w edytorze: 600 × 500 px</text></svg><figcaption>To przykład. Wybierz własny wzór i kolory.</figcaption></figure><ol class="checklist"><li><label><input type="checkbox" id="t0" class="step"><span><strong>Utwórz nowy obraz:</strong> szerokość <strong>600 px</strong>, wysokość <strong>500 px</strong>.</span></label></li><li><label><input type="checkbox" id="t1" class="step"><span><strong>Użyj Prostokąta i Linii.</strong> Narysuj kontur koszulki lub ramkę nadruku.</span></label></li><li><label><input type="checkbox" id="t2" class="step"><span><strong>Wybierz Pędzel.</strong> Wypróbuj <strong>2 rodzaje pędzli</strong> i <strong>2 grubości</strong>. Namaluj wzór: piłkę, błyskawicę, słońce albo gwiazdę.</span></label></li><li><label><input type="checkbox" id="t3" class="step"><span><strong>Zaznacz wzór i zmień jego rozmiar.</strong> Dopasuj go do miejsca na koszulce.</span></label></li></ol><aside class="instruction"><strong>Najpierw duże elementy</strong> grubym pędzlem. Drobne ozdoby dodaj na końcu cienkim pędzlem lub Ołówkiem.</aside></section>
+<section aria-labelledby="task4"><h2 id="task4">4. Zapis na komputerze i w chmurze</h2><p>Dwie kopie pomagają odzyskać pracę i otworzyć ją na innym komputerze.</p><ol class="checklist"><li><label><input type="checkbox" id="s0" class="step"><span><strong>Wybierz Zapisz jako.</strong> Zapisz projekt w swoim folderze jako <strong>koszulka_imie.png</strong>.</span></label></li><li><label><input type="checkbox" id="s1" class="step"><span><strong>Prześlij ten plik</strong> do szkolnego folderu w chmurze wskazanego przez nauczyciela. Sprawdź, czy plik się tam pojawił.</span></label></li></ol></section>
+<section aria-labelledby="bonus"><h2 id="bonus">⭐ Dla chętnych — mistrz detali</h2><p>Dorysuj kieszonkę Prostokątem, ozdobny szew Linią lub numer zawodnika dwoma pędzlami. Uważaj na kontur koszulki. Na końcu wybierz <strong>Zapisz</strong>.</p><label class="done-box"><input type="checkbox" id="bonus-done"> Dodałem dodatkowy detal.</label></section>
+<section aria-labelledby="success"><h2 id="success">Sprawdź, co już potrafisz</h2><p>To Twoja samoocena — nie zmienia wyniku rozgrzewki.</p><ol class="checklist"><li><label><input type="checkbox" id="c0" class="criterion"><span>Wyjaśniam, czym są <strong>piksel i rozmiar obrazu</strong>.</span></label></li><li><label><input type="checkbox" id="c1" class="criterion"><span>Ustawiam <strong>szerokość i wysokość</strong> obrazu.</span></label></li><li><label><input type="checkbox" id="c2" class="criterion"><span>Rysuję <strong>Ołówkiem i Pędzlem</strong>, także pojedyncze piksele.</span></label></li><li><label><input type="checkbox" id="c3" class="criterion"><span>Korzystam z kształtów <strong>Linia i Prostokąt</strong>.</span></label></li><li><label><input type="checkbox" id="c4" class="criterion"><span>Zaznaczam fragment obrazu i <strong>zmieniam jego rozmiar</strong>.</span></label></li><li><label><input type="checkbox" id="c5" class="criterion"><span>Dobieram <strong>rodzaje i grubości pędzla</strong>.</span></label></li><li><label><input type="checkbox" id="c6" class="criterion"><span>Rozróżniam <strong>Zapisz i Zapisz jako</strong>. Zapisuję plik na komputerze i w chmurze.</span></label></li></ol></section>
+<section aria-labelledby="reflection-title"><h2 id="reflection-title">Podsumowanie</h2><fieldset><legend>Jak poszła Ci praca?</legend><div class="self-eval"><label class="eval-card"><input type="radio" name="selfEval" value="0"> Samodzielnie</label><label class="eval-card"><input type="radio" name="selfEval" value="1"> Z małą wskazówką</label><label class="eval-card"><input type="radio" name="selfEval" value="2"> Jeszcze poćwiczę</label></div></fieldset><p><label for="reflection">Które narzędzie pomogło Ci najbardziej: Ołówek, Pędzel, Linia czy Prostokąt? Dlaczego?</label></p><textarea id="reflection" maxlength="1000"></textarea><div class="print-reflection"></div></section>
+<div class="actions-bar"><button type="button" class="btn-print" id="print">Drukuj kartę / zapisz PDF</button><a href="../#class/4" class="text-link">← Wróć do klasy 4</a></div>
+</main>
+<script>
+// Zapis dotyczy tej karty przeglądarki; nie wysyła prac ani danych ucznia.
+const key='inf-pruszcz-k4-grafika-3-1-v1',q=[...document.querySelectorAll('select')],steps=[...document.querySelectorAll('.step')];
+const fields=[...document.querySelectorAll('input:not([type=color]),select,textarea')];
+let pixels=Array(256).fill('#ffffff'),active=0;
+document.getElementById('stDate').value=new Date().toLocaleDateString('pl-PL');
+function update(){
+ let score=0;q.forEach((s,i)=>{const good=s.value===s.dataset.answer;if(good)score++;s.classList.toggle('correct-field',good);s.classList.toggle('wrong-field',!!s.value&&!good);s.setAttribute('aria-invalid',String(!!s.value&&!good));document.getElementById('fb'+i).textContent=!s.value?'':good?'✓ Dobrze! '+s.dataset.ok:'↻ Spróbuj ponownie. '+s.dataset.hint;document.getElementById('print-q'+i).textContent=s.value||'........................';});
+ document.getElementById('quiz-score').textContent='Poprawne odpowiedzi: '+score+' / 4';
+ const done=score+steps.filter(c=>c.checked).length;document.getElementById('progress').value=done;document.getElementById('progress-text').textContent=done+' / 16';
+ document.querySelector('.print-reflection').textContent=document.getElementById('reflection').value||'................................................................................';
+}
+function save(){try{sessionStorage.setItem(key,JSON.stringify({fields:fields.map(f=>['checkbox','radio'].includes(f.type)?f.checked:f.value),pixels,color:document.getElementById('pixel-color').value}));document.getElementById('save-status').textContent='Zapisano postęp w tej karcie przeglądarki.';}catch{document.getElementById('save-status').textContent='Zapis jest zablokowany. Pozostaw kartę otwartą lub wydrukuj pracę.';}}
+try{const s=JSON.parse(sessionStorage.getItem(key)||'null');if(s){if(Array.isArray(s.fields))fields.forEach((f,i)=>{if(['checkbox','radio'].includes(f.type))f.checked=s.fields[i]===true;else if(typeof s.fields[i]==='string')f.value=s.fields[i].slice(0,f.maxLength>0?f.maxLength:1000);});if(Array.isArray(s.pixels)&&s.pixels.length===256&&s.pixels.every(c=>/^#[a-f0-9]{6}$/i.test(c)))pixels=s.pixels;if(/^#[a-f0-9]{6}$/i.test(s.color))document.getElementById('pixel-color').value=s.color;}}catch{}
+fields.forEach(f=>f.addEventListener('input',()=>{update();save();}));
+const grid=document.getElementById('pixel-grid');
+function draw(){grid.querySelectorAll('button').forEach((b,i)=>{b.style.backgroundColor=pixels[i];b.setAttribute('aria-label','Wiersz '+(Math.floor(i/16)+1)+', kolumna '+(i%16+1)+', kolor '+pixels[i]);b.tabIndex=i===active?0:-1;});}
+for(let i=0;i<256;i++){const b=document.createElement('button');b.type='button';b.className='pixel';b.onclick=()=>{active=i;pixels[i]=document.getElementById('pixel-color').value;draw();document.getElementById('pixel-status').textContent='Pokolorowano pole: wiersz '+(Math.floor(i/16)+1)+', kolumna '+(i%16+1)+'.';save();};b.onkeydown=e=>{let next=i;if(e.key==='ArrowLeft')next=Math.max(0,i-1);else if(e.key==='ArrowRight')next=Math.min(255,i+1);else if(e.key==='ArrowUp')next=Math.max(0,i-16);else if(e.key==='ArrowDown')next=Math.min(255,i+16);else return;e.preventDefault();active=next;draw();grid.children[next].focus();};grid.append(b);}
+draw();update();
+document.getElementById('pixel-color').oninput=save;
+document.getElementById('pixel-erase').onclick=()=>{document.getElementById('pixel-color').value='#ffffff';document.getElementById('pixel-status').textContent='Wybrano biały kolor. Kliknij pole do poprawienia.';save();};
+document.getElementById('pixel-clear').onclick=()=>{if(confirm('Wyczyścić tylko próbną planszę?')){pixels.fill('#ffffff');draw();save();document.getElementById('pixel-status').textContent='Plansza wyczyszczona.';}};
+document.getElementById('pixel-download').onclick=()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=16;const ctx=canvas.getContext('2d');pixels.forEach((c,i)=>{ctx.fillStyle=c;ctx.fillRect(i%16,Math.floor(i/16),1,1);});canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='piksel-trening.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);document.getElementById('pixel-status').textContent='Pobrano próbny obraz 16 × 16 pikseli.';},'image/png');};
+document.getElementById('new-student').onclick=()=>{if(!confirm('Usunąć odpowiedzi i próbną planszę dla nowego ucznia?'))return;fields.forEach(f=>{if(['checkbox','radio'].includes(f.type))f.checked=false;else f.value='';});document.getElementById('stClass').value='4';document.getElementById('stDate').value=new Date().toLocaleDateString('pl-PL');pixels.fill('#ffffff');document.getElementById('pixel-color').value='#2563eb';active=0;draw();update();save();document.getElementById('pixel-status').textContent='Pokoloruj pierwszy piksel.';document.getElementById('stName').focus();};
+document.getElementById('print').onclick=()=>window.print();window.addEventListener('beforeprint',update);
+const theme=document.getElementById('theme');function applyTheme(v){const dark=v==='dark';document.body.classList.toggle('dark',dark);theme.setAttribute('aria-pressed',String(dark));theme.textContent=dark?'Jasny motyw':'Ciemny motyw';}try{applyTheme(localStorage.getItem('informatyka-theme'));}catch{}
+theme.onclick=()=>{const v=document.body.classList.contains('dark')?'light':'dark';applyTheme(v);try{localStorage.setItem('informatyka-theme',v);}catch{}};window.addEventListener('storage',e=>{if(e.key==='informatyka-theme')applyTheme(e.newValue);});
+</script></body></html>
