@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karta pracy – Dział II: Korzystanie z internetu (Klasa 4)</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-light: #dbeafe;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --error: #b91c1c;
+      --error-bg: #fee2e2;
+      --text: #1e293b;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Calibri, Arial, Verdana, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .worksheet-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 26px;
+      color: var(--primary);
+      margin-top: 0;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 21px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 28px;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .student-info label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .student-info input {
+      width: 100%;
+      font-size: 17px;
+      padding: 8px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .goals-box {
+      background: #f8fafc;
+      border-left: 6px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 10px;
+      height: 22px;
+      margin: 16px 0 24px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: var(--success);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instruction {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    select, input[type="text"].blank-input {
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .word-bank {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 19px;
+      text-align: center;
+    }
+
+    .word-bank span {
+      display: inline-block;
+      background: #ffffff;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--primary);
+    }
+
+    .task-list li {
+      margin-bottom: 14px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .checklist input[type="checkbox"],
+    .done-box input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .done-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .self-eval {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .eval-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .eval-card input {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-check {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-print {
+      background: #475569;
+      color: white;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .correct-field {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .wrong-field {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error) !important;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        font-size: 13pt;
+      }
+      .worksheet-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .actions-bar, .progress-bar-wrap, #feedbackBox {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, .checklist, .self-eval {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Uzupełnienia portalu: czytelność, klawiatura i małe ekrany. */
+    .topbar {max-width:850px;margin:0 auto 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .topbar a {color:var(--primary);font-weight:700}
+    .topbar button {font-size:15px;padding:10px 14px;background:var(--primary-light);color:var(--primary);min-height:44px}
+    .actions-bar {flex-wrap:wrap}
+    .table-scroll {overflow-x:auto;margin-bottom:16px}
+    .table-scroll table {margin:0;min-width:590px}
+    select,input,button {min-height:44px;max-width:100%}
+    input,select {color:var(--text)}
+    :focus-visible {outline:3px solid var(--primary);outline-offset:3px}
+    .checklist label {display:flex;align-items:center;gap:14px;width:100%;cursor:pointer}
+    .field-feedback {display:block;font-size:15px;line-height:1.4;margin-top:6px;font-weight:600}
+    .field-feedback:empty {display:none}
+    .print-answer {display:none}
+    #save-status {font-size:15px}
+    .progress-bar-wrap {margin-bottom:8px}
+    .dark {--bg:#0f172a;--card:#172238;--text:#f1f5f9;--primary:#93c5fd;--primary-light:#253957;--border:#61738c;--success:#86efac;--success-bg:#16432b;--error:#fecaca;--error-bg:#542d36;color-scheme:dark}
+    .dark .goals-box,.dark th,.dark .checklist li {background:#202e45}
+    .dark .instruction {background:#3a321c;border-color:#ad8c3c}
+    .dark input,.dark select,.dark .word-bank span {background:#0f172a;color:var(--text)}
+    .dark .btn-check {background:#2563eb;color:#fff}
+    .dark .feedback {background:#253957!important;color:#f1f5f9!important}
+    .dark .progress-bar-wrap {background:#334155}
+    @media(max-width:600px){body{padding:10px;font-size:17px}.worksheet-container{padding:16px}.student-info,.self-eval{grid-template-columns:1fr}.actions-bar button{width:100%;padding:12px}.topbar{font-size:16px}h1{font-size:23px}h2{font-size:20px}.task-list{padding-left:22px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @page {size:A4;margin:12mm}
+    @media print {
+      body,.dark {--text:#111;--primary:#153e72;--card:#fff;--border:#777;--primary-light:#eee;color:#111!important;background:#fff!important;color-scheme:light;font-size:11pt}
+      .topbar,#save-status,.field-feedback,.progress-bar-wrap,.actions-bar,#feedbackBox {display:none!important}
+      .progress-bar-wrap {height:0}.table-scroll{overflow:visible}.table-scroll table{min-width:0}
+      select{display:none}.print-answer{display:inline;font-weight:700;border-bottom:1px dotted #555;min-width:55px}
+      .dark input,.dark select,.dark .word-bank span,.dark .goals-box,.dark th,.dark .checklist li,.dark .instruction {color:#111!important;background:#fff!important}
+      .checklist,.self-eval{break-inside:auto}tr,.checklist li,.eval-card,.student-info,.instruction{break-inside:avoid}
+      th,td{padding:7px}h2{break-after:avoid;margin-top:18px}.instruction{break-after:avoid}.done-box{break-before:avoid}.worksheet-container{border-radius:0}
+      input{min-height:0}a{color:#111}input[type=checkbox]{width:18px!important;height:18px!important}
+      .word-bank{text-align:left}.done-box{background:#fff;color:#111}
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Nawigacja"><a href="../#class/4">← Klasa 4 — menu główne</a><div><button type="button" id="theme" aria-pressed="false">Ciemny motyw</button> <button type="button" id="new-student">Nowy uczeń</button></div></nav>
+<main class="worksheet-container">
+  <h1>🌐 KARTA PRACY: Korzystanie z internetu (Dział II)</h1>
+
+  <div class="student-info">
+    <div>
+      <label for="stName">Imię i nazwisko:</label>
+      <input type="text" maxlength="80" autocomplete="off" id="stName" placeholder="Wpisz swoje imię...">
+    </div>
+    <div>
+      <label for="stClass">Klasa:</label>
+      <input type="text" maxlength="12" id="stClass" value="4">
+    </div>
+    <div>
+      <label for="stDate">Data:</label>
+      <input type="text" id="stDate">
+    </div>
+  </div>
+
+  <div class="goals-box">
+    <strong>🎯 Po wykonaniu tej karty potrafię:</strong>
+    <ul>
+      <li>odróżnić <strong>przeglądarkę internetową</strong> od <strong>wyszukiwarki internetowej</strong>,</li>
+      <li>wyjaśnić pojęcia: <strong>hiperłącze (link)</strong>, <strong>router</strong> oraz <strong>Wi-Fi</strong>,</li>
+      <li>stosować zasady <strong>netykiety</strong> i odróżniać <strong>fakt</strong> od <strong>opinii</strong>,</li>
+      <li>chronić swoje <strong>dane osobowe</strong>, tworzyć silne <strong>hasło</strong> i szanować <strong>prawa autorskie</strong>.</li>
+    </ul>
+  </div>
+
+  <div>
+    <strong>Wykonane kroki (Twoja deklaracja): <span id="progressText">0 / 8</span></strong>
+    <div class="progress-bar-wrap" role="progressbar" aria-label="Wykonane kroki" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+  </div>
+
+  <p id="save-status" role="status">Postęp zapisuje się w tej karcie przeglądarki.</p>
+  <!-- ZADANIE 1 -->
+  <h2>🧩 Zadanie 1 z 4: Pojęcia internetowe (Rozgrzewka)</h2>
+  <div class="instruction">
+    <strong>Instrukcja:</strong><br>
+    1. <strong>Przeczytaj</strong> nazwy pojęć w tabeli.<br>
+    2. <strong>Wybierz</strong> właściwą literę (od A do E) pasującą do opisu.
+  </div>
+
+  <div class="table-scroll" role="region" aria-label="Tabela zadania" tabindex="0"><table>
+    <thead>
+      <tr>
+        <th scope="col">Pojęcie</th>
+        <th scope="col">Wybór</th>
+        <th scope="col">Opis działania</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Przeglądarka internetowa</strong></td>
+        <td>
+          <select data-answer="C">
+            <option value="">--</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </td>
+        <td><strong>A.</strong> Wyróżniony tekst lub obrazek, w który klikasz, aby przenieść się na inną stronę.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Wyszukiwarka internetowa</strong></td>
+        <td>
+          <select data-answer="E">
+            <option value="">--</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </td>
+        <td><strong>B.</strong> Urządzenie, które łączy domowe sprzęty z siecią i kieruje ruchem danych.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Hiperłącze (link)</strong></td>
+        <td>
+          <select data-answer="A">
+            <option value="">--</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </td>
+        <td><strong>C.</strong> Program zainstalowany na komputerze do otwierania stron (np. Chrome, Edge, Firefox).</td>
+      </tr>
+      <tr>
+        <td><strong>4. Router</strong></td>
+        <td>
+          <select data-answer="B">
+            <option value="">--</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </td>
+        <td><strong>D.</strong> Technologia łączenia urządzeń z siecią bez kabla, za pomocą fal radiowych.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Wi-Fi</strong></td>
+        <td>
+          <select data-answer="D">
+            <option value="">--</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </td>
+        <td><strong>E.</strong> Strona internetowa (np. Google), na której wpisujesz hasła, aby znaleźć informacje.</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <label class="done-box"><input type="checkbox" class="progress-check"> Zadanie 1 zrobione!</label>
+
+  <!-- ZADANIE 2 -->
+  <h2>💬 Zadanie 2 z 4: Netykieta i bezpieczeństwo w sieci</h2>
+  <div class="instruction">
+    <strong>Instrukcja:</strong><br>
+    1. <strong>Przeczytaj</strong> zdania poniżej.<br>
+    2. <strong>Wybierz</strong> właściwe słowo z <strong>Banku słów</strong> dla każdego zdania.
+  </div>
+
+  <div class="word-bank">
+    📦 <strong>BANK SŁÓW:</strong>
+    <span>Netykieta</span>
+    <span>krzyk</span>
+    <span>hasło</span>
+    <span>dorosłemu</span>
+    <span>fakt</span>
+  </div>
+
+  <ol class="task-list">
+    <li>
+      Zbiór zasad kulturalnego zachowania w internecie nazywamy słowem
+      <select data-answer="Netykieta">
+        <option value="">--- wybierz ---</option>
+        <option value="Netykieta">Netykieta</option>
+        <option value="krzyk">krzyk</option>
+        <option value="hasło">hasło</option>
+        <option value="dorosłemu">dorosłemu</option>
+        <option value="fakt">fakt</option>
+      </select>.
+    </li>
+    <li>
+      Pisanie całych słów WIELKIMI LITERAMI na czacie oznacza w sieci
+      <select data-answer="krzyk">
+        <option value="">--- wybierz ---</option>
+        <option value="Netykieta">Netykieta</option>
+        <option value="krzyk">krzyk</option>
+        <option value="hasło">hasło</option>
+        <option value="dorosłemu">dorosłemu</option>
+        <option value="fakt">fakt</option>
+      </select>.
+    </li>
+    <li>
+      Bezpieczne
+      <select data-answer="hasło">
+        <option value="">--- wybierz ---</option>
+        <option value="Netykieta">Netykieta</option>
+        <option value="krzyk">krzyk</option>
+        <option value="hasło">hasło</option>
+        <option value="dorosłemu">dorosłemu</option>
+        <option value="fakt">fakt</option>
+      </select>
+      jest długie, trudne do odgadnięcia i inne dla każdego konta.
+    </li>
+    <li>
+      Gdy w internecie zobaczysz coś niepokojącego lub ktoś Ci dokucza, natychmiast powiedz o tym
+      <select data-answer="dorosłemu">
+        <option value="">--- wybierz ---</option>
+        <option value="Netykieta">Netykieta</option>
+        <option value="krzyk">krzyk</option>
+        <option value="hasło">hasło</option>
+        <option value="dorosłemu">dorosłemu</option>
+        <option value="fakt">fakt</option>
+      </select>
+      (rodzicom lub nauczycielowi).
+    </li>
+    <li>
+      Zdanie „Lekcja trwa 45 minut” to sprawdzona informacja, czyli
+      <select data-answer="fakt">
+        <option value="">--- wybierz ---</option>
+        <option value="Netykieta">Netykieta</option>
+        <option value="krzyk">krzyk</option>
+        <option value="hasło">hasło</option>
+        <option value="dorosłemu">dorosłemu</option>
+        <option value="fakt">fakt</option>
+      </select>,
+      a zdanie „Ta gra jest nudna” to opinia.
+    </li>
+  </ol>
+  <label class="done-box"><input type="checkbox" class="progress-check"> Zadanie 2 zrobione!</label>
+
+  <!-- ZADANIE 3 -->
+  <h2>🛡️ Zadanie 3 z 4: Prawda czy Fałsz?</h2>
+  <div class="instruction">
+    <strong>Instrukcja:</strong><br>
+    1. <strong>Przeczytaj</strong> uważnie każde zdanie.<br>
+    2. <strong>Wybierz</strong> odpowiedź <strong>PRAWDA</strong> lub <strong>FAŁSZ</strong>.
+  </div>
+
+  <div class="table-scroll" role="region" aria-label="Tabela zadania" tabindex="0"><table>
+    <thead>
+      <tr>
+        <th scope="col">Lp.</th>
+        <th scope="col">Zdanie do sprawdzenia</th>
+        <th scope="col">Twoja odpowiedź</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1.</strong></td>
+        <td>W sieci nigdy nie wolno podawać obcym swojego nazwiska, adresu domowego ani numeru telefonu.</td>
+        <td>
+          <select data-answer="PRAWDA">
+            <option value="">--- wybierz ---</option>
+            <option value="PRAWDA">PRAWDA</option>
+            <option value="FAŁSZ">FAŁSZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>2.</strong></td>
+        <td><strong>Fake news</strong> to kłamliwa wiadomość, a <strong>deepfake</strong> to obraz, film lub głos stworzony albo zmieniony przez AI tak, by naśladował prawdziwą osobę.</td>
+        <td>
+          <select data-answer="PRAWDA">
+            <option value="">--- wybierz ---</option>
+            <option value="PRAWDA">PRAWDA</option>
+            <option value="FAŁSZ">FAŁSZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>3.</strong></td>
+        <td>Warto klikać w podejrzane linki „Wygrałeś telefon!”, bo są całkowicie bezpieczne.</td>
+        <td>
+          <select data-answer="FAŁSZ">
+            <option value="">--- wybierz ---</option>
+            <option value="PRAWDA">PRAWDA</option>
+            <option value="FAŁSZ">FAŁSZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>4.</strong></td>
+        <td>Gdy możesz wykorzystać cudzy obrazek lub tekst, podaj <strong>źródło</strong> i <strong>autora</strong>. Sam podpis nie zastępuje zgody ani odpowiedniej licencji.</td>
+        <td>
+          <select data-answer="PRAWDA">
+            <option value="">--- wybierz ---</option>
+            <option value="PRAWDA">PRAWDA</option>
+            <option value="FAŁSZ">FAŁSZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>5.</strong></td>
+        <td>Informację znalezioną w sieci warto sprawdzić w przynajmniej <strong>dwóch niezależnych, wiarygodnych źródłach</strong>.</td>
+        <td>
+          <select data-answer="PRAWDA">
+            <option value="">--- wybierz ---</option>
+            <option value="PRAWDA">PRAWDA</option>
+            <option value="FAŁSZ">FAŁSZ</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table></div>
+  <label class="done-box"><input type="checkbox" class="progress-check"> Zadanie 3 zrobione!</label>
+
+  <!-- ZADANIE 4 -->
+  <h2>💻 Zadanie 4 z 4: Misja przy komputerze (Krok po kroku)</h2>
+  <div class="instruction">
+    <strong>Instrukcja:</strong><br>
+    1. <strong>Wykonaj</strong> po kolei poniższe kroki na swoim komputerze.<br>
+    2. <strong>Zaznaczaj</strong> okienko po wykonaniu każdego kroku.
+  </div>
+
+  <ul class="checklist">
+    <li>
+      <input type="checkbox" class="progress-check">
+      <span><strong>Krok 1:</strong> <strong>Uruchom</strong> na komputerze <strong>przeglądarkę internetową</strong> (np. Chrome, Edge lub Firefox).</span>
+    </li>
+    <li>
+      <input type="checkbox" class="progress-check">
+      <span><strong>Krok 2:</strong> <strong>Otwórz</strong> <strong>wyszukiwarkę internetową</strong> (np. Google) i <strong>wpisz</strong> precyzyjne hasło z 3 słów: <code>pingwin cesarski środowisko</code>.</span>
+    </li>
+    <li>
+      <input type="checkbox" class="progress-check">
+      <span><strong>Krok 3:</strong> <strong>Kliknij</strong> w wybrane <strong>hiperłącze (link)</strong>, aby przejść na stronę o pingwinie.</span>
+    </li>
+    <li>
+      <input type="checkbox" class="progress-check">
+      <span><strong>Krok 4:</strong> <strong>Otwórz</strong> program Notatnik lub Word i <strong>napisz</strong> jedno zdanie faktu o tym, gdzie żyje pingwin cesarski.</span>
+    </li>
+    <li>
+      <input type="checkbox" class="progress-check">
+      <span><strong>Krok 5:</strong> Pod zdaniem <strong>dopisz</strong> adres strony (źródło) i <strong>zapisz</strong> plik pod nazwą <strong>pingwin.txt</strong> lub <strong>pingwin.docx</strong>.</span>
+    </li>
+  </ul>
+
+  <!-- SAMOOCENA -->
+  <h2>🌟 Podsumowanie i samoocena</h2>
+  <p><strong>Świetna robota! Zaznacz jedną buźkę, która opisuje Twoją dzisiejszą pracę:</strong></p>
+  <div class="self-eval">
+    <label class="eval-card">
+      <input type="radio" name="selfEval"> 😀 <strong>Zrobiłem samodzielnie!</strong><br>Wszystko było jasne.
+    </label>
+    <label class="eval-card">
+      <input type="radio" name="selfEval"> 🙂 <strong>Potrzebowałem małej pomocy.</strong><br>Poradziłem sobie ze wskazówką.
+    </label>
+    <label class="eval-card">
+      <input type="radio" name="selfEval"> 😐 <strong>Muszę jeszcze poćwiczyć.</strong><br>Niektóre zadania były trudne.
+    </label>
+  </div>
+
+  <div id="feedbackBox" class="feedback" role="status" aria-live="polite"></div>
+
+  <div class="actions-bar">
+    <button type="button" class="btn-check" onclick="checkAnswers()">✅ Sprawdź moje odpowiedzi (Zadania 1–3)</button>
+    <button type="button" class="btn-print" onclick="window.print()">🖨️ Drukuj kartę (Format A4)</button>
+  </div>
+</main>
+
+<script>
+
+  // Postęp dotyczy jednej karty przeglądarki. Nowy uczeń czyści tylko tę kartę pracy.
+  const STORAGE='inf-pruszcz-k4-internet-v1';
+  const selects=[...document.querySelectorAll('select[data-answer]')];
+  const checks=[...document.querySelectorAll('.progress-check')];
+  const fields=['stName','stClass','stDate'].map(id=>document.getElementById(id));
+  const hints=[
+   'Szukasz programu, który otwiera strony WWW.', 'Szukasz miejsca do wpisania zapytania i znalezienia stron.',
+   'Pomyśl o tekście lub obrazku, który przenosi na inną stronę.', 'To urządzenie kieruje ruchem w sieci.', 'Chodzi o połączenie bez kabla.',
+   'Szukasz nazwy zasad dobrego zachowania w internecie.', 'Jak odbierzesz wiadomość zapisaną wyłącznie wielkimi literami?',
+   'To sekret, którym chronisz swoje konto.', 'Poszukaj pomocy osoby, której ufasz.', 'Tę informację można sprawdzić.',
+   'Zastanów się, czy obcej osobie potrzebne są Twoje dane.', 'AI może naśladować czyjś wygląd lub głos.',
+   'Niespodziewana nagroda może być pułapką.', 'Sprawdź możliwość wykorzystania materiału i podpisz jego twórcę.',
+   'Dwa źródła powinny być niezależne, a nie kopiować tę samą plotkę.'
+  ];
+  const confirmations=[
+   'Przeglądarka to program do otwierania stron.', 'Wyszukiwarka pomaga znajdować informacje.', 'Link przenosi do wskazanego miejsca.',
+   'Router kieruje ruchem danych.', 'Wi-Fi łączy urządzenia z siecią bez kabla.', 'Netykieta to zasady kulturalnego zachowania.',
+   'Całe zdania wielkimi literami mogą być odebrane jako krzyk.', 'Długie i unikalne hasło chroni konto.',
+   'Zaufany dorosły pomoże Ci zareagować.', 'Fakt można sprawdzić; opinia opisuje czyjąś ocenę.',
+   'Chroń swoje dane przed obcymi.', 'Deepfake może naśladować osobę za pomocą AI.', 'Nie klikaj podejrzanych obietnic nagród.',
+   'Sprawdź zasady wykorzystania i podaj autora oraz źródło.', 'Porównuj wiarygodne, niezależne źródła.'
+  ];
+  selects.forEach((s,i)=>{
+   const row=s.closest('tr'),li=s.closest('li');
+   s.setAttribute('aria-label',row?row.cells[0].textContent.trim()+(i>=10?' '+row.cells[1].textContent.trim():' — wybierz opis'):'Zadanie 2, zdanie '+(i-4));
+   const feedback=document.createElement('span');feedback.id='answer-feedback-'+i;feedback.className='field-feedback';feedback.setAttribute('aria-live','polite');s.after(feedback);s.setAttribute('aria-describedby',feedback.id);
+   const print=document.createElement('span');print.className='print-answer';print.textContent='................';feedback.after(print);
+   if(li)li.append(feedback);
+   s.addEventListener('change',()=>{verify(s,i);updateSummary(false);save();});
+  });
+  document.querySelectorAll('.checklist li').forEach((li,i)=>{const label=document.createElement('label');label.append(...li.childNodes);li.append(label);});
+  document.querySelectorAll('[name=selfEval]').forEach((r,i)=>r.value=String(i));
+  fields[2].value=new Date().toLocaleDateString('pl-PL');
+  let checkedAll=false;
+  function verify(s,i){
+   const ok=s.value===s.dataset.answer,feedback=document.getElementById('answer-feedback-'+i);
+   s.classList.toggle('correct-field',!!s.value&&ok);s.classList.toggle('wrong-field',!!s.value&&!ok);
+   s.setAttribute('aria-invalid',String(!!s.value&&!ok));
+   feedback.textContent=!s.value?'':ok?'✓ Dobrze! '+confirmations[i]:'↻ Spróbuj jeszcze raz. '+hints[i];
+   s.parentNode.querySelector('.print-answer').textContent=s.value||'................';
+  }
+  function updateSummary(show){
+   checkedAll=checkedAll||show;if(!checkedAll)return;
+   const score=selects.filter(s=>s.value===s.dataset.answer).length,empty=selects.filter(s=>!s.value).length,box=document.getElementById('feedbackBox');
+   box.style.display='block';box.style.background=score===15?'var(--success-bg)':'var(--primary-light)';box.style.color='var(--text)';
+   box.textContent=score===15?'✓ Brawo! Wszystkie 15 odpowiedzi są poprawne.':'Poprawne odpowiedzi: '+score+' / 15. '+(empty?'Puste pola: '+empty+'. ':'')+'Sprawdź podpowiedzi przy pytaniach.';
+  }
+  function checkAnswers(){selects.forEach(verify);updateSummary(true);save();}
+  function progress(){const n=checks.filter(c=>c.checked).length;document.getElementById('progressBar').style.width=(n/checks.length*100)+'%';document.getElementById('progressText').textContent=n+' / '+checks.length;document.querySelector('[role=progressbar]').setAttribute('aria-valuenow',n);}
+  function save(){try{sessionStorage.setItem(STORAGE,JSON.stringify({answers:selects.map(s=>s.value),checks:checks.map(c=>c.checked),fields:fields.map(f=>f.value),self:document.querySelector('[name=selfEval]:checked')?.value,checkedAll}));document.getElementById('save-status').textContent='Zapisano postęp w tej karcie przeglądarki.';}catch{document.getElementById('save-status').textContent='Przeglądarka blokuje zapis. Pozostaw tę kartę otwartą lub wydrukuj pracę.';}}
+  try{const saved=JSON.parse(sessionStorage.getItem(STORAGE)||'null');if(saved){
+   if(Array.isArray(saved.answers))selects.forEach((s,i)=>{if([...s.options].some(o=>o.value===saved.answers[i]))s.value=saved.answers[i];});
+   if(Array.isArray(saved.checks))checks.forEach((c,i)=>c.checked=saved.checks[i]===true);
+   if(Array.isArray(saved.fields))fields.forEach((f,i)=>{if(typeof saved.fields[i]==='string')f.value=saved.fields[i].slice(0,80);});
+   if(['0','1','2'].includes(saved.self))document.querySelector('[name=selfEval][value="'+saved.self+'"]').checked=true;
+   checkedAll=saved.checkedAll===true;
+  }}catch{}
+  selects.forEach(verify);progress();updateSummary(false);
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>{progress();save();}));
+  document.getElementById('new-student').onclick=()=>{
+   if(!confirm('Usunąć odpowiedzi z tej karty i rozpocząć pracę nowego ucznia?'))return;
+   selects.forEach(s=>s.value='');checks.forEach(c=>c.checked=false);document.querySelectorAll('[name=selfEval]').forEach(r=>r.checked=false);
+   fields[0].value='';fields[1].value='4';fields[2].value=new Date().toLocaleDateString('pl-PL');checkedAll=false;
+   document.getElementById('feedbackBox').style.display='none';selects.forEach(verify);progress();save();fields[0].focus();
+  };
+  // Wspólny wybór motywu z portalem; bez zależności zewnętrznych.
+  const theme=document.getElementById('theme');
+  function applyTheme(v){const dark=v==='dark';document.body.classList.toggle('dark',dark);theme.setAttribute('aria-pressed',String(dark));theme.textContent=dark?'Jasny motyw':'Ciemny motyw';}
+  try{applyTheme(localStorage.getItem('informatyka-theme'));}catch{}
+  theme.onclick=()=>{const v=document.body.classList.contains('dark')?'light':'dark';applyTheme(v);try{localStorage.setItem('informatyka-theme',v);}catch{}};
+  window.addEventListener('storage',e=>{if(e.key==='informatyka-theme')applyTheme(e.newValue);});
+
+</script>
+
+</body>
+</html>

@@ -169,6 +169,17 @@ export function isWorksheet(id) {
 
 export const extraWorksheets = [
   {
+    id: 'karta-4-2-korzystanie-z-internetu',
+    type: 'task',
+    grades: [4],
+    title: 'Karta pracy: Korzystanie z internetu — 4 zadania',
+    section: '2. Korzystanie z internetu',
+    tags: ['Internet', 'Netykieta', 'Bezpieczeństwo', 'Karta pracy'],
+    summary: '15 pytań z podpowiedziami, misja o pingwinie cesarskim i samoocena. Zapis postępu w karcie przeglądarki oraz wydruk A4.',
+    body: '<p>Rozpoznaj pojęcia internetowe, przećwicz zasady bezpieczeństwa i znajdź sprawdzony fakt o pingwinie. Pracuj we własnym tempie.</p>',
+    source: 'Na podstawie karty pracy przekazanej przez nauczyciela — klasa 4, dział II.'
+  },
+  {
     id: 'karta-4-1-urzadzenia-pliki',
     type: 'task',
     grades: [4],
