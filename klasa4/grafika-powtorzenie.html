@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grafika komputerowa — powtórzenie działu III, klasa 4</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-light: #dbeafe;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --error: #b91c1c;
+      --error-bg: #fee2e2;
+      --text: #1e293b;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Calibri, Arial, Verdana, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .worksheet-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 26px;
+      color: var(--primary);
+      margin-top: 0;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 21px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 28px;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .student-info label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .student-info input {
+      width: 100%;
+      font-size: 17px;
+      padding: 8px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .goals-box {
+      background: #f8fafc;
+      border-left: 6px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 10px;
+      height: 22px;
+      margin: 16px 0 24px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: var(--success);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .instruction {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    select, input[type="text"].blank-input {
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .word-bank {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 19px;
+      text-align: center;
+    }
+
+    .word-bank span {
+      display: inline-block;
+      background: #ffffff;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--primary);
+    }
+
+    .task-list li {
+      margin-bottom: 14px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .checklist input[type="checkbox"],
+    .done-box input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .done-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .self-eval {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .eval-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .eval-card input {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-check {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-print {
+      background: #475569;
+      color: white;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .correct-field {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .wrong-field {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error) !important;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        font-size: 13pt;
+      }
+      .worksheet-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .actions-bar, .progress-bar-wrap, #feedbackBox {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, .checklist, .self-eval {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Uzupełnienia portalu: czytelność, klawiatura i małe ekrany. */
+    .topbar {max-width:850px;margin:0 auto 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .topbar a {color:var(--primary);font-weight:700}
+    .topbar button {font-size:15px;padding:10px 14px;background:var(--primary-light);color:var(--primary);min-height:44px}
+    .actions-bar {flex-wrap:wrap}
+    .table-scroll {overflow-x:auto;margin-bottom:16px}
+    .table-scroll table {margin:0;min-width:590px}
+    select,input,button {min-height:44px;max-width:100%}
+    input,select {color:var(--text)}
+    :focus-visible {outline:3px solid var(--primary);outline-offset:3px}
+    .checklist label {display:flex;align-items:center;gap:14px;width:100%;cursor:pointer}
+    .field-feedback {display:block;font-size:15px;line-height:1.4;margin-top:6px;font-weight:600}
+    .field-feedback:empty {display:none}
+    .print-answer {display:none}
+    #save-status {font-size:15px}
+    .progress-bar-wrap {margin-bottom:8px}
+    .dark {--bg:#0f172a;--card:#172238;--text:#f1f5f9;--primary:#93c5fd;--primary-light:#253957;--border:#61738c;--success:#86efac;--success-bg:#16432b;--error:#fecaca;--error-bg:#542d36;color-scheme:dark}
+    .dark .goals-box,.dark th,.dark .checklist li {background:#202e45}
+    .dark .instruction {background:#3a321c;border-color:#ad8c3c}
+    .dark input,.dark select,.dark .word-bank span {background:#0f172a;color:var(--text)}
+    .dark .btn-check {background:#2563eb;color:#fff}
+    .dark .feedback {background:#253957!important;color:#f1f5f9!important}
+    .dark .progress-bar-wrap {background:#334155}
+    @media(max-width:600px){body{padding:10px;font-size:17px}.worksheet-container{padding:16px}.student-info,.self-eval{grid-template-columns:1fr}.actions-bar button{width:100%;padding:12px}.topbar{font-size:16px}h1{font-size:23px}h2{font-size:20px}.task-list{padding-left:22px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @page {size:A4;margin:12mm}
+    @media print {
+      body,.dark {--text:#111;--primary:#153e72;--card:#fff;--border:#777;--primary-light:#eee;color:#111!important;background:#fff!important;color-scheme:light;font-size:11pt}
+      .topbar,#save-status,.field-feedback,.progress-bar-wrap,.actions-bar,#feedbackBox {display:none!important}
+      .progress-bar-wrap {height:0}.table-scroll{overflow:visible}.table-scroll table{min-width:0}
+      select{display:none}.print-answer{display:inline;font-weight:700;border-bottom:1px dotted #555;min-width:55px}
+      .dark input,.dark select,.dark .word-bank span,.dark .goals-box,.dark th,.dark .checklist li,.dark .instruction {color:#111!important;background:#fff!important}
+      .checklist,.self-eval{break-inside:auto}tr,.checklist li,.eval-card,.student-info,.instruction{break-inside:avoid}
+      th,td{padding:7px}h2{break-after:avoid;margin-top:18px}.instruction{break-after:avoid}.done-box{break-before:avoid}.worksheet-container{border-radius:0}
+      input{min-height:0}a{color:#111}input[type=checkbox]{width:18px!important;height:18px!important}
+      .word-bank{text-align:left}.done-box{background:#fff;color:#111}
+    }
+
+  
+ .eyebrow{font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--primary)}
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini-card,.question{padding:16px;border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--card)}
+ .question label{display:block;font-weight:600;margin-bottom:8px}.question select{width:100%}.question .field-feedback{margin-top:10px}
+ .visual{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--bg);margin:16px 0}.visual svg{display:block;width:100%;max-height:220px;color:var(--text)}
+ .pixel-tools{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px}.pixel-tools input{width:55px;height:44px;padding:2px}
+ #pixel-grid{display:grid;grid-template-columns:repeat(16,1fr);width:min(100%,384px);aspect-ratio:1;margin:auto;border:2px solid var(--border)}
+ .pixel{border:1px solid #8794a5;border-radius:0;padding:0;min-height:0;width:100%;aspect-ratio:1;touch-action:manipulation}.pixel:focus-visible{outline:3px solid #f59e0b;outline-offset:-3px;position:relative;z-index:1}
+ .mini-title{font-weight:700;margin:0 0 8px}.checklist{margin-top:12px}.checklist label{font-weight:400}button{color:var(--text)}.secondary{background:var(--primary-light);color:var(--primary)}
+ textarea{width:100%;min-height:110px;padding:12px;box-sizing:border-box;font:inherit;background:var(--card);color:var(--text);border:2px solid var(--border);border-radius:8px}
+ .progress-area{margin-top:20px}progress{width:100%;height:22px;accent-color:var(--success)}.print-reflection{display:none;white-space:pre-wrap;overflow-wrap:anywhere}
+ @media(max-width:600px){.cards{grid-template-columns:1fr}.pixel-tools button{font-size:15px;padding:10px}.mini-card{margin:0}}
+ @media print{.pixel-tools,#pixel-help,#pixel-status,.screen-only,.question .field-feedback{display:none!important}.question select{display:none}.print-answer{display:inline}.print-reflection{display:block;min-height:50px}textarea{display:none}.progress-area{display:none}.mini-card,.question,.visual{break-inside:avoid}.cards{grid-template-columns:1fr 1fr}.pixel{border:.4px solid #999!important;print-color-adjust:exact}#pixel-grid{width:160px}.visual svg{max-height:140px}.question{padding:8px;margin:8px 0}.checklist li{padding:8px}body{font-size:11pt}.dark .mini-card,.dark .question,.dark .visual{background:#fff;color:#111} }
+
+
+.layer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:10px;margin:8px 0}.layer-row strong{flex:1;min-width:100px}.layer-row button{padding:8px;min-height:44px}.layer-row button[aria-pressed=true]{outline:3px solid var(--primary)}
+#scene{width:100%;max-height:280px;background:repeating-conic-gradient(#e2e8f0 0% 25%,#fff 0% 50%) 0/24px 24px;border-radius:10px}.demo-actions{display:flex;gap:8px;flex-wrap:wrap}.muted{font-size:15px}kbd{border:1px solid var(--border);border-bottom-width:3px;padding:2px 6px;border-radius:5px}button:disabled{opacity:.5} .print-only{display:none}
+@media print{.layer-row button,.demo-actions,#demo-status,#save-status{display:none!important}.print-only{display:block}#scene{max-height:180px}.layer-row{padding:4px}.visual{margin:8px 0}}
+
+.review-map{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.review-map div{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--bg)}.review-map svg{width:54px;height:54px;display:block;margin-bottom:8px}.checklist{list-style:none;padding:0}.checklist li{margin:10px 0}h3{margin-top:26px} .actions{display:flex;flex-wrap:wrap;gap:12px}code{overflow-wrap:anywhere}#self{width:100%}@media(max-width:600px){.review-map{grid-template-columns:1fr}}@media print{#self{display:none}.review-map{grid-template-columns:repeat(3,1fr)}.review-map div{background:#fff!important;color:#111!important;border-color:#777}.actions{display:none}}
+</style>
+</head>
+<body><nav class="topbar" aria-label="Nawigacja"><a href="../#class/4/review">← Klasa 4 — powtórzenie wiadomości</a><div><button id="theme" aria-pressed="false">Ciemny motyw</button> <button id="new-student">Nowy uczeń</button></div></nav><main class="worksheet-container"><header><p class="eyebrow">KLASA IV · DZIAŁ III · LEKCJA 15 · POWTÓRZENIE</p><h1>Wielki finał grafiki komputerowej</h1><p>Połącz poznane sztuczki w ekran startowy własnej gry.</p><div class="student-info"><div><label for="stName">Imię i nazwisko:</label><input id="stName" maxlength="80"></div><div><label for="stClass">Klasa:</label><input id="stClass" value="4" maxlength="12"></div><div><label for="stDate">Data:</label><input id="stDate" maxlength="20"></div></div></header>
+<div class="review-map"><div><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M5 5H25V25H5ZM30 5H50V25H30ZM5 30H25V50H5ZM30 30H50V50H30Z" fill="#2563eb"/></svg><strong>1. Przypomnij</strong><br>Piksele, narzędzia i skróty.</div><div><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M30 4L56 18L30 32L4 18ZM4 30L30 44L56 30M4 42L30 56L56 42" fill="none" stroke="#15803d" stroke-width="4"/></svg><strong>2. Stwórz</strong><br>Tło, tarczę i bohatera.</div><div><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M8 5H45L53 13V55H8Z" fill="none" stroke="#2563eb" stroke-width="4"/><path d="M17 5V24H42V5M17 55V35H44V55" fill="none" stroke="#2563eb" stroke-width="4"/></svg><strong>3. Zapisz</strong><br>Projekt, planszę i postać.</div></div>
+<div class="progress-area"><label for="progress">Postęp: <strong id="progress-text"></strong></label><progress id="progress" value="0"></progress><p class="muted">14 odpowiedzi sprawdza karta. Kroki praktyczne odhaczasz samodzielnie; nie są automatyczną oceną pracy.</p></div><p id="save-status" role="status">Postęp zostaje po odświeżeniu tej karty przeglądarki.</p><h2>Wielki Finał Działu Grafiki! (Impuls)</h2>
+<p>Przez ostatnie lekcje poznałeś tajniki pracy grafika komputerowego: od pojedynczego <strong>piksela</strong>, przez rysowanie kształtów z klawiszem <strong>Shift</strong>, <strong>kopiowanie</strong> i <strong>odbicie lustrzane</strong>, aż po <strong>warstwy</strong> i tworzenie obrazów z pomocą sztucznej inteligencji (<strong>AI</strong>). Dzisiaj połączysz te wszystkie umiejętności w jednym projekcie finałowym!</p>
+<h2>Po co to robisz?</h2>
+<p>1. <strong>Gotowa plansza i bohater do Twojej gry w Scratchu:</strong> W Rozdziale V będziesz tworzyć własne gry w programie <strong>Scratch</strong>. Dzisiaj przygotujesz ekran startowy oraz postać z <strong>przezroczystym tłem</strong> w formacie <code>.png</code>, które będzie można od razu wstawić do gry.</p>
+<p>2. <strong>Praca szybka jak u zawodowca:</strong> Zamiast rysować każdy element od zera i martwić się zepsutym tłem, użyjesz warstw, duplikowania oraz odbicia lustrzanego.</p>
+<p>3. <strong>Bezpieczne portfolio w chmurze:</strong> Zapiszesz swój projekt na komputerze oraz w chmurze, aby mieć do niego dostęp na kolejnych lekcjach i w domu.</p>
+<h2>Cele dzisiejszej lekcji (Po wykonaniu tej karty potrafię):</h2>
+<p>wyjaśnić pojęcia: <strong>piksel</strong>, <strong>rozmiar obrazu</strong> oraz <strong>warstwa</strong> w programie graficznym,</p>
+<p>używać kształtów (<strong>Linia</strong>, <strong>Prostokąt</strong>, <strong>Owal</strong>, <strong>Krzywa</strong>), klawisza <strong>Shift</strong> oraz narzędzi <strong>Ołówek</strong> i <strong>Pędzel</strong>,</p>
+<p>kopiować, obracać i odbijać lustrzanie zaznaczone fragmenty rysunku,</p>
+<p>tworzyć kompozycję z kilku <strong>warstw</strong>, zmieniać ich kolejność oraz je duplikować,</p>
+<p>zaimportować obraz (wygenerowany z pomocą prostego narzędzia <strong>AI</strong>), <strong>usunąć tło</strong> i dopasować rozmiar obiektu do całej kompozycji,</p>
+<p>zapisać pracę jako projekt oraz jako plik graficzny na komputerze i w chmurze.</p>
+<h2>Potrzebne narzędzia:</h2>
+<p>komputer z programem graficznym obsługującym warstwy (np. <strong>Paint z panelem Warstwy</strong>, w wersji wskazanej przez nauczyciela),</p>
+<p>proste narzędzie sztucznej inteligencji (<strong>AI</strong>) wskazane przez nauczyciela lub folder z grafikami do zaimportowania,</p>
+<p>dostęp do własnego folderu na komputerze oraz szkolnej chmury.</p>
+<h2>Stanowisko gotowe do pracy (Dokowanie — Układ Dwóch Okien i Cyfrowe BHP)</h2>
+<p>Przygotuj swoje stanowisko przed rozpoczęciem zadań:</p>
+<ul class="checklist"><li><label><input id="step1" type="checkbox" class="step"><span><strong>Krok 1:</strong> Ustaw okno przeglądarki z tą kartą pracy na <strong>lewej połowie ekranu</strong>.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step2" type="checkbox" class="step"><span><strong>Krok 2:</strong> Uruchom program graficzny (<strong>Paint</strong>) i ustaw go na <strong>prawej połowie ekranu</strong>.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step3" type="checkbox" class="step"><span><strong>Krok 3:</strong> Ustaw <strong>rozmiar obrazu</strong> (płótna): szerokość <strong>800</strong> pikseli, wysokość <strong>600</strong> pikseli.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step4" type="checkbox" class="step"><span><strong>Krok 4:</strong> Otwórz panel <strong>Warstwy</strong> i zapisz projekt w swoim folderze jako <code>podsumowanie_imie</code>. Format zachowujący warstwy wskaże nauczyciel — zależy on od programu i wersji. Zwykły PNG nie zapisuje osobnych warstw.</span></label></li></ul>
+<p><strong>Pamiętaj o Zasadzie 3Z podczas pracy:</strong></p>
+<p>1. <strong>Zatrzymaj się i przeczytaj:</strong> Wskaż kursorem myszy aktualny punkt w karcie pracy i przeczytaj go uważnie.</p>
+<p>2. <strong>Zrób krok wstecz:</strong> Gdy coś się nie uda, naciśnij <strong>Ctrl + Z</strong> (Cofnij) i sprawdź, na której warstwie pracujesz.</p>
+<p>3. <strong>Zapytaj sąsiada:</strong> Poproś kolegę lub koleżankę z ławki o podpowiedź słowną (bez przejmowania cudzej myszki).</p><section><h2>Rozgrzewka 1 · Połącz pojęcia</h2><div class="word-bank"><p><strong>A.</strong> Przezroczysta plansza z częścią rysunku.</p><p><strong>B.</strong> Odwrócenie fragmentu jak w lustrze.</p><p><strong>C.</strong> Mały kolorowy element obrazu rastrowego.</p><p><strong>D.</strong> Klawisz pomagający rysować koło lub poziomą linię.</p><p><strong>E.</strong> Narzędzie wyginające odcinek w łuk lub falę.</p></div><div class="question"><label for="q0">Piksel</label><select id="q0" data-answer="C" data-hint="Pomyśl o mocno powiększonym obrazie." data-ok="Obraz rastrowy składa się z kolorowych pikseli." aria-describedby="fb0"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span class="print-answer" id="print-q0">........................</span><span class="field-feedback" id="fb0" aria-live="polite"></span></div><div class="question"><label for="q1">Krzywa</label><select id="q1" data-answer="E" data-hint="Którym narzędziem wygniesz odcinek?" data-ok="Krzywa pozwala uzyskać łuk lub falę." aria-describedby="fb1"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span class="print-answer" id="print-q1">........................</span><span class="field-feedback" id="fb1" aria-live="polite"></span></div><div class="question"><label for="q2">Odbicie lustrzane</label><select id="q2" data-answer="B" data-hint="Pomyśl o dwóch połówkach motyla." data-ok="Odbicie zmienia kierunek jak odbicie w lustrze." aria-describedby="fb2"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span class="print-answer" id="print-q2">........................</span><span class="field-feedback" id="fb2" aria-live="polite"></span></div><div class="question"><label for="q3">Warstwa</label><select id="q3" data-answer="A" data-hint="Wyobraź sobie stos przezroczystych folii." data-ok="Warstwy rozdzielają elementy obrazu." aria-describedby="fb3"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span class="print-answer" id="print-q3">........................</span><span class="field-feedback" id="fb3" aria-live="polite"></span></div><div class="question"><label for="q4">Shift</label><select id="q4" data-answer="D" data-hint="Przytrzymaj ten klawisz podczas rysowania owalu." data-ok="W Paint Shift pomaga narysować koło lub prostą poziomą linię." aria-describedby="fb4"><option value="">Wybierz odpowiedź…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span class="print-answer" id="print-q4">........................</span><span class="field-feedback" id="fb4" aria-live="polite"></span></div></section><section><h2>Rozgrzewka 2 · Skróty i zapis</h2><p>Bank słów: Ctrl + C · Ctrl + V · Ctrl + Z · przezroczyste · chmurze</p><div class="question"><label for="q5">Po zaznaczeniu elementu kopiuję go skrótem…</label><select id="q5" data-answer="Ctrl + C" data-hint="Kopiowanie to pierwszy krok przed wklejaniem." data-ok="Ctrl + C kopiuje zaznaczenie." aria-describedby="fb5"><option value="">Wybierz odpowiedź…</option><option>Ctrl + C</option><option>Ctrl + V</option><option>Ctrl + Z</option><option>przezroczyste</option><option>chmurze</option></select><span class="print-answer" id="print-q5">........................</span><span class="field-feedback" id="fb5" aria-live="polite"></span></div><div class="question"><label for="q6">Kopię wklejam skrótem…</label><select id="q6" data-answer="Ctrl + V" data-hint="Nie myl wklejania z kopiowaniem." data-ok="Ctrl + V wkleja kopię." aria-describedby="fb6"><option value="">Wybierz odpowiedź…</option><option>Ctrl + C</option><option>Ctrl + V</option><option>Ctrl + Z</option><option>przezroczyste</option><option>chmurze</option></select><span class="print-answer" id="print-q6">........................</span><span class="field-feedback" id="fb6" aria-live="polite"></span></div><div class="question"><label for="q7">Ostatnią pomyłkę cofam skrótem…</label><select id="q7" data-answer="Ctrl + Z" data-hint="To skrót ratunkowy z zasady 3Z." data-ok="Ctrl + Z cofa ostatnią czynność." aria-describedby="fb7"><option value="">Wybierz odpowiedź…</option><option>Ctrl + C</option><option>Ctrl + V</option><option>Ctrl + Z</option><option>przezroczyste</option><option>chmurze</option></select><span class="print-answer" id="print-q7">........................</span><span class="field-feedback" id="fb7" aria-live="polite"></span></div><div class="question"><label for="q8">PNG może zachować usunięte, czyli … tło.</label><select id="q8" data-answer="przezroczyste" data-hint="Za bohaterem ma być widoczna plansza gry." data-ok="PNG zachowuje przezroczystość, jeśli rzeczywiście usuniesz tło." aria-describedby="fb8"><option value="">Wybierz odpowiedź…</option><option>Ctrl + C</option><option>Ctrl + V</option><option>Ctrl + Z</option><option>przezroczyste</option><option>chmurze</option></select><span class="print-answer" id="print-q8">........................</span><span class="field-feedback" id="fb8" aria-live="polite"></span></div><div class="question"><label for="q9">Kopię pracy przesyłam do folderu w szkolnej…</label><select id="q9" data-answer="chmurze" data-hint="Chcesz mieć dostęp z innego komputera." data-ok="Szkolna chmura przechowuje kopię pliku w internecie." aria-describedby="fb9"><option value="">Wybierz odpowiedź…</option><option>Ctrl + C</option><option>Ctrl + V</option><option>Ctrl + Z</option><option>przezroczyste</option><option>chmurze</option></select><span class="print-answer" id="print-q9">........................</span><span class="field-feedback" id="fb9" aria-live="polite"></span></div></section><section><h2>Rozgrzewka 3 · Prawda czy fałsz?</h2><div class="question"><label for="q10">Rozmiar obrazu określa szerokość i wysokość w pikselach.</label><select id="q10" data-answer="Prawda" data-hint="Sprawdź, co oznacza zapis 800 × 600." data-ok="800 × 600 oznacza szerokość 800 i wysokość 600 pikseli." aria-describedby="fb10"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q10">........................</span><span class="field-feedback" id="fb10" aria-live="polite"></span></div><div class="question"><label for="q11">Dolna warstwa zasłania elementy warstw leżących wyżej.</label><select id="q11" data-answer="Fałsz" data-hint="Pomyśl, która folia jest na wierzchu." data-ok="To nieprzezroczyste elementy górnej warstwy zasłaniają dolne." aria-describedby="fb11"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q11">........................</span><span class="field-feedback" id="fb11" aria-live="polite"></span></div><div class="question"><label for="q12">Zapisz jako pozwala wybrać nową nazwę, folder lub format.</label><select id="q12" data-answer="Prawda" data-hint="Porównaj to z zapisem zmian w tym samym pliku." data-ok="Zapisz jako pozwala wybrać nowe miejsce, nazwę lub format." aria-describedby="fb12"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q12">........................</span><span class="field-feedback" id="fb12" aria-live="polite"></span></div><div class="question"><label for="q13">AI może wygenerować obraz na podstawie opisu.</label><select id="q13" data-answer="Prawda" data-hint="Opis mówi narzędziu, co ma przygotować." data-ok="Opis tekstowy nazywamy promptem. Użyj narzędzia wskazanego przez nauczyciela." aria-describedby="fb13"><option value="">Wybierz odpowiedź…</option><option>Prawda</option><option>Fałsz</option></select><span class="print-answer" id="print-q13">........................</span><span class="field-feedback" id="fb13" aria-live="polite"></span></div><p id="quiz-score" role="status"></p></section><h2>CZĘŚĆ II: Misja Finałowa przy komputerze — „Ekran startowy mojej gry”</h2>
+<h3>Zadanie 4 — Projekt podsumowujący (Krok po kroku)</h3>
+<ul class="checklist"><li><label><input id="step5" type="checkbox" class="step"><span>`.</span></label></li></ul>
+<h3>Etap A: Warstwa 1 (Tło i powtarzalne elementy)</h3>
+<ul class="checklist"><li><label><input id="step6" type="checkbox" class="step"><span><strong>Krok 1:</strong> Upewnij się, że pracujesz na <strong>dolnej warstwie (Warstwa 1)</strong>. Przytrzymaj klawisz <strong>Shift</strong> i narzędziem <strong>Linia</strong> narysuj prostą, poziomą linię ziemi lub podłogi.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step7" type="checkbox" class="step"><span><strong>Krok 2:</strong> Użyj kształtu <strong>Prostokąt</strong> oraz różnych rodzajów i grubości narzędzia <strong>Pędzel</strong>, aby namalować tło swojej planszy (np. mur zamku, drogę lub kosmiczną bazę).</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step8" type="checkbox" class="step"><span><strong>Krok 3:</strong> Narysuj za pomocą kształtu <strong>Owal</strong> jeden powtarzalny element tła (np. chmurkę, gwiazdę lub kamień), a następnie <strong>zaznacz</strong> go, <strong>skopiuj</strong> (<strong>Ctrl + C</strong>) i <strong>wklej</strong> (<strong>Ctrl + V</strong>) minimum <strong>3 razy</strong> w różnych miejscach tła. Zmieniaj rozmiar i <strong>obróć</strong> jeden ze skopiowanych elementów.</span></label></li></ul>
+<h3>Etap B: Warstwa 2 (Symetryczna tarcza lub przeszkoda)</h3>
+<ul class="checklist"><li><label><input id="step9" type="checkbox" class="step"><span><strong>Krok 4:</strong> Kliknij przycisk <strong>+</strong> w panelu <strong>Warstwy</strong>, aby utworzyć <strong>drugą warstwę</strong> powyżej tła.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step10" type="checkbox" class="step"><span><strong>Krok 5:</strong> Za pomocą kształtów <strong>Linia</strong> oraz <strong>Krzywa</strong> narysuj <strong>lewą połowę</strong> symetrycznego przedmiotu (np. tarczy rycerskiej, motyla, bramki lub rakiety).</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step11" type="checkbox" class="step"><span><strong>Krok 6:</strong> <strong>Zaznacz i skopiuj</strong> narysowaną połówkę, następnie <strong>wklej jej kopię</strong> (lub zduplikuj warstwę). Dla kopii zastosuj <strong>Odbicie lustrzane w poziomie</strong> i złóż obie połówki w jeden idealnie równy obiekt.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step12" type="checkbox" class="step"><span><strong>Krok 7:</strong> Przybliż widok narzędziem <strong>Lupa</strong> i za pomocą narzędzia <strong>Ołówek</strong> dorysuj na obiekcie drobny wzór z pojedynczych pikseli (np. inicjał lub symbol).</span></label></li></ul>
+<h3>Etap C: Warstwa 3 (Bohater z AI i przezroczyste tło)</h3>
+<ul class="checklist"><li><label><input id="step13" type="checkbox" class="step"><span><strong>Krok 8:</strong> Utwórz <strong>trzecią warstwę</strong> na samej górze listy.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step14" type="checkbox" class="step"><span><strong>Krok 9:</strong> Wygeneruj bohatera lub pojazd w prostym narzędziu <strong>AI</strong> (wpisując krótki opis tekstowy) albo <strong>zaimportuj</strong> do projektu przygotowany obrazek z folderu.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step15" type="checkbox" class="step"><span><strong>Krok 10:</strong> <strong>Usuń tło</strong> wokół zaimportowanego bohatera (ustaw obszar tła jako <strong>przezroczysty</strong>), a następnie <strong>dopasuj rozmiar</strong> bohatera do rozmiaru całej kompozycji.</span></label></li></ul>
+<h3>Wyzwanie na koniec Misji: „Sprawdź, co się stanie, gdy…”</h3>
+<ul class="checklist"><li><label><input id="step16" type="checkbox" class="step"><span><strong>Test kolejności warstw:</strong> Zmień na chwilę kolejność warstw tak, aby warstwa z bohaterem znalazła się pod warstwą z tarczą, a następnie przywróć właściwą kolejność.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step17" type="checkbox" class="step"><span><strong>Zapisz bohatera do Scratcha:</strong> Ukryj warstwę tła, tarczy i wszystkie inne warstwy poza bohaterem. Wokół niego powinna być widoczna szachownica przezroczystości. Wyeksportuj widoczny obraz jako <code>bohater_imie.png</code>. Następnie ponownie pokaż pozostałe warstwy. Nie zastępuj tym plikiem projektu z warstwami.</span></label></li></ul>
+<p><strong>Zadanie dodatkowe (Dla chętnych — na ocenę bardzo dobrą i celującą):</strong></p>
+<ul class="checklist"><li><label><input id="step18" type="checkbox" class="step"><span>Dodaj osobną warstwę i zaprojektuj na niej staranny, symetryczny <strong>Puchar Mistrza Gry</strong> zbudowany wyłącznie z kształtów <strong>Linia</strong> oraz <strong>Krzywa</strong> (wykorzystaj klawisz <strong>Shift</strong> oraz <strong>odbicie lustrzane</strong>).</span></label></li></ul>
+<h2>Punkt Kontrolny (Checkpoint — Audyt Jakości i Jeden Trik)</h2>
+<h3>Jak zapisać i oddać pracę?</h3>
+<ul class="checklist"><li><label><input id="step19" type="checkbox" class="step"><span>Zapisz swoją pracę jako <strong>projekt</strong> (z zachowaniem warstw) oraz jako gotowy obraz z widocznym tłem pod nazwą <code>podsumowanie_imie.png</code> w swoim folderze na dysku komputera.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step20" type="checkbox" class="step"><span>Prześlij pliki <code>podsumowanie_imie.png</code> oraz <code>bohater_imie.png</code> do swojego folderu w szkolnej <strong>chmurze</strong>.</span></label></li></ul><h3>Lista kontrolna kryteriów sukcesu („Umiem…”)</h3>
+<p>Sprawdź przed oddaniem pracy, czy potrafisz wykonać wszystkie punkty z Rozdziału III:</p>
+<ul class="checklist"><li><label><input id="step21" type="checkbox" class="criterion"><span><strong>Umiem</strong> wyjaśnić, czym są <strong>piksel</strong>, <strong>rozmiar obrazu</strong> i <strong>warstwa</strong>, oraz ustawić wymiary płótna.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step22" type="checkbox" class="criterion"><span><strong>Umiem</strong> rysować narzędziami <strong>Ołówek</strong> (kolorując piksele) i <strong>Pędzel</strong> (zmieniając jego rodzaj i grubość).</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step23" type="checkbox" class="criterion"><span><strong>Umiem</strong> używać kształtów <strong>Linia</strong> (z klawiszem <strong>Shift</strong>), <strong>Prostokąt</strong>, <strong>Owal</strong> oraz <strong>Krzywa</strong>.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step24" type="checkbox" class="criterion"><span><strong>Umiem</strong> zaznaczać, kopiować, obracać, zmieniać rozmiar i odbijać lustrzanie fragmenty obrazu.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step25" type="checkbox" class="criterion"><span><strong>Umiem</strong> tworzyć obraz z kilku warstw, duplikować warstwy i zmieniać ich kolejność.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step26" type="checkbox" class="criterion"><span><strong>Umiem</strong> zaimportować obraz (także stworzony z pomocą <strong>AI</strong>), usunąć z niego tło i zapisać go z przezroczystością w formacie <code>.png</code>.</span></label></li></ul>
+<ul class="checklist"><li><label><input id="step27" type="checkbox" class="criterion"><span><strong>Umiem</strong> zapisać efekty swojej pracy lokalnie na komputerze oraz w chmurze.</span></label></li></ul><section><h2>Samoocena</h2><label for="self">Jak oceniasz swoją pracę?</label><select id="self"><option value="">Wybierz jedną odpowiedź…</option><option>Samodzielnie</option><option>Z małą pomocą</option><option>Potrzebuję jeszcze poćwiczyć</option></select><p class="print-only" id="print-self"></p><label for="reflection"><strong>Jeden trik na finał</strong></label><p>Co najbardziej ułatwiło Ci pracę: Shift, odbicie, kopiowanie czy warstwy? Dlaczego?</p><textarea id="reflection" maxlength="1000"></textarea><p class="print-reflection"></p><p><strong>Brawo!</strong> Pokaż nauczycielowi projekt i gotowe obrazki.</p></section><div class="actions"><button id="print">Drukuj kartę / zapisz PDF</button></div></main><script>
+// Postęp tej karty jest niezależny od innych lekcji i odporny na F5.
+const $=id=>document.getElementById(id),key='inf-pruszcz-k4-grafika-review-v1',fields=[...document.querySelectorAll('input,select,textarea')],quiz=[...document.querySelectorAll('select[data-answer]')],steps=[...document.querySelectorAll('.step')];
+$('stDate').value=new Date().toLocaleDateString('pl-PL');
+try{const data=JSON.parse(sessionStorage.getItem(key)||'null');if(data)fields.forEach(f=>{if(f.type==='checkbox')f.checked=data[f.id]===true;else if(typeof data[f.id]==='string')f.value=data[f.id].slice(0,f.maxLength>0?f.maxLength:1000);});}catch{}
+function update(){let score=0;quiz.forEach((q,i)=>{const good=q.value===q.dataset.answer;if(good)score++;$('fb'+i).textContent=!q.value?'':good?'✓ Dobrze! '+q.dataset.ok:'↻ Spróbuj ponownie. '+q.dataset.hint;q.classList.toggle('correct-field',good);q.classList.toggle('wrong-field',!!q.value&&!good);q.setAttribute('aria-invalid',String(!!q.value&&!good));$('print-q'+i).textContent=q.value||'........................';});const total=quiz.length+steps.length,done=score+steps.filter(c=>c.checked).length;$('progress').max=total;$('progress').value=done;$('progress-text').textContent=done+' / '+total;$('quiz-score').textContent='Poprawne odpowiedzi: '+score+' / '+quiz.length;document.querySelector('.print-reflection').textContent=$('reflection').value||'................................................................';$('print-self').textContent=$('self').value||'Samoocena: ................................';}
+function save(){try{sessionStorage.setItem(key,JSON.stringify(Object.fromEntries(fields.map(f=>[f.id,f.type==='checkbox'?f.checked:f.value]))));$('save-status').textContent='Zapisano postęp w tej karcie przeglądarki.';}catch{$('save-status').textContent='Zapis jest niedostępny. Wydrukuj pracę lub pozostaw kartę otwartą.';}}
+fields.forEach(f=>f.addEventListener('input',()=>{update();save();}));$('new-student').onclick=()=>{if(!confirm('Wyczyścić tę kartę dla nowego ucznia?'))return;fields.forEach(f=>{if(f.type==='checkbox')f.checked=false;else f.value='';});$('stClass').value='4';$('stDate').value=new Date().toLocaleDateString('pl-PL');update();save();$('stName').focus();};
+function theme(v){document.body.classList.toggle('dark',v==='dark');$('theme').textContent=v==='dark'?'Jasny motyw':'Ciemny motyw';$('theme').setAttribute('aria-pressed',String(v==='dark'));}try{theme(localStorage.getItem('informatyka-theme'));}catch{}$('theme').onclick=()=>{const v=document.body.classList.contains('dark')?'light':'dark';theme(v);try{localStorage.setItem('informatyka-theme',v);}catch{}};window.addEventListener('storage',e=>{if(e.key==='informatyka-theme')theme(e.newValue);});$('print').onclick=()=>window.print();window.addEventListener('beforeprint',update);update();
+</script></body></html>

@@ -1,12 +1,12 @@
 import {lessonMetadata} from './curriculum-metadata.js';
 import {fastQuestions, mountFastCheck} from './fast-check.js';
 import {aiWriting} from './ai-writing.js';
-import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=warstwy43';
+import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=grafika-review4';
 let lessonRenderId = 0;
 async function mountWorksheet(id, host, renderId) {
   try {
     const grade5 = isWorksheet(id);
-    let mod = await (grade5 ? import('./worksheets-grade5.js?v=wordreview1') : import('./worksheets-478.js?v=warstwy43'));
+    let mod = await (grade5 ? import('./worksheets-grade5.js?v=wordreview1') : import('./worksheets-478.js?v=grafika-review4'));
     if (!host.isConnected || renderId !== lessonRenderId) return;
     let html = grade5 ? mod.renderWorksheet(id) : mod.renderExtraWorksheet(id);
     if (!html && !grade5) {

@@ -1,0 +1,12 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path');
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.BROWSER_EXE});try{
+const p=await browser.newPage({viewport:{width:1366,height:900}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.goto((process.env.BASE_URL||'http://127.0.0.1:4182')+'/#class/4/review');await p.locator('a[href="#item/powtorzenie-4-3-grafika"]').first().click();await p.getByRole('link',{name:'Otwórz powtórzenie →',exact:true}).click();
+assert.equal(await p.locator('select[data-answer]').count(),14);await p.locator('#q0').selectOption('A');assert.match(await p.locator('#fb0').textContent(),/Spróbuj/);
+for(const q of await p.locator('select[data-answer]').all())await q.selectOption(await q.getAttribute('data-answer'));
+for(const c of await p.locator('.step').all())await c.check();const total=await p.locator('#progress').getAttribute('max');assert.equal(await p.locator('#progress').getAttribute('value'),total);
+await p.locator('#self').selectOption('Z małą pomocą');await p.locator('#reflection').fill('Kopiowanie przyspieszyło pracę.');await p.reload();assert.equal(await p.locator('#progress').getAttribute('value'),total);assert.equal(await p.locator('#self').inputValue(),'Z małą pomocą');assert.equal(await p.locator('#reflection').inputValue(),'Kopiowanie przyspieszyło pracę.');
+for(const width of [390,800,1366]){await p.setViewportSize({width,height:900});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}
+const out=path.resolve(__dirname,'../../exam-revision');await p.screenshot({path:out+'/review-light.png'});await p.locator('#theme').click();await p.screenshot({path:out+'/review-dark.png'});await p.emulateMedia({media:'print'});assert.equal(await p.locator('.topbar').isVisible(),false);assert.equal(await p.locator('#print-q0').isVisible(),true);await p.pdf({path:out+'/review-print.pdf',preferCSSPageSize:true,printBackground:true});await p.emulateMedia({media:'screen'});
+p.once('dialog',d=>d.accept());await p.locator('#new-student').click();assert.equal(await p.locator('#progress').getAttribute('value'),'0');assert.equal(await p.locator('#self').inputValue(),'');assert.deepEqual(errors,[]);console.log('PASS: review category, 14 questions, checklist, reload, self-assessment, reset, responsive, themes, print.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1)});
