@@ -1,4 +1,4 @@
-import {wordExamPage,mountWordExam} from './word-exam.js?v=1';
+import {wordExamPage,mountWordExam} from './word-exam.js?v=2';
 import {lessonMetadata} from './curriculum-metadata.js';
 import {fastQuestions, mountFastCheck} from './fast-check.js';
 import {aiWriting} from './ai-writing.js';
