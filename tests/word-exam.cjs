@@ -1,0 +1,21 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs'),crypto=require('node:crypto');
+const password=process.env.WORD_EXAM_PASSWORD;if(!password)throw Error('Ustaw WORD_EXAM_PASSWORD do testu.');
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.BROWSER_EXE});try{
+ const errors=[],base=process.env.BASE_URL||'http://127.0.0.1:4182',out=path.resolve(__dirname,'../../exam-revision');let count;
+ // Każda grupa przechodzi ten sam scenariusz. Sterujemy tylko źródłem losowania.
+ for(let index=0;index<3;index++){
+  const p=await browser.newPage({viewport:{width:1366,height:900},permissions:["clipboard-read","clipboard-write"]});p.on('pageerror',e=>errors.push(e.message));
+  await p.addInitScript(i=>{const original=crypto.getRandomValues.bind(crypto);crypto.getRandomValues=a=>{if(a instanceof Uint32Array&&a.length===1){a[0]=i;return a;}return original(a);};},index);
+  await p.goto(base+'/#class/5');await p.getByRole('link',{name:'Sprawdzian wiadomości',exact:true}).click();await p.locator('#we-password').fill('bledne-haslo');await p.locator('#we-login button').click();await p.getByText('Nieprawidłowe hasło lub nie udało się otworzyć zestawu. Spróbuj ponownie.',{exact:true}).waitFor();assert.equal(await p.locator('.we-tasks').count(),0);
+  await p.locator('#we-password').fill(password);await p.locator('#we-login button').click();await p.locator('#we-draw').click();await p.locator('#we-group').waitFor();assert.equal(await p.locator('#we-group').textContent(),'Twoja grupa: '+'ABC'[index]);
+  assert.match(await p.locator('#we-text-1').textContent(),[/koło robotyki/,/koło teatralne/,/koło przyrodnicze/][index]);
+  assert.match(await p.locator('.we-tasks').textContent(),new RegExp('Sprawdzian_'+'ABC'[index]+'_Imie_Nazwisko.docx'));
+  assert.match(await p.locator('[data-step]').first().locator('..').textContent(),/Uruchom/);const n=await p.locator('[data-step]').count();if(count)assert.equal(n,count);count=n;assert.equal(await p.locator('.we-source').count(),3);
+  await p.locator('[data-step]').first().check();const before=await p.evaluate(()=>JSON.parse(sessionStorage.getItem('word5-exam-20261118')).started);await p.reload();await p.locator('#we-group').waitFor();assert.equal(await p.locator('#we-group').textContent(),'Twoja grupa: '+'ABC'[index]);assert.equal(await p.locator('[data-step]').first().isChecked(),true);assert.equal(await p.evaluate(()=>JSON.parse(sessionStorage.getItem('word5-exam-20261118')).started),before);
+  await p.locator('[data-copy]').first().click();await p.waitForFunction(()=>document.getElementById('we-copy-status').textContent.length>0);assert.match(await p.locator('#we-copy-status').textContent(),/Skopiowano|Tekst zaznaczony/);
+  if(index===0){for(const width of [390,800,1366]){await p.setViewportSize({width,height:900});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'overflow '+width);}await p.screenshot({path:out+'/word-exam-light.png'});await p.evaluate(()=>document.body.classList.add('dark'));await p.screenshot({path:out+'/word-exam-dark.png'});await p.emulateMedia({media:'print'});await p.pdf({path:out+'/word-exam-print.pdf',preferCSSPageSize:true,printBackground:true});await p.emulateMedia({media:'screen'});}
+  p.once('dialog',d=>d.accept());await p.locator('#we-new').click();await p.locator('#we-password').waitFor();assert.equal(await p.locator('.we-tasks').count(),0);
+  await p.locator('#we-password').fill(password);await p.locator('#we-login button').click();await p.locator('#we-draw').click();await p.locator('#we-group').waitFor();await p.evaluate(()=>{const k='word5-exam-20261118',s=JSON.parse(sessionStorage.getItem(k));s.created=Date.now()-91*60*1000;sessionStorage.setItem(k,JSON.stringify(s));});await p.reload();await p.locator('#we-password').waitFor();assert.equal(await p.locator('.we-tasks').count(),0);await p.close();
+ }
+ assert.deepEqual(errors,[]);console.log('PASS: password gate, all A/B/C variants, equal '+count+' steps, assigned group/checks/timer after F5, copying, reset, session expiry, responsive, print.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1)});
