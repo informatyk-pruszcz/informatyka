@@ -1,5 +1,5 @@
 // Wspólne hasło otwiera zaszyfrowaną treść. Przydział w przeglądarce nie zastępuje nadzoru nauczyciela.
-const SESSION='word5-exam-20261118',MAX_AGE=90*60*1000;
+const SESSION='word5-exam-20261118-clear',MAX_AGE=90*60*1000;
 const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 const b64=a=>btoa(String.fromCharCode(...new Uint8Array(a)));
 export function wordExamPage(){return `<section id="word-exam" class="exam-card"><a class="text-link" href="#class/5">← Klasa 5</a><p class="eyebrow">KLASA 5 · MICROSOFT WORD 2016 · 25 MINUT</p><h1>Sprawdzian wiadomości — edytor tekstu</h1><p>Wpisz hasło od nauczyciela, wylosuj grupę i wykonaj zadania w Wordzie.</p><div id="word-exam-content" aria-busy="true"><p role="status">Przygotowuję sprawdzian…</p></div></section>`;}
@@ -10,7 +10,7 @@ export async function mountWordExam(host){
  function store(){try{sessionStorage.setItem(SESSION,JSON.stringify(state));}catch{const warning=host.querySelector('#we-storage');if(warning)warning.textContent='Przeglądarka blokuje zapis. Nie odświeżaj tej karty; zapamiętaj grupę.';}}
  try{const saved=JSON.parse(sessionStorage.getItem(SESSION)||'null');if(saved&&Number.isFinite(saved.created)&&Date.now()-saved.created<MAX_AGE&&Date.now()>=saved.created){state={created:saved.created,group:['A','B','C'].includes(saved.group)?saved.group:null,started:Number.isFinite(saved.started)?saved.started:0,checks:saved.checks&&typeof saved.checks==='object'?saved.checks:{},key:typeof saved.key==='string'?saved.key:null};}}catch{}
  let config;
- try{const r=await fetch('./sprawdziany/word5-20261118/content.json?v=manual-copy');if(!r.ok)throw Error();config=await r.json();}catch{if(alive())host.innerHTML='<p role="alert">Nie udało się pobrać sprawdzianu. Sprawdź połączenie i odśwież stronę.</p>';return;}
+ try{const r=await fetch('./sprawdziany/word5-20261118/content.json?v=clear-steps');if(!r.ok)throw Error();config=await r.json();}catch{if(alive())host.innerHTML='<p role="alert">Nie udało się pobrać sprawdzianu. Sprawdź połączenie i odśwież stronę.</p>';return;}
  if(!alive())return;
  async function decode(key){const raw=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(config.iv)},key,bytes(config.data));const parsed=JSON.parse(new TextDecoder().decode(raw));if(!['A','B','C'].every(g=>typeof parsed[g]==='string'))throw Error();groups=parsed;}
  function login(){host.setAttribute('aria-busy','false');host.innerHTML='<form id="we-login"><label for="we-password">Hasło do sprawdzianu</label><div class="actions"><input id="we-password" type="password" required maxlength="128" autocomplete="off"><button class="btn primary">Otwórz losowanie →</button></div></form><p id="we-status" role="status"></p><p id="we-storage" role="status"></p>';
