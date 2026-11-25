@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karta pracy: Wspomnienia z… Tworzymy album fotograficzny • Klasa V • PowerPoint</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        /* Stylizacja przycisków Prawda / Fałsz */
+        .pf-radio:checked + .pf-label {
+            background-color: #ea580c;
+            border-color: #c2410c;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+        }
+
+        /* Stylizacja samooceny */
+        .self-radio:checked + .self-card {
+            background-color: #fff7ed;
+            border-color: #ea580c;
+            box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.25);
+        }
+
+        /* Czytelny wydruk na kartce A4 */
+        @media print {
+            header, footer, #toast, .no-print, #teacher-key-section {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 11pt;
+            }
+            main {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            section {
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+                break-inside: avoid;
+                margin-bottom: 12px !important;
+                padding: 14px !important;
+            }
+            .hero-print {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                border: 2px solid #0f172a !important;
+            }
+            .hero-print * {
+                color: #0f172a !important;
+            }
+            select, input {
+                border: 1px solid #64748b !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-full flex flex-col antialiased selection:bg-orange-600 selection:text-white">
+
+    <!-- Powiadomienie (Toast) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm font-medium border border-slate-700 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Gotowe!</span>
+    </div>
+
+    <!-- Górny pasek nawigacji -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-3">
+                <a href="../#item/karta-5-2-2-album" class="w-10 h-10 rounded-xl bg-orange-600 hover:bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-600/30 transition" title="Powrót do kart tematu 2.2">
+                    <i class="fa-solid fa-images text-white text-xl"></i>
+                </a>
+                <div>
+                    <h1 class="font-bold text-sm sm:text-base tracking-tight leading-tight">Wspomnienia z… Tworzymy album fotograficzny</h1>
+                    <p class="text-xs text-slate-400">Klasa V • Dział 2 • MS PowerPoint</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <a href="../#item/karta-5-2-2-album" class="hidden sm:inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-house text-orange-400"></i>
+                    <span>Karty tematu 2.2</span>
+                </a>
+                <button onclick="scrollToSection('zadanie-4')" class="hidden md:inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-laptop text-emerald-400"></i>
+                    <span>Zadanie przy komputerze</span>
+                </button>
+                <button onclick="window.print()" class="inline-flex items-center space-x-2 bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-md shadow-orange-600/20 transition">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Drukuj A4</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Główna treść karty pracy -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Nagłówek karty, metryczka i cele (UDL) -->
+        <section class="hero-print bg-gradient-to-r from-orange-950 via-red-900 to-slate-900 rounded-3xl text-white p-6 sm:p-8 shadow-xl space-y-6">
+            <div class="space-y-3">
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center space-x-2 bg-orange-500/20 border border-orange-400/30 px-3 py-1 rounded-full text-xs font-semibold text-orange-200">
+                        <i class="fa-solid fa-clock text-amber-300"></i>
+                        <span>Czas pracy: maksymalnie 25 minut</span>
+                    </span>
+                    <span class="inline-flex items-center space-x-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-slate-200">
+                        <i class="fa-solid fa-film text-orange-300"></i>
+                        <span>Dział 2: Prawie jak w kinie • MS PowerPoint</span>
+                    </span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Karta pracy: Wspomnienia z… Tworzymy album fotograficzny</h2>
+            </div>
+
+            <!-- Dane ucznia -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white/10 p-4 rounded-2xl border border-white/15">
+                <div>
+                    <label for="student-name" class="block text-xs font-medium text-orange-100 mb-1">Imię i nazwisko:</label>
+                    <input type="text" id="student-name" placeholder="Wpisz swoje imię i nazwisko" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-orange-400">
+                </div>
+                <div>
+                    <label for="student-class" class="block text-xs font-medium text-orange-100 mb-1">Klasa:</label>
+                    <input type="text" id="student-class" placeholder="np. V a" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-orange-400">
+                </div>
+                <div>
+                    <label for="student-date" class="block text-xs font-medium text-orange-100 mb-1">Data:</label>
+                    <input type="date" id="student-date" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-orange-400">
+                </div>
+            </div>
+
+            <!-- Cele ucznia (UDL) -->
+            <div class="bg-slate-900/50 border border-white/15 rounded-2xl p-5 space-y-2.5">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center space-x-2">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span>Po wykonaniu tej karty potrafię:</span>
+                </h3>
+                <ul class="space-y-2 text-sm text-slate-100 leading-relaxed">
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>utworzyć <strong>album fotograficzny</strong> ze zdjęć zapisanych na dysku i zmienić <strong>układ obrazów</strong>,</span>
+                    </li>
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>dodać <strong>podpisy pod zdjęciami</strong>, <strong>pola tekstowe</strong> oraz <strong>kształty</strong> w programie <strong>MS PowerPoint</strong>,</span>
+                    </li>
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>sformatować wstawione zdjęcia na karcie <strong>Formatowanie</strong>, zmienić ich efekt lub kolor oraz <strong>usunąć tło</strong> ze zdjęcia.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ZADANIE 1: Dopasowywanie -->
+        <section id="zadanie-1" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">1</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 1. Rozpoznaj narzędzia do tworzenia albumu</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Dopasowywanie</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Połącz</strong> nazwę narzędzia lub opcji (<strong>1–4</strong>) z jej zastosowaniem (<strong>A–D</strong>). <strong>Wybierz</strong> właściwą literę przy każdym numerze.
+            </p>
+
+            <!-- Wzór (Worked Example) -->
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm text-amber-950 flex items-start space-x-2.5">
+                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5 shrink-0"></i>
+                <div><strong>Wzór:</strong> <strong>0.</strong> Pokaz slajdów — <strong>W.</strong> Wyświetlasz gotowy album fotograficzny na pełnym ekranie.</div>
+            </div>
+
+            <!-- Tabela opcji A-D -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Lewa kolumna: opisy A-D -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 text-sm">
+                    <div class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-1">Zastosowanie (A–D)</div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">A.</strong> Ustalasz, ile zdjęć pojawi się jednocześnie na jednym slajdzie.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">B.</strong> Dodajesz do albumu dodatkowe figury graficzne, na przykład ramkę lub dymek.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">C.</strong> Tworzysz automatycznie prezentację złożoną z wybranych zdjęć z dysku.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">D.</strong> Pozbywasz się zbędnego tła wokół głównego obiektu na zdjęciu.
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: wybieranie odpowiedzi 1-4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 text-sm">
+                    <div class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-1">Twoje dopasowanie (1–4)</div>
+
+                    <div id="row-t1-1" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-1" class="font-medium text-slate-800"><strong>1.</strong> Album fotograficzny</label>
+                        <select id="t1-1" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-2" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-2" class="font-medium text-slate-800"><strong>2.</strong> Układ obrazu</label>
+                        <select id="t1-2" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-3" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-3" class="font-medium text-slate-800"><strong>3.</strong> Usuń tło</label>
+                        <select id="t1-3" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-4" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-4" class="font-medium text-slate-800"><strong>4.</strong> Wstawianie → Kształty</label>
+                        <select id="t1-4" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div id="feedback-t1" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask1()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 1</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 2: Uzupełnianie luk z bankiem słów -->
+        <section id="zadanie-2" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">2</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 2. Zasady tworzenia albumu — uzupełnij luki</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Bank słów</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Uzupełnij</strong> zdania wyrazami z banku słów. Każdego wyrazu użyj <strong>tylko raz</strong>.
+            </p>
+
+            <!-- Bank słów (dokładnie 4 pojęcia, bez dystraktorów) -->
+            <div class="bg-slate-100 border border-slate-200 rounded-2xl p-4 flex flex-wrap items-center gap-2.5">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mr-1">Bank słów:</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">Formatowanie</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">jakości</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">podpisy</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">pola tekstowe</span>
+            </div>
+
+            <!-- Wzór -->
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm text-amber-950 flex items-start space-x-2.5">
+                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5 shrink-0"></i>
+                <div><strong>Wzór:</strong> Zbiór zdjęć ułożonych na slajdach w programie MS PowerPoint to <strong>album fotograficzny</strong>.</div>
+            </div>
+
+            <!-- Zdania z lukami -->
+            <ol class="space-y-3.5 text-sm sm:text-base text-slate-800 leading-loose">
+                <li id="row-t2-1" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>1.</strong> Aby obrazy na dużym ekranie były wyraźne, pobieraj zdjęcia dobrej
+                    <select id="t2-1" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="Formatowanie">Formatowanie</option>
+                        <option value="jakości">jakości</option>
+                        <option value="podpisy">podpisy</option>
+                        <option value="pola tekstowe">pola tekstowe</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-2" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>2.</strong> Aby opisać miejsce widoczne na fotografii, dodajemy pod zdjęciami krótkie
+                    <select id="t2-2" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="Formatowanie">Formatowanie</option>
+                        <option value="jakości">jakości</option>
+                        <option value="podpisy">podpisy</option>
+                        <option value="pola tekstowe">pola tekstowe</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-3" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>3.</strong> Narzędzia do zmiany efektu, koloru i usuwania tła zdjęcia znajdują się na karcie
+                    <select id="t2-3" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="Formatowanie">Formatowanie</option>
+                        <option value="jakości">jakości</option>
+                        <option value="podpisy">podpisy</option>
+                        <option value="pola tekstowe">pola tekstowe</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-4" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>4.</strong> Dodatkowe opisy lub notatki w albumie możesz dopisać, wstawiając
+                    <select id="t2-4" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="Formatowanie">Formatowanie</option>
+                        <option value="jakości">jakości</option>
+                        <option value="podpisy">podpisy</option>
+                        <option value="pola tekstowe">pola tekstowe</option>
+                    </select>.
+                </li>
+            </ol>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div id="feedback-t2" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask2()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 2</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 3: Prawda czy Fałsz -->
+        <section id="zadanie-3" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">3</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 3. Zasady w praktyce — Prawda czy Fałsz</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Prawda / Fałsz</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Przeczytaj</strong> zdania i <strong>zaznacz</strong> wybraną odpowiedź: <strong>P</strong> (Prawda) albo <strong>F</strong> (Fałsz).
+            </p>
+
+            <div class="space-y-3 text-sm sm:text-base">
+                <!-- Zdanie 1 -->
+                <div id="row-t3-1" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>1.</strong> Opcja <strong>Album fotograficzny</strong> blokuje możliwość dodawania tekstu i podpisów.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-1" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-1" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 2 -->
+                <div id="row-t3-2" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>2.</strong> Podczas tworzenia albumu możesz zmienić <strong>układ zdjęć</strong> na slajdach.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-2" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-2" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 3 -->
+                <div id="row-t3-3" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>3.</strong> Na karcie <strong>Formatowanie</strong> możesz zmienić <strong>efekt</strong> zdjęcia, jego <strong>kolor</strong> lub <strong>usunąć tło</strong>.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-3" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-3" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 4 -->
+                <div id="row-t3-4" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>4.</strong> Do <strong>albumu fotograficznego</strong> można dodać tylko jedno zdjęcie w całej prezentacji.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-4" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-4" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 5 -->
+                <div id="row-t3-5" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>5.</strong> Przed ułożeniem albumu warto zaplanować <strong>kolejność zdjęć</strong>, aby tworzyły spójną historię.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-5" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-5" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div id="feedback-t3" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask3()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 3</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 4: Praktyczne przy komputerze (instrukcja krok po kroku) -->
+        <section id="zadanie-4" class="bg-white rounded-3xl border-2 border-orange-200 shadow-md p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-600 text-white font-extrabold flex items-center justify-center shrink-0">4</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 4. Zadanie praktyczne przy komputerze — Wspomnienia z wakacji</h3>
+                        <p class="text-xs text-slate-500">Program: MS PowerPoint • Instrukcja krok po kroku</p>
+                    </div>
+                </div>
+
+                <!-- Licznik postępu -->
+                <div class="bg-orange-50 border border-orange-200 px-4 py-2 rounded-2xl flex items-center space-x-3 no-print">
+                    <div class="text-right">
+                        <div class="text-[11px] font-semibold text-orange-800 uppercase">Postęp kroków</div>
+                        <div class="text-sm font-extrabold text-orange-950"><span id="steps-done">0</span> / 6 gotowe</div>
+                    </div>
+                    <div id="steps-pct" class="w-11 h-11 rounded-full bg-white border-2 border-orange-500 flex items-center justify-center text-xs font-extrabold text-orange-700">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Utwórz</strong> album fotograficzny ze zdjęć z wakacji w programie <strong>MS PowerPoint</strong>. <strong>Wykonuj</strong> instrukcję krok po kroku i <strong>odhaczaj</strong> wykonane pola.
+            </p>
+
+            <!-- Pasek postępu -->
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden no-print">
+                <div id="steps-bar" class="bg-orange-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Lista 6 kroków z podinstrukcją -->
+            <div class="space-y-3 text-sm sm:text-base">
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 1</span>
+                            Uruchom opcję Album fotograficzny i wybierz zdjęcia.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li><strong>Uruchom</strong> program <strong>MS PowerPoint</strong> i <strong>kliknij</strong> <strong>Pusta prezentacja</strong>.</li>
+                        <li><strong>Kliknij</strong> kartę <strong>Wstawianie</strong>, wybierz <strong>Album fotograficzny</strong>, a następnie <strong>Nowy album fotograficzny</strong>.</li>
+                        <li><strong>Kliknij</strong> przycisk <strong>Plik/dysk...</strong>, zaznacz <strong>3–4 wyraźne zdjęcia</strong> z folderu wskazanego przez nauczyciela i <strong>kliknij</strong> <strong>Wstaw</strong>.</li>
+                    </ol>
+                </div>
+
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 2</span>
+                            Ustaw układ zdjęć, ramkę i podpisy.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li>W oknie <strong>Album fotograficzny</strong> znajdź pole <strong>Układ obrazu</strong> i <strong>wybierz</strong> opcję <strong>1 obraz</strong> (lub <strong>2 obrazy</strong>).</li>
+                        <li><strong>Zaznacz</strong> pole <strong>Podpisy pod wszystkimi obrazami</strong>.</li>
+                        <li>W polu <strong>Kształt ramki</strong> <strong>wybierz</strong> rodzaj ramki dla zdjęć i <strong>kliknij</strong> przycisk <strong>Utwórz</strong>.</li>
+                    </ol>
+                </div>
+
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 3</span>
+                            Wpisz tytuł albumu oraz podpisy pod zdjęciami.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li>Na <strong>1. slajdzie</strong> <strong>wpisz</strong> tytuł <strong>Wspomnienia z wakacji</strong> oraz swoje imię i klasę jako podtytuł.</li>
+                        <li>Przejdź na kolejne slajdy, <strong>kliknij</strong> pole podpisu pod każdym zdjęciem i <strong>wpisz</strong> krótki opis fotografii (np. nazwę miejsca).</li>
+                    </ol>
+                </div>
+
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 4</span>
+                            Sformatuj wybrane zdjęcia.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li><strong>Kliknij</strong> zdjęcie na <strong>2. slajdzie</strong> i <strong>otwórz</strong> kartę <strong>Formatowanie</strong> (w <strong>Narzędziach obrazów</strong>).</li>
+                        <li><strong>Zmień</strong> kolor lub efekt zdjęcia: <strong>kliknij</strong> <strong>Kolor</strong> albo <strong>Efekty artystyczne</strong> i <strong>wybierz</strong> jeden styl.</li>
+                        <li><strong>Kliknij</strong> kolejne zdjęcie i <strong>zmień</strong> jego kształt (na karcie <strong>Formatowanie</strong> wybierz <strong>Style obrazów</strong> albo <strong>Przytnij</strong> → <strong>Przytnij do kształtu</strong>).</li>
+                    </ol>
+                </div>
+
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 5</span>
+                            Usuń tło ze zdjęcia i dodaj element graficzny.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li><strong>Kliknij</strong> wybrane zdjęcie, otwórz kartę <strong>Formatowanie</strong> i <strong>kliknij</strong> przycisk <strong>Usuń tło</strong>.</li>
+                        <li><strong>Dopasuj</strong> ramkę zaznaczenia do głównego obiektu i <strong>kliknij</strong> <strong>Zachowaj zmiany</strong>.</li>
+                        <li><strong>Kliknij</strong> kartę <strong>Wstawianie</strong>, <strong>dodaj</strong> jeden <strong>Kształt</strong> (np. dymek lub gwiazdkę) albo <strong>Pole tekstowe</strong> i <strong>wpisz</strong> krótką ciekawostkę z wakacji.</li>
+                    </ol>
+                </div>
+
+                <div class="step-card p-4 rounded-2xl bg-slate-50 border border-slate-200 transition space-y-2">
+                    <label class="flex items-start space-x-3.5 cursor-pointer">
+                        <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                        <span class="font-bold text-slate-900">
+                            <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 6</span>
+                            Sprawdź pokaz i zapisz plik.
+                        </span>
+                    </label>
+                    <ol class="pl-9 space-y-1 text-sm text-slate-700 list-decimal">
+                        <li><strong>Kliknij</strong> kartę <strong>Pokaz slajdów</strong> i przycisk <strong>Od początku</strong>, aby obejrzeć gotowy album i sprawdzić kolejność slajdów.</li>
+                        <li><strong>Kliknij</strong> kartę <strong>Plik</strong>, wybierz <strong>Zapisz jako</strong> i <strong>zapisz</strong> plik (<code class="font-mono bg-slate-200 px-1.5 py-0.5 rounded text-xs">.pptx</code>) w <strong>Teczce ucznia</strong> lub folderze wskazanym przez nauczyciela.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Baner po ukończeniu wszystkich 6 kroków -->
+            <div id="steps-complete-banner" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-900 p-4 rounded-2xl flex items-center space-x-3 no-print">
+                <i class="fa-solid fa-trophy text-amber-500 text-2xl shrink-0"></i>
+                <div class="text-sm">
+                    <strong>Wszystkie 6 kroków gotowe!</strong> Zgłoś nauczycielowi zakończenie pracy nad albumem fotograficznym.
+                </div>
+            </div>
+
+            <!-- Rozwijana ściągawka ścieżek (SPE / Scaffolding) -->
+            <details class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 no-print">
+                <summary class="font-bold text-slate-900 cursor-pointer select-none flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-question text-orange-600"></i>
+                    <span>Podpowiedź: Szybka mapa narzędzi w MS PowerPoint</span>
+                </summary>
+                <ul class="mt-3 space-y-1.5 pl-6 list-disc text-slate-700">
+                    <li><strong>Tworzenie albumu:</strong> karta <strong>Wstawianie</strong> → <strong>Album fotograficzny</strong> → <strong>Nowy album fotograficzny</strong>.</li>
+                    <li><strong>Obróbka zdjęcia:</strong> kliknij zdjęcie → karta <strong>Formatowanie</strong> → <strong>Kolor</strong>, <strong>Efekty artystyczne</strong>, <strong>Style obrazów</strong> lub <strong>Usuń tło</strong>.</li>
+                    <li><strong>Dodatki na slajdzie:</strong> karta <strong>Wstawianie</strong> → <strong>Kształty</strong> lub <strong>Pole tekstowe</strong>.</li>
+                    <li><strong>Podgląd i zapis:</strong> karta <strong>Pokaz slajdów</strong> → <strong>Od początku</strong> oraz karta <strong>Plik</strong> → <strong>Zapisz jako</strong>.</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- SAMOOCENA I ZAKOŃCZENIE -->
+        <section class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                <i class="fa-solid fa-star text-amber-500"></i>
+                <span>Samoocena</span>
+            </h3>
+            <p class="text-sm text-slate-700"><strong>Zaznacz</strong> jedną odpowiedź, która najlepiej opisuje Twoją pracę:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="samodzielnie" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">🙂</div>
+                        <div class="text-sm font-semibold text-slate-800">Zrobiłem / Zrobiłam samodzielnie</div>
+                    </div>
+                </label>
+
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="pomoc" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">🤔</div>
+                        <div class="text-sm font-semibold text-slate-800">Potrzebowałem / Potrzebowałam małej pomocy</div>
+                    </div>
+                </label>
+
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="pocwiczyc" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">💪</div>
+                        <div class="text-sm font-semibold text-slate-800">Muszę jeszcze poćwiczyć</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-center text-sm sm:text-base font-semibold text-emerald-900">
+                Dobra robota — Twój własny, sformatowany album fotograficzny w programie MS PowerPoint jest gotowy.
+            </div>
+        </section>
+
+        <!-- KLUCZ ODPOWIEDZI DLA NAUCZYCIELA (ukryty domyślnie) -->
+        <section id="teacher-key-section" class="no-print pt-2">
+            <details class="bg-slate-900 text-slate-200 rounded-3xl border border-slate-700 p-6 shadow-lg">
+                <summary class="cursor-pointer select-none font-bold text-sm sm:text-base text-amber-300 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Strefa nauczyciela — Klucz odpowiedzi i lista kontrolna (kliknij, aby rozwinąć)</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                </summary>
+
+                <div class="mt-6 pt-5 border-t border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider">Zadanie 1 (Dopasowywanie)</h4>
+                        <ul class="space-y-1 text-slate-300">
+                            <li><strong>1 – C</strong> (Album fotograficzny — Tworzysz automatycznie prezentację złożoną z wybranych zdjęć z dysku.)</li>
+                            <li><strong>2 – A</strong> (Układ obrazu — Ustalasz, ile zdjęć pojawi się jednocześnie na jednym slajdzie.)</li>
+                            <li><strong>3 – D</strong> (Usuń tło — Pozbywasz się zbędnego tła wokół głównego obiektu na zdjęciu.)</li>
+                            <li><strong>4 – B</strong> (Wstawianie → Kształty — Dodajesz do albumu dodatkowe figury graficzne, na przykład ramkę lub dymek.)</li>
+                        </ul>
+
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider pt-3">Zadanie 2 (Uzupełnianie luk)</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-slate-300">
+                            <li><strong>jakości</strong></li>
+                            <li><strong>podpisy</strong></li>
+                            <li><strong>Formatowanie</strong></li>
+                            <li><strong>pola tekstowe</strong></li>
+                        </ol>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider">Zadanie 3 (Prawda / Fałsz)</h4>
+                        <ul class="space-y-1 text-slate-300">
+                            <li><strong>1. F</strong> (W albumie fotograficznym można dodawać tekst, podpisy, pola tekstowe i kształty.)</li>
+                            <li><strong>2. P</strong></li>
+                            <li><strong>3. P</strong></li>
+                            <li><strong>4. F</strong> (Opcja Album fotograficzny służy do wstawienia wielu zdjęć z dysku.)</li>
+                            <li><strong>5. P</strong></li>
+                        </ul>
+
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider pt-3">Zadanie 4 — Lista kontrolna</h4>
+                        <ul class="space-y-1.5 text-slate-300 text-xs leading-relaxed">
+                            <li>[ ] Prezentacja powstała za pomocą opcji <strong>Album fotograficzny</strong>, ma zmieniony <strong>układ obrazów</strong> i zawiera 3–4 wyraźne zdjęcia.</li>
+                            <li>[ ] Slajd tytułowy zawiera tytuł oraz dane ucznia, a pod zdjęciami znajdują się krótkie <strong>podpisy</strong>.</li>
+                            <li>[ ] Na wybranych zdjęciach zastosowano formatowanie z karty <strong>Formatowanie</strong> (zmiana koloru lub efektu artystycznego oraz zmiana kształtu zdjęcia).</li>
+                            <li>[ ] Z jednego zdjęcia usunięto tło (opcja <strong>Usuń tło</strong>) i dodano dodatkowy element graficzny (<strong>Kształt</strong> lub <strong>Pole tekstowe</strong>) z opisem.</li>
+                            <li>[ ] Plik zapisano w formacie <code>.pptx</code> w <strong>Teczce ucznia</strong> lub folderze wskazanym przez nauczyciela.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+    </main>
+
+    <!-- Stopka -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 mt-10 no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div>
+                <span class="text-white font-bold">Klasa V • Dział 2: Prawie jak w kinie</span> &bull; MS PowerPoint
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../#item/karta-5-2-2-album" class="hover:text-white transition">Powrót do kart tematu 2.2</a>
+                <button onclick="resetWorksheet()" class="hover:text-amber-300 transition"><i class="fa-solid fa-rotate-left mr-1"></i>Wyczyść odpowiedzi</button>
+                <button onclick="window.print()" class="hover:text-white transition"><i class="fa-solid fa-print mr-1"></i>Drukuj A4</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logika interaktywna -->
+    <script>
+        let toastTimer;
+
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            const icon = document.getElementById('toast-icon');
+            msg.textContent = message;
+            icon.className = isSuccess
+                ? "fa-solid fa-circle-check text-emerald-400 text-lg"
+                : "fa-solid fa-circle-info text-amber-400 text-lg";
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setRowState(rowId, isCorrect) {
+            const row = document.getElementById(rowId);
+            row.classList.remove('border-slate-200', 'bg-slate-50', 'bg-white', 'border-emerald-400', 'bg-emerald-50', 'border-rose-400', 'bg-rose-50');
+            if (isCorrect) {
+                row.classList.add('border-emerald-400', 'bg-emerald-50');
+            } else {
+                row.classList.add('border-rose-400', 'bg-rose-50');
+            }
+        }
+
+        function checkTask1() {
+            const key = { 't1-1': 'C', 't1-2': 'A', 't1-3': 'D', 't1-4': 'B' };
+            let score = 0;
+            Object.entries(key).forEach(([id, expected]) => {
+                const val = document.getElementById(id).value;
+                const ok = val === expected;
+                if (ok) score++;
+                setRowState('row-' + id, ok);
+            });
+            const fb = document.getElementById('feedback-t1');
+            fb.textContent = score === 4
+                ? 'Świetnie! Wszystkie 4 dopasowania są poprawne (4/4).'
+                : `Poprawne odpowiedzi: ${score} z 4. Sprawdź pola zaznaczone na czerwono.`;
+            fb.className = score === 4 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 1: wynik ${score}/4`, score === 4);
+        }
+
+        function checkTask2() {
+            const key = {
+                't2-1': 'jakości',
+                't2-2': 'podpisy',
+                't2-3': 'Formatowanie',
+                't2-4': 'pola tekstowe'
+            };
+            let score = 0;
+            Object.entries(key).forEach(([id, expected]) => {
+                const val = document.getElementById(id).value;
+                const ok = val === expected;
+                if (ok) score++;
+                setRowState('row-' + id, ok);
+            });
+            const fb = document.getElementById('feedback-t2');
+            fb.textContent = score === 4
+                ? 'Brawo! Wszystkie luki uzupełnione bezbłędnie (4/4).'
+                : `Poprawne odpowiedzi: ${score} z 4. Popraw zdania zaznaczone na czerwono.`;
+            fb.className = score === 4 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 2: wynik ${score}/4`, score === 4);
+        }
+
+        function checkTask3() {
+            const key = { 't3-1': 'F', 't3-2': 'P', 't3-3': 'P', 't3-4': 'F', 't3-5': 'P' };
+            let score = 0;
+            Object.entries(key).forEach(([name, expected]) => {
+                const checked = document.querySelector(`input[name="${name}"]:checked`);
+                const ok = checked && checked.value === expected;
+                if (ok) score++;
+                setRowState('row-' + name, ok);
+            });
+            const fb = document.getElementById('feedback-t3');
+            fb.textContent = score === 5
+                ? 'Znakomicie! Wszystkie zdania ocenione poprawnie (5/5).'
+                : `Poprawne odpowiedzi: ${score} z 5. Sprawdź zdania zaznaczone na czerwono.`;
+            fb.className = score === 5 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 3: wynik ${score}/5`, score === 5);
+        }
+
+        function updatePracticalProgress(checkbox) {
+            const card = checkbox.closest('.step-card');
+            if (checkbox.checked) {
+                card.classList.add('bg-emerald-50', 'border-emerald-300');
+                card.classList.remove('bg-slate-50', 'border-slate-200');
+            } else {
+                card.classList.remove('bg-emerald-50', 'border-emerald-300');
+                card.classList.add('bg-slate-50', 'border-slate-200');
+            }
+
+            const steps = document.querySelectorAll('.practical-step');
+            let done = 0;
+            steps.forEach(s => { if (s.checked) done++; });
+
+            const pct = Math.round((done / steps.length) * 100);
+            document.getElementById('steps-done').textContent = done;
+            document.getElementById('steps-pct').textContent = pct + '%';
+            document.getElementById('steps-bar').style.width = pct + '%';
+
+            const banner = document.getElementById('steps-complete-banner');
+            if (done === steps.length) {
+                banner.classList.remove('hidden');
+                showToast('Brawo! Ukończyłeś wszystkie 6 kroków albumu fotograficznego!');
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        function resetWorksheet() {
+            document.querySelectorAll('select').forEach(s => s.value = '');
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+            document.querySelectorAll('[id^="row-t"]').forEach(r => {
+                r.classList.remove('border-emerald-400', 'bg-emerald-50', 'border-rose-400', 'bg-rose-50');
+                r.classList.add('border-slate-200');
+                if (r.id.startsWith('row-t1')) r.classList.add('bg-white');
+                else r.classList.add('bg-slate-50');
+            });
+            document.querySelectorAll('.step-card').forEach(c => {
+                c.classList.remove('bg-emerald-50', 'border-emerald-300');
+                c.classList.add('bg-slate-50', 'border-slate-200');
+            });
+            ['feedback-t1', 'feedback-t2', 'feedback-t3'].forEach(id => {
+                document.getElementById(id).textContent = '';
+            });
+            document.getElementById('steps-done').textContent = '0';
+            document.getElementById('steps-pct').textContent = '0%';
+            document.getElementById('steps-bar').style.width = '0%';
+            document.getElementById('steps-complete-banner').classList.add('hidden');
+            showToast('Wyczyszczono wszystkie odpowiedzi.', false);
+        }
+    </script>
+</body>
+</html>

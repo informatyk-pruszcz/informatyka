@@ -1,4 +1,12 @@
 export const grade5Worksheets = [
+  {
+    id: 'karta-5-2-2-album', type: 'task', grades: [5],
+    title: '2.2. Wspomnienia z… Tworzymy album fotograficzny',
+    section: '2. Prawie jak w kinie. Ruch i muzyka w programie do tworzenia prezentacji',
+    tags: ['PowerPoint', 'Album fotograficzny', 'KartaPracy'],
+    summary: 'Wybierz kartę pracy do lekcji o tworzeniu albumu fotograficznego w PowerPoincie.',
+    body: '', source: 'Karta pracy nauczyciela · Klasa V · Temat 2.2'
+  },
   {id:'karta-5-2-1-prezentacja',type:'task',grades:[5],title:'2.1. Tekst i obraz — moja pierwsza prezentacja',section:'2. Prawie jak w kinie. Ruch i muzyka w programie do tworzenia prezentacji',tags:['PowerPoint','Prezentacje','KartaPracy'],summary:'Rozpoznaj narzędzia PowerPointa, sprawdź zasady czytelnego slajdu i przygotuj dwuslajdową prezentację o hobby. Quizy, sześć kroków i samoocena.',body:'',source:'Karta pracy nauczyciela · Klasa V · Temat 2.1'},
   {
     id: 'powtorzenie-5-1-edytor-tekstu', type: 'review', grades: [5],
