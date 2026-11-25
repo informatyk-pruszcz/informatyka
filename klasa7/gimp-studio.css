@@ -1,0 +1,20 @@
+body { background:#f5f3ee }
+.cover { background:radial-gradient(ellipse at 86% 5%,#415c74,transparent 63%),#172f42;grid-template-columns:1fr 1fr }
+.cover h1 em { color:#ffcda9 }
+.studio { background:#182d3a;color:white;border:1px solid #768792;border-radius:15px;overflow:hidden;box-shadow:0 14px 32px #11253455 }
+.studio-head,.transport { display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;flex-wrap:wrap }
+.studio-head span { font:13px monospace;color:#cbe4e6 }
+.sea { width:100%;display:block }
+.transport button { font-weight:650;font-size:14px;min-height:40px }
+#play { background:#ffe0b9;color:#23323f;border:0 }
+.frames { display:flex;gap:4px }
+.frames button { color:#fff;background:#2d4656;border:1px solid #839ba8;width:34px;padding:3px }
+.frames button[aria-pressed=true] { background:#c9eeeb;color:#123a43;border-color:#c9eeeb;text-decoration:underline }
+.card:is(#start,#format,#projekt) { border-top:4px solid var(--stage) }
+#start { --stage:#247e88 } #format { --stage:#a96531 } #projekt { --stage:#7562a2 }
+.card:is(#start,#format,#projekt) h2::before { display:block;font:700 12px/2 system-ui;letter-spacing:.12em;color:var(--stage) }
+#start h2::before {content:"ETAP 1 · FALE"} #format h2::before {content:"ETAP 2 · ZAZNACZENIE"} #projekt h2::before {content:"ETAP 3 · WARSTWY"}
+.card h2 em {display:block;color:#546975;font:500 14px/1.6 system-ui}
+.step:has(input:checked) { box-shadow:inset 4px 0 #43886e }
+@media(max-width:720px){.cover{grid-template-columns:1fr}.cover h1{margin:8px 0}.studio{width:100%;max-width:460px}}
+@media print{.studio{display:none}.cover{background:white}.cover h1 em{color:black}}
