@@ -177,6 +177,7 @@ export function isWorksheet(id) {
 }
 
 export const extraWorksheets = [
+  {id:'karta-7-3-2-animacje',type:'task',grades:[7],section:'3. Grafika komputerowa',title:'3.2. Animacje w programie GIMP',tags:['GIMP','Animacja','GIF','KartaPracy'],summary:'Dodaj efekt Fale, porównaj ruch fragmentów obrazu i przygotuj animację poklatkową ludzika.',body:'',source:'Karta pracy nauczyciela · Klasa VII · Temat 3.2'},
   {id:'karta-7-3-1-gimp',type:'task',grades:[7],section:'3. Grafika komputerowa',title:'3.1. Tworzenie i modyfikowanie obrazów (GIMP)',tags:['GIMP','Warstwy','KartaPracy'],summary:'Porównaj XCF i JPEG, obrób zdjęcie lasu i narysuj scenę ze statkiem na warstwach.',body:'',source:'Karta pracy nauczyciela · Klasa VII · Temat 3.1'},
   {id:'powtorzenie-4-3-grafika',type:'review',grades:[4],title:'Grafika komputerowa — podsumowanie działu III',section:'3. Grafika komputerowa',tags:['Grafika','Powtórzenie','Warstwy','Projekt'],summary:'Wielki finał grafiki: 14 pytań z podpowiedziami i projekt ekranu startowego gry. Kształty, odbicie lustrzane, warstwy oraz bohater z przezroczystym tłem.',body:'',source:'Karta pracy nauczyciela · Klasa IV · Dział III · Lekcja 15'},
   {id:'karta-4-3-3-warstwy',type:'task',grades:[4],title:'3.3. Obrazy z warstw — plansza i bohater',section:'3. Grafika komputerowa',tags:['Grafika','Warstwy','AI','KartaPracy'],summary:'Dwie lekcje: plansza z trzech warstw, symulator kolejności i widoczności, bohater z pomocą AI oraz 12 pytań z podpowiedziami.',body:'',source:'Karta pracy nauczyciela · Klasa IV · Dział III · Temat 3'},
