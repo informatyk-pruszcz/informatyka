@@ -607,6 +607,7 @@ function renderPlanerWorksheet() {
 }
 
 export function renderWorksheet(id) {
+  if (id === 'karta-5-2-1-prezentacja') return '<section class="cloud-box"><h2>Tekst i obraz. Jak stworzyć najprostszą prezentację?</h2><p>Wykonaj trzy krótkie zadania, a następnie przygotuj w PowerPoincie prezentację o swoim hobby: dwa slajdy, tekst, obraz, motyw i wariant kolorystyczny.</p><a class="btn primary" href="./klasa5/powerpoint-tekst-i-obraz.html">Otwórz kartę pracy →</a><p class="muted">Około 25 minut. Zapis odpowiedzi po odświeżeniu, sześć kroków praktycznych, samoocena i wydruk A4.</p></section>';
   if (id === 'powtorzenie-5-1-edytor-tekstu') return `<section aria-label="Powtórzenie praktyczne z edytora tekstu">
     <h2>Cztery małe zadania. Jeden własny dokument.</h2>
     <p>Otwórz Worda i przygotuj plik <strong>Powtorzenie_Imie_Nazwisko.docx</strong>. Pracuj we własnym tempie, około 25 minut. Jeśli utkniesz, przejdź do kolejnego zadania.</p>

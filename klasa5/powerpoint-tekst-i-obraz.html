@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karta pracy: Tekst i obraz. Najprostsza prezentacja • Klasa V • PowerPoint</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        /* Stylizacja przycisków Prawda / Fałsz */
+        .pf-radio:checked + .pf-label {
+            background-color: #ea580c;
+            border-color: #c2410c;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+        }
+
+        /* Stylizacja samooceny */
+        .self-radio:checked + .self-card {
+            background-color: #fff7ed;
+            border-color: #ea580c;
+            box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.25);
+        }
+
+        /* Czytelny wydruk na kartce A4 */
+        @media print {
+            header, footer, #toast, .no-print, #teacher-key-section {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 11pt;
+            }
+            main {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            section {
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+                break-inside: avoid;
+                margin-bottom: 12px !important;
+                padding: 14px !important;
+            }
+            .hero-print {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                border: 2px solid #0f172a !important;
+            }
+            .hero-print * {
+                color: #0f172a !important;
+            }
+            select, input {
+                border: 1px solid #64748b !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+        }
+    
+        :focus-visible {outline:3px solid #0284c7;outline-offset:3px}
+        .pf-radio:focus-visible + .pf-label,.self-radio:focus-visible + .self-card{outline:3px solid #0284c7;outline-offset:3px}
+        @media(max-width:480px){header h1{font-size:11px!important}header a[title]{flex-shrink:0}header button{padding:8px!important}select{max-width:100%}}
+        @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+        @media print{section{break-inside:auto!important}label.step-card,[id^="row-t"]{break-inside:avoid}h2,h3{break-after:avoid}}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-full flex flex-col antialiased selection:bg-orange-600 selection:text-white">
+
+    <!-- Powiadomienie (Toast) -->
+    <div role="status" aria-live="polite" id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm font-medium border border-slate-700 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Gotowe!</span>
+    </div>
+
+    <!-- Górny pasek nawigacji -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-3">
+                <a href="../#class/5/task" class="w-10 h-10 rounded-xl bg-orange-600 hover:bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-600/30 transition" title="Powrót do zadań klasy V">
+                    <i class="fa-solid fa-file-powerpoint text-white text-xl"></i>
+                </a>
+                <div>
+                    <h1 class="font-bold text-sm sm:text-base tracking-tight leading-tight">Tekst i obraz. Najprostsza prezentacja</h1>
+                    <p class="text-xs text-slate-400">Klasa V • Dział 2 • Temat 2.1 • MS PowerPoint</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <a href="../#class/5/task" class="hidden sm:inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-house text-orange-400"></i>
+                    <span>Klasa V — zadania</span>
+                </a>
+                <button onclick="scrollToSection('zadanie-4')" class="hidden md:inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-laptop text-emerald-400"></i>
+                    <span>Zadanie przy komputerze</span>
+                </button>
+                <button onclick="window.print()" class="inline-flex items-center space-x-2 bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-md shadow-orange-600/20 transition">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Drukuj A4</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <p id="save-state" role="status" class="no-print max-w-5xl mx-auto px-4 pt-4 text-sm text-slate-600">Postęp zostaje po odświeżeniu tej karty. Przed kolejnym uczniem wyczyść kartę przyciskiem na dole.</p>
+    <!-- Główna treść karty pracy -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Nagłówek karty, metryczka i cele (UDL) -->
+        <section class="hero-print bg-gradient-to-r from-orange-950 via-red-900 to-slate-900 rounded-3xl text-white p-6 sm:p-8 shadow-xl space-y-6">
+            <div class="space-y-3">
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center space-x-2 bg-orange-500/20 border border-orange-400/30 px-3 py-1 rounded-full text-xs font-semibold text-orange-200">
+                        <i class="fa-solid fa-clock text-amber-300"></i>
+                        <span>Czas pracy: maksymalnie 25 minut</span>
+                    </span>
+                    <span class="inline-flex items-center space-x-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-slate-200">
+                        <i class="fa-solid fa-film text-orange-300"></i>
+                        <span>Dział 2: Prawie jak w kinie • MS PowerPoint</span>
+                    </span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Karta pracy: Tekst i obraz. Jak stworzyć najprostszą prezentację?</h2>
+            </div>
+
+            <!-- Dane ucznia -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white/10 p-4 rounded-2xl border border-white/15">
+                <div>
+                    <label for="student-name" class="block text-xs font-medium text-orange-100 mb-1">Imię i nazwisko:</label>
+                    <input type="text" id="student-name" placeholder="Wpisz swoje imię i nazwisko" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-orange-400">
+                </div>
+                <div>
+                    <label for="student-class" class="block text-xs font-medium text-orange-100 mb-1">Klasa:</label>
+                    <input type="text" id="student-class" placeholder="np. V a" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-orange-400">
+                </div>
+                <div>
+                    <label for="student-date" class="block text-xs font-medium text-orange-100 mb-1">Data:</label>
+                    <input type="date" id="student-date" class="w-full bg-slate-900/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-orange-400">
+                </div>
+            </div>
+
+            <!-- Cele ucznia (UDL) -->
+            <div class="bg-slate-900/50 border border-white/15 rounded-2xl p-5 space-y-2.5">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center space-x-2">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span>Po wykonaniu tej karty potrafię:</span>
+                </h3>
+                <ul class="space-y-2 text-sm text-slate-100 leading-relaxed">
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>dodać nowy slajd, wpisać tekst oraz wstawić obraz w programie <strong>MS PowerPoint</strong>,</span>
+                    </li>
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>wybrać <strong>motyw</strong> prezentacji oraz jego <strong>wariant</strong> kolorystyczny,</span>
+                    </li>
+                    <li class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>zastosować zasady tworzenia czytelnej prezentacji i podać źródło obrazu.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ZADANIE 1: Dopasowywanie -->
+        <section id="zadanie-1" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">1</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 1. Rozpoznaj narzędzia programu MS PowerPoint</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Dopasowywanie</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Połącz</strong> nazwę elementu lub polecenia (<strong>1–4</strong>) z jego zastosowaniem (<strong>A–D</strong>). <strong>Wybierz</strong> właściwą literę przy każdym numerze.
+            </p>
+
+            <!-- Wzór (Worked Example) -->
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm text-amber-950 flex items-start space-x-2.5">
+                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5 shrink-0"></i>
+                <div><strong>Wzór:</strong> <strong>0.</strong> Pokaz slajdów — <strong>W.</strong> Uruchamiasz pełny ekran, aby wyświetlić gotową prezentację.</div>
+            </div>
+
+            <!-- Tabela opcji A-D -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Lewa kolumna: opisy A-D -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 text-sm">
+                    <div class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-1">Zastosowanie (A–D)</div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">A.</strong> Zmieniasz wersję kolorystyczną wybranego motywu.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">B.</strong> Dodajesz zdjęcie z dysku komputera na slajd.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">C.</strong> Dodajesz kolejną stronę do swojej prezentacji.
+                    </div>
+                    <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+                        <strong class="text-orange-700">D.</strong> Zmieniasz gotowy wzór wyglądu wszystkich slajdów naraz.
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: wybieranie odpowiedzi 1-4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 text-sm">
+                    <div class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-1">Twoje dopasowanie (1–4)</div>
+
+                    <div id="row-t1-1" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-1" class="font-medium text-slate-800"><strong>1.</strong> Nowy slajd</label>
+                        <select id="t1-1" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-2" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-2" class="font-medium text-slate-800"><strong>2.</strong> Motyw</label>
+                        <select id="t1-2" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-3" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-3" class="font-medium text-slate-800"><strong>3.</strong> Wariant motywu</label>
+                        <select id="t1-3" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div id="row-t1-4" class="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-slate-200 transition">
+                        <label for="t1-4" class="font-medium text-slate-800"><strong>4.</strong> Wstawianie → Obrazy</label>
+                        <select id="t1-4" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 font-bold text-slate-800 focus:outline-none focus:border-orange-500">
+                            <option value="">— wybierz —</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div role="status" aria-live="polite" id="feedback-t1" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask1()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 1</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 2: Uzupełnianie luk z bankiem słów -->
+        <section id="zadanie-2" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">2</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 2. Zasady tworzenia prezentacji — uzupełnij luki</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Bank słów</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Uzupełnij</strong> zdania wyrazami z banku słów. Każdego wyrazu użyj <strong>tylko raz</strong>.
+            </p>
+
+            <!-- Bank słów (dokładnie 4 pojęcia, bez dystraktorów) -->
+            <div class="bg-slate-100 border border-slate-200 rounded-2xl p-4 flex flex-wrap items-center gap-2.5">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mr-1">Bank słów:</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">krótkie hasła</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">slajd</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">tytuł</span>
+                <span class="bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-3 py-1 rounded-lg shadow-xs">źródła</span>
+            </div>
+
+            <!-- Wzór -->
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm text-amber-950 flex items-start space-x-2.5">
+                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5 shrink-0"></i>
+                <div><strong>Wzór:</strong> Prezentacja multimedialna łączy na ekranie tekst oraz <strong>obraz</strong>.</div>
+            </div>
+
+            <!-- Zdania z lukami -->
+            <ol class="space-y-3.5 text-sm sm:text-base text-slate-800 leading-loose">
+                <li id="row-t2-1" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>1.</strong> Pojedyncza strona wyświetlana w prezentacji to
+                    <select id="t2-1" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="krótkie hasła">krótkie hasła</option>
+                        <option value="slajd">slajd</option>
+                        <option value="tytuł">tytuł</option>
+                        <option value="źródła">źródła</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-2" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>2.</strong> Na pierwszym slajdzie prezentacji zawsze wpisujemy jej
+                    <select id="t2-2" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="krótkie hasła">krótkie hasła</option>
+                        <option value="slajd">slajd</option>
+                        <option value="tytuł">tytuł</option>
+                        <option value="źródła">źródła</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-3" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>3.</strong> Aby slajd był czytelny, zamiast długich wypracowań umieszczamy na nim
+                    <select id="t2-3" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="krótkie hasła">krótkie hasła</option>
+                        <option value="slajd">slajd</option>
+                        <option value="tytuł">tytuł</option>
+                        <option value="źródła">źródła</option>
+                    </select>.
+                </li>
+
+                <li id="row-t2-4" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 transition">
+                    <strong>4.</strong> Gdy wykorzystujesz zdjęcia z internetu, zanotuj i podaj ich
+                    <select id="t2-4" class="mx-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 font-semibold text-orange-800 focus:outline-none focus:border-orange-500">
+                        <option value="">— wybierz —</option>
+                        <option value="krótkie hasła">krótkie hasła</option>
+                        <option value="slajd">slajd</option>
+                        <option value="tytuł">tytuł</option>
+                        <option value="źródła">źródła</option>
+                    </select>.
+                </li>
+            </ol>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div role="status" aria-live="polite" id="feedback-t2" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask2()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 2</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 3: Prawda czy Fałsz -->
+        <section id="zadanie-3" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 font-extrabold flex items-center justify-center shrink-0">3</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 3. Zasady w praktyce — Prawda czy Fałsz</h3>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Prawda / Fałsz</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Przeczytaj</strong> zdania i <strong>zaznacz</strong> wybraną odpowiedź: <strong>P</strong> (Prawda) albo <strong>F</strong> (Fałsz).
+            </p>
+
+            <div class="space-y-3 text-sm sm:text-base">
+                <!-- Zdanie 1 -->
+                <div id="row-t3-1" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>1.</strong> Zmiana <strong>motywu</strong> zmienia wygląd tylko jednego, wybranego slajdu.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-1" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-1" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 2 -->
+                <div id="row-t3-2" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>2.</strong> Przed tworzeniem prezentacji warto zaplanować <strong>kolejność slajdów</strong> oraz najistotniejsze treści.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-2" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-2" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 3 -->
+                <div id="row-t3-3" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>3.</strong> Po wstawieniu zdjęcia na slajd możesz zmienić jego położenie oraz <strong>styl obrazu</strong>.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-3" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-3" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 4 -->
+                <div id="row-t3-4" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>4.</strong> Czytelny slajd zawiera bardzo dużo tekstu pisanego małymi literami.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-4" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-4" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Zdanie 5 -->
+                <div id="row-t3-5" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 transition">
+                    <p class="text-slate-800 leading-relaxed"><strong>5.</strong> Kolory czcionki i tła należy dobrać tak, aby tekst był dobrze widoczny na ekranie.</p>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-5" value="P" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">P</span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="t3-5" value="F" class="sr-only pf-radio">
+                            <span class="pf-label inline-flex items-center justify-center w-12 h-10 rounded-xl border-2 border-slate-300 bg-white font-bold text-slate-700 hover:border-orange-400 transition">F</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 no-print">
+                <div role="status" aria-live="polite" id="feedback-t3" class="text-sm font-medium text-slate-600"></div>
+                <button onclick="checkTask3()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-check-double text-emerald-400"></i>
+                    <span>Sprawdź Zadanie 3</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ZADANIE 4: Praktyczne przy komputerze -->
+        <section id="zadanie-4" class="bg-white rounded-3xl border-2 border-orange-200 shadow-md p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-xl bg-orange-600 text-white font-extrabold flex items-center justify-center shrink-0">4</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900">Zadanie 4. Zadanie praktyczne przy komputerze — Moje hobby</h3>
+                        <p class="text-xs text-slate-500">Program: MS PowerPoint • Praca krok po kroku</p>
+                    </div>
+                </div>
+
+                <!-- Licznik postępu -->
+                <div class="bg-orange-50 border border-orange-200 px-4 py-2 rounded-2xl flex items-center space-x-3 no-print">
+                    <div class="text-right">
+                        <div class="text-[11px] font-semibold text-orange-800 uppercase">Postęp kroków</div>
+                        <div class="text-sm font-extrabold text-orange-950"><span id="steps-done">0</span> / 6 gotowe</div>
+                    </div>
+                    <div id="steps-pct" class="w-11 h-11 rounded-full bg-white border-2 border-orange-500 flex items-center justify-center text-xs font-extrabold text-orange-700">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                <strong>Stwórz</strong> prostą, dwuslajdową prezentację o swoim hobby w programie <strong>MS PowerPoint</strong>. <strong>Wykonuj</strong> kroki po kolei i <strong>odhaczaj</strong> wykonane pola.
+            </p>
+
+            <!-- Pasek postępu -->
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden no-print">
+                <div id="steps-bar" class="bg-orange-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Lista 6 kroków -->
+            <div class="space-y-3 text-sm sm:text-base">
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 1</span>
+                        <strong>Uruchom</strong> program <strong>MS PowerPoint</strong> i <strong>kliknij</strong> <strong>Pusta prezentacja</strong>.
+                    </div>
+                </label>
+
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 2</span>
+                        <strong>Kliknij</strong> kartę <strong>Projektowanie</strong>, <strong>wybierz</strong> jeden <strong>Motyw</strong>, a następnie <strong>wybierz</strong> jego <strong>Wariant</strong> kolorystyczny.
+                    </div>
+                </label>
+
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 3</span>
+                        Na <strong>1. slajdzie</strong> <strong>wpisz</strong> tytuł prezentacji <strong>Moje hobby</strong> oraz swoje imię i klasę jako podtytuł. <strong>Zaznacz</strong> tytuł i <strong>zmień</strong> krój lub kolor czcionki na karcie <strong>Narzędzia główne</strong>.
+                    </div>
+                </label>
+
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 4</span>
+                        <strong>Kliknij</strong> na karcie <strong>Narzędzia główne</strong> przycisk <strong>Nowy slajd</strong>. Na <strong>2. slajdzie</strong> <strong>wpisz</strong> nazwę swojego hobby jako tytuł oraz <strong>2–3 krótkie hasła</strong> opisujące to zajęcie.
+                    </div>
+                </label>
+
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 5</span>
+                        <strong>Kliknij</strong> kartę <strong>Wstawianie</strong>, wybierz <strong>Obrazy</strong> i <strong>wstaw</strong> na 2. slajd jedno zdjęcie pasujące do tematu. <strong>Kliknij</strong> zdjęcie, otwórz kartę <strong>Formatowanie</strong>, <strong>wybierz</strong> gotowy styl obrazu (na przykład ramkę) i <strong>dopisz</strong> pod zdjęciem źródło obrazu.
+                    </div>
+                </label>
+
+                <label class="step-card flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200 cursor-pointer transition">
+                    <input type="checkbox" onchange="updatePracticalProgress(this)" class="practical-step mt-1 w-5 h-5 rounded border-slate-400 text-orange-600 focus:ring-orange-500 shrink-0">
+                    <div class="leading-relaxed text-slate-800">
+                        <span class="inline-block bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-md mr-1.5">Krok 6</span>
+                        <strong>Kliknij</strong> kartę <strong>Pokaz slajdów</strong> i przycisk <strong>Od początku</strong>, aby sprawdzić czytelność prezentacji. Następnie <strong>kliknij</strong> kartę <strong>Plik</strong>, wybierz <strong>Zapisz jako</strong> i <strong>zapisz</strong> plik (<code class="font-mono bg-slate-200 px-1.5 py-0.5 rounded text-xs">.pptx</code>) w <strong>Teczce ucznia</strong> lub folderze wskazanym przez nauczyciela.
+                    </div>
+                </label>
+            </div>
+
+            <!-- Baner po ukończeniu wszystkich 6 kroków -->
+            <div id="steps-complete-banner" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-900 p-4 rounded-2xl flex items-center space-x-3 no-print">
+                <i class="fa-solid fa-trophy text-amber-500 text-2xl shrink-0"></i>
+                <div class="text-sm">
+                    <strong>Wszystkie 6 kroków gotowe!</strong> Zgłoś nauczycielowi zakończenie pracy nad prezentacją.
+                </div>
+            </div>
+
+            <!-- Rozwijana ściągawka ścieżek (SPE / Scaffolding) -->
+            <details class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 no-print">
+                <summary class="font-bold text-slate-900 cursor-pointer select-none flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-question text-orange-600"></i>
+                    <span>Podpowiedź: Szybka mapa kart w MS PowerPoint</span>
+                </summary>
+                <ul class="mt-3 space-y-1.5 pl-6 list-disc text-slate-700">
+                    <li><strong>Wygląd całej prezentacji:</strong> karta <strong>Projektowanie</strong> → <strong>Motywy</strong> oraz <strong>Warianty</strong>.</li>
+                    <li><strong>Nowa strona i wygląd liter:</strong> karta <strong>Narzędzia główne</strong> → <strong>Nowy slajd</strong> oraz sekcja <strong>Czcionka</strong>.</li>
+                    <li><strong>Dodanie i ramka zdjęcia:</strong> karta <strong>Wstawianie</strong> → <strong>Obrazy</strong>, a po kliknięciu zdjęcia karta <strong>Formatowanie</strong> → <strong>Style obrazów</strong>.</li>
+                    <li><strong>Podgląd i zapis:</strong> karta <strong>Pokaz slajdów</strong> → <strong>Od początku</strong> oraz karta <strong>Plik</strong> → <strong>Zapisz jako</strong>.</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- SAMOOCENA I ZAKOŃCZENIE -->
+        <section class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5">
+            <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                <i class="fa-solid fa-star text-amber-500"></i>
+                <span>Samoocena</span>
+            </h3>
+            <p class="text-sm text-slate-700"><strong>Zaznacz</strong> jedną odpowiedź, która najlepiej opisuje Twoją pracę:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="samodzielnie" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">🙂</div>
+                        <div class="text-sm font-semibold text-slate-800">Zrobiłem / Zrobiłam samodzielnie</div>
+                    </div>
+                </label>
+
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="pomoc" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">🤔</div>
+                        <div class="text-sm font-semibold text-slate-800">Potrzebowałem / Potrzebowałam małej pomocy</div>
+                    </div>
+                </label>
+
+                <label class="cursor-pointer">
+                    <input type="radio" name="samoocena" value="pocwiczyc" class="sr-only self-radio">
+                    <div class="self-card p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:border-orange-300 transition text-center space-y-1">
+                        <div class="text-2xl">💪</div>
+                        <div class="text-sm font-semibold text-slate-800">Muszę jeszcze poćwiczyć</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-center text-sm sm:text-base font-semibold text-emerald-900">
+                Dobra robota — Twoja pierwsza czytelna prezentacja multimedialna w programie MS PowerPoint jest gotowa.
+            </div>
+        </section>
+
+        <!-- KLUCZ ODPOWIEDZI DLA NAUCZYCIELA (ukryty domyślnie) -->
+        <section id="teacher-key-section" class="no-print pt-2">
+            <details class="bg-slate-900 text-slate-200 rounded-3xl border border-slate-700 p-6 shadow-lg">
+                <summary class="cursor-pointer select-none font-bold text-sm sm:text-base text-amber-300 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Strefa nauczyciela — Klucz odpowiedzi i lista kontrolna (kliknij, aby rozwinąć)</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                </summary>
+
+                <div class="mt-6 pt-5 border-t border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider">Zadanie 1 (Dopasowywanie)</h4>
+                        <ul class="space-y-1 text-slate-300">
+                            <li><strong>1 – C</strong> (Nowy slajd — Dodajesz kolejną stronę do swojej prezentacji.)</li>
+                            <li><strong>2 – D</strong> (Motyw — Zmieniasz gotowy wzór wyglądu wszystkich slajdów naraz.)</li>
+                            <li><strong>3 – A</strong> (Wariant motywu — Zmieniasz wersję kolorystyczną wybranego motywu.)</li>
+                            <li><strong>4 – B</strong> (Wstawianie → Obrazy — Dodajesz zdjęcie z dysku komputera na slajd.)</li>
+                        </ul>
+
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider pt-3">Zadanie 2 (Uzupełnianie luk)</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-slate-300">
+                            <li><strong>slajd</strong></li>
+                            <li><strong>tytuł</strong></li>
+                            <li><strong>krótkie hasła</strong></li>
+                            <li><strong>źródła</strong></li>
+                        </ol>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider">Zadanie 3 (Prawda / Fałsz)</h4>
+                        <ul class="space-y-1 text-slate-300">
+                            <li><strong>1. F</strong> (Motyw zmienia wygląd wszystkich slajdów.)</li>
+                            <li><strong>2. P</strong></li>
+                            <li><strong>3. P</strong></li>
+                            <li><strong>4. F</strong> (Czytelny slajd zawiera krótkie hasła zamiast długich bloków tekstu.)</li>
+                            <li><strong>5. P</strong></li>
+                        </ul>
+
+                        <h4 class="font-bold text-white uppercase text-xs tracking-wider pt-3">Zadanie 4 — Lista kontrolna</h4>
+                        <ul class="space-y-1.5 text-slate-300 text-xs leading-relaxed">
+                            <li>[ ] Prezentacja ma 2 slajdy, wybrany <strong>Motyw</strong> oraz <strong>Wariant</strong> kolorystyczny.</li>
+                            <li>[ ] Slajd 1 zawiera tytuł, podtytuł oraz zmodyfikowany krój lub kolor czcionki tytułu.</li>
+                            <li>[ ] Slajd 2 zawiera tytuł i 2–3 czytelne, <strong>krótkie hasła</strong> dopasowane do tła.</li>
+                            <li>[ ] Na slajdzie 2 wstawiono pasujący <strong>obraz</strong>, nadano mu gotowy <strong>styl obrazu</strong> i dopisano <strong>źródło</strong>.</li>
+                            <li>[ ] Plik zapisano w formacie <code>.pptx</code> w <strong>Teczce ucznia</strong> lub wskazanym folderze.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+    </main>
+
+    <!-- Stopka -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 mt-10 no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div>
+                <span class="text-white font-bold">Klasa V • Dział 2: Prawie jak w kinie</span> &bull; MS PowerPoint
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../#class/5/task" class="hover:text-white transition">Powrót do zadań klasy V</a>
+                <button onclick="resetWorksheet()" class="hover:text-amber-300 transition"><i class="fa-solid fa-rotate-left mr-1"></i>Nowy uczeń / wyczyść kartę</button>
+                <button onclick="window.print()" class="hover:text-white transition"><i class="fa-solid fa-print mr-1"></i>Drukuj A4</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logika interaktywna -->
+    <script>
+        let toastTimer;
+
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            const icon = document.getElementById('toast-icon');
+            msg.textContent = message;
+            icon.className = isSuccess
+                ? "fa-solid fa-circle-check text-emerald-400 text-lg"
+                : "fa-solid fa-circle-info text-amber-400 text-lg";
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setRowState(rowId, isCorrect) {
+            const row = document.getElementById(rowId);
+            row.classList.remove('border-slate-200', 'bg-slate-50', 'bg-white', 'border-emerald-400', 'bg-emerald-50', 'border-rose-400', 'bg-rose-50');
+            if (isCorrect) {
+                row.classList.add('border-emerald-400', 'bg-emerald-50');
+            } else {
+                row.classList.add('border-rose-400', 'bg-rose-50');
+            }
+        }
+
+        function checkTask1() {
+            const key = { 't1-1': 'C', 't1-2': 'D', 't1-3': 'A', 't1-4': 'B' };
+            let score = 0;
+            Object.entries(key).forEach(([id, expected]) => {
+                const val = document.getElementById(id).value;
+                const ok = val === expected;
+                if (ok) score++;
+                setRowState('row-' + id, ok);
+            });
+            const fb = document.getElementById('feedback-t1');
+            fb.textContent = score === 4
+                ? 'Świetnie! Wszystkie 4 dopasowania są poprawne (4/4).'
+                : `Poprawne odpowiedzi: ${score} z 4. Sprawdź pola zaznaczone na czerwono.`;
+            fb.className = score === 4 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 1: wynik ${score}/4`, score === 4);
+        }
+
+        function checkTask2() {
+            const key = {
+                't2-1': 'slajd',
+                't2-2': 'tytuł',
+                't2-3': 'krótkie hasła',
+                't2-4': 'źródła'
+            };
+            let score = 0;
+            Object.entries(key).forEach(([id, expected]) => {
+                const val = document.getElementById(id).value;
+                const ok = val === expected;
+                if (ok) score++;
+                setRowState('row-' + id, ok);
+            });
+            const fb = document.getElementById('feedback-t2');
+            fb.textContent = score === 4
+                ? 'Brawo! Wszystkie luki uzupełnione bezbłędnie (4/4).'
+                : `Poprawne odpowiedzi: ${score} z 4. Popraw zdania zaznaczone na czerwono.`;
+            fb.className = score === 4 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 2: wynik ${score}/4`, score === 4);
+        }
+
+        function checkTask3() {
+            const key = { 't3-1': 'F', 't3-2': 'P', 't3-3': 'P', 't3-4': 'F', 't3-5': 'P' };
+            let score = 0;
+            Object.entries(key).forEach(([name, expected]) => {
+                const checked = document.querySelector(`input[name="${name}"]:checked`);
+                const ok = checked && checked.value === expected;
+                if (ok) score++;
+                setRowState('row-' + name, ok);
+            });
+            const fb = document.getElementById('feedback-t3');
+            fb.textContent = score === 5
+                ? 'Znakomicie! Wszystkie zdania ocenione poprawnie (5/5).'
+                : `Poprawne odpowiedzi: ${score} z 5. Sprawdź zdania zaznaczone na czerwono.`;
+            fb.className = score === 5 ? 'text-sm font-bold text-emerald-700' : 'text-sm font-semibold text-rose-700';
+            showToast(`Zadanie 3: wynik ${score}/5`, score === 5);
+        }
+
+        function updatePracticalProgress(checkbox) {
+            const card = checkbox.closest('.step-card');
+            if (checkbox.checked) {
+                card.classList.add('bg-emerald-50', 'border-emerald-300');
+                card.classList.remove('bg-slate-50', 'border-slate-200');
+            } else {
+                card.classList.remove('bg-emerald-50', 'border-emerald-300');
+                card.classList.add('bg-slate-50', 'border-slate-200');
+            }
+
+            const steps = document.querySelectorAll('.practical-step');
+            let done = 0;
+            steps.forEach(s => { if (s.checked) done++; });
+
+            const pct = Math.round((done / steps.length) * 100);
+            document.getElementById('steps-done').textContent = done;
+            document.getElementById('steps-pct').textContent = pct + '%';
+            document.getElementById('steps-bar').style.width = pct + '%';
+
+            const banner = document.getElementById('steps-complete-banner');
+            if (done === steps.length) {
+                banner.classList.remove('hidden');
+                showToast('Brawo! Ukończyłeś wszystkie 6 kroków prezentacji!');
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        function resetWorksheet() {
+            if (!confirm('Wyczyścić odpowiedzi i dane ucznia w tej karcie?')) return;
+            document.getElementById('student-name').value='';
+            document.getElementById('student-class').value='';
+            document.getElementById('student-date').value=localDate();
+            document.querySelectorAll('select').forEach(s => s.value = '');
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+            document.querySelectorAll('[id^="row-t"]').forEach(r => {
+                r.classList.remove('border-emerald-400', 'bg-emerald-50', 'border-rose-400', 'bg-rose-50');
+                r.classList.add('border-slate-200');
+                if (r.id.startsWith('row-t1')) r.classList.add('bg-white');
+                else r.classList.add('bg-slate-50');
+            });
+            document.querySelectorAll('.step-card').forEach(c => {
+                c.classList.remove('bg-emerald-50', 'border-emerald-300');
+                c.classList.add('bg-slate-50', 'border-slate-200');
+            });
+            ['feedback-t1', 'feedback-t2', 'feedback-t3'].forEach(id => {
+                document.getElementById(id).textContent = '';
+            });
+            document.getElementById('steps-done').textContent = '0';
+            document.getElementById('steps-pct').textContent = '0%';
+            document.getElementById('steps-bar').style.width = '0%';
+            document.getElementById('steps-complete-banner').classList.add('hidden');
+            saveCard(); showToast('Wyczyszczono wszystkie odpowiedzi.', false);
+        }
+
+        // Sesja tej karty: zapis po F5, niezależnie od innych materiałów.
+        const cardKey='inf-pruszcz-klasa5-ppt-2-1-v1';
+        const cardFields=[...document.querySelectorAll('input,select')];
+        function localDate(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+        function saveCard(){try{sessionStorage.setItem(cardKey,JSON.stringify(cardFields.map(f=>['radio','checkbox'].includes(f.type)?f.checked:f.value)));document.getElementById('save-state').textContent='Zapisano w tej karcie przeglądarki. Przed kolejnym uczniem użyj przycisku „Nowy uczeń / wyczyść kartę” na dole.';}catch{document.getElementById('save-state').textContent='Zapis jest niedostępny. Pozostaw kartę otwartą lub wydrukuj pracę.';}}
+        document.getElementById('student-date').value=localDate();
+        try{const saved=JSON.parse(sessionStorage.getItem(cardKey)||'null');if(Array.isArray(saved))cardFields.forEach((f,i)=>{if(['radio','checkbox'].includes(f.type))f.checked=saved[i]===true;else if(typeof saved[i]==='string')f.value=saved[i].slice(0,200);});}catch{}
+        document.querySelectorAll('.practical-step').forEach(c=>updatePracticalProgress(c));
+        cardFields.forEach(f=>f.addEventListener('change',saveCard));
+        document.querySelectorAll('input[type=text]').forEach(f=>f.addEventListener('input',saveCard));
+        document.querySelectorAll('[id^="t2-"]').forEach((s,i)=>s.setAttribute('aria-label','Zadanie 2, luka '+(i+1)));
+        document.querySelectorAll('input.pf-radio').forEach(r=>{const question=document.getElementById('row-'+r.name).querySelector('p').textContent;r.setAttribute('aria-label',question+' — '+(r.value==='P'?'Prawda':'Fałsz'));});
+    </script>
+</body>
+</html>

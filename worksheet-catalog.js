@@ -1,4 +1,5 @@
 export const grade5Worksheets = [
+  {id:'karta-5-2-1-prezentacja',type:'task',grades:[5],title:'2.1. Tekst i obraz — moja pierwsza prezentacja',section:'2. Prawie jak w kinie. Ruch i muzyka w programie do tworzenia prezentacji',tags:['PowerPoint','Prezentacje','KartaPracy'],summary:'Rozpoznaj narzędzia PowerPointa, sprawdź zasady czytelnego slajdu i przygotuj dwuslajdową prezentację o hobby. Quizy, sześć kroków i samoocena.',body:'',source:'Karta pracy nauczyciela · Klasa V · Temat 2.1'},
   {
     id: 'powtorzenie-5-1-edytor-tekstu', type: 'review', grades: [5],
     title: 'Mistrz edytora tekstu — alternatywne powtórzenie działu I',
