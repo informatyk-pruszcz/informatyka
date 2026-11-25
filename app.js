@@ -7,7 +7,7 @@ let lessonRenderId = 0;
 async function mountWorksheet(id, host, renderId) {
   try {
     const grade5 = isWorksheet(id);
-    let mod = await (grade5 ? import('./worksheets-grade5.js?v=album522') : import('./worksheets-478.js?v=grafika-review4'));
+    let mod = await (grade5 ? import('./worksheets-grade5.js?v=album522b') : import('./worksheets-478.js?v=grafika-review4'));
     if (!host.isConnected || renderId !== lessonRenderId) return;
     let html = grade5 ? mod.renderWorksheet(id) : mod.renderExtraWorksheet(id);
     if (!html && !grade5) {
