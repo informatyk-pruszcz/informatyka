@@ -110,12 +110,19 @@ function intro(title,desc,kicker='TWOJA PRACOWNIA'){return `<div class="page-int
 function card(i){return `<a class="material-card" href="${i===KURATORYJNY_TRENER?'./konkursy/kuratoryjny-trener.html?v=20261112-1':i===INTERNETOWE_PRAWO_JAZDY?'./konkursy/internetowe-prawo-jazdy.html':i===HTML_LAB?'./html-lab/index.html':i===PYTHON_LAB?'./python-lab/index.html':i===TYPING_LAB?'./klawiatura.html':'#item/'+esc(i.id)}" style="${color(i.grades[0])}"><div class="card-top"><span class="material-icon">${esc(icons[i.type])}</span><span class="pill">${i.grades.length===5?'Klasy 4–8':'Klasa '+i.grades.join(', ')}</span></div><div class="body"><span class="tag">${esc(i.tags.map(t=>'#'+t).join(' '))}</span><h3>${esc(i.title)}</h3><p>${esc(i.summary)}</p>${i.type==='contest'?`<div><span class="status">${contestStatus(i)}</span> ${i.demo?'<span class="pill">Przykład</span>':''}</div>`:''}<div class="card-foot"><span>${esc(i.type==='contest'?'Termin: '+i.end:TYPES[i.type])}</span><b aria-hidden="true">↗</b></div></div></a>`;}
 const classNumerals = {4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII'};
 
+const homeProjects = [
+  {id: 'karta-4-3-1-grafika', title: 'Zaprojektuj własną odznakę', summary: 'Ułóż rysunek z pikseli na planszy 16 × 16 i pobierz go jako obraz PNG.'},
+  {id: 'karta-6-2-3-budzet', title: 'Zaplanuj swoje kieszonkowe', summary: 'Zmień kwotę w symulatorze i zobacz, ile zostaje po wydatkach. Potem zbuduj własny budżet w arkuszu.'},
+  {id: 'karta-7-2-1-pierwsza-strona', title: 'Zbuduj stronę o swoim hobby', summary: 'Zmień nagłówek i treść w HTML. Zobacz efekt na żywo, a potem otwórz własną stronę w przeglądarce.'}
+];
 function home() {
   const gradeLinks = Object.entries(classNumerals).map(([grade, numeral]) =>
     `<a href="#class/${grade}"><span>Klasa</span><strong>${numeral}</strong><i aria-hidden="true">→</i></a>`
   ).join('');
-  const saved = visibleSaved();
-  const featured = ['n4b', 'n7a'].map(id => saved.find(item => item.id === id)).filter(Boolean);
+  const featured = homeProjects.flatMap(project => {
+    const worksheet = allWorksheets.find(item => item.id === project.id);
+    return worksheet ? [{...worksheet, ...project}] : [];
+  });
   return `<section class="class-start">
     <div><h1>Zacznij od swojej klasy.</h1><p>Wybierz klasę i otwórz zadanie na dzisiejszą lekcję.</p></div>
     <img src="./pracownia.jpg" width="1024" height="512" alt="Uczniowie przy komputerach w szkolnej pracowni.">
@@ -127,8 +134,8 @@ function home() {
     <a href="./python-lab/index.html">Pracownia Python →</a>
     <a href="./klawiatura.html">Trening klawiatury →</a>
   </nav>
-  <section><div class="section-heading"><h2>Na dobry początek</h2><a class="text-link" href="#library">Wszystkie materiały →</a></div>
-  <div class="material-grid">${(featured.length ? featured : saved.slice(0, 2)).map(card).join('')}</div></section>`;
+  <section aria-labelledby="home-projects"><div class="section-heading"><h2 id="home-projects">Na dobry początek</h2><a class="text-link" href="#library">Wszystkie materiały →</a></div>
+  <div class="material-grid">${featured.map(card).join('')}</div></section>`;
 }
 let basisFilter="",readyOnly=false;
 function filtered(){return libraryItems().filter(i=>(!readyOnly||!i.pending)&&(!basisFilter||(i.study?.basis||lessonMetadata(i)?.basis||"").includes(basisFilter))&&(!grade||i.grades.includes(Number(grade)))&&(!type||i.type===type||([HTML_LAB,PYTHON_LAB].includes(i)&&type==='task'))&&(!tag||i.tags.includes(tag))&&(!section||i.section===section)&&(!query||[i.title,i.summary,i.section,...i.tags].join(' ').toLocaleLowerCase('pl').includes(query.toLocaleLowerCase('pl'))));}
