@@ -49,6 +49,9 @@ test('Każda karta dziedziczy metrykę swojego rocznika i prowadzi od właściwe
     assert(c.study.basis.includes(c.grades[0] === 4 ? '2026' : 'dotychczasowa'));
     assert(practicalLink(c.topicId).includes('#item/'+c.id)); assert(skillChooser(c.grades[0]).includes(c.skill));
   }
+  const loops = practicalCards.filter(c => c.id.startsWith('praktyka-petla-'));
+  assert.equal(new Set(loops.map(c => c.study.assessment)).size,3);
+  assert.equal(new Set(practicalCards.map(c => c.study.support)).size,practicalCards.length);
   assert.deepEqual(catalogTags({tags:['EXCEL','Excel','Excel2016','Excel z tabelą przestawną','SUMA']}),['Excel','SUMA']);
   assert.equal(catalogSection('Arkusz Kalkulacyjny'),catalogSection('1. Arkusz kalkulacyjny'));
 });

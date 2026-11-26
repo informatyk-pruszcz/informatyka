@@ -34,6 +34,6 @@ export function traceProgram(program, goalId) {
   else if (edges.size < distance) message = 'Robot powtórzył odcinek. Sprawdź liczbę powtórzeń i kierunki obrotów.';
   else if (!drawn) message = 'Część trasy jest gotowa. Porównaj przebytą drogę z obwodem i sprawdź, czy robot wrócił na start.';
   else if (program.repeat === 1) message = 'Figura jest gotowa. Znajdź powtarzającą się grupę poleceń i użyj co najmniej dwóch powtórzeń.';
-  else message = goalId === 'square' ? 'Kwadrat gotowy. Wybierz prostokąt i zmień program.' : 'Prostokąt gotowy. Wskaż grupę poleceń, która się powtarzała.';
+  else message = goalId === 'square' ? 'Kwadrat gotowy. Robot objechał każdy bok raz i wrócił do startu.' : 'Prostokąt gotowy. Wskaż grupę poleceń, która się powtarzała.';
   return {points, segments, distance, length, complete:drawn && program.repeat > 1, message};
 }
