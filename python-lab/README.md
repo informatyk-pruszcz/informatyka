@@ -6,6 +6,8 @@ Samodzielny moduł GitHub Pages, dostępny w „Ćwiczeniach z kodem” oraz zad
 
 24 autorskie lekcje: wyświetlanie tekstu, zmienne i obliczenia; wejście i warunki; pętle, listy i funkcje; minimum, wyszukiwanie i sortowanie; projekty budżetu, quizu i gry tekstowej. Każda lekcja ma wyjaśnienie, przykład, polecenie, podpowiedzi, rozwiązanie i propozycję eksperymentu.
 
+Dział **Napraw kod** (`index.html#naprawa`) zawiera 12 ćwiczeń z trzema rodzajami błędów: składnia i wcięcia, błędy w trakcie działania oraz błędny wynik. Uczeń uruchamia wersję startową, odczytuje typ błędu i numer wiersza lub porównuje wyniki, a potem sam poprawia kod. Dostępne są dwie stopniowane wskazówki i rozwiązanie. Postęp jest liczony osobno dla obu działów i mieści się w tym samym pliku JSON.
+
 Inspiracje metodyczne (własna treść ćwiczeń, bez kopiowania kursów):
 
 - [Code.org / CodeAI Python Lab](https://code.org/en-US/tools/python-lab): programowanie w przeglądarce i projekty.

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Pracownia Python — Informatyka w akcji</title>
-  <meta name="description" content="24 ćwiczenia Pythona dla klas 7–8. Pisz i uruchamiaj programy, poznawaj błędy i twórz własne projekty.">
+  <meta name="description" content="Pracownia dla klas 7–8. Pisz programy w Pythonie i ćwicz poprawianie typowych błędów w osobnym dziale.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23167765'/%3E%3Ctext x='8' y='44' fill='white' font-size='34' font-family='monospace'%3Epy%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=toolbar1">
+  <link rel="stylesheet" href="style.css?v=naprawa1">
   <script type="module" src="layout.js?v=1"></script>
-  <script type="module" src="app.js?v=progress1"></script><script defer src="../theme.js"></script>
+  <script type="module" src="app.js?v=naprawa1"></script><script defer src="../theme.js"></script>
 </head>
 <body>
 <a class="skip" href="#code">Przejdź do edytora kodu</a>
@@ -19,7 +19,7 @@
 </header>
 <div class="layout">
   <aside id="sidebar" aria-label="Ścieżka nauki">
-    <div class="eyebrow">TWOJA ŚCIEŻKA NAUKI</div><h2>Ćwiczenia Python</h2>
+    <div class="eyebrow">TWOJA ŚCIEŻKA NAUKI</div><h2 id="course-title">Ćwiczenia Python</h2>
     <p id="progress-text">0 / 24 ukończonych</p><progress id="progress" value="0" max="24" aria-label="Ukończone ćwiczenia"></progress>
     <nav id="lesson-nav" aria-label="Ćwiczenia Python"></nav>
     <a class="playground" href="#swobodna-pracownia">↗ Swobodna pracownia</a>
@@ -27,7 +27,16 @@
   <main id="main">
     <div class="session-strip"><span class="class-label">KLASY 7–8 · OD PODSTAW</span><div><span id="session-time">Sesja: 45 min</span><button id="extend">+15 min</button><button id="new-student">Nowy uczeń</button></div></div>
     <p id="expiry" role="status" class="muted"></p>
+    <nav class="course-switch" aria-label="Działy Pracowni Python">
+      <a id="course-learn" href="#pierwszy-program" aria-current="page">Ćwiczenia Python</a>
+      <a id="course-repair" href="#naprawa">Napraw kod</a>
+    </nav>
     <div class="heading"><div><span id="lesson-group" class="eyebrow"></span><h1 id="lesson-title">Ładowanie ćwiczeń…</h1></div><span class="step" id="step"></span></div>
+    <ol id="repair-steps" class="repair-steps" aria-label="Jak poprawić kod" hidden>
+      <li>Uruchom kod i odczytaj komunikat lub wynik.</li>
+      <li>Znajdź błąd i popraw kod.</li>
+      <li>Kliknij „Sprawdź zadanie”.</li>
+    </ol>
     <div class="lesson-layout">
       <section class="instructions" aria-label="Polecenie i pomoc">
         <article class="card mission"><h2><span class="number">1</span> Twoje zadanie</h2><p id="task"></p><ul id="requirements"></ul><button id="hint">Potrzebuję podpowiedzi</button><div id="hint-text" class="hint" role="status" hidden></div></article>

@@ -1,12 +1,13 @@
 import {lessons} from './lessons.js';
+import {repairLessons} from './repairs.js';
 import {PythonRuntime} from './runtime.js';
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY='python-pracownia-session-v1', TTL=45*60000;
 const free={id:'swobodna-pracownia',title:'Twój pomysł. Twój program.',group:'SWOBODNA PRACOWNIA',intro:'Tutaj eksperymentujesz bez listy wymagań. Możesz wczytać własny plik .py. Kod uruchomisz przyciskiem poniżej.',example:'print("Co dziś zbudujesz?")',task:'Zmień przykład, rozbuduj projekt lub napisz własny program. Korzystaj z input(), pętli i funkcji. Zapisz kod, aby zabrać go ze sobą.',starter:'print("Mój własny program!")',tests:[{input:[]}],requirements:[],hints:['Zacznij od małego fragmentu. Uruchom go, zanim dodasz następny.'],experiment:'Zbuduj własny kalkulator, quiz albo grę tekstową.'};
-const known=new Set([...lessons.map(l=>l.id),free.id]);
-let current, hintIndex=0, busy=false, runToken=0, issueLine=0, toastTimer, storageOK=true;
+const byId=new Map([...lessons,...repairLessons,free].map(lesson=>[lesson.id,lesson]));
+let current, course=lessons, hintIndex=0, busy=false, runToken=0, issueLine=0, toastTimer, storageOK=true;
 const runtime=new PythonRuntime(message=>$('#runtime-status').textContent=message);
 
 // Z pliku odczytujemy tylko znane pola. Nie uruchamiamy importowanego kodu.
@@ -17,7 +18,7 @@ export function validateWork(value) {
     const source=value[key];
     if(!source || typeof source!=='object' || Array.isArray(source)) throw new Error('Brakuje pola: '+key);
     for(const [id,text] of Object.entries(source)) {
-      if(!known.has(id)) continue;
+      if(!byId.has(id)) continue;
       if(typeof text!=='string' || text.length>(key==='inputs'?10000:30000)) throw new Error('Plik zawiera zbyt długi lub nieprawidłowy kod.');
       work[key][id]=text;
     }
@@ -47,30 +48,43 @@ for(const name of ['focus','pageshow','storage','visibilitychange'])window.addEv
 setInterval(checkSession,1000);
 function saveDraft(){session.work.drafts[current.id]=$('#code').value;session.work.inputs[current.id]=$('#stdin').value;delete session.work.passed[current.id];persist();renderNav();}
 function renderNav(){
-  let group='';$('#lesson-nav').innerHTML=lessons.map((l,i)=>{
+  let group='';$('#lesson-nav').innerHTML=course.map((l,i)=>{
     const heading=l.group!==group?'<div class="nav-group">'+esc(l.group)+'</div>':'';group=l.group;
     const done=session.work.passed[l.id]!==undefined && session.work.passed[l.id]===session.work.drafts[l.id];
     return heading+`<a class="lesson-link ${l.id===current?.id?'active':''} ${done?'done':''}" href="#${l.id}" ${l.id===current?.id?'aria-current="step"':''}><span class="lesson-num">${done?'✓':String(i+1).padStart(2,'0')}</span><span>${esc(l.title)}${done?'<span class="small"> · ukończone</span>':''}</span></a>`;
   }).join('');
-  const count=Object.keys(session.work.passed).filter(id=>known.has(id)&&id!==free.id&&session.work.passed[id]===session.work.drafts[id]).length;
-  $('#progress').value=count;$('#progress-text').textContent=`${count} / ${lessons.length} ukończonych`;
+  const count=course.filter(({id})=>session.work.passed[id]!==undefined&&session.work.passed[id]===session.work.drafts[id]).length;
+  $('#progress').max=course.length;$('#progress').value=count;
+  $('#progress-text').textContent=`${count} / ${course.length} ukończonych`;
 }
 function lineNumbers(){const count=$('#code').value.split('\n').length;$('#lines').innerHTML=Array.from({length:count},(_,i)=>`<span class="${i+1===issueLine?'issue':''}">${i+1}</span>`).join('');$('#char-count').textContent=$('#code').value.length+' znaków';$('#lines').scrollTop=$('#code').scrollTop;}
 function render(){
   if(busy)stop();
-  const id=location.hash.slice(1);current=lessons.find(l=>l.id===id)||(id===free.id?free:lessons[0]);
-  $('#lesson-group').textContent=current.group;$('#lesson-title').textContent=current.title;$('#step').textContent=current===free?'Twój projekt':`${lessons.indexOf(current)+1} / ${lessons.length}`;
+  const id=location.hash.slice(1);
+  current=id==='naprawa'?repairLessons[0]:byId.get(id)??lessons[0];
+  const repairing=repairLessons.includes(current);
+  course=repairing?repairLessons:lessons;
+  const position=course.indexOf(current);
+  (repairing?$('#course-learn'):$('#course-repair')).removeAttribute('aria-current');
+  (repairing?$('#course-repair'):$('#course-learn')).setAttribute('aria-current','page');
+  $('#course-title').textContent=repairing?'Napraw kod':'Ćwiczenia Python';
+  $('#lesson-nav').setAttribute('aria-label',repairing?'Ćwiczenia z poprawiania błędów':'Ćwiczenia Python');
+  $('#repair-steps').hidden=!repairing;
+  $('#lesson-group').textContent=current.group;$('#lesson-title').textContent=current.title;$('#step').textContent=current===free?'Twój projekt':`${position+1} / ${course.length}`;
   for(const id of ['intro','example','task','experiment'])$('#'+id).textContent=current[id];
   $('#requirements').innerHTML=current.requirements.map(r=>'<li>'+esc(r.label)+'</li>').join('');
   $('#code').value=session.work.drafts[current.id]??current.starter;$('#stdin').value=session.work.inputs[current.id]??current.tests[0].input.join('\n');
   $('#input-help').textContent=current.tests[0].input.length?'Przykładowe dane są już wpisane. Możesz je zmieniać.':'To ćwiczenie nie wymaga danych wejściowych.';
   if(current===free)$('#input-help').textContent='Każde input() odczyta kolejny wiersz.';
   $('#input-box').open=current===free||current.tests[0].input.length>0;
-  $('#output').textContent='Kliknij „Uruchom”, aby zobaczyć wynik. „Sprawdź zadanie” sprawdza też inne dane.';
+  $('#output').textContent=repairing?'Uruchom program. Jeśli zobaczysz błąd, przeczytaj komunikat. Jeśli program działa, porównaj wynik z poleceniem.':'Kliknij „Uruchom”, aby zobaczyć wynik. „Sprawdź zadanie” sprawdza też inne dane.';
   $('#variables').replaceChildren();$('#variables-box').open=false;
   $('#error').hidden=$('#feedback').hidden=$('#hint-text').hidden=true;
   $('#check').hidden=$('#solution').hidden=current===free;$('#experiment-box').open=false;
-  $('#previous').disabled=lessons.indexOf(current)<=0;$('#next').textContent=current===lessons.at(-1)?'Swobodna pracownia →':'Następne ćwiczenie →';
+  $('#example-box').open=!repairing;
+  $('#hint').textContent=repairing?'Pokaż wskazówkę':'Potrzebuję podpowiedzi';
+  $('#previous').disabled=position<=0;
+  $('#next').textContent=current===course.at(-1)?(repairing?'Wróć do ćwiczeń Pythona →':'Swobodna pracownia →'):'Następne ćwiczenie →';
   issueLine=0;hintIndex=0;lineNumbers();renderNav();
   document.title=current.title+' · Pracownia Python';
 }
@@ -81,7 +95,7 @@ function showError(error){
   issueLine=error.line||0;lineNumbers();
   const hints={SyntaxError:'Sprawdź cudzysłowy, nawiasy i dwukropek po if, for, while lub def.',IndentationError:'Sprawdź wcięcia. Wewnątrz if, pętli lub funkcji dodaj 4 spacje.',TabError:'Nie mieszaj tabulatorów ze spacjami. Wyrównaj wcięcia do 4 spacji.',NameError:'Sprawdź nazwę zmiennej. Czy została utworzona wcześniej? Wielkość liter ma znaczenie.',TypeError:'Sprawdź typy danych. input() daje tekst; do obliczeń użyj int() lub float().',ValueError:'Sprawdź dane wejściowe. int() potrzebuje liczby całkowitej, np. 12.',ZeroDivisionError:'Nie można dzielić przez zero. Sprawdź wartość pod kreską ułamkową.',IndexError:'Sprawdź indeks listy. Pierwszy to 0, ostatni jest o 1 mniejszy od długości listy.',EOFError:'Brakuje odpowiedzi. Wpisz dane do input() — po jednej odpowiedzi w każdym wierszu.',AttributeError:'Sprawdź nazwę metody i typ zmiennej, na której jej używasz.',ModuleNotFoundError:'Ta biblioteka nie jest dostępna. Pracownia obsługuje podstawowy Python, bez instalowania pakietów.'};
   const tip=error.message==='LIMIT_OUTPUT'?'Program wypisał bardzo dużo tekstu. Sprawdź warunek zakończenia pętli.':hints[error.type]||'Sprawdź wskazany fragment i uruchom mniejszą część programu.';
-  $('#error').hidden=false;$('#error').innerHTML=`<p><strong>Spokojnie, to wskazówka do poprawki.</strong></p><p>${esc(tip)}</p>${issueLine?`<button id="jump-error">Przejdź do wiersza ${issueLine} →</button>`:''}<details><summary>Oryginalny komunikat Pythona</summary><pre>${esc(error.type+': '+error.message)}</pre></details>`;
+  $('#error').hidden=false;$('#error').innerHTML=`<p><strong><code>${esc(error.type)}</code>${issueLine?` · wiersz ${issueLine}`:''}</strong></p><p>${esc(tip)}</p>${issueLine?`<button id="jump-error">Przejdź do wiersza ${issueLine} →</button>`:''}<details><summary>Oryginalny komunikat Pythona</summary><pre>${esc(error.type+': '+error.message)}</pre></details>`;
   $('#jump-error')?.addEventListener('click',()=>{const rows=$('#code').value.split('\n');const start=rows.slice(0,issueLine-1).reduce((a,b)=>a+b.length+1,0);$('#code').focus();$('#code').setSelectionRange(start,start+(rows[issueLine-1]?.length||0));$('#code').scrollTop=Math.max(0,(issueLine-3)*parseFloat(getComputedStyle($('#code')).lineHeight));$('#lines').scrollTop=$('#code').scrollTop;});
 }
 async function execute(check=false){
@@ -101,7 +115,11 @@ async function execute(check=false){
     else if(check){
       const wrong=results.findIndex((r,i)=>normalize(r.output)!==normalize(cases[i].output));
       const missing=lesson.requirements.filter(r=>!result.features.includes(r.feature));
-      if(wrong>=0){delete session.work.passed[lesson.id];feedback(`<strong>Jeszcze mała poprawka — test ${wrong+1} z ${cases.length}.</strong><p>Dane wejściowe: <code>${esc(cases[wrong].input.join(' | ')||'brak')}</code>. Porównaj wynik z poleceniem. Sprawdź kolejność, granice warunków i pisownię.</p><p>Oczekiwany wynik:</p><pre>${esc(cases[wrong].output||'(brak tekstu)')}</pre><p>Twój wynik:</p><pre>${esc(results[wrong].output||'(brak tekstu)')}</pre>`,true);}
+      if(wrong>=0){
+        delete session.work.passed[lesson.id];
+        const tip=course===repairLessons?lesson.hints[0]:'Porównaj wynik z poleceniem. Sprawdź kolejność, granice warunków i pisownię.';
+        feedback(`<strong>Wynik do poprawy · test ${wrong+1} z ${cases.length}.</strong><p>Dane wejściowe: <code>${esc(cases[wrong].input.join(' | ')||'brak')}</code>. ${esc(tip)}</p><p>Oczekiwany wynik:</p><pre>${esc(cases[wrong].output||'(brak tekstu)')}</pre><p>Twój wynik:</p><pre>${esc(results[wrong].output||'(brak tekstu)')}</pre>`,true);
+      }
       else if(missing.length){delete session.work.passed[lesson.id];feedback('<strong>Wynik pasuje! Teraz przećwicz mechanizm z tej lekcji.</strong><ul>'+missing.map(r=>'<li>'+esc(r.label)+'</li>').join('')+'</ul>',true);}
       else{session.work.passed[lesson.id]=code;feedback(`<strong>✓ Ukończone! Twój program działa.</strong><p>Przeszedł ${cases.length} ${cases.length===1?'test':'testy'}. Ćwiczenie zostało odhaczone w ścieżce. Możesz przejść dalej albo poeksperymentować.</p>`);}
       persist();renderNav();
@@ -123,11 +141,17 @@ $('#code').addEventListener('keydown',e=>{
   if(e.key==='Tab'&&!e.shiftKey&&!busy){e.preventDefault();if(!checkSession())return;const el=e.target;el.setRangeText('    ',el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}
   if(e.key==='Enter'&&!e.ctrlKey&&!e.metaKey&&!busy){const el=e.target,before=el.value.slice(0,el.selectionStart).split('\n').at(-1);const spaces=before.match(/^ */)[0]+(before.trimEnd().endsWith(':')?'    ':'');e.preventDefault();el.setRangeText('\n'+spaces,el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}
 });
-$('#hint').onclick=()=>{if(!checkSession())return;$('#hint-text').hidden=false;$('#hint-text').textContent=current.hints[Math.min(hintIndex++,current.hints.length-1)];};
+$('#hint').onclick=()=>{
+  if(!checkSession())return;
+  $('#hint-text').hidden=false;
+  $('#hint-text').textContent=current.hints[Math.min(hintIndex++,current.hints.length-1)];
+  if(course===repairLessons)$('#hint').textContent=hintIndex<current.hints.length?'Pokaż kolejną wskazówkę':'Pokaż ostatnią wskazówkę';
+};
 $('#reset-code').onclick=()=>confirmAction('Wrócić do kodu startowego?','Obecny kod tego ćwiczenia zostanie zastąpiony. Najpierw możesz pobrać plik .py.',()=>{if(!checkSession())return;$('#code').value=current.starter;saveDraft();issueLine=0;lineNumbers();$('#feedback').hidden=$('#error').hidden=true;});
 $('#solution').onclick=()=>modal('Jedno z możliwych rozwiązań','<p>Najpierw porównaj je ze swoją próbą. Zwróć uwagę na wcięcia i kolejność poleceń.</p><pre>'+esc(current.solution)+'</pre>');
-$('#previous').onclick=()=>location.hash=lessons[Math.max(0,lessons.indexOf(current)-1)].id;
-$('#next').onclick=()=>location.hash=lessons[lessons.indexOf(current)+1]?.id||free.id;
+$('#previous').onclick=()=>location.hash=course[Math.max(0,course.indexOf(current)-1)].id;
+$('#next').onclick=()=>location.hash=course[course.indexOf(current)+1]?.id||(course===repairLessons?lessons[0].id:free.id);
+$('.skip').onclick=event=>{event.preventDefault();$('#code').focus();};
 window.addEventListener('hashchange',()=>{checkSession();render();window.scrollTo({top:0,behavior:'instant'});});
 $('#extend').onclick=()=>{if(checkSession()){session.end+=15*60000;persist();checkSession();}};
 $('#new-student').onclick=()=>confirmAction('Nowy uczeń na stanowisku?','To rozpocznie nową sesję i usunie bieżący postęp w tej przeglądarce. Pobierz JSON, jeśli chcesz do niego wrócić.',()=>resetSession('Nowa sesja — powodzenia!'));
@@ -150,7 +174,7 @@ $('#restore-file').onchange=async e=>{
   try{if(file.size>2000000)throw new Error('Plik jest zbyt duży. Limit: 2 MB.');const parsed=JSON.parse(await file.text());if(parsed.app!=='informatyka-python-lab'||parsed.version!==1)throw new Error('To nie jest plik postępu tej pracowni Python.');const work=validateWork(parsed);
     confirmAction('Wczytać zapisany postęp?',`Kopia zawiera ${Object.keys(work.drafts).length} prac i ${Object.keys(work.passed).length} ukończonych ćwiczeń. Zastąpi obecny postęp.`,()=>{if(!checkSession())return;stop();session.work=work;persist();
       // Starsze pliki bez activeLesson nadal działają. Przywracamy tylko znane ćwiczenia.
-      if(known.has(parsed.activeLesson))history.replaceState(null,'','#'+parsed.activeLesson);
+      if(byId.has(parsed.activeLesson))history.replaceState(null,'','#'+parsed.activeLesson);
       render();toast('Wczytano kody i ukończone zadania z pliku JSON.');});
   }catch(error){toast(error instanceof SyntaxError?'Nie udało się odczytać JSON. Wybierz poprawny plik postępu.':error.message);}
 };

@@ -107,3 +107,22 @@ body.focus-mode .instructions p {font-size:15px}
 .progress-buttons {display:flex;gap:8px;flex-wrap:wrap}
 .progress-buttons button {font-size:11px;padding:9px 11px}
 #export-now {background:var(--soft);color:var(--accent)}
+
+.course-switch {
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:16px
+}
+.course-switch a {
+  display:inline-block;padding:8px 14px;border:1px solid var(--line);
+  border-radius:8px;background:var(--surface);color:var(--ink);
+  text-decoration:none;font-weight:650
+}
+.course-switch a:hover,.course-switch a[aria-current="page"] {
+  border-color:var(--accent);background:var(--soft);color:var(--accent)
+}
+.course-switch a[aria-current="page"] {text-decoration:underline;text-underline-offset:4px}
+.repair-steps {
+  display:flex;flex-wrap:wrap;gap:6px 30px;margin:0 0 16px;
+  padding:10px 16px 10px 34px;border-left:3px solid var(--accent);border-radius:8px;
+  background:var(--soft);color:var(--ink)
+}
+.repair-steps li::marker {font-weight:750;color:var(--accent)}

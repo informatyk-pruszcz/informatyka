@@ -37,6 +37,26 @@ const normalize=s=>s.replace(/\r/g,'').split('\n').map(l=>l.trimEnd()).join('\n'
   });
   let cases=0;for(const l of modelResults){for(let i=0;i<l.results.length;i++){const r=l.results[i];assert.equal(r.error,null,l.id+': '+JSON.stringify(r.error));assert.equal(normalize(r.output),normalize(l.tests[i].output),l.id);cases++;}for(const r of l.requirements)assert.ok(l.results[0].features.includes(r.feature),l.id+': '+r.feature);}
   console.log('Python model solutions: '+modelResults.length+' lessons / '+cases+' cases OK');
+  const repairResults=await page.evaluate(async()=>{
+    const {repairLessons}=await import('./repairs.js');
+    const results=[];
+    for(const lesson of repairLessons){
+      const [starter]=await window.testRuntime.run({code:lesson.starter,cases:lesson.tests.slice(0,1)});
+      const solved=await window.testRuntime.run({code:lesson.solution,cases:lesson.tests});
+      results.push({lesson,starter,solved});
+    }
+    return results;
+  });
+  assert.equal(repairResults.length,12);
+  for(const {lesson,starter,solved} of repairResults){
+    assert.ok(starter.error || normalize(starter.output)!==normalize(lesson.tests[0].output),lesson.id);
+    for(const [i,result] of solved.entries()){
+      assert.equal(result.error,null,lesson.id);
+      assert.equal(normalize(result.output),normalize(lesson.tests[i].output),lesson.id);
+    }
+    for(const requirement of lesson.requirements)assert.ok(solved[0].features.includes(requirement.feature),lesson.id);
+  }
+  console.log('Napraw kod: 12 błędnych wersji i wszystkie rozwiązania OK');
   const run=payload=>page.evaluate(p=>window.testRuntime.run(p),payload);
   let result=(await run({code:'print(nie_ma)',cases:[{input:[]}]}))[0];assert.equal(result.error.type,'NameError');assert.equal(result.error.line,1);
   result=(await run({code:'if True\n    print("x")',cases:[{input:[]}]}))[0];assert.equal(result.error.type,'SyntaxError');assert.equal(result.error.line,1);
@@ -71,6 +91,39 @@ const normalize=s=>s.replace(/\r/g,'').split('\n').map(l=>l.trimEnd()).join('\n'
   const pyDownloaded=page.waitForEvent('download');await page.locator('#download').click();assert.match((await pyDownloaded).suggestedFilename(),/\.py$/);
   await page.locator('#code').fill('print("Błąd")\nprint(brak)');await page.locator('#run').click();await page.locator('#jump-error').waitFor();assert.match(await page.locator('#jump-error').textContent(),/wiersza 2/);await page.locator('#jump-error').click();assert.equal(await page.evaluate(()=>document.querySelector('#code').value.slice(document.querySelector('#code').selectionStart,document.querySelector('#code').selectionEnd)),'print(brak)');
   console.log('UI completion, F5, JSON and PY roundtrip, error line OK');
+  await page.locator('#course-repair').click();
+  await page.locator('#course-repair[aria-current="page"]').waitFor();
+  assert.equal(await page.locator('.lesson-link').count(),12);
+  await page.locator('#run').click();
+  await page.locator('#jump-error').waitFor();
+  assert.match(await page.locator('#error').innerText(),/SyntaxError/);
+  await page.locator('#hint').click();
+  const firstHint=await page.locator('#hint-text').innerText();
+  await page.locator('#hint').click();
+  assert.notEqual(await page.locator('#hint-text').innerText(),firstHint);
+  await page.locator('#code').fill(repairResults[0].lesson.solution);
+  await page.locator('#check').click();
+  await page.locator('.lesson-link.done').waitFor();
+  assert.match(await page.locator('#progress-text').innerText(),/^1 \/ 12/);
+  const repairExport=page.waitForEvent('download');
+  await page.locator('#export-now').click();
+  const repairBackup=JSON.parse(fs.readFileSync(await (await repairExport).path(),'utf8'));
+  assert.equal(repairBackup.activeLesson,repairResults[0].lesson.id);
+  await page.reload();
+  await page.locator('.lesson-link.done').waitFor();
+  await page.locator('#course-learn').click();
+  await page.locator('#course-learn[aria-current="page"]').waitFor();
+  assert.match(await page.locator('#progress-text').innerText(),/^0 \/ 24/);
+  await page.locator('#restore-file').setInputFiles({name:'naprawa.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(repairBackup))});
+  await page.getByRole('button',{name:'Potwierdź',exact:true}).click();
+  await page.locator('.lesson-link.done').waitFor();
+  assert.match(page.url(),/#naprawa-cudzyslow$/);
+  await page.locator('.lesson-link[href="#naprawa-zakres"]').click();
+  await page.locator('#check').click();
+  await page.waitForFunction(()=>!document.querySelector('#check').disabled);
+  assert.match(await page.locator('#feedback').innerText(),/Wynik do poprawy/);
+  assert.equal(await page.locator('#error').isVisible(),false);
+  console.log('Napraw kod: osobny postęp, F5, JSON, podpowiedzi i błąd logiczny OK');
   // Wiele zestawów danych uniemożliwia zaliczenie samego wpisanego wyniku.
   await page.goto(base+'/python-lab/index.html#liczba-z-input');await page.locator('#code').fill('zeszyty = int(input())\nprint(12)');await page.locator('#check').click();await page.waitForFunction(()=>!document.querySelector('#check').disabled,{},{timeout:130000});assert.match(await page.locator('#feedback').textContent(),/test 2/);
   await page.locator('#code').fill('while True:\n    pass');await page.locator('#run').click();await page.locator('#stop').click();assert.equal(await page.locator('#run').isEnabled(),true);
