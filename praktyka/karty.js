@@ -1,8 +1,11 @@
 import {curriculum} from '../curriculum.js?v=audit1';
 
+import {lessonMetadata} from '../curriculum-metadata.js';
+
 const lessons = [
   {
-    grade: 4, number: '2.3', slug: 'ilustracje', title: 'Wybierz ilustrację na zaproszenie',
+    grade: 4, number: '2.3', slug: 'ilustracje',
+    skill: 'Wybieram ilustrację do druku', assessment: 'Wskaż zgodę autora na druk i uzasadnij drugi wybór w katalogu.', title: 'Wybierz ilustrację na zaproszenie',
     tool: 'Katalog tekstowy', point: '1.3, 5.6', file: 'katalog-ilustracji.txt', download: 'Pobierz katalog ilustracji (TXT)',
     lead: 'Redakcja przygotowuje drukowane zaproszenie na wystawę robotów. Którą ilustrację wolno wydrukować?',
     steps: [
@@ -15,7 +18,8 @@ const lessons = [
     product: 'Dwa podpisy oraz uzasadnienie wyboru ilustracji robota.'
   },
   {
-    grade: 5, number: '1.4', slug: 'ogloszenie', title: 'Uratuj godzinę otwarcia wystawy',
+    grade: 5, number: '1.4', slug: 'ogloszenie',
+    skill: 'Układam tekst i obraz w Wordzie', assessment: 'Odczytaj godzinę po dopisaniu zdania i ponownym otwarciu pliku. Wskaż podpis ilustracji.', title: 'Uratuj godzinę otwarcia wystawy',
     tool: 'Word 2016', point: 'II.3b, V.2', file: 'ogloszenie-start.docx', download: 'Pobierz ogłoszenie do naprawy (DOCX)',
     lead: 'Robot na plakacie zasłania godzinę otwarcia. Ułóż ogłoszenie tak, żeby dało się je przeczytać również po dopisaniu zdania.',
     steps: [
@@ -28,7 +32,8 @@ const lessons = [
     product: 'Edytowalny DOCX. Cały komunikat i podpis rysunku są czytelne po dopisaniu zdania.'
   },
   {
-    grade: 6, number: '2.3', slug: 'budzet', title: 'Dlaczego saldo klubu stoi w miejscu?',
+    grade: 6, number: '2.3', slug: 'budzet',
+    skill: 'Naprawiam formułę w budżecie', assessment: 'Zmień cenę i pokaż, jak zmieniły się suma wydatków i decyzja o zakupie biletu.', title: 'Dlaczego saldo klubu stoi w miejscu?',
     tool: 'Excel 2016', point: 'II.3c', file: 'budzet-start.xlsx', download: 'Pobierz budżet klubu (XLSX)',
     lead: 'Klub ma jeszcze 15 zł. Materiały drożeją o 10 zł. Czy nadal wystarczy na bilet za 10 zł?',
     steps: [
@@ -41,7 +46,8 @@ const lessons = [
     product: 'Skoroszyt, który przelicza wydatki i saldo po zmianie ceny.'
   },
   {
-    grade: 7, number: '2.2', slug: 'odsylacz', title: 'Dokąd prowadzi „Kliknij tutaj”?',
+    grade: 7, number: '2.2', slug: 'odsylacz',
+    skill: 'Tworzę działający odsyłacz', assessment: 'Naciśnij Tab i Enter. Wskaż cel odsyłacza oraz opis obrazu w kodzie.', title: 'Dokąd prowadzi „Kliknij tutaj”?',
     tool: 'VS Code i przeglądarka', point: 'II.3d, element II.4', file: 'spacer-start.zip', download: 'Pobierz stronę i ilustrację (ZIP)',
     lead: 'Ktoś słuchający listy linków usłyszy tylko „Kliknij tutaj”. Popraw nazwę i cel odsyłacza na stronie koła przyrodniczego.',
     steps: [
@@ -54,7 +60,8 @@ const lessons = [
     product: 'Link zapowiada swój cel i prowadzi do właściwego nagłówka. Ilustracja ma opis.'
   },
   {
-    grade: 8, number: '1.4', slug: 'vat', title: 'Czy ubrania wygrywają dwa razy?',
+    grade: 8, number: '1.4', slug: 'vat',
+    skill: 'Ćwiczę tabele przestawne', assessment: 'Wskaż największą sumę i średnią przy dwóch ustawieniach filtra. Uzasadnij wynik kwotą i liczbą zakupów.', title: 'Czy ubrania wygrywają dwa razy?',
     tool: 'Excel z tabelą przestawną', point: 'II.3c, element II.4', file: 'vat-start.xlsx', download: 'Pobierz rozpoczętą analizę VAT (XLSX)',
     lead: 'Gazetka twierdzi, że kategoria o największej sumie VAT ma także najwyższy VAT średnio na zakup. Sprawdź to na 2000 fikcyjnych zakupów.',
     steps: [
@@ -68,24 +75,49 @@ const lessons = [
   }
 ];
 
+for (const [grade, number, point, skill] of [
+  [4, '5.1', '2.1, 2.2, 2.4', 'Układam ruch robota w pętli'],
+  [5, '3.3', 'I.2b', 'Rysuję figurę za pomocą pętli'],
+  [6, '3.2', 'II.1, II.2', 'Testuję ruch postaci']
+]) {
+  lessons.push({
+    grade, number, point, skill, slug:'petla-' + grade, title:'Narysuj trasę za pomocą pętli', tool:'Edytor blokowy',
+    lead:'Robot czeka w lewym górnym rogu planszy. Zaprogramuj przejazd po bokach figury.',
+    steps:[
+      [2,'Przewidź pierwszy ruch','Wybierz kwadrat. Sprawdź długości boków. Powiedz lub pokaż, gdzie trafi robot po pierwszym ruchu i obrocie.'],
+      [4,'Ułóż i uruchom pętlę','Ustaw powtórzenia, ruch i obrót. Uruchom program. Porównaj trasę z celem na rysunku lub przeczytaj opis drogi. Popraw jeden element i spróbuj jeszcze raz.'],
+      [4,'Zmień figurę','Wybierz prostokąt. Zmień program tak, aby robot przejechał każdy bok raz i wrócił do startu.']
+    ],
+    hint:'Na rogu robot zmienia kierunek o ćwierć obrotu. W prostokącie kolejny bok może mieć inną długość.',
+    product:'Działający program i wskazanie grupy powtarzanych poleceń.',
+    assessment:'Uruchom program dla kwadratu. Zmień go dla prostokąta i wskaż polecenie, które zmieniło wynik.'
+  });
+}
+
 export const practicalCards = lessons.map(lesson => {
   const {grade, number, slug, title, lead, steps, hint, product, tool, point, file, download} = lesson;
   const topic = curriculum.find(t => t.grade === grade && t.number === number);
+  const topicId = 'topic-' + grade + '-' + number.replace('.', '-');
   const minutes = steps.reduce((total, [time]) => total + time, 0);
   return {
-    id: 'praktyka-' + slug, topicId: 'topic-' + grade + '-' + number.replace('.', '-'),
+    id: 'praktyka-' + slug, topicId, skill: lesson.skill,
     type: 'task', grades: [grade], section: topic.section, title, tags: [tool, 'Praca praktyczna'],
-    summary: `Temat ${number} · ${minutes} min od otwarcia do zapisania pracy. ${lead}`,
-    body: '<h2>Praca na lekcji</h2><ol>' + steps.map(([time, label, instruction]) =>
+    summary: `Temat ${number} · około ${minutes} min. ${lead}`,
+    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.skill + '.</p><h2>Praca na lekcji</h2><ol>' + steps.map(([time, label, instruction]) =>
       '<li><strong>' + label + ' (' + time + ' min).</strong> ' + instruction + '</li>').join('') +
       '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + product + '</p>',
-    file, download, minutes, study: {point, tool, product}, source: 'Informatyka w akcji · ćwiczenie praktyczne.'
+    file, download, minutes, study: {
+      ...lessonMetadata(topicId), point, tool, product, assessment: lesson.assessment,
+      program: (grade === 4 ? 'Informatyka w akcji' : 'Lubię to!') + ' · klasa ' + grade + ', temat ' + number,
+      support: 'Uczeń może wyświetlić po jednym kroku, pracować dłużej oraz wskazać wynik lub wyjaśnić go ustnie. Dobierz formę pracy do indywidualnych zaleceń ucznia.'
+    }, source: 'Ćwiczenie autorskie według rozkładu materiału i wymagań edukacyjnych Nowej Ery.'
   };
 });
 
 export function practicalLink(id) {
   const card = practicalCards.find(c => c.id === id || c.topicId === id);
   if (!card) return '';
+  if (id === card.id && !card.file) return '';
   if (id === card.id) return '<p><a class="btn primary" download href="praktyka/' + card.file + '">' + card.download + '</a></p>';
   return '<p><a class="btn primary" href="#item/' + card.id + '">Praktyka · ' + card.minutes + ' min · ' + card.title + '</a></p>';
 }
