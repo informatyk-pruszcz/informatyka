@@ -1,0 +1,162 @@
+/* Wspólna identyfikacja portalu i nawigacji w samodzielnych ćwiczeniach. */
+@media screen {
+  :root {
+    --portal-blue: #143fd9;
+    --portal-paper: #fcfbf7;
+    --portal-ink: #101d39;
+    --portal-muted: #495a71;
+    --portal-line: #c6cddd;
+    --portal-tint: #ebefff;
+    --portal-surface: white;
+    --portal-font: "Segoe UI", Arial, sans-serif;
+  }
+
+  body.dark, html.dark, [data-theme="dark"] {
+    --portal-blue: #a6bbff;
+    --portal-paper: #101625;
+    --portal-ink: #eff3ff;
+    --portal-muted: #bcc9de;
+    --portal-line: #465574;
+    --portal-tint: #263654;
+    --portal-surface: #192339;
+  }
+
+  /* Portal i oba edytory dzielą już część nazw zmiennych. */
+  body.portal-shell, body.portal-editor {
+    --accent: var(--portal-blue);
+    --green: var(--portal-blue);
+    --bg: var(--portal-paper);
+    --surface: var(--portal-surface);
+    --text: var(--portal-ink);
+    --muted: var(--portal-muted);
+    --line: var(--portal-line);
+    --soft: var(--portal-tint);
+    font-family: var(--portal-font);
+  }
+
+  body.portal-editor { --ink: var(--portal-ink); }
+
+  .portal-shell :is(h1, h2, h3, .brand), [data-portal-bar],
+  body:has([data-portal-bar]) h1 {
+    font-family: var(--portal-font);
+  }
+
+  [data-portal-bar], .portal-shell .shell > header {
+    border-bottom: 3px solid var(--portal-blue);
+  }
+
+  a[data-portal-return] {
+    background: #173baa;
+    border: 1px solid #9bb4ff;
+    border-radius: .4rem;
+    color: white;
+    padding: .45rem .7rem;
+    font-family: var(--portal-font);
+    font-weight: 650;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  a[data-portal-return]:hover { background: #0d267a; color: white; }
+  :is([data-portal-bar], .portal-shell) :focus-visible, a[data-portal-return]:focus-visible {
+    outline: 3px solid var(--portal-blue);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px var(--portal-surface);
+  }
+
+  .portal-shell :is(.page-intro, .detail-head, .exam-card) {
+    border-top: 3px solid var(--accent);
+    padding-top: clamp(14px, 2vw, 26px);
+  }
+
+  .portal-shell :is(.page-intro, .detail-head, .exam-card) h1 {
+    font-size: clamp(1.85rem, 3.3vw, 3rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .portal-shell .tabs button.active { background: var(--soft); }
+  .portal-shell .material-card, .portal-shell .notes-chapter, .portal-shell .article {
+    border-radius: 8px;
+  }
+  .portal-shell .material-card:hover { border-color: var(--accent); }
+  .portal-shell .notes-chapter > h3, .portal-shell .avatar {
+    background: var(--soft);
+    color: var(--text);
+  }
+  .portal-shell .main-menu-link:hover { background: var(--soft); }
+  .portal-shell .grade-dot, .portal-shell .material-icon {
+    background: var(--soft);
+    color: var(--accent);
+    filter: none;
+  }
+  .portal-shell footer a { margin-inline-start: auto; }
+
+  /* Nagłówek zadania i sterowanie pozostają na swoim miejscu w każdym module. */
+  body:has([data-portal-bar]) :is(.cover, .hero-card, .hero-banner, .ip-header-card) {
+    border-inline-start: 5px solid var(--portal-blue);
+    border-radius: 8px;
+  }
+  [data-portal-bar] :is(button, select) {
+    font-family: var(--portal-font);
+    border-radius: 6px;
+  }
+
+  .class-start {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    align-items: center;
+    gap: clamp(16px, 3vw, 40px);
+    margin-bottom: 1.5rem;
+  }
+  .class-start h1 {
+    font-size: clamp(2.5rem, 4.8vw, 5rem);
+    line-height: 1;
+    letter-spacing: -.055em;
+    margin: 0 0 1rem;
+  }
+  .class-start p { max-width: 30ch; font-size: clamp(1rem, 1.5vw, 1.35rem); }
+  .class-start img { display: block; width: 100%; height: auto; border-radius: 5px; }
+  .class-band {
+    background: #143fd9;
+    color: white;
+    margin: 0 0 12px;
+    padding: .45rem 1rem;
+    font-size: clamp(1.35rem, 2.5vw, 2.2rem);
+  }
+  .class-choices a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    min-width: 0;
+    padding: 12px 15px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: var(--surface);
+    font-weight: 650;
+  }
+  .class-choices strong {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--accent);
+  }
+  .class-choices i { position: absolute; right: 10px; bottom: 6px; color: var(--accent); font-style: normal; }
+  .class-choices a:hover, .class-choices a:focus-visible { background: var(--soft); }
+  .workshop-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-block: 1px solid var(--accent);
+    margin-top: 20px;
+  }
+  .workshop-links a { color: var(--accent); padding: 12px; margin: 0; font-weight: 700; }
+  .workshop-links a:hover { background: var(--soft); }
+  @media (max-width: 620px) {
+    .class-start { grid-template-columns: 1fr; gap: 10px; }
+    .class-start img { height: 110px; object-fit: cover; object-position: center 40%; }
+    .class-start p { max-width: 100%; margin: 0; }
+    .class-choices { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .class-choices a:last-child { grid-column: 1 / -1; }
+    .workshop-links { grid-template-columns: 1fr; }
+    .workshop-links a + a { border-top: 1px solid var(--line); }
+  }
+}

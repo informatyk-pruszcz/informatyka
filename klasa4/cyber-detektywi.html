@@ -831,14 +831,14 @@
       #screen-final { display: block !important; }
     }
   </style>
-</head>
+<link rel="stylesheet" href="../portal-design.css"></head>
 <body>
   <canvas id="confettiCanvas" hidden></canvas>
 
   <div class="app-shell" id="appRoot">
     <!-- Pasek powrotu portalu -->
-    <nav class="portal-nav" id="portalNav">
-      <a href="../#class/4">← Powrót do informatyk-pruszcz.github.io/informatyka | Klasa 4 (Powtórzenie wiadomości)</a>
+    <nav data-portal-bar class="portal-nav" id="portalNav">
+      <a data-portal-return href="../#class/4">← Powrót do informatyk-pruszcz.github.io/informatyka | Klasa 4 (Powtórzenie wiadomości)</a>
       <div class="portal-nav-right">
         <span>🕵️ Dział II: <b>Korzystanie z internetu</b></span>
         <button type="button" class="btn-new-student" id="btnResetAll" title="Zeruje postęp dla nowego ucznia na tym komputerze">🔄 Nowy uczeń / Od nowa</button>

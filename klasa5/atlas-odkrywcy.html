@@ -43,7 +43,7 @@
             body { background: white !important; }
         }
     </style>
-</head>
+<link rel="stylesheet" href="../portal-design.css"></head>
 <body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
     <!-- Toast / Notification banner -->
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Top Navigation / Header -->
-    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+    <header data-portal-bar class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
@@ -91,7 +91,7 @@
     </header>
 
     <!-- Main Content Layout -->
-    <nav aria-label="Powrót do portalu" class="max-w-7xl w-full mx-auto px-4 pt-4"><a class="text-blue-700 underline" href="../#item/karta-5-atlas-odkrywcy">← Klasa V · Zadania praktyczne</a></nav>
+    <nav aria-label="Powrót do portalu" class="max-w-7xl w-full mx-auto px-4 pt-4"><a data-portal-return class="text-blue-700 underline" href="../#item/karta-5-atlas-odkrywcy">← Klasa V · Zadania praktyczne</a></nav>
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
         <!-- Hero Card Info Banner -->

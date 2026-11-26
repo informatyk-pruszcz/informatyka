@@ -92,7 +92,7 @@
       transform: scale(1);
     }
   </style>
-</head>
+<link rel="stylesheet" href="../portal-design.css"></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-slate-950 pb-16 transition-colors duration-300">
 
   <!-- Ambient Glow Effects (Decorative Background) -->
@@ -105,7 +105,7 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10">
 
     <!-- TOP NAV / ACTION BAR -->
-    <nav class="mb-4 no-print" aria-label="Powrót do portalu"><a class="text-emerald-300 underline" href="../#contest">← Wróć do konkursów</a></nav>
+    <nav data-portal-bar class="mb-4 no-print" aria-label="Powrót do portalu"><a data-portal-return class="text-emerald-300 underline" href="../#contest">← Wróć do konkursów</a></nav>
     <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800/80 mb-8 no-print">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20">

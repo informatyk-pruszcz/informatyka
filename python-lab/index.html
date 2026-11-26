@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="style.css?v=naprawa1">
   <script type="module" src="layout.js?v=1"></script>
   <script type="module" src="app.js?v=naprawa1"></script><script defer src="../theme.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="../portal-design.css"></head>
+<body class="portal-editor">
 <a class="skip" href="#code">Przejdź do edytora kodu</a>
-<header class="top">
+<header data-portal-bar class="top">
   <button id="menu" class="menu-toggle" aria-expanded="true" aria-controls="sidebar" disabled><span aria-hidden="true">☰</span><span id="menu-label">Zwiń menu</span></button>
   <a class="logo" href="../#home"><span aria-hidden="true">py</span><div>Pracownia Python<small>INFORMATYKA W AKCJI</small></div></a>
-  <a class="back" href="../#home">← Menu główne</a>
+  <a data-portal-return class="back" href="../#home">← Menu główne</a>
   <div class="top-actions"><button id="cheatsheet">Ściąga</button><button id="teacher">Dla nauczyciela</button><button id="focus" aria-pressed="false">Tryb skupienia</button><button id="theme" data-compact title="Ciemny motyw">☾</button></div>
 </header>
 <div class="layout">
