@@ -82,8 +82,9 @@ export function mountLoop(host, id) {
         program = next; change();
       });
       listMode.setAttribute('aria-pressed','false'); blockMode.setAttribute('aria-pressed','true'); status.textContent = 'Bloczki gotowe.';
-    } catch {
+    } catch (error) {
       if (closed || ticket !== opening) return;
+      console.error('Otwieranie Blockly:', error);
       showList(); status.textContent = 'Skorzystaj z listy poleceń. Pozwala zbudować ten sam program.';
     } finally { if (!closed && ticket === opening) blockMode.disabled = false; }
   };

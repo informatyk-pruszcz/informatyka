@@ -9,7 +9,8 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
   try {
     const page = await browser.newPage({viewport:{width:1280,height:800}});
     const errors = [];
-    page.on('pageerror', error => errors.push(error.message));
+    page.on('pageerror', error => { errors.push(error.message); console.error(error.message); });
+    page.on('console', msg => { if (msg.text().startsWith('Otwieranie Blockly:')) console.error(msg.text()); });
     await page.route(/^https?:\/\//, route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
     const visit = async id => {
       await page.goto(base + '#' + id);
@@ -64,7 +65,8 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
     await run.press('Enter'); await page.getByText(/Kwadrat gotowy/).waitFor();
     await scan(['.practice-steps','#practice-activity']);
     await page.locator('[data-block-mode]').click();
-    await page.getByText('Bloczki gotowe.',{exact:true}).waitFor();
+    await page.waitForFunction(() => document.querySelector('[data-block-mode]')?.getAttribute('aria-pressed') === 'true' || document.querySelector('[data-status]')?.textContent.includes('Skorzystaj z listy'));
+    assert.equal(await page.locator('[data-block-mode]').getAttribute('aria-pressed'),'true',await page.locator('[data-status]').innerText());
     const blockState = await page.evaluate(() => {
       const root = Blockly.getMainWorkspace().getTopBlocks(false).find(b=>b.type==='trasa_petla');
       const count = root.getFieldValue('COUNT'); root.setFieldValue('2','COUNT'); return count;
