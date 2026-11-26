@@ -49,7 +49,7 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
     await choose(bytes,'W B11 brakuje formuły');
     const book = XLSX.read(bytes,{type:'buffer'}), sheet = book.Sheets[book.SheetNames[0]];
     sheet.B11.f = 'SUM(B7:B10)'; sheet.B7.v = 30; sheet.B8.v = 8;
-    await choose(XLSX.write(book,{bookType:'xlsx',type:'buffer'}),'12 zł');
+    await choose(Buffer.from(XLSX.write(book,{bookType:'xlsx',type:'array'})),'12 zł');
     await choose(Buffer.from([255,0,9]),/budżetu|kopię/);
     await scan(['.practice-steps','#practice-activity']);
     await page.setViewportSize({width:390,height:844});
