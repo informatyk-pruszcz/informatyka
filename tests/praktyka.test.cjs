@@ -41,6 +41,8 @@ test('Robot: pierwsza próba, pusty program, kwadrat, prostokąt i wielokrotny o
 test('Każda karta dziedziczy metrykę swojego rocznika i prowadzi od właściwej notatki', async () => {
   const {practicalCards, practicalLink} = await import('../praktyka/karty.js?v=cele1');
   const {skillChooser,catalogTags,catalogSection} = await import('../praktyka/wybor.js');
+  const {validateDatabase} = await import('../core.js');
+  assert.doesNotThrow(() => validateDatabase({version:1,items:practicalCards}));
   for (const c of practicalCards) {
     assert(c.minutes > 0 && c.minutes <= 25);
     assert(c.study.assessment && c.study.point && c.study.program && c.study.support);
