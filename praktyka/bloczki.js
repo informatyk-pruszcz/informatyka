@@ -48,8 +48,9 @@ export function visualEditor(B, container, program, onChange) {
     }
     return {repeat:Number(root.getFieldValue('COUNT')), steps};
   }
-  ws.addChangeListener(e => { if (!e.isUiEvent && !ws.isDisposed()) onChange(read()); });
+  let disposed = false;
+  ws.addChangeListener(e => { if (!e.isUiEvent && !disposed) onChange(read()); });
   const resize = new ResizeObserver(() => B.svgResize(ws));
   resize.observe(container); B.svgResize(ws);
-  return {read, close() { resize.disconnect(); ws.dispose(); }};
+  return {read, close() { disposed = true; resize.disconnect(); ws.dispose(); }};
 }
