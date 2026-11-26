@@ -1,8 +1,12 @@
 import {curriculum} from '../curriculum.js?v=audit1';
 
+import {lessonMetadata} from '../curriculum-metadata.js';
+
 const lessons = [
   {
-    grade: 4, number: '2.3', slug: 'ilustracje', title: 'Wybierz ilustrację na zaproszenie',
+    grade: 4, number: '2.3', slug: 'ilustracje',
+    support: 'Czytaj po jednej karcie katalogu. Uczeń może wskazać palcem lub odczytać tytuł i zdanie ze zgodą na druk.',
+    skill: 'Wybieram ilustrację do druku', assessment: 'Wskaż zgodę autora na druk i uzasadnij drugi wybór w katalogu.', title: 'Wybierz ilustrację na zaproszenie',
     tool: 'Katalog tekstowy', point: '1.3, 5.6', file: 'katalog-ilustracji.txt', download: 'Pobierz katalog ilustracji (TXT)',
     lead: 'Redakcja przygotowuje drukowane zaproszenie na wystawę robotów. Którą ilustrację wolno wydrukować?',
     steps: [
@@ -15,7 +19,9 @@ const lessons = [
     product: 'Dwa podpisy oraz uzasadnienie wyboru ilustracji robota.'
   },
   {
-    grade: 5, number: '1.4', slug: 'ogloszenie', title: 'Uratuj godzinę otwarcia wystawy',
+    grade: 5, number: '1.4', slug: 'ogloszenie',
+    support: 'Zwiększ powiększenie dokumentu. Położenie ilustracji można ustawić z klawiatury. Uczeń pokazuje czytelny komunikat po ponownym otwarciu pliku.',
+    skill: 'Układam tekst i obraz w Wordzie', assessment: 'Odczytaj godzinę po dopisaniu zdania i ponownym otwarciu pliku. Wskaż podpis ilustracji.', title: 'Uratuj godzinę otwarcia wystawy',
     tool: 'Word 2016', point: 'II.3b, V.2', file: 'ogloszenie-start.docx', download: 'Pobierz ogłoszenie do naprawy (DOCX)',
     lead: 'Robot na plakacie zasłania godzinę otwarcia. Ułóż ogłoszenie tak, żeby dało się je przeczytać również po dopisaniu zdania.',
     steps: [
@@ -28,7 +34,9 @@ const lessons = [
     product: 'Edytowalny DOCX. Cały komunikat i podpis rysunku są czytelne po dopisaniu zdania.'
   },
   {
-    grade: 6, number: '2.3', slug: 'budzet', title: 'Dlaczego saldo klubu stoi w miejscu?',
+    grade: 6, number: '2.3', slug: 'budzet',
+    support: 'Wskaż na początek komórki B7, B11 i B13. Uczeń może przejść do nich klawiszem F5 i podyktować decyzję wraz z kwotą.',
+    skill: 'Naprawiam formułę w budżecie', assessment: 'Zmień cenę i pokaż, jak zmieniły się suma wydatków i decyzja o zakupie biletu.', title: 'Dlaczego saldo klubu stoi w miejscu?',
     tool: 'Excel 2016', point: 'II.3c', file: 'budzet-start.xlsx', download: 'Pobierz budżet klubu (XLSX)',
     lead: 'Klub ma jeszcze 15 zł. Materiały drożeją o 10 zł. Czy nadal wystarczy na bilet za 10 zł?',
     steps: [
@@ -41,7 +49,9 @@ const lessons = [
     product: 'Skoroszyt, który przelicza wydatki i saldo po zmianie ceny.'
   },
   {
-    grade: 7, number: '2.2', slug: 'odsylacz', title: 'Dokąd prowadzi „Kliknij tutaj”?',
+    grade: 7, number: '2.2', slug: 'odsylacz',
+    support: 'Zacznij od porównania dwóch krótkich fragmentów: wartości href i id. Uczeń sprawdza link klawiszami Tab i Enter, a tekst alternatywny może podyktować.',
+    skill: 'Tworzę działający odsyłacz', assessment: 'Naciśnij Tab i Enter. Wskaż cel odsyłacza oraz opis obrazu w kodzie.', title: 'Dokąd prowadzi „Kliknij tutaj”?',
     tool: 'VS Code i przeglądarka', point: 'II.3d, element II.4', file: 'spacer-start.zip', download: 'Pobierz stronę i ilustrację (ZIP)',
     lead: 'Ktoś słuchający listy linków usłyszy tylko „Kliknij tutaj”. Popraw nazwę i cel odsyłacza na stronie koła przyrodniczego.',
     steps: [
@@ -54,7 +64,9 @@ const lessons = [
     product: 'Link zapowiada swój cel i prowadzi do właściwego nagłówka. Ilustracja ma opis.'
   },
   {
-    grade: 8, number: '1.4', slug: 'vat', title: 'Czy ubrania wygrywają dwa razy?',
+    grade: 8, number: '1.4', slug: 'vat',
+    support: 'Pokaż najpierw jedną kolumnę wyników. Uczeń może wskazać kategorię i podyktować kwotę, a po zmianie filtra powtórzyć czynność. Oceniaj interpretację danych.',
+    skill: 'Ćwiczę tabele przestawne', assessment: 'Wskaż największą sumę i średnią przy dwóch ustawieniach filtra. Uzasadnij wynik kwotą i liczbą zakupów.', title: 'Czy ubrania wygrywają dwa razy?',
     tool: 'Excel z tabelą przestawną', point: 'II.3c, element II.4', file: 'vat-start.xlsx', download: 'Pobierz rozpoczętą analizę VAT (XLSX)',
     lead: 'Gazetka twierdzi, że kategoria o największej sumie VAT ma także najwyższy VAT średnio na zakup. Sprawdź to na 2000 fikcyjnych zakupów.',
     steps: [
@@ -68,24 +80,79 @@ const lessons = [
   }
 ];
 
+const loopLessons = [
+  {
+    grade: 4, number: '5.1', point: '1.4, 2.1, 2.2, 2.4',
+    title: 'Jak robot może objechać kwadrat?', skill: 'Układam ruch robota w pętli',
+    lead: 'Robot startuje w lewym górnym rogu i patrzy w prawo. Pomóż mu objechać kwadrat o boku trzech kratek.',
+    steps: [
+      [2, 'Przewidź ruch', 'Spójrz na pierwszy ruch programu lub odczytaj go z listy. Wskaż, w którą stronę pojedzie robot. Uruchom program i porównaj swoją odpowiedź ze śladem.'],
+      [5, 'Domknij kwadrat', 'Ustaw ruch na długość jednego boku. Ile razy robot powinien wykonać ruch i obrót? Zmień liczbę powtórzeń i uruchom program ponownie.'],
+      [3, 'Pokaż powtórzenie', 'Wskaż na liście lub w bloczkach dwa polecenia, które robot powtarza na każdym boku. Jeśli masz ochotę, wypróbuj też prostokąt.']
+    ],
+    hint: 'Po każdym boku robot skręca o ćwierć obrotu. Możesz prześledzić jego drogę palcem albo przeczytać opis pod planszą.',
+    product: 'Kwadrat o boku trzech kratek i wskazanie powtarzanej pary poleceń.',
+    assessment: 'Uczeń pokazuje powrót do startu i wskazuje ruch oraz obrót w pętli. Prostokąt jest zadaniem dodatkowym.',
+    support: 'Pozwól prześledzić jeden bok palcem albo za pomocą opisu tekstowego. Uczeń może wskazać powtarzane polecenia na liście.'
+  },
+  {
+    grade: 5, number: '3.3', point: 'I.2b',
+    title: 'Jak zamienić kwadrat w prostokąt?', skill: 'Rysuję figurę za pomocą pętli',
+    lead: 'Na planszy narysujesz prostokąt o bokach pięciu i trzech kratek. Jaką część trasy można zapisać tylko raz?',
+    steps: [
+      [2, 'Zaplanuj drogę', 'Wybierz prostokąt. Zacznij w lewym górnym rogu i prześledź cztery boki. Wskaż dwie kolejne długości, które potem się powtórzą.'],
+      [5, 'Ułóż pętlę', 'Ustaw ruch na długość pierwszego boku i dodaj drugi ruch. Między bokami robot potrzebuje obrotu. Dobierz liczbę powtórzeń całej grupy.'],
+      [3, 'Porównaj wynik z planem', 'Uruchom program. Sprawdź na rysunku lub w opisie, czy robot po każdym boku przejechał raz. Wskaż, po którym ruchu kończy się jedna grupa poleceń.']
+    ],
+    hint: 'Przeczytaj długości boków w kolejności od startu. Która para się powtarza? Pamiętaj o skręcie przed następnym bokiem.',
+    product: 'Prostokąt 5 × 3 i wskazanie grupy poleceń, która rysuje dwa kolejne boki.',
+    assessment: 'Uczeń uruchamia działającą pętlę i pokazuje dwa różne boki w jednej powtarzanej grupie.',
+    support: 'Podawaj długości po dwie. Uczeń może ułożyć grupę na liście klawiaturą i porównać wynik z opisem słownym trasy.'
+  },
+  {
+    grade: 6, number: '3.2', point: 'II.1, II.2',
+    title: 'Dlaczego robot nie wrócił do startu?', skill: 'Testuję ruch postaci',
+    lead: 'Przed pracą z komunikatami w Scratchu sprawdź, jak wykryć błąd w ruchu postaci. Będziesz porównywać przewidywania z działaniem programu.',
+    steps: [
+      [2, 'Postaw hipotezę', 'Wybierz kwadrat o boku trzech kratek. Przeczytaj program przed uruchomieniem. Powiedz, wskaż albo zapisz, na którym boku trasa po raz pierwszy rozminie się z celem.'],
+      [5, 'Przetestuj poprawkę', 'Uruchom program i odczytaj trasę. Zmień jeden parametr, przewidź wynik i uruchom ponownie. Powtarzaj próbę, aż robot poprawnie objedzie kwadrat.'],
+      [3, 'Sprawdź, co powoduje błąd', 'W działającym programie zmień liczbę powtórzeń o jeden. Przewidź skutek i sprawdź swój pomysł. Przywróć poprzednią wartość i pokaż oba wyniki.']
+    ],
+    hint: 'Porównuj próby, zmieniając jedną rzecz naraz, na przykład liczbę powtórzeń. Opis pod planszą podaje kierunki i długości ruchów.',
+    product: 'Działający program i porównanie dwóch prób po zmianie jednego parametru.',
+    assessment: 'Uczeń przewiduje skutek zmiany, wykonuje próbę i wskazuje w wyniku, co potwierdziło jego przewidywanie albo skłoniło go do poprawki.',
+    support: 'Udostępnij wzór odpowiedzi „Zmieniam … Przewiduję … Robot …”. Uczeń może porównać próby ustnie, odczytując tekstowy opis trasy.'
+  }
+];
+
+for (const lesson of loopLessons) {
+  lessons.push({...lesson, slug: 'petla-' + lesson.grade, tool: 'Edytor blokowy'});
+}
+
 export const practicalCards = lessons.map(lesson => {
   const {grade, number, slug, title, lead, steps, hint, product, tool, point, file, download} = lesson;
   const topic = curriculum.find(t => t.grade === grade && t.number === number);
+  const topicId = 'topic-' + grade + '-' + number.replace('.', '-');
   const minutes = steps.reduce((total, [time]) => total + time, 0);
   return {
-    id: 'praktyka-' + slug, topicId: 'topic-' + grade + '-' + number.replace('.', '-'),
+    id: 'praktyka-' + slug, topicId, skill: lesson.skill,
     type: 'task', grades: [grade], section: topic.section, title, tags: [tool, 'Praca praktyczna'],
-    summary: `Temat ${number} · ${minutes} min od otwarcia do zapisania pracy. ${lead}`,
-    body: '<h2>Praca na lekcji</h2><ol>' + steps.map(([time, label, instruction]) =>
+    summary: `Temat ${number} · około ${minutes} min. ${lead}`,
+    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.skill + '.</p><h2>Praca na lekcji</h2><ol>' + steps.map(([time, label, instruction]) =>
       '<li><strong>' + label + ' (' + time + ' min).</strong> ' + instruction + '</li>').join('') +
       '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + product + '</p>',
-    file, download, minutes, study: {point, tool, product}, source: 'Informatyka w akcji · ćwiczenie praktyczne.'
+    file, download, minutes, study: {
+      ...lessonMetadata(topicId), point, tool, product, assessment: lesson.assessment,
+      program: (grade === 4 ? 'Informatyka w akcji' : 'Lubię to!') + ' · klasa ' + grade + ', temat ' + number,
+      support: lesson.support + ' Można wyświetlać po jednym kroku i wydłużyć czas zgodnie z potrzebami ucznia.'
+    }, source: 'Ćwiczenie autorskie według rozkładu materiału i wymagań edukacyjnych Nowej Ery.'
   };
 });
 
 export function practicalLink(id) {
   const card = practicalCards.find(c => c.id === id || c.topicId === id);
   if (!card) return '';
+  if (id === card.id && !card.file) return '';
   if (id === card.id) return '<p><a class="btn primary" download href="praktyka/' + card.file + '">' + card.download + '</a></p>';
   return '<p><a class="btn primary" href="#item/' + card.id + '">Praktyka · ' + card.minutes + ' min · ' + card.title + '</a></p>';
 }
