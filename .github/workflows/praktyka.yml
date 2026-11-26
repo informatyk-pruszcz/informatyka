@@ -1,0 +1,24 @@
+name: Sprawdzenie ćwiczeń praktycznych
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sprawdz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Przygotuj testy i przeglądarkę
+        working-directory: tests
+        run: |
+          npm install --ignore-scripts --no-audit --no-fund --package-lock=false
+          npx playwright install --with-deps chromium
+      - name: Sprawdź scenariusze ucznia i dostępność
+        run: |
+          python3 -m http.server 4218 --bind 127.0.0.1 > "$RUNNER_TEMP/portal-http.log" 2>&1 &
+          npm run --prefix tests test:praktyka
