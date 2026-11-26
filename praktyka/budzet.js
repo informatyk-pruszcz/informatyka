@@ -26,7 +26,10 @@ function coefficients(source) {
     } else if (token?.startsWith('B')) {
       const first = row();
       let last = first;
-      if (allowRange && tokens[i] === ':') { i++; last = row(); }
+      if (allowRange && tokens[i] === ':') {
+        i++; last = row();
+        if (![',',';',')'].includes(tokens[i])) throw Error();
+      }
       for (let n = Math.min(first, last); n <= Math.max(first, last); n++) values[n] += sign;
     } else if (token && /^\d/.test(token)) values[0] += Number(tokens[i++]) * sign;
     else throw Error();

@@ -15,7 +15,7 @@ async function prepare() {
   if (!B.Blocks.trasa_petla) B.common.defineBlocksWithJsonArray([
     {type:'trasa_petla',message0:'powtórz %1 razy',args0:[{type:'field_dropdown',name:'COUNT',options:counts}],
       message1:'wykonaj %1',args1:[{type:'input_statement',name:'BODY',check:'Step'}],colour:'#643a97'},
-    {type:'trasa_ruch',message0:'idź o %1 kratek',args0:[{type:'field_dropdown',name:'VALUE',options:counts}],
+    {type:'trasa_ruch',message0:'idź naprzód · liczba kratek %1',args0:[{type:'field_dropdown',name:'VALUE',options:counts}],
       previousStatement:'Step',nextStatement:'Step',colour:'#184a87'},
     {type:'trasa_skret',message0:'obróć się %1',args0:[{type:'field_dropdown',name:'VALUE',options:[['w prawo','right'],['w lewo','left']]}],
       previousStatement:'Step',nextStatement:'Step',colour:'#694914'}
