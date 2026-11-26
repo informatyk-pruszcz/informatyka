@@ -67,6 +67,7 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
     await page.locator('[data-block-mode]').click();
     await page.waitForFunction(() => document.querySelector('[data-block-mode]')?.getAttribute('aria-pressed') === 'true' || document.querySelector('[data-status]')?.textContent.includes('Skorzystaj z listy'));
     assert.equal(await page.locator('[data-block-mode]').getAttribute('aria-pressed'),'true',await page.locator('[data-status]').innerText());
+    await scan(['.practice-steps','#practice-activity']);
     const blockState = await page.evaluate(() => {
       const root = Blockly.getMainWorkspace().getTopBlocks(false).find(b=>b.type==='trasa_petla');
       const count = root.getFieldValue('COUNT'); root.setFieldValue('2','COUNT'); return count;

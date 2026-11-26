@@ -29,7 +29,7 @@ export function loadBlockly() {
 export function visualEditor(B, container, program, onChange) {
   const ws = B.inject(container, {toolbox:{kind:'flyoutToolbox',contents:[
     {kind:'block',type:'trasa_ruch'},{kind:'block',type:'trasa_skret'}]},
-    maxBlocks:13, sounds:false, trashcan:false, comments:false, renderer:'zelos',
+    media:new URL('./vendor/blockly-media/', import.meta.url).href, maxBlocks:13, sounds:false, trashcan:false, comments:false, renderer:'zelos',
     zoom:{controls:false,wheel:false,startScale:0.85},move:{scrollbars:true,drag:true,wheel:false}});
   const first = program.steps.reduceRight((next, step) => {
     const block = {type:step.type === 'move' ? 'trasa_ruch' : 'trasa_skret',fields:{VALUE:String(step.value)}};

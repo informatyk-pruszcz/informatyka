@@ -86,7 +86,12 @@ export function mountLoop(host, id) {
       if (closed || ticket !== opening) return;
       console.error('Otwieranie Blockly:', error);
       showList(); status.textContent = 'Skorzystaj z listy poleceń. Pozwala zbudować ten sam program.';
-    } finally { if (!closed && ticket === opening) blockMode.disabled = false; }
+    } finally {
+      if (!closed && ticket === opening) {
+        blockMode.disabled = false;
+        if (document.activeElement === document.body) blockMode.focus();
+      }
+    }
   };
   goal.onchange = () => { goalId = goal.value; change(); };
   count.onchange = () => { program.repeat = Number(count.value); change(); };

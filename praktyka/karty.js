@@ -82,7 +82,7 @@ for (const [grade, number, point, skill] of [
 ]) {
   lessons.push({
     grade, number, point, skill, slug:'petla-' + grade, title:'Narysuj trasę za pomocą pętli', tool:'Edytor blokowy',
-    lead:'Robot czeka w lewym górnym rogu planszy. Zaprogramuj przejazd po bokach figury.',
+    lead:(grade === 6 ? 'Rozgrzewka przed programowaniem komunikatów w Scratchu. ' : '') + 'Robot czeka w lewym górnym rogu planszy. Zaprogramuj przejazd po bokach figury.',
     steps:[
       [2,'Przewidź pierwszy ruch','Wybierz kwadrat. Sprawdź długości boków. Powiedz lub pokaż, gdzie trafi robot po pierwszym ruchu i obrocie.'],
       [4,'Ułóż i uruchom pętlę','Ustaw powtórzenia, ruch i obrót. Uruchom program. Porównaj trasę z celem na rysunku lub przeczytaj opis drogi. Popraw jeden element i spróbuj jeszcze raz.'],
