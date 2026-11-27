@@ -5,6 +5,7 @@ import {lessonMetadata} from '../curriculum-metadata.js';
 const lessons = [
   {
     grade: 4, number: '2.3', slug: 'ilustracje',
+    requirement: 'Wybierasz materiał, którego autor pozwala użyć na zaproszeniu.', evidence: 'Wskaż w katalogu zgodę na druk oraz autora wybranej ilustracji.',
     support: 'Czytaj po jednej karcie katalogu. Uczeń może wskazać palcem lub odczytać tytuł i zdanie ze zgodą na druk.',
     skill: 'Wybieram ilustrację do druku', assessment: 'Wskaż zgodę autora na druk i uzasadnij drugi wybór w katalogu.', title: 'Wybierz ilustrację na zaproszenie',
     tool: 'Katalog tekstowy', point: '1.3, 5.6', file: 'katalog-ilustracji.txt', download: 'Pobierz katalog ilustracji (TXT)',
@@ -20,6 +21,7 @@ const lessons = [
   },
   {
     grade: 5, number: '1.4', slug: 'ogloszenie',
+    requirement: 'Wstawiasz obraz do dokumentu i ustawiasz go względem tekstu.', evidence: 'Po otwarciu dokumentu da się odczytać godzinę i podpis ilustracji. Jeśli obraz jest już wstawiony, przećwicz zmianę jego położenia.',
     support: 'Zwiększ powiększenie dokumentu. Położenie ilustracji można ustawić z klawiatury. Uczeń pokazuje czytelny komunikat po ponownym otwarciu pliku.',
     skill: 'Układam tekst i obraz w Wordzie', assessment: 'Odczytaj godzinę po dopisaniu zdania i ponownym otwarciu pliku. Wskaż podpis ilustracji.', title: 'Uratuj godzinę otwarcia wystawy',
     tool: 'Word 2016', point: 'II.3b, V.2', file: 'ogloszenie-start.docx', download: 'Pobierz ogłoszenie do naprawy (DOCX)',
@@ -35,6 +37,7 @@ const lessons = [
   },
   {
     grade: 6, number: '2.3', slug: 'budzet',
+    requirement: 'Obliczasz wydatki przy użyciu adresów komórek i sprawdzasz, jak zmiana ceny wpływa na budżet.', evidence: 'Pokaż formułę w B11 i dwie decyzje o zakupie biletu. Do każdej dobierz kwotę salda.',
     support: 'Wskaż na początek komórki B7, B11 i B13. Uczeń może przejść do nich klawiszem F5 i podyktować decyzję wraz z kwotą.',
     skill: 'Naprawiam formułę w budżecie', assessment: 'Zmień cenę i pokaż, jak zmieniły się suma wydatków i decyzja o zakupie biletu.', title: 'Dlaczego saldo klubu stoi w miejscu?',
     tool: 'Excel 2016', point: 'II.3c', file: 'budzet-start.xlsx', download: 'Pobierz budżet klubu (XLSX)',
@@ -50,6 +53,7 @@ const lessons = [
   },
   {
     grade: 7, number: '2.2', slug: 'odsylacz',
+    requirement: 'Tworzysz stronę HTML z obrazem.', evidence: 'Otwórz własny plik HTML i pokaż ilustrację. Następnie sprawdź odsyłacz klawiaturą i odczytaj opis obrazu w kodzie.',
     support: 'Zacznij od porównania dwóch krótkich fragmentów: wartości href i id. Uczeń sprawdza link klawiszami Tab i Enter, a tekst alternatywny może podyktować.',
     skill: 'Tworzę działający odsyłacz', assessment: 'Naciśnij Tab i Enter. Wskaż cel odsyłacza oraz opis obrazu w kodzie.', title: 'Dokąd prowadzi „Kliknij tutaj”?',
     tool: 'VS Code i przeglądarka', point: 'II.3d, element II.4', file: 'spacer-start.zip', download: 'Pobierz stronę i ilustrację (ZIP)',
@@ -65,6 +69,7 @@ const lessons = [
   },
   {
     grade: 8, number: '1.4', slug: 'vat',
+    requirement: 'Filtrujesz dane w arkuszu i odczytujesz wynik dla wybranego kupującego.', evidence: 'W arkuszu Zakupy włącz filtr w wierszu nagłówków. Wybierz Polę, odczytaj kategorię oraz kwotę VAT jednego zakupu i pokaż je nauczycielowi. Wyczyść filtr. Dalsza analiza sum i średnich w tabeli przestawnej jest rozszerzeniem.',
     support: 'Pokaż najpierw jedną kolumnę wyników. Uczeń może wskazać kategorię i podyktować kwotę, a po zmianie filtra powtórzyć czynność. Oceniaj interpretację danych.',
     skill: 'Ćwiczę tabele przestawne', assessment: 'Wskaż największą sumę i średnią przy dwóch ustawieniach filtra. Uzasadnij wynik kwotą i liczbą zakupów.', title: 'Czy ubrania wygrywają dwa razy?',
     tool: 'Excel z tabelą przestawną', point: 'II.3c, element II.4', file: 'vat-start.xlsx', download: 'Pobierz rozpoczętą analizę VAT (XLSX)',
@@ -83,6 +88,7 @@ const lessons = [
 const loopLessons = [
   {
     grade: 4, number: '5.1', point: '1.4, 2.1, 2.2, 2.4',
+    requirement: 'Układasz skrypt powtarzający ruch duszka lub robota określoną liczbę razy.', evidence: 'Uruchom trasę kwadratu. Wskaż, ile razy wykonały się ruch i obrót.',
     title: 'Jak robot może objechać kwadrat?', skill: 'Układam ruch robota w pętli',
     lead: 'Robot startuje w lewym górnym rogu i patrzy w prawo. Pomóż mu objechać kwadrat o boku trzech kratek.',
     steps: [
@@ -97,6 +103,7 @@ const loopLessons = [
   },
   {
     grade: 5, number: '3.3', point: 'I.2b',
+    requirement: 'Układasz skrypt rysujący kwadrat.', evidence: 'Wybierz kwadrat i zaprogramuj cztery boki. W Scratchu możesz powtórzyć próbę z rozszerzeniem Pióro i opuszczonym pisakiem. Prostokąt poniżej pozwala sprawdzić, jak zmieni się grupa poleceń.',
     title: 'Jak zamienić kwadrat w prostokąt?', skill: 'Rysuję figurę za pomocą pętli',
     lead: 'Na planszy narysujesz prostokąt o bokach pięciu i trzech kratek. Jaką część trasy można zapisać tylko raz?',
     steps: [
@@ -111,6 +118,7 @@ const loopLessons = [
   },
   {
     grade: 6, number: '3.2', point: 'II.1, II.2',
+    requirement: 'Programujesz reakcję duszka na komunikat.', evidence: 'W Scratchu ustaw dwa krótkie skrypty. Po kliknięciu zielonej flagi nadaj komunikat „Start”. Po odebraniu „Start” przesuń duszka o 30 kroków. Pokaż nadawcę i odbiorcę, uruchom projekt i wskaż efekt. Plansza poniżej służy do ćwiczenia przewidywania i poprawiania ruchu.',
     title: 'Dlaczego robot nie wrócił do startu?', skill: 'Testuję ruch postaci',
     lead: 'Przed pracą z komunikatami w Scratchu sprawdź, jak wykryć błąd w ruchu postaci. Będziesz porównywać przewidywania z działaniem programu.',
     steps: [
@@ -133,19 +141,25 @@ export const practicalCards = lessons.map(lesson => {
   const {grade, number, slug, title, lead, steps, hint, product, tool, point, file, download} = lesson;
   const topic = curriculum.find(t => t.grade === grade && t.number === number);
   const topicId = 'topic-' + grade + '-' + number.replace('.', '-');
+  const hasSeparatePractice = ['vat', 'petla-5', 'petla-6'].includes(slug);
+  const evidence = hasSeparatePractice ? lesson.evidence : product;
+  const assessment = hasSeparatePractice
+    ? lesson.evidence + ' Przy wykonywaniu dalszej części: ' + lesson.assessment
+    : lesson.assessment;
+  const series = grade === 4 ? 'Informatyka w akcji' : 'Lubię to!';
   const minutes = steps.reduce((total, [time]) => total + time, 0);
   return {
     id: 'praktyka-' + slug, topicId, skill: lesson.skill,
     type: 'task', grades: [grade], section: topic.section, title, tags: [tool, 'Praca praktyczna'],
     summary: `Temat ${number} · około ${minutes} min. ${lead}`,
-    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.skill + '.</p><h2>Praca na lekcji</h2><ol>' + steps.map(([time, label, instruction]) =>
+    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.skill + '.</p><h3>Wymaganie z lekcji</h3><p>' + lesson.requirement + '</p><h3>Po czym poznasz, że umiesz?</h3><p>' + lesson.evidence + '</p><h2>' + (slug === 'vat' ? 'Rozszerzenie z tabelą przestawną' : slug === 'petla-6' ? 'Trening na planszy' : slug === 'petla-5' ? 'Rozszerzenie z prostokątem' : 'Praca na lekcji') + '</h2><ol>' + steps.map(([time, label, instruction]) =>
       '<li><strong>' + label + ' (' + time + ' min).</strong> ' + instruction + '</li>').join('') +
-      '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + product + '</p>',
+      '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + evidence + '</p>',
     file, download, minutes, study: {
-      ...lessonMetadata(topicId), point, tool, product, assessment: lesson.assessment,
-      program: (grade === 4 ? 'Informatyka w akcji' : 'Lubię to!') + ' · klasa ' + grade + ', temat ' + number,
+      ...lessonMetadata(topicId), point, tool, product: hasSeparatePractice ? lesson.requirement : product, assessment,
+      program: series + ' (Nowa Era), klasa ' + grade + ' · ' + number + ' ' + topic.title,
       support: lesson.support + ' Można wyświetlać po jednym kroku i wydłużyć czas zgodnie z potrzebami ucznia.'
-    }, source: 'Ćwiczenie autorskie według rozkładu materiału i wymagań edukacyjnych Nowej Ery.'
+    }, source: 'Ćwiczenie autorskie. Odniesienie: Nowa Era, „' + series + '”, wymagania edukacyjne do informatyki dla klasy ' + grade + ', temat ' + number + '.'
   };
 });
 
