@@ -1,0 +1,33 @@
+.skill-choices { margin:0 0 1.4rem; }
+.skill-choices h2 { margin:0 0 .55rem; font-size:1.2rem; }
+.skill-choices > div { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr)); gap:.55rem; }
+.skill-choices a { display:flex; flex-direction:column; align-items:flex-start; gap:.3rem; padding:.8rem 1rem;
+  color:var(--text); background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:6px; text-decoration:none; }
+.skill-choices a:hover { background:var(--soft); }
+.skill-choices small, .loop-key { color:var(--muted); }
+.skill-choices a:focus-visible, .practice-activity :focus-visible, .practice-steps :focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+.practice-steps, .practice-steps [data-pages]:not([hidden]), .loop-mode, .loop-edits { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; margin:.6rem 0; }
+.article [hidden] { display:none !important; }
+.practice-activity:empty { display:none; }
+.practice-activity > section { margin:1.2rem 0; padding:clamp(.75rem,2vw,1.35rem); border:1px solid var(--line); border-radius:8px; background:var(--surface); }
+.practice-activity h2 { margin-top:0; }
+.practice-activity label { font-weight:650; }
+.practice-activity input[type=file] { display:block; max-width:100%; padding:.7rem 0; }
+.practice-activity select { color:var(--text); background:var(--surface); border:1px solid var(--muted); padding:.4rem; border-radius:4px; min-height:2.5rem; }
+.practice-activity [role=status]:not(:empty) { color:var(--text); background:var(--soft); border-inline-start:4px solid var(--accent); padding:.7rem 1rem; }
+.practice-activity details { margin:.8rem 0; }
+.practice-steps button, .practice-activity button { min-height:2.6rem; }
+.practice-steps [aria-pressed=true], .loop-mode [aria-pressed=true] { color:var(--text); background:var(--soft); box-shadow:inset 0 -3px var(--accent); }
+.loop-grid-layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:1rem; align-items:start; }
+.loop-grid-layout > div { min-width:0; }
+.loop-edits .btn { padding:.3rem .65rem; }
+.loop-lab [data-map] { background:var(--bg); border:1px solid var(--line); border-radius:6px; }
+.loop-lab [data-map] svg { display:block; width:100%; height:auto; }
+.loop-goal { stroke:var(--muted); }
+.loop-trace { stroke:var(--accent); }
+.loop-start { fill:var(--text); }
+.loop-workspace { height:21rem; width:100%; position:relative; }
+.loop-key { font-size:.9rem; }
+@media (max-width:760px) { .loop-grid-layout { grid-template-columns:minmax(0,1fr); } }
+@media print { .practice-steps, .practice-activity input, .practice-activity button { display:none !important; }
+  .article ol li[hidden] { display:list-item !important; } }

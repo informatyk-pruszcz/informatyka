@@ -1,0 +1,11 @@
+{
+  "name": "informatyka-testy-portalu",
+  "private": true,
+  "scripts": {
+    "test:praktyka": "node --test praktyka.test.cjs && node praktyka-ui.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.3",
+    "playwright": "1.56.1"
+  }
+}

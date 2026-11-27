@@ -36,3 +36,13 @@ Na lokalnie uruchomionym serwisie wykonaj `node tests/school.cjs` w środowisku 
 Dodatkowo `node tests/library.cjs` sprawdza odtwarzanie kopii i szkice na izolowanej bibliotece testowej. `node --test tests/pilots.test.cjs` uruchamia próby pięciu modułów.
 
 W klasie sprawdź dostępność z NVDA, prawy Alt na używanym układzie Windows, czytelność z ostatniej ławki i pracę całej grupy na szkolnych stanowiskach. Po lekcji zbierz realny produkt ucznia i jedną poprawkę po informacji zwrotnej. Quiz ani pokaz symulatora nie zastępuje oceny oddanej pracy.
+
+## Umiejętności i ćwiczenia praktyczne
+
+W widoku klasy „Co chcesz przećwiczyć?” prowadzi do trzech umiejętności. Karty w `praktyka/karty.js` łączą temat i wymaganie z zadaniem, sposobem sprawdzenia oraz dostosowaniem pracy. W 2026/2027 klasa IV korzysta z nowej podstawy ([Dz.U. 2026 poz. 378](https://eli.gov.pl/eli/DU/2026/378/ogl)), a V–VIII z dotychczasowej [podstawy informatyki](https://zpe.gov.pl/podstawa-programowa/szkola-podstawowa/informatyka). Powiązania dotyczą ćwiczonych elementów danego tematu.
+
+Budżet jest sprawdzany lokalnie. Czytnik odróżnia liczbę od formuły, uwzględnia adresy, zakresy i sumowanie. Inne zapisy uczeń może sprawdzić w Excelu. W zadaniu z pętlą lista klawiaturowa i bloczki opisują ten sam program. F5 odtwarza program w tej samej karcie przeglądarki. „Nowa próba” przygotowuje stanowisko dla kolejnej osoby. Dostosowanie czasu, sposobu odpowiedzi i celu indywidualnego pozostaje decyzją nauczyciela.
+
+Na lokalnym serwerze wykonaj `npm install --prefix tests`, następnie z katalogu `tests` uruchom `npx playwright install chromium` i `npm run test:praktyka`. Test obejmuje pobieranie i odczyt rzeczywistego XLSX, równoważne formuły, trasę robota, obsługę klawiaturą, zmianę motywu i skan axe nowych elementów. Przed lekcją sprawdź również czytnik ekranu i szkolną wersję Excela.
+
+Biblioteki ładowane na żądanie z `praktyka/vendor` to Blockly 12.3.1 (polski pakiet językowy, dystrybucja cdnjs) i SheetJS CE 0.20.3 (dystrybucja `xlsx.full.min.js`, SHA-256 `cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41`). Licencje są dołączone obok bibliotek.

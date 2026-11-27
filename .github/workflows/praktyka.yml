@@ -1,0 +1,44 @@
+name: Sprawdzenie ćwiczeń praktycznych
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sprawdz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Przygotuj testy i przeglądarkę
+        working-directory: tests
+        run: |
+          npm install --ignore-scripts --no-audit --no-fund --package-lock=false
+          if [ -x /usr/bin/google-chrome ]; then
+            echo 'BROWSER_EXE=/usr/bin/google-chrome' >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Sprawdź scenariusze ucznia i dostępność
+        run: |
+          python3 -m http.server 4218 --bind 127.0.0.1 > "$RUNNER_TEMP/portal-http.log" 2>&1 &
+          npm run --prefix tests test:praktyka
+      - name: Sprawdź opublikowane karty w GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        env:
+          BASE_URL: https://informatyk-pruszcz.github.io/informatyka/
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS --max-time 8 "${BASE_URL}praktyka/karty.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s praktyka/karty.js - &&
+               curl -fsS --max-time 8 "${BASE_URL}core.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s core.js - &&
+               curl -fsS --max-time 8 "${BASE_URL}app.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s app.js -; then
+              node tests/praktyka-ui.cjs
+              exit $?
+            fi
+            sleep 8
+          done
+          echo 'Pages jeszcze nie udostępniło sprawdzanej wersji.'
+          exit 1
