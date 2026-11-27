@@ -58,6 +58,10 @@ const variants = `
 7-1-1|?|Policz widoczne kropki.|10, bo dodaję 8 i 2.|Dopasuj cyfry kolejno do 8, 4, 2 i 1.|1000₂.|Których kart potrzebujesz do sumy 15?
 7-2-1|?|Porównaj napis na karcie z nagłówkiem w treści.|<p/>|Gdzie umieszczasz ukośnik w znaczniku zamykającym?|<p><strong>Witaj!</p></strong>|Zamknij najpierw ostatni otwarty element.
 7-2-2|?|Przypomnij sobie zapis przykładu z park.svg.|Podaje adres pliku obrazu.|Co otrzyma osoba, która nie widzi ilustracji?|Dodam href="plan" do nagłówka.|Link potrzebuje pasującego identyfikatora.
+7-3-1|Usunę napis z projektu.|Przy każdej warstwie jest przełącznik widoczności.|W wyeksportowanym PNG.|Który plik otwiera się z osobnymi warstwami?|Zmniejszę powiększenie widoku.|Co leży wyżej na liście warstw?
+7-3-2|Na górze listy warstw.|Przypomnij sobie, od której strony GIMP zaczyna odtwarzanie.|Piłka będzie poruszać się szybciej.|Czy 500 ms oznacza krótszy, czy dłuższy czas?|Zmienię kolor pierwszej klatki.|Sprawdź opcję, która zmienia pojedynczy obraz w animację.
+7-3-3|Widok z góry.|W którym widoku widać wysokość obu brył?|Centymetry, czyli cm.|Poszukaj jednostki obok wymiarów podstawy.|Wyłącznie nazwę pliku.|Jak drukarka buduje bryłę od dołu?
+7-3-4|Sama ilustracja z podpisem.|O co zapyta ktoś, kto chce przyjść na spacer?|Dodam kolejne zdjęcie pod godziną.|Czy litery wyraźnie odcinają się od tła?|Zapytam, czy podoba mu się kolor.|Poproś o odczytanie informacji potrzebnych do dotarcia na spacer.
 7-4-1|?|Jak poprawisz nazwę klubu w kilku akapitach?|Policzę numery stron.|Które narzędzie podaje długość tekstu?|Ponieważ edytor zamienia wyłącznie pierwsze słowo.|Czy nowy wyraz pasuje do zdania?
 7-4-2|?|Czy odbiorca przeczyta zasłonięty tekst?|Akapit.|Gdzie spotykają się wiersze i kolumny?|Dokument zawsze sam odnajdzie przeniesiony plik.|Jak program trafi do starej lokalizacji?
 7-4-3|?|Co wstawia pole numeru strony?|Interlinia.|Odstęp dotyczy brzegu kartki.|Trzeba wtedy samemu przepisać wszystkie numery.|Co edytor aktualizuje po dodaniu strony?

@@ -1,6 +1,6 @@
 import {wordExamPage,mountWordExam} from './word-exam.js?v=3';
 import {lessonMetadata} from './curriculum-metadata.js';
-import {fastQuestions, mountFastCheck} from './fast-check.js';
+import {fastQuestions, mountFastCheck} from './fast-check.js?v=grafika7';
 import {aiWriting} from './ai-writing.js';
 import {grade5Worksheets,extraWorksheets,isWorksheet,isExtraWorksheet} from './worksheet-catalog.js?v=gimp732';
 let lessonRenderId = 0;
@@ -31,7 +31,7 @@ import {noteContents as grade4Notes} from './notes-grade4.js?v=scratch5';
 import {grade5Notes} from './notes-grade5.js?v=2';
 import {grade6Notes} from './notes-grade6.js?v=2';
 import {grade7Notes} from './notes-grade7.js?v=2';
-import {auditNotes} from './notes-audit.js';
+import {auditNotes} from './notes-audit.js?v=grafika7';
 const noteContents = {...grade4Notes,...grade5Notes,...grade6Notes,...grade7Notes,...auditNotes};
 import {curriculum} from './curriculum.js?v=audit1';
 for (const topic of curriculum.filter(t => t.grade === 8 && t.chapter === '1')) {

@@ -35,8 +35,18 @@ function note(id, summary, points, tool, product, assessment, content, question,
       section('Co oddajesz?', '<p>'+product+'</p><p>'+download('przyklady/'+exampleFile+'.zip', 'Pobierz przykład pracy (ZIP) — '+exampleLabel)+'</p>')+
       section('Jak sprawdzicie pracę?', '<p>'+assessment+'</p>')+
       '<p><strong>Narzędzie:</strong> '+tool+'. <strong>Rok szkolny:</strong> 2026/2027. '+basis+' · '+points+'.</p>',
-    quiz:[{q:question,a:answer}]
+    quiz:Array.isArray(question) ? question.map(([q,a])=>({q,a})) : [{q:question,a:answer}]
   }];
+}
+
+function graphicsLesson({goal, ideas, picture, practice, check, takeaway, links}) {
+  return '<blockquote><p><strong>Twój cel.</strong> '+goal+'</p></blockquote>'+
+    section('3 rzeczy, które warto znać','<ul>'+ideas.map(idea=>'<li>'+idea+'</li>').join('')+'</ul>')+
+    '<img src="'+picture.src+'" alt="'+picture.alt+'"><p>'+picture.caption+'</p>'+
+    section('Zrób krok po kroku',steps(practice))+
+    '<p><strong>Sprawdź efekt.</strong> '+check+'</p>'+
+    '<blockquote><p><strong>Zapamiętaj.</strong> '+takeaway+'</p></blockquote>'+
+    (links ? '<p>'+links+'</p>' : '');
 }
 
 const notes = [
@@ -74,38 +84,106 @@ const notes = [
     'Zapisz drogę sprawdzenia prośby znanym kanałem. Przećwicz zgłoszenie nauczycielowi używając fikcyjnych danych.',
     'Porównaj z wiadomością kolegi zawierającą literówkę i prośbę o przeczytanie tekstu na szkolnej platformie. Jakie dowody można sprawdzić?'])),
     'Czy uprawnienie do czytania wystarczy, aby poprawić tekst?', 'Do wprowadzania zmian potrzebne jest uprawnienie do edycji.'),
-  note('topic-7-3-1','Zbuduj ilustrację z niezależnych warstw', 'II.3a, II.4','GIMP',
-    'Plik z warstwami XCF i gotowa ilustracja PNG.',
-    'Ukryj warstwę z własnym elementem. Tło ma pozostać widoczne. Następnie otwórz PNG i porównaj efekt.',
-    '<p>Obraz rastrowy składa się z pikseli. Warstwa pozwala przesuwać wybrany element bez naruszania pozostałych.</p>'+
-    section('Od tła do ilustracji',steps(['Pobierz '+download('polana.png','rysunek polany (PNG)')+'. Otwórz go w GIMP-ie. Powiększ fragment do 400% i obejrzyj piksele.',
-    'Utwórz przezroczystą warstwę Znak. Narysuj drogowskaz. Na osobnej warstwie dodaj napis i przesuń go nad drogowskaz.',
-    'Zapisz projekt jako polana.xcf. Wyeksportuj polana.png. Otwórz oba pliki i sprawdź, który pozwala jeszcze przesuwać napis.'])),
-    'Po co zapisać XCF przed eksportem?', 'Zachowasz warstwy i możliwość ich osobnej edycji.'),
-  note('topic-7-3-2','Jak z trzech klatek zrobić ruch?', 'II.4, III.2','GIMP',
-    'Projekt XCF oraz zapętlona animacja GIF.',
-    'Odtwórz animację dwukrotnie. Pokaż partnerowi zmianę położenia i spróbuj osiągnąć wolniejsze tempo.',
-    '<p>Kolejne warstwy mogą stać się klatkami animacji. W GIMP-ie pierwszą klatką animacji GIF jest dolna warstwa.</p>'+
-    section('Uruchom piłkę',steps(['Pobierz '+download('klatki.zip','trzy klatki piłki (ZIP)')+' i rozpakuj plik. Otwórz klatka-1.png, kolejne pliki otwórz jako warstwy.',
-    'Ustaw klatkę 1 na dole, 2 pośrodku i 3 u góry. W menu Filtry → Animacja uruchom odtwarzanie.',
-    'Zapisz XCF, wyeksportuj jako GIF. Zaznacz „jako animacja”, powtarzanie i opóźnienie 250 ms. Porównaj ruch z wersją 500 ms.'])),
-    'Co zmieni wydłużenie czasu klatki?', 'Każda klatka będzie dłużej widoczna, więc ruch zwolni.'),
-  note('topic-7-3-3','Zaprojektuj podpórkę w trzech wymiarach','II.4','szkolny edytor 3D z importem STL i podgląd druku',
-    'Edytowalny projekt podpórki, plik STL oraz opis wymiarów.',
-    'Sprawdź widoki z przodu, góry i boku. Odczytaj wymiary oraz sprawdź, czy model opiera się na płaskiej podstawie.',
-    '<p><strong>Temat dodatkowy.</strong> Szerokość, głębokość i wysokość mierzysz wzdłuż trzech osi. Podgląd warstw pokazuje kolejność budowania modelu.</p>'+
-    section('Od bryły do podglądu wydruku',steps(['Zaimportuj '+download('podstawa.stl','podstawę 30 × 20 × 3 (STL)')+' do szkolnego edytora. Wybierz milimetry.',
-    'Dodaj z tyłu pionową ściankę 30 × 3 × 12 mm. Połącz ją z podstawą. Obejrzyj ich połączenie z boku.',
-    'Zapisz projekt i wyeksportuj STL. Otwórz go w programie przygotowującym wydruk. Przejrzyj pierwszą, środkową i ostatnią warstwę. Druk omów z nauczycielem.'])),
-    'Dlaczego oglądasz model z boku?', 'Mogę dostrzec odstęp między bryłami i sprawdzić pionowy wymiar.'),
-  note('topic-7-3-4','Czy plakat da się przeczytać z końca sali?', 'II.3a, II.4, IV.1','GIMP lub Inkscape',
-    'Edytowalny plakat, wersja do publikacji i krótka notatka o poprawce.',
-    'Przyznajcie po jednym punkcie za czytelny tytuł, komplet informacji, legalną ilustrację z podpisem oraz poprawkę po teście. Wynik 0–4 uzasadnijcie na przykładzie.',
-    '<p>W parze zaproście uczniów na fikcyjny spacer przyrodniczy. Najpierw ustalcie, kto pisze, kto projektuje i kto sprawdzi gotową pracę.</p>'+
-    section('Trzy spotkania nad plakatem',steps(['Pobierz '+download('plakat.svg','edytowalny szablon plakatu (SVG)')+'. Zmień tytuł, podaj miejsce, dzień i godzinę. Zostaw odstępy między informacjami.',
-    'Dodaj własny znak z prostych figur oraz ilustrację. Możesz wykorzystać '+download('polana.png','rysunek polany')+' udostępniony do tego ćwiczenia. Podpisz źródło.',
-    'Pokaż plakat z końca sali. Zapytaj inną parę, gdzie i kiedy odbywa się spacer. Zapisz jej uwagę, popraw jeden szczegół i wyeksportuj plakat.'])),
-    'Jak praktycznie sprawdzisz czytelność plakatu?', 'Poproszę odbiorcę o odczytanie miejsca i terminu z przewidzianej odległości.')
+  note('topic-7-3-1','Przesuń napis, zostaw tło na miejscu','II.3a, II.4','GIMP',
+    'Projekt polana.xcf i gotowy obraz PNG.',
+    'Ukryj napis w projekcie. Jeśli tło nadal widać, oba elementy są na osobnych warstwach.',
+    graphicsLesson({
+      goal:'Dodasz drogowskaz i napis do polany. Każdy element poprawisz osobno.',
+      ideas:[
+        '<strong>Piksel</strong> to mały punkt obrazu. Powiększ widok do 400%, żeby zobaczyć piksele.',
+        '<strong>Warstwy</strong> układają się jedna nad drugą. Nieprzezroczyste tło może zasłonić napis pod spodem.',
+        '<strong>XCF</strong> zachowuje warstwy GIMP-a. <strong>PNG</strong> to gotowy obraz. <strong>JPEG</strong> sprawdza się np. przy zdjęciach.'
+      ],
+      picture:{src:assets+'polana.png',alt:'Polana z drogą pośrodku, drzewami po bokach i słońcem nad górami.',caption:'Tu zacznij. Wybierz miejsce na drogowskaz przy ścieżce.'},
+      practice:[
+        'Pobierz '+download('polana.png','tło polany (PNG)')+' i otwórz je w GIMP-ie.',
+        'Dodaj przezroczystą warstwę <strong>Znak</strong>. Narysuj na niej prosty drogowskaz.',
+        'Narzędziem <strong>Tekst</strong> dodaj napis „Do szkoły”. W panelu warstw umieść go najwyżej.',
+        'Zapisz projekt jako <code>polana.xcf</code>. Przez <strong>Plik → Wyeksportuj jako</strong> utwórz <code>polana-gotowa.png</code>.'
+      ],
+      check:'Kliknij oko przy warstwie tekstowej. Napis znika, a polana i drogowskaz zostają.',
+      takeaway:'Najpierw zapisz projekt XCF. Potem wyeksportuj obraz do udostępnienia.',
+      links:'Chcesz poćwiczyć kolory, wyostrzanie albo warstwy ze statkiem? <a href="https://informatyk-pruszcz.github.io/informatyka/klasa7/gimp-obrazy.html">Otwórz kartę GIMP 3.1</a>.'
+    }),[
+      ['Jak schowasz napis bez usuwania go z projektu?','Kliknę oko obok warstwy z napisem.'],
+      ['W którym pliku poprawisz położenie napisu?','W projekcie XCF, bo zachowuje osobne warstwy.'],
+      ['Napis zniknął po przesunięciu pod tło. Jak go odzyskasz?','Przeniosę warstwę napisu nad tło.']
+    ]),
+  note('topic-7-3-2','Ożyw piłkę w trzech klatkach','II.4, III.2','GIMP',
+    'Projekt XCF oraz gotowa animacja GIF.',
+    'Odtwórz GIF. Sprawdź, czy piłka porusza się w zaplanowanym kierunku.',
+    graphicsLesson({
+      goal:'Zobaczysz, jak osobne obrazki tworzą ruch. Ustawisz też jego tempo.',
+      ideas:[
+        '<strong>Klatka</strong> to jeden obraz animacji. Ułóż kolejne pozycje piłki na osobnych warstwach.',
+        '<strong>Kolejność</strong> decyduje o kierunku ruchu. W GIMP-ie animacja zaczyna się od dolnej warstwy.',
+        '<strong>Opóźnienie</strong> mówi, jak długo widać jedną klatkę. Przy 500 ms trwa ona dwa razy dłużej niż przy 250 ms.'
+      ],
+      picture:{src:'https://informatyk-pruszcz.github.io/informatyka/klasa7/gimp-klatki.png',alt:'Cztery pozycje ludzika. W kolejnych klatkach jego ręka unosi się.',caption:'Spójrz na rękę ludzika. Zmienia położenie w każdej klatce. Tak samo możesz przesuwać piłkę.'},
+      practice:[
+        'Pobierz '+download('klatki.zip','trzy klatki piłki (ZIP)')+'. Kliknij plik prawym przyciskiem i wybierz <strong>Wyodrębnij wszystkie</strong>.',
+        'Otwórz <code>klatka-1.png</code>. Klatki 2 i 3 dodaj przez <strong>Plik → Otwórz jako warstwy</strong>.',
+        'Ustaw klatkę 1 na dole, 2 nad nią, a 3 na górze. Odtwórz podgląd w <strong>Filtry → Animacja → Odtwarzanie</strong>.',
+        'Zapisz <code>pilka.xcf</code>. Wyeksportuj <code>pilka.gif</code>, zaznacz <strong>Jako animacja</strong> i ustaw 250 ms.'
+      ],
+      check:'Wyeksportuj drugą wersję z opóźnieniem 500 ms. Porównaj tempo obu plików.',
+      takeaway:'Kolejność klatek ustala kierunek. Dłuższy czas klatki spowalnia ruch.',
+      links:'W karcie GIMP znajdziesz podgląd animacji sterowany przyciskami oraz ćwiczenie z filtrem Fale. <a href="https://informatyk-pruszcz.github.io/informatyka/klasa7/gimp-animacje.html">Otwórz kartę GIMP 3.2</a>.'
+    }),[
+      ['Gdzie umieścisz pierwszą klatkę w panelu warstw?','Na dole listy warstw.'],
+      ['Co się zmieni po przejściu z 250 ms na 500 ms?','Każda klatka będzie widoczna dłużej, więc ruch zwolni.'],
+      ['Gotowy GIF pokazuje tylko nieruchomy obraz. Co sprawdzisz przy eksporcie?','Upewnię się, że projekt ma kilka klatek i że wybrano „Jako animacja”.']
+    ]),
+  note('topic-7-3-3','Zbuduj podpórkę z dwóch brył','II.4','Szkolny edytor 3D i program do podglądu druku',
+    'Edytowalny model, plik STL i zapisane wymiary.',
+    'Sprawdź milimetry, płaskie ułożenie podstawy oraz styk podstawy ze ścianką.',
+    graphicsLesson({
+      goal:'Połączysz podstawę i ściankę w jeden model. Obejrzysz go przed drukiem.',
+      ideas:[
+        '<strong>Trzy wymiary</strong> to szerokość, głębokość i wysokość. W tym zadaniu wszystkie wartości wpisujesz w milimetrach.',
+        '<strong>Widoki</strong> odpowiadają różnym stronom modelu. Z góry widzisz kształt podstawy. Z boku łatwiej zauważyć szczelinę pod ścianką.',
+        '<strong>STL</strong> zapisuje kształt bryły. Program do przygotowania wydruku pokazuje, z jakich warstw powstanie model.'
+      ],
+      picture:{src:assets+'podporka-widoki.png',alt:'Widok z góry pokazuje podstawę 30 na 20 mm. Widok z boku pokazuje podstawę o grubości 3 mm i ściankę o wysokości 12 mm.',caption:'Porównaj dwa widoki tej samej podpórki. W widoku z boku ścianka dotyka podstawy.'},
+      practice:[
+        'Wczytaj '+download('podstawa.stl','podstawę 30 × 20 × 3 mm (STL)')+' do edytora 3D. Sprawdź jednostkę <strong>mm</strong>.',
+        'Dodaj prostopadłościan <strong>30 × 3 × 12 mm</strong>. Ustaw go przy tylnym brzegu na wierzchu podstawy.',
+        'Obejrzyj połączenie z boku. Połącz bryły i zapisz edytowalny projekt.',
+        'Wyeksportuj <code>podporka.stl</code>. W programie do druku obejrzyj pierwszą, środkową i ostatnią warstwę.'
+      ],
+      check:'Podstawa leży płasko, a między nią a ścianką nie ma przerwy. Wydruk uzgodnij z nauczycielem.',
+      takeaway:'Przed drukiem sprawdź jednostki i obróć model. Jeden widok to za mało.',
+      links:'Jeśli edytor nie jest dostępny, narysuj widok z góry i z boku na kartce. Podpisz podane wymiary.'
+    }),[
+      ['Który widok ułatwia dostrzeżenie szczeliny pod ścianką?','Widok z boku pokazuje styk pionowej ścianki z podstawą.'],
+      ['Jaką jednostkę wybierzesz w tym projekcie?','Milimetry, czyli mm.'],
+      ['Co pokaże podgląd po przygotowaniu pliku do druku?','Kolejne warstwy budujące bryłę.']
+    ]),
+  note('topic-7-3-4','Zaproś klasę plakatem, który da się przeczytać','II.3a, II.4, IV.1','GIMP lub Inkscape',
+    'Projekt plakatu, wersja do publikacji i jedno zdanie o wprowadzonej poprawce.',
+    'Odbiorca z końca sali potrafi odczytać nazwę wydarzenia, termin i miejsce.',
+    graphicsLesson({
+      goal:'Przygotujecie zaproszenie na fikcyjny spacer. Sprawdzicie, co odbiorca widzi jako pierwsze.',
+      ideas:[
+        '<strong>Kolejność czytania.</strong> Duży tytuł przyciąga uwagę. Pod nim odbiorca szuka terminu i miejsca.',
+        '<strong>Kontrast</strong> pomaga odczytać tekst. Wypróbuj ciemne litery na jasnym, gładkim tle.',
+        '<strong>Źródło ilustracji.</strong> Najprościej użyć własnego rysunku. Przy cudzym sprawdź warunki użycia i dodaj wymagany podpis.'
+      ],
+      picture:{src:assets+'plakat-czytelnosc.png',alt:'Plakat o spacerze. Największy tekst to nazwa wydarzenia. Pod ilustracją na jasnym tle wyróżniono datę, godzinę i miejsce.',caption:'Odczytaj w tej kolejności. Co się wydarzy? Kiedy? Gdzie?'},
+      practice:[
+        'W parze zapiszcie trzy informacje. Przykład: <strong>Spacer przyrodniczy, 15 maja o 10.00, zbiórka przed szkołą</strong>.',
+        'Ułóżcie tytuł, ilustrację i szczegóły na plakacie. Możecie pobrać '+download('plakat.svg','szablon do Inkscape (SVG)')+' albo zacząć od pustego projektu w GIMP-ie.',
+        'Pokażcie wersję próbną drugiej parze. Poproście o odczytanie terminu i miejsca z końca sali.',
+        'Poprawcie jeden szczegół po odpowiedzi odbiorcy. Zapiszcie projekt i wyeksportujcie plakat jako PNG.'
+      ],
+      check:'Zapiszcie, co zmieniliście i dlaczego. Przykład: „Przenieśliśmy godzinę spod ilustracji, bo trudno ją było znaleźć”.',
+      takeaway:'Dobry plakat odpowiada od razu na trzy pytania. Co? Kiedy? Gdzie?',
+      links:'Najpierw zróbcie szkic na kartce. Zostawcie wolne miejsce między tytułem, ilustracją i szczegółami.'
+    }),[
+      ['Co musi znaleźć się na zaproszeniu?','Nazwa wydarzenia, termin i miejsce.'],
+      ['Godzinę trudno odczytać na zdjęciu. Jak poprawisz plakat?','Przeniosę godzinę na gładkie tło i zadbam o kontrast.'],
+      ['Jak sprawdzisz, czy odbiorca znalazł ważne szczegóły?','Poproszę go o odczytanie terminu i miejsca z końca sali.']
+    ])
 ];
 
 for (const [index, topic] of pythonTopics.entries()) {
