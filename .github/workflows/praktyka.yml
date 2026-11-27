@@ -32,7 +32,9 @@ jobs:
           BASE_URL: https://informatyk-pruszcz.github.io/informatyka/
         run: |
           for i in $(seq 1 30); do
-            if curl -fsS --max-time 8 "${BASE_URL}app.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s app.js -; then
+            if curl -fsS --max-time 8 "${BASE_URL}praktyka/karty.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s praktyka/karty.js - &&
+               curl -fsS --max-time 8 "${BASE_URL}core.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s core.js - &&
+               curl -fsS --max-time 8 "${BASE_URL}app.js?wersja=${GITHUB_SHA}&proba=${i}" | cmp -s app.js -; then
               node tests/praktyka-ui.cjs
               exit $?
             fi

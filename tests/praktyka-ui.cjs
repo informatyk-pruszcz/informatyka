@@ -33,6 +33,14 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
     await page.locator('#results a[href="#item/praktyka-vat"]').waitFor();
     assert.equal(await page.locator('#filter-tag option').filter({hasText:/^EXCEL$/}).count(),0);
     await scan(['.skill-choices']);
+    for (const [id, title] of [['vat','Rozszerzenie z tabelą przestawną'],['petla-5','Rozszerzenie z prostokątem'],['petla-6','Dodatkowy trening ruchu na planszy']]) {
+      await visit('item/praktyka-' + id);
+      await page.getByRole('heading',{name:'Zadanie na lekcję'}).waitFor();
+      await page.getByText(title,{exact:true}).click();
+      assert(await page.locator('article details[open] ol').isVisible());
+      await page.getByRole('button',{name:'Jeden krok na ekranie'}).press('Enter');
+      assert.equal(await page.locator('article > ol > li:visible').count(),1);
+    }
     await visit('class/6');
     await page.locator('.skill-choices a[href="#item/praktyka-budzet"]').click();
     await page.getByRole('button',{name:'Jeden krok na ekranie'}).press('Enter');
