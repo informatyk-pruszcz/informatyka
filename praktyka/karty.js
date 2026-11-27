@@ -141,9 +141,12 @@ export const practicalCards = lessons.map(lesson => {
   const {grade, number, slug, title, lead, steps, hint, product, tool, point, file, download} = lesson;
   const topic = curriculum.find(t => t.grade === grade && t.number === number);
   const topicId = 'topic-' + grade + '-' + number.replace('.', '-');
-  const hasSeparatePractice = ['vat', 'petla-5', 'petla-6'].includes(slug);
-  const evidence = hasSeparatePractice ? lesson.evidence : product;
-  const assessment = hasSeparatePractice
+  const basicSteps = {
+    vat: ['Otwórz plik i przejdź do arkusza Zakupy. Zaznacz nagłówek i włącz filtr (Ctrl+Shift+L), jeśli strzałek jeszcze nie ma.', 'W kolumnie z imieniem wybierz tylko Polę. Odczytaj kategorię oraz kwotę VAT z jednego widocznego wiersza.', 'Pokaż lub podyktuj oba wyniki. Wyczyść filtr, aby znów zobaczyć wszystkich kupujących.'],
+    'petla-5': ['Na planszy wybierz kwadrat o boku trzech kratek.', 'Ułóż ruch i obrót. Dobierz liczbę powtórzeń i uruchom robota.', 'Sprawdź, czy robot objechał cztery boki. Wskaż powtarzany fragment programu. W Scratchu możesz wykonać tę samą próbę z opuszczonym pisakiem.'],
+    'petla-6': ['Otwórz Scratch i wybierz duszka. Dodaj blok zielonej flagi, a pod nim blok nadający nowy komunikat o nazwie „Start”.', 'Obok ułóż drugi skrypt. Pod blokiem odbioru komunikatu „Start” dodaj ruch o 30 kroków.', 'Przewidź, co zrobi duszek. Kliknij zieloną flagę i pokaż, który skrypt nadał komunikat, a który na niego zareagował.']
+  }[slug];
+  const assessment = basicSteps
     ? lesson.evidence + ' Przy wykonywaniu dalszej części: ' + lesson.assessment
     : lesson.assessment;
   const series = grade === 4 ? 'Informatyka w akcji' : 'Lubię to!';
@@ -152,11 +155,14 @@ export const practicalCards = lessons.map(lesson => {
     id: 'praktyka-' + slug, topicId, skill: lesson.skill,
     type: 'task', grades: [grade], section: topic.section, title, tags: [tool, 'Praca praktyczna'],
     summary: `Temat ${number} · około ${minutes} min. ${lead}`,
-    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.skill + '.</p><h3>Wymaganie z lekcji</h3><p>' + lesson.requirement + '</p><h3>Po czym poznasz, że umiesz?</h3><p>' + lesson.evidence + '</p><h2>' + (slug === 'vat' ? 'Rozszerzenie z tabelą przestawną' : slug === 'petla-6' ? 'Trening na planszy' : slug === 'petla-5' ? 'Rozszerzenie z prostokątem' : 'Praca na lekcji') + '</h2><ol>' + steps.map(([time, label, instruction]) =>
-      '<li><strong>' + label + ' (' + time + ' min).</strong> ' + instruction + '</li>').join('') +
-      '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + evidence + '</p>',
+    body: '<h2>Cel ćwiczenia</h2><p>' + lesson.requirement + '</p>' +
+      (basicSteps ? '<h2>Zadanie na lekcję</h2><ol>' + basicSteps.map(step => '<li>' + step + '</li>').join('') +
+        '</ol><h3>Po czym poznasz, że umiesz?</h3><p>' + lesson.requirement + ' Pokaż wynik ostatniego kroku.</p>' : '<h3>Po czym poznasz, że umiesz?</h3><p>' + lesson.evidence + '</p>') +
+      (basicSteps ? '<details><summary>' + (slug === 'vat' ? 'Rozszerzenie z tabelą przestawną' : slug === 'petla-5' ? 'Rozszerzenie z prostokątem' : 'Dodatkowy trening ruchu na planszy') + '</summary>' : '<h2>Praca na lekcji</h2>') +
+      '<ol>' + steps.map(([time, label, instruction]) => '<li><strong>' + label + ' (' + time + ' min).</strong> ' + instruction + '</li>').join('') +
+      '</ol><h3>Wskazówka</h3><p>' + hint + '</p><h3>Co pokazać na koniec?</h3><p>' + product + '</p>' + (basicSteps ? '</details>' : ''),
     file, download, minutes, study: {
-      ...lessonMetadata(topicId), point, tool, product: hasSeparatePractice ? lesson.requirement : product, assessment,
+      ...lessonMetadata(topicId), point, tool, product: basicSteps ? lesson.requirement : product, assessment,
       program: series + ' (Nowa Era), klasa ' + grade + ' · ' + number + ' ' + topic.title,
       support: lesson.support + ' Można wyświetlać po jednym kroku i wydłużyć czas zgodnie z potrzebami ucznia.'
     }, source: 'Ćwiczenie autorskie. Odniesienie: Nowa Era, „' + series + '”, wymagania edukacyjne do informatyki dla klasy ' + grade + ', temat ' + number + '.'
