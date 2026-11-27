@@ -1,5 +1,5 @@
 import {esc} from '../core.js';
-import {practicalCards} from './karty.js?v=cele1';
+import {practicalCards} from './karty.js?v=wymagania2';
 
 const otherSkills = {
   4: [['Kopiuję plik między folderami','#item/karta-4-1-urzadzenia-pliki','Pliki i foldery']],

@@ -25,8 +25,8 @@ async function mountWorksheet(id, host, renderId) {
     console.error(err);
   }
 }
-import {practicalCards, practicalLink} from './praktyka/karty.js?v=cele1';
-import {skillChooser, catalogTags, catalogSection} from './praktyka/wybor.js';
+import {practicalCards, practicalLink} from './praktyka/karty.js?v=wymagania2';
+import {skillChooser, catalogTags, catalogSection} from './praktyka/wybor.js?v=wymagania2';
 import {mountPractical} from './praktyka/zajecia.js';
 let releasePractical;
 const allWorksheets = [...grade5Worksheets, ...extraWorksheets, ...practicalCards];
@@ -54,7 +54,7 @@ for (const [id, anchor, summary] of [
   noteContents['topic-8-'+id]={pending:false,summary,body:'<p>'+summary+'</p><p><a href="https://informatyk-pruszcz.github.io/informatyka/projekty-viii.html#'+anchor+'">Otwórz notatkę i Fast Check →</a></p>',source:'Na podstawie notatki nauczyciela do programu „Lubię to!”.'};
 }
 import {seed} from './seed.js';
-import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js';
+import {TYPES,esc,checkAnswer,gaps,contestStatus,validURL,embedURL,validateDatabase,sanitize} from './core.js?v=wymagania2';
 import {connectCloud} from './cloud.js?v=exam4';
 import {EXAM_ID,examPage,mountExam,teacherExam,mountTeacherExam,configFrom,changePassword} from './exam.js?v=4';
 const $=(s,root=document)=>root.querySelector(s),$$=(s,root=document)=>[...root.querySelectorAll(s)];
