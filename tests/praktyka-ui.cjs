@@ -41,6 +41,22 @@ const base = (process.env.BASE_URL || 'http://127.0.0.1:4218/').replace(/\/?$/, 
       await page.getByRole('button',{name:'Jeden krok na ekranie'}).press('Enter');
       assert.equal(await page.locator('article > ol > li:visible').count(),1);
     }
+    await visit('class/7');
+    await page.getByRole('link',{name:/Pracuję na warstwach/}).press('Enter');
+    await page.getByRole('link',{name:/Zaginiony tytuł/}).press('Enter');
+    await page.getByRole('heading',{name:'Zaginiony tytuł',exact:true}).waitFor();
+    await scan(['main','nav']);
+    for (const name of ['plakat-start.xcf','mapa-start.xcf']) {
+      const [file] = await Promise.all([
+        page.waitForEvent('download'), page.locator('a[download][href="'+name+'"]').press('Enter')
+      ]);
+      assert.equal(file.suggestedFilename(),name);
+      const actual = fs.readFileSync(await file.path());
+      assert.equal(actual.subarray(0,8).toString(),'gimp xcf');
+      assert.deepEqual(actual,fs.readFileSync(path.join(__dirname,'../klasa7/pilot-warstwy',name)));
+    }
+    await page.getByText('Podpowiedź do mapy',{exact:true}).press('Enter');
+    assert(await page.locator('details[open]').isVisible());
     await visit('class/6');
     await page.locator('.skill-choices a[href="#item/praktyka-budzet"]').click();
     await page.getByRole('button',{name:'Jeden krok na ekranie'}).press('Enter');
